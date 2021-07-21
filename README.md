@@ -106,7 +106,7 @@ will download parameters for:
 
 Invoke the runner script `alphafold` with the fasta paths as arguments. Full configurations is as followings.
 
-```help
+```txt
 usage: alphafold [-h] [--helpfull] [--output_dir OUTPUT_DIR]
                  [--model_cnt MODEL_CNT] [--nproc NPROC]
                  [--max_template_date MAX_TEMPLATE_DATE]
