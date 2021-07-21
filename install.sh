@@ -40,7 +40,7 @@ if [[ "$__sudo" == 'y' ]]; then
   sudo chown -R "$USER" "$__conda_prefix"
 
   sudo chmod go-rwx "$__alphafold_home"
-  sudo chown "$USER" "$__alphafold_home"
+  sudo chown -R "$USER" "$__alphafold_home"
 fi
 
 cd "$__alphafold_home"
