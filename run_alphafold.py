@@ -44,8 +44,7 @@ from alphafold.model import features
 
 #### USER CONFIGURATION ####
 
-_conda_bin = os.path.join(
-    os.environ['ALPHAFOLD_CONDA_PREFIX'], 'envs', 'alphafold2', 'bin')
+_conda_bin = os.path.join(os.environ['CONDA_PREFIX'], 'bin')
 
 # Set to target of scripts/download_all_databases.sh
 DOWNLOAD_DIR = os.path.join(os.environ['ALPHAFOLD_HOME'], 'data')
