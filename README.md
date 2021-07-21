@@ -13,29 +13,22 @@ the model parameters should [cite](#citing-this-work) the
 
 ![CASP14 predictions](imgs/casp14_predictions.gif)
 
+Seoklab version of AlphaFold has few changes:
+
+- Major changes
+  - No docker, no system libraries (please refer to [kalininalab/alphafold_non_docker](https://github.com/kalininalab/alphafold_non_docker) and [seoklab/alphafold-installer](https://github.com/seoklab/alphafold-installer) repositories).
+  - Can use multiple GPUs for inference.
+  - Skip relaxation step, as it takes very long time for preprocessing.
+  - Add environment variables `ALPHAFOLD_HOME` and `ALPHAFOLD_CONDA_PREFIX` for dynamic path resolving.
+- Minor changes
+  - Add runner script [`alphafold`](bin/alphafold).
+  - Support "resuming"; this version will automatically try to use the previous results, if they exists. You can force everything to run again by passing `--overwrite` flag from the command line.
+  - Make command line interface more user-friendly.
+  - Code refactoring.
+
 ## First time setup
 
-The following steps are required in order to run AlphaFold:
-
-1.  Install [Docker](https://www.docker.com/).
-    *   Install
-        [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
-        for GPU support.
-    *   Setup running
-        [Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user).
-1.  Download genetic databases (see below).
-1.  Download model parameters (see below).
-1.  Check that AlphaFold will be able to use a GPU by running:
-
-    ```bash
-    docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
-    ```
-
-    The output of this command should show a list of your GPUs. If it doesn't,
-    check if you followed all steps correctly when setting up the
-    [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
-    or take a look at the following
-    [NVIDIA Docker issue](https://github.com/NVIDIA/nvidia-docker/issues/1447#issuecomment-801479573).
+For AlphaFold setup, please use the script in [seoklab/alphafold-installer](https://github.com/seoklab/alphafold-installer) repository.
 
 ### Genetic databases
 
@@ -105,86 +98,117 @@ will download parameters for:
 
 ## Running AlphaFold
 
-**The simplest way to run AlphaFold is using the provided Docker script.** This
-was tested on Google Cloud with a machine using the `nvidia-gpu-cloud-image`
-with 12 vCPUs, 85 GB of RAM, a 100 GB boot disk, the databases on an additional
-3 TB disk, and an A100 GPU.
+Invoke the runner script `alphafold` with the fasta paths as arguments. Full configurations is as followings.
 
-1.  Clone this repository and `cd` into it.
+```help
+usage: alphafold [-h] [--helpfull] [--output_dir OUTPUT_DIR]
+                 [--model_cnt MODEL_CNT] [--nproc NPROC]
+                 [--max_template_date MAX_TEMPLATE_DATE]
+                 [--ensemble ENSEMBLE] [--model_type MODEL_TYPE]
+                 [--benchmark] [--data_dir DATA_DIR]
+                 [--jackhmmer_binary_path JACKHMMER_BINARY_PATH]
+                 [--hhblits_binary_path HHBLITS_BINARY_PATH]
+                 [--hhsearch_binary_path HHSEARCH_BINARY_PATH]
+                 [--kalign_binary_path KALIGN_BINARY_PATH]
+                 [--uniref90_database_path UNIREF90_DATABASE_PATH]
+                 [--mgnify_database_path MGNIFY_DATABASE_PATH]
+                 [--bfd_database_path BFD_DATABASE_PATH]
+                 [--uniclust30_database_path UNICLUST30_DATABASE_PATH]
+                 [--pdb70_database_path PDB70_DATABASE_PATH]
+                 [--template_mmcif_dir TEMPLATE_MMCIF_DIR]
+                 [--obsolete_pdbs_path OBSOLETE_PDBS_PATH]
+                 [--random_seed_seed RANDOM_SEED_SEED] [--overwrite]
+                 fasta_paths [fasta_paths ...]
 
-    ```bash
-    git clone https://github.com/deepmind/alphafold.git
-    ```
+positional arguments:
+  fasta_paths           Paths to FASTA files, each containing one sequence.
+                        All FASTA paths must have a unique basename as the
+                        basename is used to name the output directories for
+                        each prediction.
 
-1.  Modify `DOWNLOAD_DIR` in `docker/run_docker.py` to be the path to the
-    directory containing the downloaded databases.
-1.  Build the Docker image:
-
-    ```bash
-    docker build -f docker/Dockerfile -t alphafold .
-    ```
-
-1.  Install the `run_docker.py` dependencies. Note: You may optionally wish to
-    create a
-    [Python Virtual Environment](https://docs.python.org/3/tutorial/venv.html)
-    to prevent conflicts with your system's Python environment.
-
-    ```bash
-    pip3 install -r docker/requirements.txt
-    ```
-
-1.  Run `run_docker.py` pointing to a FASTA file containing the protein sequence
-    for which you wish to predict the structure. If you are predicting the
-    structure of a protein that is already in PDB and you wish to avoid using it
-    as a template, then `max_template_date` must be set to be before the release
-    date of the structure. For example, for the T1050 CASP14 target:
-
-    ```bash
-    python3 docker/run_docker.py --fasta_paths=T1050.fasta --max_template_date=2020-05-14
-    ```
-
-    By default, Alphafold will attempt to use all visible GPU devices. To use a
-    subset, specify a comma-separated list of GPU UUID(s) or index(es) using the
-    `--gpu_devices` flag. See
-    [GPU enumeration](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/user-guide.html#gpu-enumeration)
-    for more details.
-
-1.  You can control AlphaFold speed / quality tradeoff by adding either
-    `--preset=full_dbs` or `--preset=casp14` to the run command. We provide the
-    following presets:
-
-    *   **casp14**: This preset uses the same settings as were used in CASP14.
-        It runs with all genetic databases and with 8 ensemblings.
-    *   **full_dbs**: The model in this preset is 8 times faster than the
-        `casp14` preset with a very minor quality drop (-0.1 average GDT drop on
-        CASP14 domains). It runs with all genetic databases and with no
-        ensembling.
-
-    Running the command above with the `casp14` preset would look like this:
-
-    ```bash
-    python3 docker/run_docker.py --fasta_paths=T1050.fasta --max_template_date=2020-05-14 --preset=casp14
-    ```
+optional arguments:
+  -h, --help            show this help message and exit
+  --helpfull            show full help message and exit
+  --output_dir OUTPUT_DIR
+                        Path to a directory that will store the results.
+  --model_cnt MODEL_CNT
+                        Counts of models to use. Note that AlphaFold provides
+                        5 pretrained models, so setting the count other than 5
+                        is either redundant or insufficient configuration.
+  --nproc NPROC         Maximum cpu count to use. Note that the actual cpu
+                        load might be different than the configured value.
+  --max_template_date MAX_TEMPLATE_DATE
+                        Maximum template release date to consider(ISO-8601
+                        format - i.e. YYYY-MM-DD). Important if folding
+                        historical test sets.
+  --ensemble ENSEMBLE   Choose ensemble count: note that AlphaFold recommends
+                        1 ("full_dbs"), and the casp model have used 8 model
+                        ensemblings ("casp14").
+  --model_type MODEL_TYPE
+                        <normal|ptm>: Choose model type to use - the casp14
+                        equivalent model (normal), or fined-tunded pTM models
+                        (ptm).
+  --benchmark, --nobenchmark
+                        Run multiple JAX model evaluations to obtain a timing
+                        that excludes the compilation time, which should be
+                        more indicative of the time required for inferencing
+                        many proteins.
+  --data_dir DATA_DIR   Path to directory of supporting data.
+  --jackhmmer_binary_path JACKHMMER_BINARY_PATH
+                        Path to the JackHMMER executable.
+  --hhblits_binary_path HHBLITS_BINARY_PATH
+                        Path to the HHblits executable.
+  --hhsearch_binary_path HHSEARCH_BINARY_PATH
+                        Path to the HHsearch executable.
+  --kalign_binary_path KALIGN_BINARY_PATH
+                        Path to the Kalign executable.
+  --uniref90_database_path UNIREF90_DATABASE_PATH
+                        Path to the Uniref90 database for use by JackHMMER.
+  --mgnify_database_path MGNIFY_DATABASE_PATH
+                        Path to the MGnify database for use by JackHMMER.
+  --bfd_database_path BFD_DATABASE_PATH
+                        Path to the BFD database for use by HHblits.
+  --uniclust30_database_path UNICLUST30_DATABASE_PATH
+                        Path to the Uniclust30 database for use by HHblits.
+  --pdb70_database_path PDB70_DATABASE_PATH
+                        Path to the PDB70 database for use by HHsearch.
+  --template_mmcif_dir TEMPLATE_MMCIF_DIR
+                        Path to a directory with template mmCIF structures,
+                        each named <pdb_id>.cif
+  --obsolete_pdbs_path OBSOLETE_PDBS_PATH
+                        Path to file containing a mapping from obsolete PDB
+                        IDs to the PDB IDs of their replacements.
+  --random_seed_seed RANDOM_SEED_SEED
+                        The random seed for the random seed for the data
+                        pipeline. By default, this is randomly generated. Note
+                        that even if this is set,Alphafold may still not be
+                        deterministic, because processes like GPU inference
+                        are nondeterministic.
+  --overwrite, --nooverwrite
+                        Whether to re-build the features, even if the result
+                        exists in the target directories.
+```
 
 ### AlphaFold output
 
-The outputs will be in a subfolder of `output_dir` in `run_docker.py`. They
-include the computed MSAs, unrelaxed structures, relaxed structures, ranked
-structures, raw model outputs, prediction metadata, and section timings. The
-`output_dir` directory will have the following structure:
+The outputs will be **in the current directory**. They include the computed MSAs,
+unrelaxed structures, relaxed structures, ranked structures, raw model outputs,
+prediction metadata, and section timings. The directory will have
+the following structure:
 
 ```
-output_dir/
+./
     features.pkl
-    ranked_{0,1,2,3,4}.pdb
+    ranked_{0,1,2,3,4,...}.pdb
     ranking_debug.json
-    relaxed_model_{1,2,3,4,5}.pdb
-    result_model_{1,2,3,4,5}.pkl
+    relaxed_model_{1,2,3,4,5,...}.pdb
+    result_model_{1,2,3,4,5,...}.pkl
     timings.json
-    unrelaxed_model_{1,2,3,4,5}.pdb
+    unrelaxed_model_{1,2,3,4,5,...}.pdb
     msas/
         bfd_uniclust_hits.a3m
         mgnify_hits.sto
+        uniref90_hits.a3m
         uniref90_hits.sto
 ```
 
