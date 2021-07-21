@@ -17,8 +17,7 @@ set -euo pipefail
 
 source "$ALPHAFOLD_CONDA_PREFIX/bin/activate" alphafold2
 
-NVIDIA_VISIBLE_DEVICES="${NVIDIA_VISIBLE_DEVICES-${CUDA_VISIBLE_DEVICES-all}}" \
-  TF_FORCE_UNIFIED_MEMORY=1                                                    \
+TF_FORCE_UNIFIED_MEMORY=1                                                      \
   XLA_PYTHON_CLIENT_MEM_FRACTION='4.0'                                         \
   MKL_NUM_THREADS="${MKL_NUM_THREADS-NSLOTS}"                                  \
   OPENBLAS_NUM_THREADS="${OPENBLAS_NUM_THREADS-NSLOTS}"                        \
