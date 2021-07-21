@@ -21,7 +21,7 @@ from typing import Sequence
 
 from absl import logging
 
-from alphafold.data.tools import utils
+from alphafold.data.tools import utils, _TMP_BDIR
 # Internal import (7716).
 
 
@@ -32,6 +32,7 @@ class HHSearch:
                *,
                binary_path: str,
                databases: Sequence[str],
+               n_cpu: int = 8,
                maxseq: int = 1_000_000):
     """Initializes the Python HHsearch wrapper.
 
@@ -48,6 +49,7 @@ class HHSearch:
     """
     self.binary_path = binary_path
     self.databases = databases
+    self.n_cpu = n_cpu
     self.maxseq = maxseq
 
     for database_path in self.databases:
@@ -57,7 +59,7 @@ class HHSearch:
 
   def query(self, a3m: str) -> str:
     """Queries the database using HHsearch using a given a3m."""
-    with utils.tmpdir_manager(base_dir='/tmp') as query_tmp_dir:
+    with utils.tmpdir_manager(base_dir=_TMP_BDIR) as query_tmp_dir:
       input_path = os.path.join(query_tmp_dir, 'query.a3m')
       hhr_path = os.path.join(query_tmp_dir, 'output.hhr')
       with open(input_path, 'w') as f:
@@ -70,6 +72,7 @@ class HHSearch:
       cmd = [self.binary_path,
              '-i', input_path,
              '-o', hhr_path,
+             '-cpu', str(self.n_cpu),
              '-maxseq', str(self.maxseq)
              ] + db_cmd
 

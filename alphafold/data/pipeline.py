@@ -18,6 +18,7 @@ import os
 from typing import Mapping, Sequence
 
 import numpy as np
+from absl import logging
 
 # Internal import (7716).
 
@@ -93,23 +94,59 @@ class DataPipeline:
                pdb70_database_path: str,
                template_featurizer: templates.TemplateHitFeaturizer,
                mgnify_max_hits: int = 501,
-               uniref_max_hits: int = 10000):
+               uniref_max_hits: int = 10000,
+               n_cpu: int = 1,
+               overwrite: bool = False):
     """Constructs a feature dict for a given FASTA file."""
+    self.n_cpu = n_cpu
+    self.overwrite = overwrite
+
     self.jackhmmer_uniref90_runner = jackhmmer.Jackhmmer(
         binary_path=jackhmmer_binary_path,
-        database_path=uniref90_database_path)
+        database_path=uniref90_database_path,
+        n_cpu=n_cpu)
     self.hhblits_bfd_uniclust_runner = hhblits.HHBlits(
         binary_path=hhblits_binary_path,
-        databases=[bfd_database_path, uniclust30_database_path])
+        databases=[bfd_database_path, uniclust30_database_path],
+        n_cpu=n_cpu)
     self.jackhmmer_mgnify_runner = jackhmmer.Jackhmmer(
         binary_path=jackhmmer_binary_path,
-        database_path=mgnify_database_path)
+        database_path=mgnify_database_path,
+        n_cpu=n_cpu)
     self.hhsearch_pdb70_runner = hhsearch.HHSearch(
         binary_path=hhsearch_binary_path,
-        databases=[pdb70_database_path])
+        databases=[pdb70_database_path],
+        n_cpu=n_cpu)
     self.template_featurizer = template_featurizer
+
     self.mgnify_max_hits = mgnify_max_hits
     self.uniref_max_hits = uniref_max_hits
+
+  def _run(self, database: str, input_path: str, out_path: str) -> str:
+    if not self.overwrite and os.path.isfile(out_path):
+      logging.info(f"Skipping {database} search; pass --overwrite option to "
+                   "force re-build the msa database")
+      with open(out_path) as f:
+        return f.read()
+
+    if database == "uniref90":
+      runner = self.jackhmmer_uniref90_runner
+      fmt = "sto"
+    elif database == "mgnify":
+      runner = self.jackhmmer_mgnify_runner
+      fmt = "sto"
+    elif database == "bfd":
+      runner = self.hhblits_bfd_uniclust_runner
+      fmt = "a3m"
+    else:
+      raise ValueError(f"unknown database {database}")
+
+    result = runner.query(input_path)
+    result_str = result[fmt]
+    with open(out_path, 'w') as f:
+      f.write(result_str)
+
+    return result_str
 
   def process(self, input_fasta_path: str, msa_output_dir: str) -> FeatureDict:
     """Runs alignment tools on the input sequence and creates features."""
@@ -123,40 +160,37 @@ class DataPipeline:
     input_description = input_descs[0]
     num_res = len(input_sequence)
 
-    jackhmmer_uniref90_result = self.jackhmmer_uniref90_runner.query(
-        input_fasta_path)
-    jackhmmer_mgnify_result = self.jackhmmer_mgnify_runner.query(
-        input_fasta_path)
-
-    uniref90_msa_as_a3m = parsers.convert_stockholm_to_a3m(
-        jackhmmer_uniref90_result['sto'], max_sequences=self.uniref_max_hits)
-    hhsearch_result = self.hhsearch_pdb70_runner.query(uniref90_msa_as_a3m)
-
     uniref90_out_path = os.path.join(msa_output_dir, 'uniref90_hits.sto')
-    with open(uniref90_out_path, 'w') as f:
-      f.write(jackhmmer_uniref90_result['sto'])
+    jackhmmer_uniref90_sto = self._run(
+        "uniref90", input_fasta_path, uniref90_out_path)
+    uniref90_msa, uniref90_deletion_matrix = parsers.parse_stockholm(
+        jackhmmer_uniref90_sto)
 
     mgnify_out_path = os.path.join(msa_output_dir, 'mgnify_hits.sto')
-    with open(mgnify_out_path, 'w') as f:
-      f.write(jackhmmer_mgnify_result['sto'])
-
-    uniref90_msa, uniref90_deletion_matrix = parsers.parse_stockholm(
-        jackhmmer_uniref90_result['sto'])
+    jackhmmer_mgnify_sto = self._run(
+        "mgnify", input_fasta_path, mgnify_out_path)
     mgnify_msa, mgnify_deletion_matrix = parsers.parse_stockholm(
-        jackhmmer_mgnify_result['sto'])
-    hhsearch_hits = parsers.parse_hhr(hhsearch_result)
+        jackhmmer_mgnify_sto)
     mgnify_msa = mgnify_msa[:self.mgnify_max_hits]
     mgnify_deletion_matrix = mgnify_deletion_matrix[:self.mgnify_max_hits]
 
-    hhblits_bfd_uniclust_result = self.hhblits_bfd_uniclust_runner.query(
-        input_fasta_path)
+    hhsearch_out_path = os.path.join(msa_output_dir, 'uniref90_hits.a3m')
+    if os.path.isfile(hhsearch_out_path):
+      logging.info("Skipping hhsearch; pass --overwrite option to "
+                   "force re-build the msa database")
+      with open(hhsearch_out_path) as f:
+        hhsearch_result = f.read()
+    else:
+      uniref90_msa_as_a3m = parsers.convert_stockholm_to_a3m(
+          jackhmmer_uniref90_sto, max_sequences=self.uniref_max_hits)
+      hhsearch_result = self.hhsearch_pdb70_runner.query(uniref90_msa_as_a3m)
+      with open(hhsearch_out_path, "w") as f:
+        f.write(hhsearch_result)
+    hhsearch_hits = parsers.parse_hhr(hhsearch_result)
 
     bfd_out_path = os.path.join(msa_output_dir, 'bfd_uniclust_hits.a3m')
-    with open(bfd_out_path, 'w') as f:
-      f.write(hhblits_bfd_uniclust_result['a3m'])
-
-    bfd_msa, bfd_deletion_matrix = parsers.parse_a3m(
-        hhblits_bfd_uniclust_result['a3m'])
+    hhblits_bfd_uniclust_a3m = self._run("bfd", input_fasta_path, bfd_out_path)
+    bfd_msa, bfd_deletion_matrix = parsers.parse_a3m(hhblits_bfd_uniclust_a3m)
 
     templates_result = self.template_featurizer.get_templates(
         query_sequence=input_sequence,

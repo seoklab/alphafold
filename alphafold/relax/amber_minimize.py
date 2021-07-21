@@ -15,7 +15,6 @@
 """Restrained Amber Minimization of a structure."""
 
 import io
-import time
 from typing import Collection, Optional, Sequence
 
 from absl import logging
@@ -28,6 +27,7 @@ from simtk.openmm.app.internal.pdbstructure import PdbStructure
 
 from alphafold.common import protein
 from alphafold.common import residue_constants
+from alphafold.common import profiler
 from alphafold.model import folding
 from alphafold.relax import cleanup
 from alphafold.relax import utils
@@ -396,25 +396,24 @@ def _run_one_iteration(
   tolerance = tolerance * ENERGY
   stiffness = stiffness * ENERGY / (LENGTH**2)
 
-  start = time.time()
   minimized = False
   attempts = 0
-  while not minimized and attempts < max_attempts:
-    attempts += 1
-    try:
-      logging.info("Minimizing protein, attempt %d of %d.",
-                   attempts, max_attempts)
-      ret = _openmm_minimize(
-          pdb_string, max_iterations=max_iterations,
-          tolerance=tolerance, stiffness=stiffness,
-          restraint_set=restraint_set,
-          exclude_residues=exclude_residues)
-      minimized = True
-    except Exception as e:  # pylint: disable=broad-except
-      logging.info(e)
-  if not minimized:
-    raise ValueError(f"Minimization failed after {max_attempts} attempts.")
-  ret["opt_time"] = time.time() - start
+  with profiler("opt_time"):
+    while not minimized and attempts < max_attempts:
+      attempts += 1
+      try:
+        logging.info("Minimizing protein, attempt %d of %d.",
+                    attempts, max_attempts)
+        ret = _openmm_minimize(
+            pdb_string, max_iterations=max_iterations,
+            tolerance=tolerance, stiffness=stiffness,
+            restraint_set=restraint_set,
+            exclude_residues=exclude_residues)
+        minimized = True
+      except Exception as e:  # pylint: disable=broad-except
+        logging.info(e)
+    if not minimized:
+      raise ValueError(f"Minimization failed after {max_attempts} attempts.")
   ret["min_attempts"] = attempts
   return ret
 
@@ -488,9 +487,9 @@ def run_pipeline(
     violations = ret["violations_per_residue"]
     exclude_residues = exclude_residues.union(ret["residue_violations"])
 
-    logging.info("Iteration completed: Einit %.2f Efinal %.2f Time %.2f s "
+    logging.info("Iteration completed: Einit %.2f Efinal %.2f Time %s "
                  "num residue violations %d num residue exclusions %d ",
-                 ret["einit"], ret["efinal"], ret["opt_time"],
+                 ret["einit"], ret["efinal"], profiler.timings["opt_time"][-1],
                  ret["num_residue_violations"], ret["num_exclusions"])
     iteration += 1
   return ret

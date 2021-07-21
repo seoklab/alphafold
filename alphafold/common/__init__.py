@@ -12,3 +12,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Common data types and constants used within Alphafold."""
+
+from .profiler import profiler

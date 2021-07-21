@@ -25,73 +25,77 @@ NUM_EXTRA_SEQ = shape_placeholders.NUM_EXTRA_SEQ
 NUM_TEMPLATES = shape_placeholders.NUM_TEMPLATES
 
 
-def model_config(name: str) -> ml_collections.ConfigDict:
+def model_config(model_id: int, model_type: str) -> ml_collections.ConfigDict:
   """Get the ConfigDict of a CASP14 model."""
 
-  if name not in CONFIG_DIFFS:
-    raise ValueError(f'Invalid model name {name}.')
+  if model_type not in CONFIG_DIFFS:
+    raise ValueError(f'Invalid model type {model_type}.')
   cfg = copy.deepcopy(CONFIG)
-  cfg.update_from_flattened_dict(CONFIG_DIFFS[name])
+  cfg_diff = CONFIG_DIFFS[model_type]
+  cfg.update_from_flattened_dict(cfg_diff[model_id % len(cfg_diff)])
   return cfg
 
 
 CONFIG_DIFFS = {
-    'model_1': {
-        # Jumper et al. (2021) Suppl. Table 5, Model 1.1.1
-        'data.common.max_extra_msa': 5120,
-        'data.common.reduce_msa_clusters_by_max_templates': True,
-        'data.common.use_templates': True,
-        'model.embeddings_and_evoformer.template.embed_torsion_angles': True,
-        'model.embeddings_and_evoformer.template.enabled': True
-    },
-    'model_2': {
-        # Jumper et al. (2021) Suppl. Table 5, Model 1.1.2
-        'data.common.reduce_msa_clusters_by_max_templates': True,
-        'data.common.use_templates': True,
-        'model.embeddings_and_evoformer.template.embed_torsion_angles': True,
-        'model.embeddings_and_evoformer.template.enabled': True
-    },
-    'model_3': {
-        # Jumper et al. (2021) Suppl. Table 5, Model 1.2.1
-        'data.common.max_extra_msa': 5120,
-    },
-    'model_4': {
-        # Jumper et al. (2021) Suppl. Table 5, Model 1.2.2
-        'data.common.max_extra_msa': 5120,
-    },
-    'model_5': {
-        # Jumper et al. (2021) Suppl. Table 5, Model 1.2.3
-    },
-
-    # The following models are fine-tuned from the corresponding models above
-    # with an additional predicted_aligned_error head that can produce
-    # predicted TM-score (pTM) and predicted aligned errors.
-    'model_1_ptm': {
-        'data.common.max_extra_msa': 5120,
-        'data.common.reduce_msa_clusters_by_max_templates': True,
-        'data.common.use_templates': True,
-        'model.embeddings_and_evoformer.template.embed_torsion_angles': True,
-        'model.embeddings_and_evoformer.template.enabled': True,
-        'model.heads.predicted_aligned_error.weight': 0.1
-    },
-    'model_2_ptm': {
-        'data.common.reduce_msa_clusters_by_max_templates': True,
-        'data.common.use_templates': True,
-        'model.embeddings_and_evoformer.template.embed_torsion_angles': True,
-        'model.embeddings_and_evoformer.template.enabled': True,
-        'model.heads.predicted_aligned_error.weight': 0.1
-    },
-    'model_3_ptm': {
-        'data.common.max_extra_msa': 5120,
-        'model.heads.predicted_aligned_error.weight': 0.1
-    },
-    'model_4_ptm': {
-        'data.common.max_extra_msa': 5120,
-        'model.heads.predicted_aligned_error.weight': 0.1
-    },
-    'model_5_ptm': {
-        'model.heads.predicted_aligned_error.weight': 0.1
-    }
+  "normal": [
+      {
+          # Jumper et al. (2021) Suppl. Table 5, Model 1.1.1
+          'data.common.max_extra_msa': 5120,
+          'data.common.reduce_msa_clusters_by_max_templates': True,
+          'data.common.use_templates': True,
+          'model.embeddings_and_evoformer.template.embed_torsion_angles': True,
+          'model.embeddings_and_evoformer.template.enabled': True
+      },
+      {
+          # Jumper et al. (2021) Suppl. Table 5, Model 1.1.2
+          'data.common.reduce_msa_clusters_by_max_templates': True,
+          'data.common.use_templates': True,
+          'model.embeddings_and_evoformer.template.embed_torsion_angles': True,
+          'model.embeddings_and_evoformer.template.enabled': True
+      },
+      {
+          # Jumper et al. (2021) Suppl. Table 5, Model 1.2.1
+          'data.common.max_extra_msa': 5120,
+      },
+      {
+          # Jumper et al. (2021) Suppl. Table 5, Model 1.2.2
+          'data.common.max_extra_msa': 5120,
+      },
+      {
+          # Jumper et al. (2021) Suppl. Table 5, Model 1.2.3
+      },
+  ],
+  "ptm": [
+      # The following models are fine-tuned from the corresponding models above
+      # with an additional predicted_aligned_error head that can produce
+      # predicted TM-score (pTM) and predicted aligned errors.
+      {
+          'data.common.max_extra_msa': 5120,
+          'data.common.reduce_msa_clusters_by_max_templates': True,
+          'data.common.use_templates': True,
+          'model.embeddings_and_evoformer.template.embed_torsion_angles': True,
+          'model.embeddings_and_evoformer.template.enabled': True,
+          'model.heads.predicted_aligned_error.weight': 0.1
+      },
+      {
+          'data.common.reduce_msa_clusters_by_max_templates': True,
+          'data.common.use_templates': True,
+          'model.embeddings_and_evoformer.template.embed_torsion_angles': True,
+          'model.embeddings_and_evoformer.template.enabled': True,
+          'model.heads.predicted_aligned_error.weight': 0.1
+      },
+      {
+          'data.common.max_extra_msa': 5120,
+          'model.heads.predicted_aligned_error.weight': 0.1
+      },
+      {
+          'data.common.max_extra_msa': 5120,
+          'model.heads.predicted_aligned_error.weight': 0.1
+      },
+      {
+          'model.heads.predicted_aligned_error.weight': 0.1
+      }
+  ]
 }
 
 CONFIG = ml_collections.ConfigDict({

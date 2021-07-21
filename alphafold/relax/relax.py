@@ -80,4 +80,3 @@ class AmberRelaxation(object):
     violations = out['structural_violations'][
         'total_per_residue_violations_mask']
     return min_pdb, debug_data, violations
-

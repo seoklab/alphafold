@@ -1,0 +1,27 @@
+#!/bin/bash
+
+export ALPHAFOLD_CONDA_PREFIX="${ALPHAFOLD_CONDA_PREFIX-/opt/conda}"
+export ALPHAFOLD_HOME="${ALPHAFOLD_HOME-/applic/AlphaFold}"
+export NSLOTS="${NSLOTS-$(nproc)}"
+
+if [[ -n "$CONDA_PREFIX" && "$CONDA_PREFIX" != "$ALPHAFOLD_CONDA_PREFIX/envs/alphafold2" ]]
+then
+  echo "Please deactivate your conda environment before running alphafold!" >&2
+  echo "Run: conda deactivate $CONDA_DEFAULT_ENV"                           >&2
+  exit 1
+fi
+
+set -euo pipefail
+
+source "$ALPHAFOLD_CONDA_PREFIX/bin/activate" alphafold2
+
+NVIDIA_VISIBLE_DEVICES="${NVIDIA_VISIBLE_DEVICES-${CUDA_VISIBLE_DEVICES-all}}" \
+  TF_FORCE_UNIFIED_MEMORY=1                                                    \
+  XLA_PYTHON_CLIENT_MEM_FRACTION='4.0'                                         \
+  MKL_NUM_THREADS="${MKL_NUM_THREADS-NSLOTS}"                                  \
+  OPENBLAS_NUM_THREADS="${OPENBLAS_NUM_THREADS-NSLOTS}"                        \
+  XLA_FLAGS="--xla_cpu_multi_thread_eigen=true \
+intra_op_parallelism_threads='$NSLOTS' \
+inter_op_parallelism_threads='$NSLOTS' ${XLA_FLAGS-}"                          \
+  python -W 'ignore:resource_tracker:UserWarning'                              \
+         -u "${ALPHAFOLD_HOME}/run_alphafold.py" "$@"

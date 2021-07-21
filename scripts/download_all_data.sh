@@ -17,11 +17,17 @@
 # Downloads and unzips all required data for AlphaFold.
 #
 # Usage: bash download_all_data.sh /path/to/download/directory
-set -e
+set -euo pipefail
+
+ALPHAFOLD_HOME="$(realpath "${ALPHAFOLD_HOME-/applic/AlphaFold}")"
 
 if [[ $# -eq 0 ]]; then
-    echo "Error: download directory must be provided as an input argument."
-    exit 1
+    echo "Setting download dir to $ALPHAFOLD_HOME/data"
+    DOWNLOAD_DIR="$ALPHAFOLD_HOME/data"
+else
+    echo "Symlinking $ALPHAFOLD_HOME/data to download dir"
+    DOWNLOAD_DIR="$1"
+    ln -s "$(realpath "$DOWNLOAD_DIR")" "$ALPHAFOLD_HOME/data"
 fi
 
 if ! command -v rsync &> /dev/null ; then
@@ -34,7 +40,6 @@ if ! command -v aria2c &> /dev/null ; then
     exit
 fi
 
-DOWNLOAD_DIR="$1"
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 
 echo "Downloading AlphaFold parameters..."

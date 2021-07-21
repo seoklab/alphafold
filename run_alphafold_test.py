@@ -70,7 +70,7 @@ class RunAlphafoldTest(parameterized.TestCase):
         model_runners={'model1': model_runner_mock},
         amber_relaxer=amber_relaxer_mock,
         benchmark=False,
-        random_seed=0)
+        random_seed_seed=0)
 
 
 if __name__ == '__main__':

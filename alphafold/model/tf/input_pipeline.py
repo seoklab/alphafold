@@ -152,7 +152,7 @@ def process_tensors_from_config(tensors, data_config):
         lambda x: wrap_ensemble_fn(tensors, x),
         tf.range(num_ensemble),
         parallel_iterations=1,
-        dtype=dtype)
+        fn_output_signature=dtype)
   else:
     tensors = tree.map_structure(lambda x: x[None],
                                  tensors_0)

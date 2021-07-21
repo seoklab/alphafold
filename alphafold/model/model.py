@@ -18,6 +18,7 @@ from typing import Any, Mapping, Optional, Union
 from absl import logging
 import haiku as hk
 import jax
+from jax.lib import xla_client as xc
 import ml_collections
 import numpy as np
 import tensorflow.compat.v1 as tf
@@ -51,7 +52,8 @@ class RunModel:
 
   def __init__(self,
                config: ml_collections.ConfigDict,
-               params: Optional[Mapping[str, Mapping[str, np.ndarray]]] = None):
+               params: Optional[Mapping[str, Mapping[str, np.ndarray]]] = None,
+               device: xc.Device = None):
     self.config = config
     self.params = params
 
@@ -63,8 +65,8 @@ class RunModel:
           compute_loss=False,
           ensemble_representations=True)
 
-    self.apply = jax.jit(hk.transform(_forward_fn).apply)
-    self.init = jax.jit(hk.transform(_forward_fn).init)
+    self.apply = jax.jit(hk.transform(_forward_fn).apply, device=device)
+    self.init = jax.jit(hk.transform(_forward_fn).init, device=device)
 
   def init_params(self, feat: features.FeatureDict, random_seed: int = 0):
     """Initializes the model parameters.
@@ -140,4 +142,3 @@ class RunModel:
     logging.info('Output shape was %s',
                  tree.map_structure(lambda x: x.shape, result))
     return result
-

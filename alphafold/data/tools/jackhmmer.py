@@ -20,7 +20,7 @@ from typing import Any, Mapping, Optional
 
 from absl import logging
 
-from alphafold.data.tools import utils
+from alphafold.data.tools import utils, _TMP_BDIR
 # Internal import (7716).
 
 
@@ -78,7 +78,7 @@ class Jackhmmer:
 
   def query(self, input_fasta_path: str) -> Mapping[str, Any]:
     """Queries the database using Jackhmmer."""
-    with utils.tmpdir_manager(base_dir='/tmp') as query_tmp_dir:
+    with utils.tmpdir_manager(base_dir=_TMP_BDIR) as query_tmp_dir:
       sto_path = os.path.join(query_tmp_dir, 'output.sto')
 
       # The F1/F2/F3 are the expected proportion to pass each of the filtering
