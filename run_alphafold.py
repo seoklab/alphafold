@@ -106,11 +106,10 @@ flags.DEFINE_integer('ensemble', 1, 'Choose ensemble count: note that '
 flags.DEFINE_enum('model_type', 'normal', ['normal', 'ptm'],
                   'Choose model type to use - the casp14 equivalent '
                   'model (normal), or fined-tunded pTM models (ptm).')
-flags.DEFINE_boolean(
-    'benchmark', False, 'Run multiple JAX model evaluations '
-    'to obtain a timing that excludes the compilation time, '
-    'which should be more indicative of the time required '
-    'for inferencing many proteins.')
+flags.DEFINE_boolean('benchmark', False, 'Run multiple JAX model evaluations '
+                     'to obtain a timing that excludes the compilation time, '
+                     'which should be more indicative of the time required '
+                     'for inferencing many proteins.')
 
 flags.DEFINE_string('data_dir', data_dir,
                     'Path to directory of supporting data.')
