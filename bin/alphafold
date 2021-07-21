@@ -11,6 +11,8 @@ then
   exit 1
 fi
 
+__args=("$@")
+set --
 set -euo pipefail
 
 source "$ALPHAFOLD_CONDA_PREFIX/bin/activate" alphafold2
@@ -24,4 +26,4 @@ NVIDIA_VISIBLE_DEVICES="${NVIDIA_VISIBLE_DEVICES-${CUDA_VISIBLE_DEVICES-all}}" \
 intra_op_parallelism_threads='$NSLOTS' \
 inter_op_parallelism_threads='$NSLOTS' ${XLA_FLAGS-}"                          \
   python -W 'ignore:resource_tracker:UserWarning'                              \
-         -u "${ALPHAFOLD_HOME}/run_alphafold.py" "$@"
+         -u "${ALPHAFOLD_HOME}/run_alphafold.py" "${__args[@]}"
