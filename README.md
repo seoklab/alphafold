@@ -16,9 +16,9 @@ the model parameters should [cite](#citing-this-work) the
 Seoklab version of AlphaFold has few changes:
 
 - Major changes
-  - No docker, no system libraries (please refer to [kalininalab/alphafold_non_docker](https://github.com/kalininalab/alphafold_non_docker) and [seoklab/alphafold-installer](https://github.com/seoklab/alphafold-installer) repositories).
+  - No docker, no system libraries (please refer to [kalininalab/alphafold_non_docker](https://github.com/kalininalab/alphafold_non_docker) repository and [install.sh](install.sh)).
   - Can use multiple GPUs for inference.
-  - Skip relaxation step, as it takes very long time for preprocessing.
+  - Skip relaxation step, as it takes very long time (~30 min per model) for preprocessing.
   - Add environment variables `ALPHAFOLD_HOME` and `ALPHAFOLD_CONDA_PREFIX` for dynamic path resolving.
 - Minor changes
   - Add runner script [`alphafold`](bin/alphafold).
@@ -28,7 +28,10 @@ Seoklab version of AlphaFold has few changes:
 
 ## First time setup
 
-For AlphaFold setup, please use the script in [seoklab/alphafold-installer](https://github.com/seoklab/alphafold-installer) repository.
+Clone this repository, then run `./install.sh`. The script requires `wget` to run. Few variables could change the behavior of the script, namely:
+
+- `$CONDA_PREFIX`: The path for the newly-installed miniconda. Defaults to `/opt/conda` (for system-wide installations).
+- `$SUDO`: Either `y` or `n`. Defaults to `y`. If set to `y`, then the script will try to install AlphaFold system-wide, invoking `sudo` a few times. **Please be careful for running this script in SUDO mode.** Even though this script has been tested a few times, it is **NOT** fully tested for all types of Linux distros. (Currently tested in Ubuntu Server 16.04 LTS and Ubuntu Server 20.04 LTS)
 
 ### Genetic databases
 
@@ -44,7 +47,9 @@ AlphaFold needs multiple genetic (sequence) databases to run:
 *   [PDB](https://www.rcsb.org/) (structures in the mmCIF format).
 
 We provide a script `scripts/download_all_data.sh` that can be used to download
-and set up all of these databases. This should take 8–12 hours.
+and set up all of these databases. This should take 8–12 hours. **The data should be downloaded into `$ALPHAFOLD_HOME/data`.** If you have chosen the other directory for the data to live, then it must be explicitly passed to the downloader script as a command line argument. The script will then automatically create a symlink pointing to the target directory at `$ALPHAFOLD_HOME/data`.
+
+If such behavior is not desired or another database is being used, then the data directory could be explicitly passed as arguments, when invoking the `alphafold` script. (Please refer to the [next section](#running-alphafold) for more details.)
 
 :ledger: **Note: The total download size is around 428 GB and the total size
 when unzipped is 2.2 TB. Please make sure you have a large enough hard drive
@@ -53,28 +58,29 @@ space, bandwidth and time to download.**
 This script will also download the model parameter files. Once the script has
 finished, you should have the following directory structure:
 
-```
-$DOWNLOAD_DIR/                             # Total: ~ 2.2 TB (download: 428 GB)
-    bfd/                                   # ~ 1.8 TB (download: 271.6 GB)
-        # 6 files.
-    mgnify/                                # ~ 64 GB (download: 32.9 GB)
-        mgy_clusters.fa
-    params/                                # ~ 3.5 GB (download: 3.5 GB)
-        # 5 CASP14 models,
-        # 5 pTM models,
-        # LICENSE,
-        # = 11 files.
-    pdb70/                                 # ~ 56 GB (download: 19.5 GB)
-        # 9 files.
-    pdb_mmcif/                             # ~ 206 GB (download: 46 GB)
-        mmcif_files/
-            # About 180,000 .cif files.
-        obsolete.dat
-    uniclust30/                            # ~ 87 GB (download: 24.9 GB)
-        uniclust30_2018_08/
-            # 13 files.
-    uniref90/                              # ~ 59 GB (download: 29.7 GB)
-        uniref90.fasta
+```txt
+$ALPHAFOLD_HOME/
+    data/                             # Total: ~ 2.2 TB (download: 428 GB)
+        bfd/                                   # ~ 1.8 TB (download: 271.6 GB)
+            # 6 files.
+        mgnify/                                # ~ 64 GB (download: 32.9 GB)
+            mgy_clusters.fa
+        params/                                # ~ 3.5 GB (download: 3.5 GB)
+            # 5 CASP14 models,
+            # 5 pTM models,
+            # LICENSE,
+            # = 11 files.
+        pdb70/                                 # ~ 56 GB (download: 19.5 GB)
+            # 9 files.
+        pdb_mmcif/                             # ~ 206 GB (download: 46 GB)
+            mmcif_files/
+                # About 180,000 .cif files.
+            obsolete.dat
+        uniclust30/                            # ~ 87 GB (download: 24.9 GB)
+            uniclust30_2018_08/
+                # 13 files.
+        uniref90/                              # ~ 59 GB (download: 29.7 GB)
+            uniref90.fasta
 ```
 
 ### Model parameters
@@ -191,7 +197,7 @@ optional arguments:
 
 ### AlphaFold output
 
-The outputs will be **in the current directory**. They include the computed MSAs,
+The outputs will be **in the current directory** for the default settings. They include the computed MSAs,
 unrelaxed structures, relaxed structures, ranked structures, raw model outputs,
 prediction metadata, and section timings. The directory will have
 the following structure:
@@ -332,8 +338,11 @@ and packages:
 *   [TensorFlow](https://github.com/tensorflow/tensorflow)
 *   [Tree](https://github.com/deepmind/tree)
 
-We thank all their contributors and maintainers!
+Seoklab version makes use of one extra libary:
 
+* [Joblib](https://github.com/joblib/joblib)
+
+We thank all their contributors and maintainers!
 
 ## License and Disclaimer
 

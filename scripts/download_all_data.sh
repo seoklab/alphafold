@@ -19,7 +19,8 @@
 # Usage: bash download_all_data.sh /path/to/download/directory
 set -euo pipefail
 
-ALPHAFOLD_HOME="$(realpath "${ALPHAFOLD_HOME-/applic/AlphaFold}")"
+SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+ALPHAFOLD_HOME="$(realpath "${ALPHAFOLD_HOME-$(dirname "$SCRIPT_DIR")}")"
 
 if [[ $# -eq 0 ]]; then
     echo "Setting download dir to $ALPHAFOLD_HOME/data"
@@ -39,8 +40,6 @@ if ! command -v aria2c &> /dev/null ; then
     echo "Error: aria2c could not be found. Please install aria2c (sudo apt install aria2)."
     exit
 fi
-
-SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 
 echo "Downloading AlphaFold parameters..."
 bash "${SCRIPT_DIR}/download_alphafold_params.sh" "${DOWNLOAD_DIR}"
