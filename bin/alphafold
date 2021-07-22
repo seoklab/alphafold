@@ -1,8 +1,8 @@
 #!/bin/bash
 
 export ALPHAFOLD_CONDA_PREFIX="${ALPHAFOLD_CONDA_PREFIX-/opt/conda}"
-export ALPHAFOLD_HOME="${ALPHAFOLD_HOME-/applic/AlphaFold/current}"
-export NSLOTS="${NSLOTS-$(nproc)}"
+export ALPHAFOLD_HOME="${ALPHAFOLD_HOME-$(dirname "$(dirname "$(realpath "$0")")")}"
+export NSLOTS="${NSLOTS-${SLURM_CPUS_PER_TASK-$(nproc)}}"
 
 if [[ -n "$CONDA_PREFIX" && "$CONDA_PREFIX" != "$ALPHAFOLD_CONDA_PREFIX/envs/alphafold2" ]]
 then
