@@ -201,7 +201,7 @@ class DataPipeline:
     hhsearch_hits = parsers.parse_hhr(hhsearch_result)
 
     if self._use_small_bfd:
-      bfd_out_path = os.path.join(msa_output_dir, 'small_bfd_hits.a3m')
+      bfd_out_path = os.path.join(msa_output_dir, 'small_bfd_hits.sto')
       jackhmmer_small_bfd_sto = self._run(
           "small_bfd", input_fasta_path, bfd_out_path)
       bfd_msa, bfd_deletion_matrix, _ = parsers.parse_stockholm(

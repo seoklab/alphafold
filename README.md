@@ -241,7 +241,7 @@ the following structure:
     timings.json
     unrelaxed_model_{1,2,3,4,5,...}.pdb
     msas/
-        [bfd_uniclust_hits | small_bfd_hits].a3m (depending on configuration)
+        [bfd_uniclust_hits.a3m | small_bfd_hits.sto] (depending on configuration)
         mgnify_hits.sto
         uniref90_hits.a3m
         uniref90_hits.sto
