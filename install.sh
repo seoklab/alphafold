@@ -68,7 +68,7 @@ pushd "$__conda_prefix/envs/alphafold2/lib/python3.8/site-packages"
 patch -p0 < "$__alphafold_home/docker/openmm.patch"
 popd
 
-python setup.py develop
+python setup.py install
 
 if [[ "$__sudo" == 'y' ]]; then
   sudo chown -R root:root "$__conda_prefix"

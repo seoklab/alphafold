@@ -15,7 +15,7 @@
 """Functions for building the input features for the AlphaFold model."""
 
 import os
-from typing import Mapping, Sequence
+from typing import Mapping, Optional, Sequence
 
 import numpy as np
 from absl import logging
@@ -89,10 +89,12 @@ class DataPipeline:
                hhsearch_binary_path: str,
                uniref90_database_path: str,
                mgnify_database_path: str,
-               bfd_database_path: str,
-               uniclust30_database_path: str,
+               bfd_database_path: Optional[str],
+               uniclust30_database_path: Optional[str],
+               small_bfd_database_path: Optional[str],
                pdb70_database_path: str,
                template_featurizer: templates.TemplateHitFeaturizer,
+               use_small_bfd: bool,
                mgnify_max_hits: int = 501,
                uniref_max_hits: int = 10000,
                n_cpu: int = 1,
@@ -100,15 +102,22 @@ class DataPipeline:
     """Constructs a feature dict for a given FASTA file."""
     self.n_cpu = n_cpu
     self.overwrite = overwrite
+    self._use_small_bfd = use_small_bfd
 
     self.jackhmmer_uniref90_runner = jackhmmer.Jackhmmer(
         binary_path=jackhmmer_binary_path,
         database_path=uniref90_database_path,
         n_cpu=n_cpu)
-    self.hhblits_bfd_uniclust_runner = hhblits.HHBlits(
-        binary_path=hhblits_binary_path,
-        databases=[bfd_database_path, uniclust30_database_path],
-        n_cpu=n_cpu)
+    if use_small_bfd:
+      self.jackhmmer_small_bfd_runner = jackhmmer.Jackhmmer(
+          binary_path=jackhmmer_binary_path,
+          database_path=small_bfd_database_path,
+          n_cpu=n_cpu)
+    else:
+      self.hhblits_bfd_uniclust_runner = hhblits.HHBlits(
+          binary_path=hhblits_binary_path,
+          databases=[bfd_database_path, uniclust30_database_path],
+          n_cpu=n_cpu)
     self.jackhmmer_mgnify_runner = jackhmmer.Jackhmmer(
         binary_path=jackhmmer_binary_path,
         database_path=mgnify_database_path,
@@ -138,6 +147,9 @@ class DataPipeline:
     elif database == "bfd":
       runner = self.hhblits_bfd_uniclust_runner
       fmt = "a3m"
+    elif database == "small_bfd":
+      runner = self.jackhmmer_small_bfd_runner
+      fmt = "sto"
     else:
       raise ValueError(f"unknown database {database}")
 
@@ -163,13 +175,13 @@ class DataPipeline:
     uniref90_out_path = os.path.join(msa_output_dir, 'uniref90_hits.sto')
     jackhmmer_uniref90_sto = self._run(
         "uniref90", input_fasta_path, uniref90_out_path)
-    uniref90_msa, uniref90_deletion_matrix = parsers.parse_stockholm(
+    uniref90_msa, uniref90_deletion_matrix, _ = parsers.parse_stockholm(
         jackhmmer_uniref90_sto)
 
     mgnify_out_path = os.path.join(msa_output_dir, 'mgnify_hits.sto')
     jackhmmer_mgnify_sto = self._run(
         "mgnify", input_fasta_path, mgnify_out_path)
-    mgnify_msa, mgnify_deletion_matrix = parsers.parse_stockholm(
+    mgnify_msa, mgnify_deletion_matrix, _ = parsers.parse_stockholm(
         jackhmmer_mgnify_sto)
     mgnify_msa = mgnify_msa[:self.mgnify_max_hits]
     mgnify_deletion_matrix = mgnify_deletion_matrix[:self.mgnify_max_hits]
@@ -188,15 +200,24 @@ class DataPipeline:
         f.write(hhsearch_result)
     hhsearch_hits = parsers.parse_hhr(hhsearch_result)
 
-    bfd_out_path = os.path.join(msa_output_dir, 'bfd_uniclust_hits.a3m')
-    hhblits_bfd_uniclust_a3m = self._run("bfd", input_fasta_path, bfd_out_path)
-    bfd_msa, bfd_deletion_matrix = parsers.parse_a3m(hhblits_bfd_uniclust_a3m)
+    if self._use_small_bfd:
+      bfd_out_path = os.path.join(msa_output_dir, 'small_bfd_hits.a3m')
+      jackhmmer_small_bfd_sto = self._run(
+          "small_bfd", input_fasta_path, bfd_out_path)
+      bfd_msa, bfd_deletion_matrix, _ = parsers.parse_stockholm(
+          jackhmmer_small_bfd_sto)
+    else:
+      bfd_out_path = os.path.join(msa_output_dir, 'bfd_uniclust_hits.a3m')
+      hhblits_bfd_uniclust_a3m = self._run(
+        "bfd", input_fasta_path, bfd_out_path)
+      bfd_msa, bfd_deletion_matrix = parsers.parse_a3m(
+        hhblits_bfd_uniclust_a3m)
 
     templates_result = self.template_featurizer.get_templates(
         query_sequence=input_sequence,
         query_pdb_code=None,
         query_release_date=None,
-        hhr_hits=hhsearch_hits)
+        hits=hhsearch_hits)
 
     sequence_features = make_sequence_features(
         sequence=input_sequence,

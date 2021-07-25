@@ -51,7 +51,8 @@ class Jackhmmer:
       e_value: The E-value, see Jackhmmer docs for more details.
       z_value: The Z-value, see Jackhmmer docs for more details.
       get_tblout: Whether to save tblout string.
-      filter_f1: MSV and biased composition pre-filter, set to >1.0 to turn off.
+      filter_f1: MSV and biased composition pre-filter, set to >1.0
+                 to turn off.
       filter_f2: Viterbi pre-filter, set to >1.0 to turn off.
       filter_f3: Forward pre-filter, set to >1.0 to turn off.
       incdom_e: Domain e-value criteria for inclusion of domains in MSA/next

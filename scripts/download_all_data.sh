@@ -31,14 +31,9 @@ else
     ln -s "$(realpath "$DOWNLOAD_DIR")" "$ALPHAFOLD_HOME/data"
 fi
 
-if ! command -v rsync &> /dev/null ; then
-    echo "Error: rsync could not be found. Please install rsync."
-    exit
-fi
-
 if ! command -v aria2c &> /dev/null ; then
     echo "Error: aria2c could not be found. Please install aria2c (sudo apt install aria2)."
-    exit
+    exit 1
 fi
 
 echo "Downloading AlphaFold parameters..."
@@ -46,6 +41,9 @@ bash "${SCRIPT_DIR}/download_alphafold_params.sh" "${DOWNLOAD_DIR}"
 
 echo "Downloading BFD..."
 bash "${SCRIPT_DIR}/download_bfd.sh" "${DOWNLOAD_DIR}"
+
+echo "Downloading Small BFD..."
+bash "${SCRIPT_DIR}/download_small_bfd.sh" "${DOWNLOAD_DIR}"
 
 echo "Downloading MGnify..."
 bash "${SCRIPT_DIR}/download_mgnify.sh" "${DOWNLOAD_DIR}"

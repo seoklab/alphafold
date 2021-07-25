@@ -72,6 +72,10 @@ bfd_database_path = os.path.join(
     DOWNLOAD_DIR, 'bfd',
     'bfd_metaclust_clu_complete_id30_c90_final_seq.sorted_opt')
 
+small_bfd_database_path = os.path.join(
+    DOWNLOAD_DIR, 'small_bfd',
+    'bfd-first_non_consensus_sequences.fasta')
+
 # Path to the Uniclust30 database for use by HHblits.
 uniclust30_database_path = os.path.join(
     DOWNLOAD_DIR, 'uniclust30', 'uniclust30_2018_08', 'uniclust30_2018_08')
@@ -103,6 +107,8 @@ flags.DEFINE_string('max_template_date', date.today().isoformat(),
 flags.DEFINE_integer('ensemble', 1, 'Choose ensemble count: note that '
                      'AlphaFold recommends 1 ("full_dbs"), and the casp model '
                      'have used 8 model ensemblings ("casp14").')
+flags.DEFINE_boolean('small_bfd', False,
+                     'Whether to use smaller genetic database config.')
 flags.DEFINE_enum('model_type', 'normal', ['normal', 'ptm'],
                   'Choose model type to use - the casp14 equivalent '
                   'model (normal), or fined-tunded pTM models (ptm).')
@@ -130,6 +136,8 @@ flags.DEFINE_string('uniref90_database_path', uniref90_database_path,
 flags.DEFINE_string('mgnify_database_path', mgnify_database_path,
                     'Path to the MGnify database for use by JackHMMER.')
 flags.DEFINE_string('bfd_database_path', bfd_database_path,
+                    'Path to the BFD database for use by HHblits.')
+flags.DEFINE_string('small_bfd_database_path', small_bfd_database_path,
                     'Path to the BFD database for use by HHblits.')
 flags.DEFINE_string('uniclust30_database_path', uniclust30_database_path,
                     'Path to the Uniclust30 database for use by HHblits.')
@@ -412,8 +420,10 @@ def main(fasta_paths):
       mgnify_database_path=FLAGS.mgnify_database_path,
       bfd_database_path=FLAGS.bfd_database_path,
       uniclust30_database_path=FLAGS.uniclust30_database_path,
+      small_bfd_database_path=FLAGS.small_bfd_database_path,
       pdb70_database_path=FLAGS.pdb70_database_path,
       template_featurizer=template_featurizer,
+      use_small_bfd=FLAGS.small_bfd,
       n_cpu=FLAGS.nproc,
       overwrite=FLAGS.overwrite)
 
