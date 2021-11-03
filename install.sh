@@ -48,11 +48,10 @@ cd "$__alphafold_home"
 wget -P alphafold/common/ https://git.scicore.unibas.ch/schwede/openstructure/-/raw/7102c63615b64735c4941278d92b554ec94415f8/modules/mol/alg/src/stereo_chemical_props.txt
 
 source "$__conda_prefix/bin/activate"
-conda update -y -c defaults -n base conda
-conda create -y -c defaults -n alphafold2 python=3.8
+conda update -y -c conda-forge -n base conda
+conda create -y -c defaults -n alphafold2 python=3.8 joblib --no-default-packages
 
 conda activate alphafold2
-conda install -y -c defaults joblib
 conda install -y -c conda-forge openmm==7.5.1 pdbfixer==1.7 cudnn==8.2.1.32 \
                                 cudatoolkit==11.0.3 cudatoolkit-dev==11.0.3
 conda install -y -c bioconda hmmer==3.3.2 hhsuite==3.3.0 kalign2==2.04
@@ -68,7 +67,7 @@ pushd "$__conda_prefix/envs/alphafold2/lib/python3.8/site-packages"
 patch -p0 < "$__alphafold_home/docker/openmm.patch"
 popd
 
-python setup.py install
+python setup.py develop
 
 if [[ "$__sudo" == 'y' ]]; then
   sudo chown -R root:root "$__conda_prefix"
@@ -78,12 +77,12 @@ if [[ "$__sudo" == 'y' ]]; then
   sudo chmod -R go+rX "$__alphafold_home"
 fi
 
-set_envar_script="export ALPHAFOLD_CONDA_PREFIX=$(printf %q "$__conda_prefix")
-export ALPHAFOLD_HOME=$(printf %q "$__alphafold_home")
+set_envar_script="export ALPHAFOLD_CONDA_PREFIX=$(printf '%q' "$__conda_prefix")
+export ALPHAFOLD_HOME=$(printf '%q' "$__alphafold_home")
 export PATH=\"\$PATH:\$ALPHAFOLD_HOME/bin\""
 
 if [[ "$__sudo" == 'y' ]]; then
-  sudo echo "$set_envar_script" >>/etc/profile.d/alphafold.sh
+  sudo bash -c "echo $(printf '%q' "$set_envar_script") >>/etc/profile.d/alphafold.sh"
 else
   case "$SHELL" in
     *bash* ) __shell=bash;;
@@ -91,7 +90,7 @@ else
     *      )
       echo "Unknown shell; you must manually set the environment variables!"
       echo "Please do the following command:
-echo $(printf %q "$set_envar_script") >> <your rc filename>"
+echo $(printf '%q' "$set_envar_script") >> <your rc filename>"
       ;;
   esac
   if [[ -n ${__shell-} ]]; then

@@ -44,14 +44,14 @@ from alphafold.model import features
 
 #### USER CONFIGURATION ####
 
-_conda_bin = os.path.join(os.environ['CONDA_PREFIX'], 'bin')
+_conda_bin = os.path.join(os.getenv('CONDA_PREFIX'), 'bin')
 
 # Set to target of scripts/download_all_databases.sh
-DOWNLOAD_DIR = os.path.join(os.environ['ALPHAFOLD_HOME'], 'data')
+DOWNLOAD_DIR = os.path.join(os.getenv('ALPHAFOLD_HOME'), 'data')
 
 # Path to a directory that will store the results.
 output_dir = os.getcwd()
-nproc = int(os.environ.get("NSLOTS", multiprocessing.cpu_count()))
+nproc = int(os.getenv("NSLOTS", multiprocessing.cpu_count()))
 
 # You can individually override the following paths if you have placed the
 # data in locations other than the DOWNLOAD_DIR.
@@ -342,7 +342,7 @@ def predict_structure(
     dev_cnt = len(jax.devices())
     dev_pool = range(dev_cnt)
   else:
-    dev_cnt = nproc
+    dev_cnt = 1
     dev_pool = [None]
 
   n_jobs = min(len(model_ids), dev_cnt)
@@ -351,6 +351,7 @@ def predict_structure(
 
   if backend == "cpu":
     per_pool_nproc = str(max(nproc // n_jobs, 1))
+    os.environ["OMP_NUM_THREADS"] = per_pool_nproc
     os.environ["MKL_NUM_THREADS"] = per_pool_nproc
     os.environ["OPENBLAS_NUM_THREADS"] = per_pool_nproc
 
