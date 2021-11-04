@@ -31,14 +31,12 @@ def casp_model_names(data_dir: str) -> List[str]:
 def get_model_haiku_params(model_id: int, model_type: str,
                            data_dir: str) -> hk.Params:
   """Get the Haiku parameters from a model name."""
-  if model_type not in config.CONFIG_DIFFS:
+  if model_type not in config.MODEL_PRESETS:
     raise ValueError(f'Invalid model type {model_type}.')
-  max_model_params = len(config.CONFIG_DIFFS[model_type])
 
-  model_name = f"model_{model_id % max_model_params + 1}"
-  if model_type != "normal":
-    model_name += f"_{model_type}"
-
+  model_names = config.MODEL_PRESETS[model_type]
+  max_model_params = len(model_names)
+  model_name = model_names[model_id % max_model_params]
   path = os.path.join(data_dir, 'params', f'params_{model_name}.npz')
   with open(path, 'rb') as f:
     params = np.load(io.BytesIO(f.read()), allow_pickle=False)

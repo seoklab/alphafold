@@ -96,6 +96,7 @@ obsolete_pdbs_path = os.path.join(DOWNLOAD_DIR, 'pdb_mmcif', 'obsolete.dat')
 
 #### END OF USER CONFIGURATION ####
 
+# yapf: disable
 flags.DEFINE_list('is_prokaryote_list', None, 'Optional for multimer system, '
                   'not used by the single chain system. '
                   'This list should contain a boolean for each fasta '
@@ -172,19 +173,21 @@ flags.DEFINE_string('template_mmcif_dir', template_mmcif_dir,
 flags.DEFINE_string('obsolete_pdbs_path', obsolete_pdbs_path,
                     'Path to file containing a mapping from obsolete PDB IDs '
                     'to the PDB IDs of their replacements.')
-flags.DEFINE_integer('random_seed_seed', None, 'The random seed for the '
-                     'random seed for the data pipeline. By default, this is '
-                     'randomly generated. Note that even if this is set,'
-                     'Alphafold may still not be deterministic, because '
-                     'processes like GPU inference are nondeterministic.')
+flags.DEFINE_integer('random_seed', None, 'The random seed for the '
+                     'data pipeline. By default, this is randomly generated. '
+                     'Note that even if this is set, Alphafold may still'
+                     'not be deterministic, because processes like '
+                     'GPU inference are nondeterministic.')
 flags.DEFINE_boolean('overwrite', False, 'Whether to re-build the features, '
                      'even if the result exists in the target directories.')
 FLAGS = flags.FLAGS
+# yapf: enable
 
 
 def fasta_parser(argv):
   parser = argparse_flags.ArgumentParser()
-  parser.add_argument("fasta_paths", nargs="+",
+  parser.add_argument("fasta_paths",
+                      nargs="+",
                       help='Paths to FASTA files, each containing '
                       'one sequence. All FASTA paths must have '
                       'a unique basename as the basename is used to name the '
@@ -218,8 +221,8 @@ def predict_structure_permodel(
     model_config.data.eval.num_ensemble = num_ensemble
 
   if not overwrite and os.path.isfile(result_output_path):
-    print('Reusing existing model %s; pass --overwrite option to predict again'
-          % model_name, file=sys.stderr, flush=True)
+    logging.info(f'Reusing existing model {model_name}; '
+                 'pass --overwrite option to predict again')
 
     with profiler(f'process_features_{model_name}'):
       processed_feature_dict = features.np_example_to_features(
@@ -238,7 +241,8 @@ def predict_structure_permodel(
           feature_dict, random_seed)
 
     with profiler(f'predict_and_compile_{model_name}') as p:
-      prediction_result = model_runner.predict(processed_feature_dict)
+      prediction_result = model_runner.predict(processed_feature_dict,
+                                               random_seed)
 
     fasta_name = os.path.basename(output_dir)
     logging.info(f'Total JAX model {model_name} on {fasta_name} predict time '
@@ -246,7 +250,7 @@ def predict_structure_permodel(
 
     if benchmark:
       with profiler(f'predict_benchmark_{model_name}'):
-        model_runner.predict(processed_feature_dict)
+        model_runner.predict(processed_feature_dict, random_seed)
 
     # Save the model outputs.
     result_output_path = os.path.join(output_dir, f'result_{model_name}.pkl')
@@ -308,7 +312,7 @@ def predict_structure(
     model_type: str,
     num_ensemble: int,
     benchmark: bool,
-    random_seed_seed: int,
+    random_seed: int,
     nproc: int = 1,
     is_prokaryote: Optional[bool] = None,
     overwrite: Optional[bool] = False):
@@ -344,8 +348,8 @@ def predict_structure(
     with open(features_output_path, 'wb') as f:
       pickle.dump(feature_dict, f, protocol=4)
 
-  random.seed(random_seed_seed)
-  random_seeds = [random.randrange(sys.maxsize) for _ in range(len(model_ids))]
+  num_models = len(model_ids)
+  random_seeds = [i + random_seed * num_models for i in range(num_models)]
 
   # Run the models.
   backend = jax.default_backend()
@@ -356,7 +360,7 @@ def predict_structure(
     dev_cnt = 1
     dev_pool = [None]
 
-  n_jobs = min(len(model_ids), dev_cnt)
+  n_jobs = min(num_models, dev_cnt)
   ids_chunked = _chunk_list(model_ids, n_jobs)
   random_seeds_chunked = _chunk_list(random_seeds, n_jobs)
 
@@ -406,6 +410,10 @@ def predict_structure(
   profiler.dump(timings_output_path)
 
 
+def _check_multi():
+  pass
+
+
 def main(fasta_paths: List[str]):
   # Check for duplicate FASTA file names and existence of them
   fasta_names = []
@@ -440,7 +448,7 @@ def main(fasta_paths: List[str]):
         binary_path=FLAGS.hmmsearch_binary_path,
         hmmbuild_binary_path=FLAGS.hmmbuild_binary_path,
         database_path=FLAGS.pdb_seqres_database_path,
-        n_cpu=FLAGS.n_cpu)
+        n_cpu=FLAGS.nproc)
     template_featurizer = templates.HmmsearchHitFeaturizer(
         mmcif_dir=FLAGS.template_mmcif_dir,
         max_template_date=FLAGS.max_template_date,
@@ -452,7 +460,7 @@ def main(fasta_paths: List[str]):
     template_searcher = hhsearch.HHSearch(
         binary_path=FLAGS.hhsearch_binary_path,
         databases=[FLAGS.pdb70_database_path],
-        n_cpu=FLAGS.n_cpu)
+        n_cpu=FLAGS.nproc)
     template_featurizer = templates.HhsearchHitFeaturizer(
         mmcif_dir=FLAGS.template_mmcif_dir,
         max_template_date=FLAGS.max_template_date,
@@ -490,11 +498,10 @@ def main(fasta_paths: List[str]):
   model_ids = list(range(FLAGS.model_cnt))
   logging.info('Have %d models: %s', FLAGS.model_cnt, model_ids)
 
-  random_seed_seed = FLAGS.random_seed_seed
-  if random_seed_seed is None:
-    random_seed_seed = random.randrange(sys.maxsize)
-  logging.info('Using random seed-seed %d for the data pipeline',
-               random_seed_seed)
+  random_seed = FLAGS.random_seed
+  if random_seed is None:
+    random_seed = random.randrange(sys.maxsize // FLAGS.model_cnt)
+  logging.info('Using random seed %d for the data pipeline', random_seed)
 
   # Predict structure for each of the sequences.
   for fasta_path, fasta_name in zip(fasta_paths, fasta_names):
@@ -508,7 +515,7 @@ def main(fasta_paths: List[str]):
                         model_type=FLAGS.model_type,
                         num_ensemble=FLAGS.ensemble,
                         benchmark=FLAGS.benchmark,
-                        random_seed_seed=random_seed_seed,
+                        random_seed=random_seed,
                         nproc=FLAGS.nproc,
                         overwrite=FLAGS.overwrite)
 

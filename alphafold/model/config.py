@@ -16,6 +16,7 @@
 import copy
 from alphafold.model.tf import shape_placeholders
 import ml_collections
+from typing import Dict, Tuple
 
 NUM_RES = shape_placeholders.NUM_RES
 NUM_MSA_SEQ = shape_placeholders.NUM_MSA_SEQ
@@ -37,15 +38,15 @@ def model_config(model_id: int, model_type: str) -> ml_collections.ConfigDict:
   return cfg
 
 
-MODEL_PRESETS = {
-    'monomer': (
+MODEL_PRESETS: Dict[str, Tuple[str]] = {
+    'normal': (
         'model_1',
         'model_2',
         'model_3',
         'model_4',
         'model_5',
     ),
-    'monomer_ptm': (
+    'ptm': (
         'model_1_ptm',
         'model_2_ptm',
         'model_3_ptm',
@@ -60,7 +61,7 @@ MODEL_PRESETS = {
         'model_5_multimer',
     ),
 }
-MODEL_PRESETS['monomer_casp14'] = MODEL_PRESETS['monomer']
+MODEL_PRESETS['casp14'] = MODEL_PRESETS['normal']
 
 
 CONFIG_DIFFS = {

@@ -42,8 +42,8 @@ SPROT_BASENAME="$(basename "$(cut -d $'\t' -f 1 "${SPROT_SOURCE_FILE}")")"
 SPROT_UNZIPPED_BASENAME="${SPROT_BASENAME%.gz}"
 
 mkdir --parents "${ROOT_DIR}"
-# aria2c -x16 -j32 -i "${TREMBL_SOURCE_FILE}" --dir="${ROOT_DIR}"
-# aria2c -x16 -j32 -i "${SPROT_SOURCE_FILE}" --dir="${ROOT_DIR}"
+aria2c -x16 -j32 -i "${TREMBL_SOURCE_FILE}" --dir="${ROOT_DIR}"
+aria2c -x16 -j32 -i "${SPROT_SOURCE_FILE}" --dir="${ROOT_DIR}"
 
 pushd "${ROOT_DIR}"
 pigz -d "${TREMBL_BASENAME}"

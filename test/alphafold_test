@@ -1,0 +1,20 @@
+#!/bin/bash
+
+export ALPHAFOLD_CONDA_PREFIX="$CONDA_PREFIX"
+export ALPHAFOLD_HOME="$(dirname "$(dirname "$(realpath "$0")")")"
+export NSLOTS="${NSLOTS-${SLURM_CPUS_PER_TASK-$(nproc)}}"
+
+__args=("$@")
+set --
+set -euo pipefail
+
+TF_FORCE_UNIFIED_MEMORY=1                                                      \
+  XLA_PYTHON_CLIENT_MEM_FRACTION='4.0'                                         \
+  MKL_NUM_THREADS="${MKL_NUM_THREADS-NSLOTS}"                                  \
+  OMP_NUM_THREADS="${OMP_NUM_THREADS-NSLOTS}"                                  \
+  OPENBLAS_NUM_THREADS="${OPENBLAS_NUM_THREADS-NSLOTS}"                        \
+  XLA_FLAGS="--xla_cpu_multi_thread_eigen=true \
+intra_op_parallelism_threads='$NSLOTS' \
+inter_op_parallelism_threads='$NSLOTS' ${XLA_FLAGS-}"                          \
+  python -W 'ignore:resource_tracker:UserWarning'                              \
+         -u "${ALPHAFOLD_HOME}/run_alphafold.py" ${__args[@]+"${__args[@]}"}
