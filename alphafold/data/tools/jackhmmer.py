@@ -188,8 +188,9 @@ class Jackhmmer:
           future = executor.submit(
               request.urlretrieve, db_remote_chunk(i), db_local_chunk(i))
         if i < self.num_streamed_chunks:
-          next_future = executor.submit(
-              request.urlretrieve, db_remote_chunk(i+1), db_local_chunk(i+1))
+          next_future = executor.submit(request.urlretrieve,
+                                        db_remote_chunk(i + 1),
+                                        db_local_chunk(i + 1))
 
         # Run Jackhmmer with the chunk
         future.result()

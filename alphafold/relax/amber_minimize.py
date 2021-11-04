@@ -20,6 +20,7 @@ from typing import Collection, Optional, Sequence
 from absl import logging
 from alphafold.common import protein
 from alphafold.common import residue_constants
+from alphafold.common import profiler
 from alphafold.model import folding
 from alphafold.relax import cleanup
 from alphafold.relax import utils
@@ -337,10 +338,10 @@ def find_violations(prot_np: protein.Protein):
   violations = folding.find_structural_violations(
       batch=batch,
       atom14_pred_positions=batch["atom14_gt_positions"],
-      config=ml_collections.ConfigDict(
-          {"violation_tolerance_factor": 12,  # Taken from model config.
-           "clash_overlap_tolerance": 1.5,  # Taken from model config.
-          }))
+      config=ml_collections.ConfigDict({
+          "violation_tolerance_factor": 12,  # Taken from model config.
+          "clash_overlap_tolerance": 1.5,  # Taken from model config.
+      }))
   violation_metrics = folding.compute_violation_metrics(
       batch=batch,
       atom14_pred_positions=batch["atom14_gt_positions"],
@@ -400,13 +401,14 @@ def _run_one_iteration(
     while not minimized and attempts < max_attempts:
       attempts += 1
       try:
-        logging.info("Minimizing protein, attempt %d of %d.",
-                    attempts, max_attempts)
-        ret = _openmm_minimize(
-            pdb_string, max_iterations=max_iterations,
-            tolerance=tolerance, stiffness=stiffness,
-            restraint_set=restraint_set,
-            exclude_residues=exclude_residues)
+        logging.info("Minimizing protein, attempt %d of %d.", attempts,
+                     max_attempts)
+        ret = _openmm_minimize(pdb_string,
+                               max_iterations=max_iterations,
+                               tolerance=tolerance,
+                               stiffness=stiffness,
+                               restraint_set=restraint_set,
+                               exclude_residues=exclude_residues)
         minimized = True
       except Exception as e:  # pylint: disable=broad-except
         logging.info(e)

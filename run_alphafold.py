@@ -18,13 +18,11 @@ import os
 import pathlib
 import pickle
 import random
-import shutil
 import sys
-import time
 import multiprocessing
 from datetime import date
 from itertools import cycle
-from typing import List, Dict, Union, Optional
+from typing import List, Union, Optional
 
 from absl import app
 from absl import flags
@@ -273,7 +271,8 @@ def predict_structure_permodel(
       f.write(unrelaxed_pdb)
 
   ranking_confidence = prediction_result['ranking_confidence']
-  return model_name, profiler.timings, ranking_confidence, unrelaxed_pdb
+  label = 'iptm+ptm' if 'iptm' in prediction_result else 'plddts'
+  return label, model_name, profiler.timings, ranking_confidence, unrelaxed_pdb
 
 
 def predict_structure_perdev(model_ids: List[int],
@@ -384,7 +383,7 @@ def predict_structure(
 
   ranking_confidences = {}
   unrelaxed_pdbs = {}
-  for model_name, model_timings, ranking_confidence, pdb in results:
+  for _, model_name, model_timings, ranking_confidence, pdb in results:
     profiler.timings.update(model_timings)
     ranking_confidences[model_name] = ranking_confidence
     unrelaxed_pdbs[model_name] = pdb
@@ -400,9 +399,8 @@ def predict_structure(
 
   ranking_output_path = os.path.join(output_dir, 'ranking_debug.json')
   with open(ranking_output_path, 'w') as f:
-    label = 'iptm+ptm' if 'iptm' in prediction_result else 'plddts'
     f.write(json.dumps(
-        {label: ranking_confidences, 'order': ranked_order}, indent=4))
+        {results[0][0]: ranking_confidences, 'order': ranked_order}, indent=4))
 
   timings_output_path = os.path.join(output_dir, 'timings.json')
   profiler.dump(timings_output_path)

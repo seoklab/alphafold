@@ -14,7 +14,6 @@
 
 """Constants used in AlphaFold."""
 
-import os
 import collections
 import functools
 import os
@@ -467,9 +466,9 @@ def load_stereo_chemical_props() -> Tuple[Mapping[str, List[Bond]],
       dl_dgamma = (2 * bond1.length * bond2.length * np.sin(gamma)) * dl_outer
       dl_db1 = (2 * bond1.length - 2 * bond2.length * np.cos(gamma)) * dl_outer
       dl_db2 = (2 * bond2.length - 2 * bond1.length * np.cos(gamma)) * dl_outer
-      stddev = np.sqrt((dl_dgamma * ba.stddev)**2 +
-                       (dl_db1 * bond1.stddev)**2 +
-                       (dl_db2 * bond2.stddev)**2)
+      stddev = np.sqrt((dl_dgamma * ba.stddev)**2
+                       + (dl_db1 * bond1.stddev)**2
+                       + (dl_db2 * bond2.stddev)**2)
       residue_virtual_bonds[resname].append(
           Bond(ba.atom1_name, ba.atom3name, length, stddev))
 
@@ -717,7 +716,7 @@ def chi_angle_atom(atom_index: int) -> np.ndarray:
 
   for k, v in chi_angles_atoms.items():
     indices = [atom_types.index(s[atom_index]) for s in v]
-    indices.extend([-1]*(4-len(indices)))
+    indices.extend([-1] * (4 - len(indices)))
     chi_angles_index[k] = indices
 
   for r in restypes:
@@ -730,6 +729,7 @@ def chi_angle_atom(atom_index: int) -> np.ndarray:
   one_hot = np.transpose(one_hot, [0, 2, 1])
 
   return one_hot
+
 
 chi_atom_1_one_hot = chi_angle_atom(1)
 chi_atom_2_one_hot = chi_angle_atom(2)
@@ -894,4 +894,4 @@ def make_atom14_dists_bounds(overlap_tolerance=1.5,
   return {'lower_bound': restype_atom14_bond_lower_bound,  # shape (21,14,14)
           'upper_bound': restype_atom14_bond_upper_bound,  # shape (21,14,14)
           'stddev': restype_atom14_bond_stddev,  # shape (21,14,14)
-         }
+          }

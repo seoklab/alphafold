@@ -209,8 +209,8 @@ def _assess_hhsearch_hit(
 
   # Check whether the template is a large subsequence or duplicate of original
   # query. This can happen due to duplicate entries in the PDB database.
-  duplicate = (template_sequence in query_sequence and
-               length_ratio > max_subsequence_ratio)
+  duplicate = (template_sequence in query_sequence
+               and length_ratio > max_subsequence_ratio)
 
   if _is_after_cutoff(hit_pdb_code, release_dates, release_date_cutoff):
     raise DateError(f'Date ({release_dates[hit_pdb_code]}) > max template date '
@@ -353,8 +353,8 @@ def _realign_pdb_template_to_query(
       new_template_sequence = list(mmcif_object.chain_to_seqres.values())[0]
     else:
       raise QueryToTemplateAlignError(
-          f'Could not find chain {template_chain_id} in {mmcif_object.file_id}. '
-          'If there are no mmCIF parsing errors, it is possible it was not a '
+          f'Could not find chain {template_chain_id} in {mmcif_object.file_id}.'
+          ' If there are no mmCIF parsing errors, it is possible it was not a '
           'protein chain.')
 
   try:
@@ -468,10 +468,10 @@ def _get_atom_positions(
       cd = residue_constants.atom_order['CD']
       nh1 = residue_constants.atom_order['NH1']
       nh2 = residue_constants.atom_order['NH2']
-      if (res.get_resname() == 'ARG' and
-          all(mask[atom_index] for atom_index in (cd, nh1, nh2)) and
-          (np.linalg.norm(pos[nh1] - pos[cd]) >
-           np.linalg.norm(pos[nh2] - pos[cd]))):
+      if (res.get_resname() == 'ARG'
+          and all(mask[atom_index] for atom_index in (cd, nh1, nh2))
+          and (np.linalg.norm(pos[nh1] - pos[cd])
+               > np.linalg.norm(pos[nh2] - pos[cd]))):
         pos[nh1], pos[nh2] = pos[nh2].copy(), pos[nh1].copy()
         mask[nh1], mask[nh2] = mask[nh2].copy(), mask[nh1].copy()
 
@@ -565,9 +565,8 @@ def _extract_template_features(
     all_atom_positions, all_atom_mask = _get_atom_positions(
         mmcif_object, chain_id, max_ca_ca_distance=150.0)
   except (CaDistanceError, KeyError) as ex:
-    raise NoAtomDataInTemplateError(
-        'Could not get atom data (%s_%s): %s' % (pdb_id, chain_id, str(ex))
-        ) from ex
+    raise NoAtomDataInTemplateError('Could not get atom data (%s_%s): %s'
+                                    % (pdb_id, chain_id, str(ex))) from ex
 
   all_atom_positions = np.split(all_atom_positions, all_atom_positions.shape[0])
   all_atom_masks = np.split(all_atom_mask, all_atom_mask.shape[0])
@@ -661,8 +660,8 @@ def _build_query_to_hit_index_mapping(
   mapping = {}
   for q_i, q_t in zip(fixed_indices_query, fixed_indices_hit):
     if q_t != -1 and q_i != -1:
-      if (q_t >= len(hit_sequence) or
-          q_i + hhsearch_query_offset >= len(original_query_sequence)):
+      if (q_t >= len(hit_sequence)
+          or q_i + hhsearch_query_offset >= len(original_query_sequence)):
         continue
       mapping[q_i + hhsearch_query_offset] = q_t
 
