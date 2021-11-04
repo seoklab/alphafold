@@ -7,10 +7,17 @@ v2.0. This is a completely new model that was entered in CASP14 and published in
 Nature. For simplicity, we refer to this model as AlphaFold throughout the rest
 of this document.
 
-Any publication that discloses findings arising from using this source code or
-the model parameters should [cite](#citing-this-work) the
-[AlphaFold paper](https://doi.org/10.1038/s41586-021-03819-2). Please also refer
-to the
+We also provide an implementation of AlphaFold-Multimer. This represents a work
+in progress and AlphaFold-Multimer isn't expected to be as stable as our monomer
+AlphaFold system.
+[Read the guide](#updating-existing-alphafold-installation-to-include-alphafold-multimers)
+for how to upgrade and update code.
+
+Any publication that discloses findings arising from using this source code or the model parameters should [cite](#citing-this-work) the
+[AlphaFold  paper](https://doi.org/10.1038/s41586-021-03819-2) and, if
+applicable, the [AlphaFold-Multimer paper](https://www.biorxiv.org/content/10.1101/2021.10.04.463034v1).
+
+Please also refer to the
 [Supplementary Information](https://static-content.springer.com/esm/art%3A10.1038%2Fs41586-021-03819-2/MediaObjects/41586_2021_3819_MOESM1_ESM.pdf)
 for a detailed description of the method.
 
@@ -41,18 +48,25 @@ Clone this repository, then run `./install.sh`. The script requires `wget` to ru
 - `$CONDA_PREFIX`: The path for the newly-installed miniconda. Defaults to `/opt/conda` (for system-wide installations).
 - `$SUDO`: Either `y` or `n`. Defaults to `y`. If set to `y`, then the script will try to install AlphaFold system-wide, invoking `sudo` a few times. **Please be careful for running this script in SUDO mode.** Even though this script has been tested a few times, it is **NOT** fully tested for all types of Linux distros. (Currently tested in Ubuntu Server 16.04 LTS and Ubuntu Server 20.04 LTS)
 
+If you wish to run AlphaFold using Singularity (a common containerization platform on HPC systems) we recommend using some of the
+third party Singularity setups as linked in
+https://github.com/deepmind/alphafold/issues/10 or
+https://github.com/deepmind/alphafold/issues/24.
+
 ### Genetic databases
 
 This step requires `rsync` and `aria2c` to be installed on your machine.
 
 AlphaFold needs multiple genetic (sequence) databases to run:
 
-*   [UniRef90](https://www.uniprot.org/help/uniref),
-*   [MGnify](https://www.ebi.ac.uk/metagenomics/),
 *   [BFD](https://bfd.mmseqs.com/),
-*   [Uniclust30](https://uniclust.mmseqs.com/),
+*   [MGnify](https://www.ebi.ac.uk/metagenomics/),
 *   [PDB70](http://wwwuser.gwdg.de/~compbiol/data/hhsuite/databases/hhsuite_dbs/),
-*   [PDB](https://www.rcsb.org/) (structures in the mmCIF format).
+*   [PDB](https://www.rcsb.org/) (structures in the mmCIF format),
+*   [PDB seqres](https://www.rcsb.org/) – only for AlphaFold-Multimer,
+*   [Uniclust30](https://uniclust.mmseqs.com/),
+*   [UniProt](https://www.uniprot.org/uniprot/) – only for AlphaFold-Multimer,
+*   [UniRef90](https://www.uniprot.org/help/uniref).
 
 We provide a script `scripts/download_all_data.sh` that can be used to download
 and set up all of these databases. This should take 8–12 hours.
@@ -67,7 +81,11 @@ will download the full databases (including the `small_bfd` dataset).
 
 If such behavior is not desired or another database is being used, then the data directory could be explicitly passed as arguments, when invoking the `alphafold` script. (Please refer to the [next section](#running-alphafold) for more details.)
 
-We don't provide exactly the versions used in CASP14 -- see the [note on
+:ledger: **Note: The download directory `<DOWNLOAD_DIR>` should _not_ be a
+subdirectory in the AlphaFold repository directory.** If it is, the Docker build
+will be slow as the large databases will be copied during the image creation.
+
+We don't provide exactly the database versions used in CASP14 – see the [note on
 reproducibility](#note-on-reproducibility). Some of the databases are mirrored
 for speed, see [mirrored databases](#mirrored-databases).
 
@@ -76,8 +94,8 @@ and the total size when unzipped is 2.2 TB. Please make sure you have a large
 enough hard drive space, bandwidth and time to download. We recommend using an
 SSD for better genetic search performance.**
 
-This script will also download the model parameter files. Once the script has
-finished, you should have the following directory structure:
+The `download_all_data.sh` script will also download the model parameter files.
+Once the script has finished, you should have the following directory structure:
 
 ```txt
 $ALPHAFOLD_HOME/
@@ -85,23 +103,28 @@ $ALPHAFOLD_HOME/
         bfd/                                   # ~ 1.7 TB (download: 271.6 GB)
             # 6 files.
         mgnify/                                # ~ 64 GB (download: 32.9 GB)
-            mgy_clusters_2018_08.fa
+            mgy_clusters_2018_12.fa
         params/                                # ~ 3.5 GB (download: 3.5 GB)
             # 5 CASP14 models,
             # 5 pTM models,
+            # 5 AlphaFold-Multimer models,
             # LICENSE,
-            # = 11 files.
+            # = 16 files.
         pdb70/                                 # ~ 56 GB (download: 19.5 GB)
             # 9 files.
         pdb_mmcif/                             # ~ 206 GB (download: 46 GB)
             mmcif_files/
                 # About 180,000 .cif files.
             obsolete.dat
+        pdb_seqres/                            # ~ 0.2 GB (download: 0.2 GB)
+            pdb_seqres.txt
         small_bfd/                             # ~ 17 GB (download: 9.6 GB)
             bfd-first_non_consensus_sequences.fasta
         uniclust30/                            # ~ 86 GB (download: 24.9 GB)
             uniclust30_2018_08/
                 # 13 files.
+        uniprot/                               # ~ 98.3 GB (download: 49 GB)
+            uniprot.fasta
         uniref90/                              # ~ 58 GB (download: 29.7 GB)
             uniref90.fasta
 ```
@@ -114,7 +137,7 @@ CC BY-NC 4.0 license. Please see the [Disclaimer](#license-and-disclaimer) below
 for more detail.
 
 The AlphaFold parameters are available from
-https://storage.googleapis.com/alphafold/alphafold_params_2021-07-14.tar, and
+https://storage.googleapis.com/alphafold/alphafold_params_2021-10-27.tar, and
 are downloaded as part of the `scripts/download_all_data.sh` script. This script
 will download parameters for:
 
@@ -122,8 +145,46 @@ will download parameters for:
     structure prediction quality (see Jumper et al. 2021, Suppl. Methods 1.12
     for details).
 *   5 pTM models, which were fine-tuned to produce pTM (predicted TM-score) and
-    predicted aligned error values alongside their structure predictions (see
-    Jumper et al. 2021, Suppl. Methods 1.9.7 for details).
+    (PAE) predicted aligned error values alongside their structure predictions
+    (see Jumper et al. 2021, Suppl. Methods 1.9.7 for details).
+*   5 AlphaFold-Multimer models that produce pTM and PAE values alongside their
+    structure predictions.
+
+### Updating existing AlphaFold installation to include AlphaFold-Multimers
+
+If you have AlphaFold v2.0.0 or v2.0.1 you can either reinstall AlphaFold fully
+from scratch (remove everything and run the setup from scratch) or you can do an
+incremental update that will be significantly faster but will require a bit more
+work. Make sure you follow these steps in the exact order they are listed below:
+
+1.  **Update the code.**
+    *   Go to the directory with the cloned AlphaFold repository and run
+        `git fetch origin main` to get all code updates.
+1.  **Download the UniProt and PDB seqres databases.**
+    *   Run `scripts/download_uniprot.sh <DOWNLOAD_DIR>`.
+    *   Remove `<DOWNLOAD_DIR>/pdb_mmcif`. It is needed to have PDB SeqRes and
+        PDB from exactly the same date. Failure to do this step will result in
+        potential errors when searching for templates when running
+        AlphaFold-Multimer.
+    *   Run `scripts/download_pdb_mmcif.sh <DOWNLOAD_DIR>`.
+    *   Run `scripts/download_pdb_seqres.sh <DOWNLOAD_DIR>`.
+1.  **Update the model parameters.**
+    *   Remove the old model parameters in `<DOWNLOAD_DIR>/params`.
+    *   Download new model parameters using
+        `scripts/download_alphafold_params.sh <DOWNLOAD_DIR>`.
+1.  **Follow [Running AlphaFold](#running-alphafold).**
+
+#### API changes between v2.0.0 and v2.1.0
+
+We tried to keep the API as much backwards compatible as possible, but we had to
+change the following:
+
+*   The `RunModel.predict()` now needs a `random_seed` argument as MSA sampling
+    happens inside the Multimer model.
+*   The `preset` flag in `run_alphafold.py` and `run_docker.py` was split into
+    `db_preset` and `model_preset`.
+*   Setting the `data_dir` flag is now needed when using `run_docker.py`.
+
 
 ## Running AlphaFold
 
@@ -178,9 +239,9 @@ optional arguments:
   --small_bfd, --nosmall_bfd
                         Whether to use smaller genetic database config.
   --model_type MODEL_TYPE
-                        <normal|ptm>: Choose model type to use - the casp14
-                        equivalent model (normal), or fined-tunded pTM models
-                        (ptm).
+                        <normal|ptm|multimer>: Choose model type to use - the
+                        casp14 equivalent model (normal), fined-tunded pTM
+                        models (ptm), or the alphafold-multimer (multimer).
   --benchmark, --nobenchmark
                         Run multiple JAX model evaluations to obtain a timing
                         that excludes the compilation time, which should be
@@ -222,6 +283,28 @@ optional arguments:
   --overwrite, --nooverwrite
                         Whether to re-build the features, even if the result
                         exists in the target directories.
+```
+
+### Running AlphaFold-Multimer
+
+All steps are the same as when running the monomer system, but you will have to
+
+*   provide an input fasta with multiple sequences,
+*   set `--model_preset=multimer`,
+*   optionally set the `--is_prokaryote_list` flag with booleans that determine
+    whether all input sequences in the given fasta file are prokaryotic. If that
+    is not the case or the origin is unknown, set to `false` for that fasta.
+
+An example that folds two protein complexes `multimer1` and `multimer2` where
+the first is prokaryotic and the second isn't:
+
+```bash
+python3 docker/run_docker.py \
+  --fasta_paths=multimer1.fasta,multimer2.fasta \
+  --is_prokaryote_list=true,false \
+  --max_template_date=2020-05-14 \
+  --model_preset=multimer \
+  --data_dir=$DOWNLOAD_DIR
 ```
 
 ### AlphaFold output
@@ -293,6 +376,10 @@ The contents of each output file are as follows:
         serve for a visualisation of domain packing confidence within the
         structure.
 
+The pLDDT confidence measure is stored in the B-factor field of the output PDB
+files (although unlike a B-factor, higher pLDDT is better, so care must be taken
+when using for tasks such as molecular replacement).
+
 This code has been tested to match mean top-1 accuracy on a CASP14 test set with
 pLDDT ranking over 5 model predictions (some CASP targets were run with earlier
 versions of AlphaFold and some had manual interventions; see our forthcoming
@@ -315,7 +402,7 @@ develop on top of the `RunModel.predict` method with a parallel system for
 precomputing multi-sequence alignments. Alternatively, this script can be run
 repeatedly with only moderate overhead.
 
-## Note on reproducibility
+## Note on CASP14 reproducibility
 
 AlphaFold's output for a small number of proteins has high inter-run variance,
 and may be affected by changes in the input data. The CASP14 target T1064 is a
@@ -339,7 +426,7 @@ For genetics:
 For templates:
 
 *   PDB: (downloaded 2020-05-14)
-*   PDB70: (downloaded 2020-05-13)
+*   PDB70: [2020-05-13](http://wwwuser.gwdg.de/~compbiol/data/hhsuite/databases/hhsuite_dbs/old-releases/pdb70_from_mmcif_200513.tar.gz)
 
 An alternative for templates is to use the latest PDB and PDB70, but pass the
 flag `--max_template_date=2020-05-14`, which restricts templates only to
@@ -355,8 +442,25 @@ If you use the code or data in this package, please cite:
   journal = {Nature},
   title   = {Highly accurate protein structure prediction with {AlphaFold}},
   year    = {2021},
-  doi     = {10.1038/s41586-021-03819-2},
-  note    = {(Accelerated article preview)},
+  volume  = {596},
+  number  = {7873},
+  pages   = {583--589},
+  doi     = {10.1038/s41586-021-03819-2}
+}
+```
+
+In addition, if you use the AlphaFold-Multimer mode, please cite:
+
+```bibtex
+@article {AlphaFold-Multimer2021,
+  author       = {Evans, Richard and O{\textquoteright}Neill, Michael and Pritzel, Alexander and Antropova, Natasha and Senior, Andrew and Green, Tim and {\v{Z}}{\'\i}dek, Augustin and Bates, Russ and Blackwell, Sam and Yim, Jason and Ronneberger, Olaf and Bodenstein, Sebastian and Zielinski, Michal and Bridgland, Alex and Potapenko, Anna and Cowie, Andrew and Tunyasuvunakool, Kathryn and Jain, Rishub and Clancy, Ellen and Kohli, Pushmeet and Jumper, John and Hassabis, Demis},
+  journal      = {bioRxiv}
+  title        = {Protein complex prediction with AlphaFold-Multimer},
+  year         = {2021},
+  elocation-id = {2021.10.04.463034},
+  doi          = {10.1101/2021.10.04.463034},
+  URL          = {https://www.biorxiv.org/content/early/2021/10/04/2021.10.04.463034},
+  eprint       = {https://www.biorxiv.org/content/early/2021/10/04/2021.10.04.463034.full.pdf},
 }
 ```
 
@@ -392,6 +496,7 @@ and packages:
 *   [NumPy](https://numpy.org)
 *   [OpenMM](https://github.com/openmm/openmm)
 *   [OpenStructure](https://openstructure.org)
+*   [pandas](https://pandas.pydata.org/)
 *   [pymol3d](https://github.com/avirshup/py3dmol)
 *   [SciPy](https://scipy.org)
 *   [Sonnet](https://github.com/deepmind/sonnet)
@@ -444,8 +549,7 @@ The following databases have been mirrored by DeepMind, and are available with r
 
 *   [BFD](https://bfd.mmseqs.com/) (unmodified), by Steinegger M. and Söding J., available under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).
 
-*   [BFD](https://bfd.mmseqs.com/) (modified), by Steinegger M. and Söding J., modified by DeepMind, available under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/). See the Methods section of the [AlphaFold proteome paper]
-(https://www.nature.com/articles/s41586-021-03828-1) for details.
+*   [BFD](https://bfd.mmseqs.com/) (modified), by Steinegger M. and Söding J., modified by DeepMind, available under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/). See the Methods section of the [AlphaFold proteome paper](https://www.nature.com/articles/s41586-021-03828-1) for details.
 
 *   [Uniclust30: v2018_08](http://wwwuser.gwdg.de/~compbiol/uniclust/2018_08/) (unmodified), by Mirdita M. et al., available under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).
 

@@ -18,11 +18,13 @@ import os
 import pathlib
 import pickle
 import random
+import shutil
 import sys
+import time
 import multiprocessing
 from datetime import date
 from itertools import cycle
-from typing import List
+from typing import List, Dict, Union, Optional
 
 from absl import app
 from absl import flags
@@ -32,15 +34,13 @@ import numpy as np
 import jax
 from joblib import Parallel, delayed
 
-from alphafold.common import protein
-from alphafold.common import profiler
-from alphafold.data import pipeline
-from alphafold.data import templates
-from alphafold.model import data
-from alphafold.model import config
-from alphafold.model import model
-from alphafold.model import features
+from alphafold.common import protein, residue_constants, profiler
+from alphafold.model import config, model, features, data
+from alphafold.data import pipeline, pipeline_multimer, templates
+from alphafold.data.tools import hhsearch, hmmsearch
 # Internal import (7716).
+
+logging.set_verbosity(logging.INFO)
 
 #### USER CONFIGURATION ####
 
@@ -80,8 +80,15 @@ small_bfd_database_path = os.path.join(
 uniclust30_database_path = os.path.join(
     DOWNLOAD_DIR, 'uniclust30', 'uniclust30_2018_08', 'uniclust30_2018_08')
 
+# Path to the Uniprot database for use by JackHMMER.
+uniprot_database_path = os.path.join(DOWNLOAD_DIR, 'uniprot', 'uniprot.fasta')
+
 # Path to the PDB70 database for use by HHsearch.
 pdb70_database_path = os.path.join(DOWNLOAD_DIR, 'pdb70', 'pdb70')
+
+# Path to the PDB seqres database for use by hmmsearch.
+pdb_seqres_database_path = os.path.join(
+  DOWNLOAD_DIR, 'pdb_seqres', 'pdb_seqres.txt')
 
 # Path to a directory with template mmCIF structures, each named <pdb_id>.cif')
 template_mmcif_dir = os.path.join(DOWNLOAD_DIR, 'pdb_mmcif', 'mmcif_files')
@@ -90,6 +97,14 @@ template_mmcif_dir = os.path.join(DOWNLOAD_DIR, 'pdb_mmcif', 'mmcif_files')
 obsolete_pdbs_path = os.path.join(DOWNLOAD_DIR, 'pdb_mmcif', 'obsolete.dat')
 
 #### END OF USER CONFIGURATION ####
+
+flags.DEFINE_list('is_prokaryote_list', None, 'Optional for multimer system, '
+                  'not used by the single chain system. '
+                  'This list should contain a boolean for each fasta '
+                  'specifying true where the target complex is from a '
+                  'prokaryote, and false where it is not, or where the '
+                  'origin is unknown. These values determine the pairing '
+                  'method for the MSA.')
 
 flags.DEFINE_string('output_dir', output_dir, 'Path to a directory that will '
                     'store the results.')
@@ -109,7 +124,7 @@ flags.DEFINE_integer('ensemble', 1, 'Choose ensemble count: note that '
                      'have used 8 model ensemblings ("casp14").')
 flags.DEFINE_boolean('small_bfd', False,
                      'Whether to use smaller genetic database config.')
-flags.DEFINE_enum('model_type', 'normal', ['normal', 'ptm'],
+flags.DEFINE_enum('model_type', 'normal', ['normal', 'ptm', 'multimer'],
                   'Choose model type to use - the casp14 equivalent '
                   'model (normal), or fined-tunded pTM models (ptm).')
 flags.DEFINE_boolean('benchmark', False, 'Run multiple JAX model evaluations '
@@ -128,6 +143,12 @@ flags.DEFINE_string('hhblits_binary_path',
 flags.DEFINE_string('hhsearch_binary_path',
                     os.path.join(_conda_bin, 'hhsearch'),
                     'Path to the HHsearch executable.')
+flags.DEFINE_string('hmmsearch_binary_path',
+                    os.path.join(_conda_bin, 'hmmsearch'),
+                    'Path to the hmmsearch executable.')
+flags.DEFINE_string('hmmbuild_binary_path',
+                    os.path.join(_conda_bin, 'hmmbuild'),
+                    'Path to the hmmbuild executable.')
 flags.DEFINE_string('kalign_binary_path',
                     os.path.join(_conda_bin, 'kalign'),
                     'Path to the Kalign executable.')
@@ -141,8 +162,12 @@ flags.DEFINE_string('small_bfd_database_path', small_bfd_database_path,
                     'Path to the BFD database for use by HHblits.')
 flags.DEFINE_string('uniclust30_database_path', uniclust30_database_path,
                     'Path to the Uniclust30 database for use by HHblits.')
+flags.DEFINE_string('uniprot_database_path', uniprot_database_path,
+                    'Path to the Uniprot database for use by JackHMMer.')
 flags.DEFINE_string('pdb70_database_path', pdb70_database_path,
                     'Path to the PDB70 database for use by HHsearch.')
+flags.DEFINE_string('pdb_seqres_database_path', pdb_seqres_database_path,
+                    'Path to the PDB seqres database for use by hmmsearch.')
 flags.DEFINE_string('template_mmcif_dir', template_mmcif_dir,
                     'Path to a directory with template mmCIF structures, '
                     'each named <pdb_id>.cif')
@@ -170,11 +195,6 @@ def fasta_parser(argv):
 
 
 MAX_TEMPLATE_HITS = 20
-# RELAX_MAX_ITERATIONS = 0
-# RELAX_ENERGY_TOLERANCE = 2.39
-# RELAX_STIFFNESS = 10.0
-# RELAX_EXCLUDE_RESIDUES = []
-# RELAX_MAX_OUTER_ITERATIONS = 20
 
 
 def predict_structure_permodel(
@@ -194,7 +214,10 @@ def predict_structure_permodel(
 
   result_output_path = os.path.join(output_dir, f'result_{model_name}.pkl')
   model_config = config.model_config(model_id, model_type)
-  model_config.data.eval.num_ensemble = num_ensemble
+  if model_type == "multimer":
+    model_config.model.num_ensemble_eval = num_ensemble
+  else:
+    model_config.data.eval.num_ensemble = num_ensemble
 
   if not overwrite and os.path.isfile(result_output_path):
     print('Reusing existing model %s; pass --overwrite option to predict again'
@@ -214,15 +237,14 @@ def predict_structure_permodel(
 
     with profiler(f'process_features_{model_name}'):
       processed_feature_dict = model_runner.process_features(
-          feature_dict, random_seed=random_seed)
+          feature_dict, random_seed)
 
     with profiler(f'predict_and_compile_{model_name}') as p:
       prediction_result = model_runner.predict(processed_feature_dict)
 
-    print('Total JAX model %s predict time '
-          '(includes compilation time, see --benchmark): %s?' %
-          (model_name, p.delta),
-          file=sys.stderr)
+    fasta_name = os.path.basename(output_dir)
+    logging.info(f'Total JAX model {model_name} on {fasta_name} predict time '
+                 f'(includes compilation time, see --benchmark): {p.delta}')
 
     if benchmark:
       with profiler(f'predict_benchmark_{model_name}'):
@@ -234,10 +256,15 @@ def predict_structure_permodel(
       pickle.dump(prediction_result, f, protocol=4)
 
   # Get mean pLDDT confidence metric.
-  plddt = np.mean(prediction_result['plddt'])
+  plddt = prediction_result['plddt']
+  plddt_b_factors = np.repeat(
+        plddt[:, None], residue_constants.atom_type_num, axis=-1)
 
-  unrelaxed_protein = protein.from_prediction(processed_feature_dict,
-                                              prediction_result)
+  unrelaxed_protein = protein.from_prediction(
+    features=processed_feature_dict,
+    result=prediction_result,
+    b_factors=plddt_b_factors,
+    remove_leading_feature_dimension=not model_runner.multimer_mode)
   unrelaxed_pdb = protein.to_pdb(unrelaxed_protein)
 
   unrelaxed_pdb_path = os.path.join(output_dir, f'unrelaxed_{model_name}.pdb')
@@ -245,30 +272,8 @@ def predict_structure_permodel(
     with open(unrelaxed_pdb_path, 'w') as f:
       f.write(unrelaxed_pdb)
 
-  # Skip relaxation!
-  # # Relax the prediction.
-  # relaxed_output_path = os.path.join(output_dir, f'relaxed_{model_name}.pdb')
-  # if not overwrite and os.path.isfile(relaxed_output_path):
-  #   print('Reusing existing model %s; pass --overwrite option to relax again'
-  #         % model_name, file=sys.stderr, flush=True)
-  #   with open(relaxed_output_path) as f:
-  #     relaxed_pdb_str = f.read()
-  # else:
-  #   amber_relaxer = relax.AmberRelaxation(
-  #       max_iterations=RELAX_MAX_ITERATIONS,
-  #       tolerance=RELAX_ENERGY_TOLERANCE,
-  #       stiffness=RELAX_STIFFNESS,
-  #       exclude_residues=RELAX_EXCLUDE_RESIDUES,
-  #       max_outer_iterations=RELAX_MAX_OUTER_ITERATIONS)
-
-  #   with profiler(f'relax_{model_name}'):
-  #     relaxed_pdb_str, _, _ = amber_relaxer.process(prot=unrelaxed_protein)
-
-  #   # Save the relaxed PDB.
-  #   with open(relaxed_output_path, 'w') as f:
-  #     f.write(relaxed_pdb_str)
-
-  return model_name, profiler.timings, float(plddt), unrelaxed_pdb
+  ranking_confidence = prediction_result['ranking_confidence']
+  return model_name, profiler.timings, ranking_confidence, unrelaxed_pdb
 
 
 def predict_structure_perdev(model_ids: List[int],
@@ -281,8 +286,7 @@ def predict_structure_perdev(model_ids: List[int],
                              benchmark: bool,
                              device_id: int = None,
                              overwrite: bool = False):
-  print(f"device:{device_id} is assigned {model_ids}",
-        file=sys.stderr, flush=True)
+  logging.info(f"device:{device_id} is assigned {model_ids}")
   device = jax.devices()[device_id] if device_id is not None else None
   return [
       predict_structure_permodel(
@@ -300,15 +304,18 @@ def predict_structure(
     fasta_path: str,
     fasta_name: str,
     output_dir_base: str,
-    data_pipeline: pipeline.DataPipeline,
+    data_pipeline: Union[pipeline.DataPipeline, pipeline_multimer.DataPipeline],
     model_ids: List[int],
     model_type: str,
     num_ensemble: int,
     benchmark: bool,
     random_seed_seed: int,
     nproc: int = 1,
-    overwrite: bool = False):
+    is_prokaryote: Optional[bool] = None,
+    overwrite: Optional[bool] = False):
   """Predicts structure using AlphaFold for the given sequence."""
+  logging.info('Predicting %s', fasta_name)
+
   output_dir = os.path.join(output_dir_base, fasta_name)
   if not os.path.exists(output_dir):
     os.makedirs(output_dir)
@@ -325,16 +332,21 @@ def predict_structure(
   else:
     with profiler("features"):
       # Get features.
-      feature_dict = data_pipeline.process(
-          input_fasta_path=fasta_path,
-          msa_output_dir=msa_output_dir)
+      if is_prokaryote is None:
+        feature_dict = data_pipeline.process(
+            input_fasta_path=fasta_path,
+            msa_output_dir=msa_output_dir)
+      else:
+        feature_dict = data_pipeline.process(
+            input_fasta_path=fasta_path,
+            msa_output_dir=msa_output_dir,
+            is_prokaryote=is_prokaryote)
     # Write out features as a pickled dictionary.
     with open(features_output_path, 'wb') as f:
       pickle.dump(feature_dict, f, protocol=4)
 
   random.seed(random_seed_seed)
-  random_seeds = [random.randrange(sys.maxsize)
-                  for _ in range(len(model_ids))]
+  random_seeds = [random.randrange(sys.maxsize) for _ in range(len(model_ids))]
 
   # Run the models.
   backend = jax.default_backend()
@@ -370,17 +382,17 @@ def predict_structure(
       in zip(ids_chunked, random_seeds_chunked, cycle(dev_pool)))
   results = [result for dev_result in dev_results for result in dev_result]
 
-  plddts = {}
+  ranking_confidences = {}
   unrelaxed_pdbs = {}
-  for model_name, model_timings, plddt, pdb in results:
+  for model_name, model_timings, ranking_confidence, pdb in results:
     profiler.timings.update(model_timings)
-    plddts[model_name] = plddt
+    ranking_confidences[model_name] = ranking_confidence
     unrelaxed_pdbs[model_name] = pdb
 
-  # Rank by pLDDT and write out unrelaxed PDBs in rank order.
+  # Rank by model confidence and write out relaxed PDBs in rank order.
   ranked_order = []
   for idx, (model_name, _) in enumerate(
-      sorted(plddts.items(), key=lambda x: x[1], reverse=True)):
+      sorted(ranking_confidences.items(), key=lambda x: x[1], reverse=True)):
     ranked_order.append(model_name)
     ranked_output_path = os.path.join(output_dir, f'ranked_{idx}.pdb')
     with open(ranked_output_path, 'w') as f:
@@ -388,13 +400,15 @@ def predict_structure(
 
   ranking_output_path = os.path.join(output_dir, 'ranking_debug.json')
   with open(ranking_output_path, 'w') as f:
-    f.write(json.dumps({'plddts': plddts, 'order': ranked_order}, indent=4))
+    label = 'iptm+ptm' if 'iptm' in prediction_result else 'plddts'
+    f.write(json.dumps(
+        {label: ranking_confidences, 'order': ranked_order}, indent=4))
 
   timings_output_path = os.path.join(output_dir, 'timings.json')
   profiler.dump(timings_output_path)
 
 
-def main(fasta_paths):
+def main(fasta_paths: List[str]):
   # Check for duplicate FASTA file names and existence of them
   fasta_names = []
   for fasta_path in fasta_paths:
@@ -405,28 +419,71 @@ def main(fasta_paths):
   if len(fasta_names) != len(set(fasta_names)):
     raise ValueError('All FASTA paths must have a unique basename.')
 
-  template_featurizer = templates.TemplateHitFeaturizer(
-      mmcif_dir=FLAGS.template_mmcif_dir,
-      max_template_date=FLAGS.max_template_date,
-      max_hits=MAX_TEMPLATE_HITS,
-      kalign_binary_path=FLAGS.kalign_binary_path,
-      release_dates_path=None,
-      obsolete_pdbs_path=FLAGS.obsolete_pdbs_path)
+  run_multimer_system = 'multimer' in FLAGS.model_type
 
-  data_pipeline = pipeline.DataPipeline(
+  # Check that is_prokaryote_list has same number of elements as fasta_paths,
+  # and convert to bool.
+  if FLAGS.is_prokaryote_list:
+    if len(FLAGS.is_prokaryote_list) != len(FLAGS.fasta_paths):
+      raise ValueError('--is_prokaryote_list must either be omitted or match '
+                       'length of --fasta_paths.')
+    is_prokaryote_list = []
+    for s in FLAGS.is_prokaryote_list:
+      if s in ('true', 'false'):
+        is_prokaryote_list.append(s == 'true')
+      else:
+        raise ValueError('--is_prokaryote_list must contain comma separated '
+                         'true or false values.')
+  else:  # Default is_prokaryote to False.
+    is_prokaryote_list = [False] * len(fasta_names)
+
+  if run_multimer_system:
+    template_searcher = hmmsearch.Hmmsearch(
+        binary_path=FLAGS.hmmsearch_binary_path,
+        hmmbuild_binary_path=FLAGS.hmmbuild_binary_path,
+        database_path=FLAGS.pdb_seqres_database_path,
+        n_cpu=FLAGS.n_cpu)
+    template_featurizer = templates.HmmsearchHitFeaturizer(
+        mmcif_dir=FLAGS.template_mmcif_dir,
+        max_template_date=FLAGS.max_template_date,
+        max_hits=MAX_TEMPLATE_HITS,
+        kalign_binary_path=FLAGS.kalign_binary_path,
+        release_dates_path=None,
+        obsolete_pdbs_path=FLAGS.obsolete_pdbs_path)
+  else:
+    template_searcher = hhsearch.HHSearch(
+        binary_path=FLAGS.hhsearch_binary_path,
+        databases=[FLAGS.pdb70_database_path],
+        n_cpu=FLAGS.n_cpu)
+    template_featurizer = templates.HhsearchHitFeaturizer(
+        mmcif_dir=FLAGS.template_mmcif_dir,
+        max_template_date=FLAGS.max_template_date,
+        max_hits=MAX_TEMPLATE_HITS,
+        kalign_binary_path=FLAGS.kalign_binary_path,
+        release_dates_path=None,
+        obsolete_pdbs_path=FLAGS.obsolete_pdbs_path)
+
+  monomer_data_pipeline = pipeline.DataPipeline(
       jackhmmer_binary_path=FLAGS.jackhmmer_binary_path,
       hhblits_binary_path=FLAGS.hhblits_binary_path,
-      hhsearch_binary_path=FLAGS.hhsearch_binary_path,
       uniref90_database_path=FLAGS.uniref90_database_path,
       mgnify_database_path=FLAGS.mgnify_database_path,
       bfd_database_path=FLAGS.bfd_database_path,
       uniclust30_database_path=FLAGS.uniclust30_database_path,
       small_bfd_database_path=FLAGS.small_bfd_database_path,
-      pdb70_database_path=FLAGS.pdb70_database_path,
+      template_searcher=template_searcher,
       template_featurizer=template_featurizer,
       use_small_bfd=FLAGS.small_bfd,
       n_cpu=FLAGS.nproc,
       overwrite=FLAGS.overwrite)
+
+  if run_multimer_system:
+    data_pipeline = pipeline_multimer.DataPipeline(
+        monomer_data_pipeline=monomer_data_pipeline,
+        jackhmmer_binary_path=FLAGS.jackhmmer_binary_path,
+        uniprot_database_path=FLAGS.uniprot_database_path)
+  else:
+    data_pipeline = monomer_data_pipeline
 
   if FLAGS.model_cnt != 5:
     logging.warning("5 models is recommended, as AlphaFold provides 5 "

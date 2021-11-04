@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Common utilities for data pipeline tools."""
+import os
 import contextlib
 import shutil
 import tempfile
@@ -22,7 +23,7 @@ from absl import logging
 
 
 @contextlib.contextmanager
-def tmpdir_manager(base_dir: Optional[str] = None):
+def tmpdir_manager(base_dir: Optional[str] = os.getenv("TMPDIR", "/tmp")):
   """Context manager that deletes a temporary directory on exit."""
   tmpdir = tempfile.mkdtemp(dir=base_dir)
   try:

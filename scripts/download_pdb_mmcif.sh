@@ -19,6 +19,8 @@
 # Usage: bash download_pdb_mmcif.sh /path/to/download/directory
 set -e
 
+type parallel
+
 if [[ $# -eq 0 ]]; then
     echo "Error: download directory must be provided as an input argument."
     exit 1
@@ -41,21 +43,30 @@ MMCIF_DIR="${ROOT_DIR}/mmcif_files"
 
 echo "Running rsync to fetch all mmCIF files (note that the rsync progress estimate might be inaccurate)..."
 mkdir --parents "${RAW_DIR}"
-rsync --recursive --links --perms --times --compress --info=progress2 --delete --port=33444 \
-  rsync.rcsb.org::ftp_data/structures/divided/mmCIF/ \
-  "${RAW_DIR}"
+# Fetch all directories from the PDB FTP site.
+rsync -a --info=progress2 --delete --exclude='*.gz' \
+  ftp.pdbj.org::ftp_data/structures/divided/mmCIF/ "${RAW_DIR}"
+
+pushd "${RAW_DIR}"
+# Parallel download using up to 16 connections
+find -mindepth 1 -maxdepth 1 -type d -print0 \
+  | parallel -0 -j16 --bar rsync -amq --size-only --delete \
+      'ftp.pdbj.org::ftp_data/structures/divided/mmCIF/{/}/' '{}/'
+
+find -type d -empty -delete  # Delete empty directories.
 
 echo "Unzipping all mmCIF files..."
-find "${RAW_DIR}/" -type f -iname "*.gz" -exec gunzip {} +
+find -type f -iname "*.gz" -print0 \
+  | parallel -0 -n1024 -j8 --bar '(gzip -dkq {} &>/dev/null || true)'
+popd
 
 echo "Flattening all mmCIF files..."
+rm -rf "${MMCIF_DIR}"
 mkdir --parents "${MMCIF_DIR}"
-find "${RAW_DIR}" -type d -empty -delete  # Delete empty directories.
-for subdir in "${RAW_DIR}"/*; do
-  mv "${subdir}/"*.cif "${MMCIF_DIR}"
+for dir in "${RAW_DIR}"/*; do
+  mv -t "${MMCIF_DIR}/" "$dir/"*.cif
 done
+find "${RAW_DIR}" -type f -name '*.cif' -delete
 
-# Delete empty download directory structure.
-find "${RAW_DIR}" -type d -empty -delete
-
-aria2c "ftp://ftp.wwpdb.org/pub/pdb/data/status/obsolete.dat" --dir="${ROOT_DIR}"
+aria2c "ftp://ftp.wwpdb.org/pub/pdb/data/status/obsolete.dat" \
+  --allow-overwrite --dir="${ROOT_DIR}"

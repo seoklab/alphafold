@@ -32,8 +32,8 @@ else
 fi
 
 if ! command -v aria2c &> /dev/null ; then
-    echo "Error: aria2c could not be found. Please install aria2c (sudo apt install aria2)."
-    exit 1
+  echo "Error: aria2c could not be found. Please install aria2c (sudo apt install aria2)."
+  exit 1
 fi
 
 echo "Downloading AlphaFold parameters..."
@@ -59,5 +59,11 @@ bash "${SCRIPT_DIR}/download_uniclust30.sh" "${DOWNLOAD_DIR}"
 
 echo "Downloading Uniref90..."
 bash "${SCRIPT_DIR}/download_uniref90.sh" "${DOWNLOAD_DIR}"
+
+echo "Downloading UniProt..."
+bash "${SCRIPT_DIR}/download_uniprot.sh" "${DOWNLOAD_DIR}"
+
+echo "Downloading PDB SeqRes..."
+bash "${SCRIPT_DIR}/download_pdb_seqres.sh" "${DOWNLOAD_DIR}"
 
 echo "All data downloaded."
