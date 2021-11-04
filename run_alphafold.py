@@ -410,8 +410,18 @@ def predict_structure(
   profiler.dump(timings_output_path)
 
 
-def _check_multi():
-  pass
+def _check_multimer(fasta_path: str):
+  with open(fasta_path) as f:
+    for line in f:
+      if line.startswith('>'):
+        break
+    else:
+      raise ValueError('Fasta file contains no sequences.')
+
+    for line in f:
+      if line.startswith('>'):
+        return True
+  return False
 
 
 def main(fasta_paths: List[str]):
@@ -426,6 +436,12 @@ def main(fasta_paths: List[str]):
     raise ValueError('All FASTA paths must have a unique basename.')
 
   run_multimer_system = 'multimer' in FLAGS.model_type
+  if not run_multimer_system:
+    if any(_check_multimer(fasta_path) for fasta_path in fasta_paths):
+      logging.warning('FASTA file contains multiple sequences. '
+                      'Running multimer model instead.')
+      FLAGS.model_type = 'multimer'
+      run_multimer_system = True
 
   # Check that is_prokaryote_list has same number of elements as fasta_paths,
   # and convert to bool.
