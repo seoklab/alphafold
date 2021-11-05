@@ -317,7 +317,7 @@ optional arguments:
 All steps are the same as when running the monomer system, but you will have to
 
 *   provide an input fasta with multiple sequences,
-*   set `--model_preset=multimer`,
+*   set `--model_type=multimer`,
 *   optionally set the `--is_prokaryote_list` flag with booleans that determine
     whether all input sequences in the given fasta file are prokaryotic. If that
     is not the case or the origin is unknown, set to `false` for that fasta.
@@ -326,12 +326,11 @@ An example that folds two protein complexes `multimer1` and `multimer2` where
 the first is prokaryotic and the second isn't:
 
 ```bash
-python3 docker/run_docker.py \
-  --fasta_paths=multimer1.fasta,multimer2.fasta \
+alphafold \
   --is_prokaryote_list=true,false \
   --max_template_date=2020-05-14 \
-  --model_preset=multimer \
-  --data_dir=$DOWNLOAD_DIR
+  --model_type=multimer \
+  multimer1.fasta multimer2.fasta
 ```
 
 ### AlphaFold output
