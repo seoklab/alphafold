@@ -191,25 +191,31 @@ change the following:
 Invoke the runner script `alphafold` with the fasta paths as arguments. Full configurations is as followings.
 
 ```txt
-usage: alphafold [-h] [--helpfull] [--output_dir OUTPUT_DIR]
-                 [--model_cnt MODEL_CNT] [--nproc NPROC]
+usage: alphafold [-h] [--helpfull]
+                 [--is_prokaryote_list IS_PROKARYOTE_LIST]
+                 [--output_dir OUTPUT_DIR] [--model_cnt MODEL_CNT]
+                 [--nproc NPROC]
                  [--max_template_date MAX_TEMPLATE_DATE]
                  [--ensemble ENSEMBLE] [--small_bfd]
-                 [--model_type MODEL_TYPE] [--benchmark]
-                 [--data_dir DATA_DIR]
+                 [--model_type MODEL_TYPE] [--relax] [--benchmark]
+                 [--debug] [--quiet] [--data_dir DATA_DIR]
                  [--jackhmmer_binary_path JACKHMMER_BINARY_PATH]
                  [--hhblits_binary_path HHBLITS_BINARY_PATH]
                  [--hhsearch_binary_path HHSEARCH_BINARY_PATH]
+                 [--hmmsearch_binary_path HMMSEARCH_BINARY_PATH]
+                 [--hmmbuild_binary_path HMMBUILD_BINARY_PATH]
                  [--kalign_binary_path KALIGN_BINARY_PATH]
                  [--uniref90_database_path UNIREF90_DATABASE_PATH]
                  [--mgnify_database_path MGNIFY_DATABASE_PATH]
                  [--bfd_database_path BFD_DATABASE_PATH]
                  [--small_bfd_database_path SMALL_BFD_DATABASE_PATH]
                  [--uniclust30_database_path UNICLUST30_DATABASE_PATH]
+                 [--uniprot_database_path UNIPROT_DATABASE_PATH]
                  [--pdb70_database_path PDB70_DATABASE_PATH]
+                 [--pdb_seqres_database_path PDB_SEQRES_DATABASE_PATH]
                  [--template_mmcif_dir TEMPLATE_MMCIF_DIR]
                  [--obsolete_pdbs_path OBSOLETE_PDBS_PATH]
-                 [--random_seed_seed RANDOM_SEED_SEED] [--overwrite]
+                 [--random_seed RANDOM_SEED] [--overwrite]
                  fasta_paths [fasta_paths ...]
 
 positional arguments:
@@ -221,6 +227,13 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   --helpfull            show full help message and exit
+  --is_prokaryote_list IS_PROKARYOTE_LIST
+                        Optional for multimer system, not used by the single
+                        chain system. This list should contain a boolean for
+                        each fasta specifying true where the target complex is
+                        from a prokaryote, and false where it is not, or where
+                        the origin is unknown. These values determine the
+                        pairing method for the MSA.
   --output_dir OUTPUT_DIR
                         Path to a directory that will store the results.
   --model_cnt MODEL_CNT
@@ -239,14 +252,21 @@ optional arguments:
   --small_bfd, --nosmall_bfd
                         Whether to use smaller genetic database config.
   --model_type MODEL_TYPE
-                        <normal|ptm|multimer>: Choose model type to use - the
-                        casp14 equivalent model (normal), fined-tunded pTM
-                        models (ptm), or the alphafold-multimer (multimer).
+                        <normal|ptm|multimer|casp14>: Choose model type to use
+                        - the casp14 equivalent model (normal), fined-tunded
+                        pTM models (ptm), the alphafold-multimer (multimer),
+                        and normal model with 8 model ensemblings (casp14).
+                        Note that the casp14 preset is just an alias of
+                        --model_type=normal --ensemble=8 option.
+  --relax, --norelax    Whether to relax the predicted structure.
   --benchmark, --nobenchmark
                         Run multiple JAX model evaluations to obtain a timing
                         that excludes the compilation time, which should be
                         more indicative of the time required for inferencing
                         many proteins.
+  --debug, --nodebug    Whether to print debug output.
+  --quiet, --noquiet    Whether to silence non-warning messages. Takes
+                        precedence over --debug option.
   --data_dir DATA_DIR   Path to directory of supporting data.
   --jackhmmer_binary_path JACKHMMER_BINARY_PATH
                         Path to the JackHMMER executable.
@@ -254,6 +274,10 @@ optional arguments:
                         Path to the HHblits executable.
   --hhsearch_binary_path HHSEARCH_BINARY_PATH
                         Path to the HHsearch executable.
+  --hmmsearch_binary_path HMMSEARCH_BINARY_PATH
+                        Path to the hmmsearch executable.
+  --hmmbuild_binary_path HMMBUILD_BINARY_PATH
+                        Path to the hmmbuild executable.
   --kalign_binary_path KALIGN_BINARY_PATH
                         Path to the Kalign executable.
   --uniref90_database_path UNIREF90_DATABASE_PATH
@@ -266,20 +290,23 @@ optional arguments:
                         Path to the BFD database for use by HHblits.
   --uniclust30_database_path UNICLUST30_DATABASE_PATH
                         Path to the Uniclust30 database for use by HHblits.
+  --uniprot_database_path UNIPROT_DATABASE_PATH
+                        Path to the Uniprot database for use by JackHMMer.
   --pdb70_database_path PDB70_DATABASE_PATH
                         Path to the PDB70 database for use by HHsearch.
+  --pdb_seqres_database_path PDB_SEQRES_DATABASE_PATH
+                        Path to the PDB seqres database for use by hmmsearch.
   --template_mmcif_dir TEMPLATE_MMCIF_DIR
                         Path to a directory with template mmCIF structures,
                         each named <pdb_id>.cif
   --obsolete_pdbs_path OBSOLETE_PDBS_PATH
                         Path to file containing a mapping from obsolete PDB
                         IDs to the PDB IDs of their replacements.
-  --random_seed_seed RANDOM_SEED_SEED
-                        The random seed for the random seed for the data
-                        pipeline. By default, this is randomly generated. Note
-                        that even if this is set,Alphafold may still not be
-                        deterministic, because processes like GPU inference
-                        are nondeterministic.
+  --random_seed RANDOM_SEED
+                        The random seed for the data pipeline. By default,
+                        this is randomly generated. Note that even if this is
+                        set, Alphafold may still not be deterministic, because
+                        processes like GPU inference are nondeterministic.
   --overwrite, --nooverwrite
                         Whether to re-build the features, even if the result
                         exists in the target directories.
@@ -504,9 +531,10 @@ and packages:
 *   [Tree](https://github.com/deepmind/tree)
 *   [tqdm](https://github.com/tqdm/tqdm)
 
-Seoklab version makes use of one extra libary:
+Seoklab version makes use of two extra libaries:
 
 * [Joblib](https://github.com/joblib/joblib)
+* [psutil](https://github.com/giampaolo/psutil)
 
 We thank all their contributors and maintainers!
 
