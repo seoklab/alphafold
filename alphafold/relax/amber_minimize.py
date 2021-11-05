@@ -20,23 +20,24 @@ from typing import Collection, Optional, Sequence
 from absl import logging
 from alphafold.common import protein
 from alphafold.common import residue_constants
+from alphafold.common import devices
 from alphafold.common import profiler
 from alphafold.model import folding
 from alphafold.relax import cleanup
 from alphafold.relax import utils
 import ml_collections
 import numpy as np
-from simtk import openmm
-from simtk import unit
-from simtk.openmm import app as openmm_app
-from simtk.openmm.app.internal.pdbstructure import PdbStructure
+import openmm
+import openmm.app
+from openmm import unit
+from openmm.app.internal.pdbstructure import PdbStructure
 
 
 ENERGY = unit.kilocalories_per_mole
 LENGTH = unit.angstroms
 
 
-def will_restrain(atom: openmm_app.Atom, rset: str) -> bool:
+def will_restrain(atom: openmm.app.Atom, rset: str) -> bool:
   """Returns True if the atom will be restrained by the given restraint set."""
 
   if rset == "non_hydrogen":
@@ -47,7 +48,7 @@ def will_restrain(atom: openmm_app.Atom, rset: str) -> bool:
 
 def _add_restraints(
     system: openmm.System,
-    reference_pdb: openmm_app.PDBFile,
+    reference_pdb: openmm.app.PDBFile,
     stiffness: unit.Unit,
     rset: str,
     exclude_residues: Sequence[int]):
@@ -80,19 +81,19 @@ def _openmm_minimize(
   """Minimize energy via openmm."""
 
   pdb_file = io.StringIO(pdb_str)
-  pdb = openmm_app.PDBFile(pdb_file)
+  pdb = openmm.app.PDBFile(pdb_file)
 
-  force_field = openmm_app.ForceField("amber99sb.xml")
-  constraints = openmm_app.HBonds
+  force_field = openmm.app.ForceField("amber99sb.xml")
+  constraints = openmm.app.HBonds
   system = force_field.createSystem(
       pdb.topology, constraints=constraints)
   if stiffness > 0 * ENERGY / (LENGTH**2):
     _add_restraints(system, pdb, stiffness, restraint_set, exclude_residues)
 
   integrator = openmm.LangevinIntegrator(0, 0.01, 0.0)
-  platform = openmm.Platform.getPlatformByName("CPU")
-  simulation = openmm_app.Simulation(
-      pdb.topology, system, integrator, platform)
+  platform = openmm.Platform.getPlatformByName(devices.PLATFORM)
+  simulation = openmm.app.Simulation(
+      pdb.topology, system, integrator, platform, devices.PROPERTIES)
   simulation.context.setPositions(pdb.positions)
 
   ret = {}
@@ -108,17 +109,17 @@ def _openmm_minimize(
   return ret
 
 
-def _get_pdb_string(topology: openmm_app.Topology, positions: unit.Quantity):
+def _get_pdb_string(topology: openmm.app.Topology, positions: unit.Quantity):
   """Returns a pdb string provided OpenMM topology and positions."""
   with io.StringIO() as f:
-    openmm_app.PDBFile.writeFile(topology, positions, f)
+    openmm.app.PDBFile.writeFile(topology, positions, f)
     return f.getvalue()
 
 
 def _check_cleaned_atoms(pdb_cleaned_string: str, pdb_ref_string: str):
   """Checks that no atom positions have been altered by cleaning."""
-  cleaned = openmm_app.PDBFile(io.StringIO(pdb_cleaned_string))
-  reference = openmm_app.PDBFile(io.StringIO(pdb_ref_string))
+  cleaned = openmm.app.PDBFile(io.StringIO(pdb_cleaned_string))
+  reference = openmm.app.PDBFile(io.StringIO(pdb_ref_string))
 
   cl_xyz = np.array(cleaned.getPositions().value_in_unit(LENGTH))
   ref_xyz = np.array(reference.getPositions().value_in_unit(LENGTH))
@@ -176,7 +177,7 @@ def clean_protein(
   logging.info("alterations info: %s", alterations_info)
 
   # Write pdb file of cleaned structure.
-  as_file = openmm_app.PDBFile(pdb_structure)
+  as_file = openmm.app.PDBFile(pdb_structure)
   pdb_string = _get_pdb_string(as_file.getTopology(), as_file.getPositions())
   if checks:
     _check_cleaned_atoms(pdb_string, prot_pdb_string)
@@ -518,19 +519,18 @@ def get_initial_energies(pdb_strs: Sequence[str],
   """
   exclude_residues = exclude_residues or []
 
-  openmm_pdbs = [openmm_app.PDBFile(PdbStructure(io.StringIO(p)))
+  openmm_pdbs = [openmm.app.PDBFile(PdbStructure(io.StringIO(p)))
                  for p in pdb_strs]
-  force_field = openmm_app.ForceField("amber99sb.xml")
+  force_field = openmm.app.ForceField("amber99sb.xml")
   system = force_field.createSystem(openmm_pdbs[0].topology,
-                                    constraints=openmm_app.HBonds)
+                                    constraints=openmm.app.HBonds)
   stiffness = stiffness * ENERGY / (LENGTH**2)
   if stiffness > 0 * ENERGY / (LENGTH**2):
     _add_restraints(system, openmm_pdbs[0], stiffness, restraint_set,
                     exclude_residues)
-  simulation = openmm_app.Simulation(openmm_pdbs[0].topology,
-                                     system,
-                                     openmm.LangevinIntegrator(0, 0.01, 0.0),
-                                     openmm.Platform.getPlatformByName("CPU"))
+  simulation = openmm.app.Simulation(
+      openmm_pdbs[0].topology, system, openmm.LangevinIntegrator(0, 0.01, 0.0),
+      openmm.Platform.getPlatformByName(devices.PLATFORM), devices.PROPERTIES)
   energies = []
   for pdb in openmm_pdbs:
     try:

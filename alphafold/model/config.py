@@ -61,7 +61,6 @@ MODEL_PRESETS: Dict[str, Tuple[str]] = {
         'model_5_multimer',
     ),
 }
-MODEL_PRESETS['casp14'] = MODEL_PRESETS['normal']
 
 
 CONFIG_DIFFS = {

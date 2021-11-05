@@ -13,8 +13,10 @@ TF_FORCE_UNIFIED_MEMORY=1                                                      \
   MKL_NUM_THREADS="${MKL_NUM_THREADS-NSLOTS}"                                  \
   OMP_NUM_THREADS="${OMP_NUM_THREADS-NSLOTS}"                                  \
   OPENBLAS_NUM_THREADS="${OPENBLAS_NUM_THREADS-NSLOTS}"                        \
+  OPENMM_CPU_THREADS="${OPENMM_CPU_THREADS-NSLOTS}"                            \
   XLA_FLAGS="--xla_cpu_multi_thread_eigen=true \
 intra_op_parallelism_threads='$NSLOTS' \
 inter_op_parallelism_threads='$NSLOTS' ${XLA_FLAGS-}"                          \
+  LD_LIBRARY_PATH="$ALPHAFOLD_CONDA_PREFIX/lib64/stubs:${LD_LIBRARY_PATH-}"    \
   python -W 'ignore:resource_tracker:UserWarning'                              \
          -u "${ALPHAFOLD_HOME}/run_alphafold.py" ${__args[@]+"${__args[@]}"}

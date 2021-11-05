@@ -73,7 +73,7 @@ class RunAlphafoldTest(parameterized.TestCase):
         output_dir_base=out_dir,
         data_pipeline=data_pipeline_mock,
         model_runners={'model1': model_runner_mock},
-        amber_relaxer=amber_relaxer_mock if do_relax else None,
+        relaxer=amber_relaxer_mock if do_relax else None,
         benchmark=False,
         random_seed=0)
 

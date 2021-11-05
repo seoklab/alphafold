@@ -32,13 +32,14 @@ import numpy as np
 import jax
 from joblib import Parallel, delayed
 
-from alphafold.common import protein, residue_constants, profiler
-from alphafold.model import config, model, features, data
+from alphafold.common import protein, residue_constants, devices, profiler
+from alphafold.model import config, model, data
 from alphafold.data import pipeline, pipeline_multimer, templates
 from alphafold.data.tools import hhsearch, hmmsearch
-# Internal import (7716).
+from alphafold.relax import relax
 
-logging.set_verbosity(logging.INFO)
+from utils import check_nvidia_cache
+# Internal import (7716).
 
 #### USER CONFIGURATION ####
 
@@ -123,13 +124,22 @@ flags.DEFINE_integer('ensemble', 1, 'Choose ensemble count: note that '
                      'have used 8 model ensemblings ("casp14").')
 flags.DEFINE_boolean('small_bfd', False,
                      'Whether to use smaller genetic database config.')
-flags.DEFINE_enum('model_type', 'normal', ['normal', 'ptm', 'multimer'],
+flags.DEFINE_enum('model_type', 'normal',
+                  tuple(config.MODEL_PRESETS) + ("casp14", ),
                   'Choose model type to use - the casp14 equivalent '
-                  'model (normal), or fined-tunded pTM models (ptm).')
+                  'model (normal), fined-tunded pTM models (ptm), '
+                  'the alphafold-multimer (multimer), and normal model with '
+                  '8 model ensemblings (casp14).\n'
+                  'Note that the casp14 preset is just an alias of '
+                  '--model_type=normal --ensemble=8 option.')
+flags.DEFINE_boolean('relax', True, 'Whether to relax the predicted structure.')
 flags.DEFINE_boolean('benchmark', False, 'Run multiple JAX model evaluations '
                      'to obtain a timing that excludes the compilation time, '
                      'which should be more indicative of the time required '
                      'for inferencing many proteins.')
+flags.DEFINE_boolean('debug', False, 'Whether to print debug output.')
+flags.DEFINE_boolean('quiet', False, 'Whether to silence non-warning messages. '
+                     'Takes precedence over --debug option.')
 
 flags.DEFINE_string('data_dir', data_dir,
                     'Path to directory of supporting data.')
@@ -175,7 +185,7 @@ flags.DEFINE_string('obsolete_pdbs_path', obsolete_pdbs_path,
                     'to the PDB IDs of their replacements.')
 flags.DEFINE_integer('random_seed', None, 'The random seed for the '
                      'data pipeline. By default, this is randomly generated. '
-                     'Note that even if this is set, Alphafold may still'
+                     'Note that even if this is set, Alphafold may still '
                      'not be deterministic, because processes like '
                      'GPU inference are nondeterministic.')
 flags.DEFINE_boolean('overwrite', False, 'Whether to re-build the features, '
@@ -196,6 +206,11 @@ def fasta_parser(argv):
 
 
 MAX_TEMPLATE_HITS = 20
+RELAX_MAX_ITERATIONS = 0
+RELAX_ENERGY_TOLERANCE = 2.39
+RELAX_STIFFNESS = 10.0
+RELAX_EXCLUDE_RESIDUES = []
+RELAX_MAX_OUTER_ITERATIONS = 3
 
 
 def predict_structure_permodel(
@@ -220,26 +235,21 @@ def predict_structure_permodel(
   else:
     model_config.data.eval.num_ensemble = num_ensemble
 
+  model_params = data.get_model_haiku_params(model_id=model_id,
+                                             model_type=model_type,
+                                             data_dir=data_dir)
+  model_runner = model.RunModel(model_config, model_params, device=device)
+  with profiler(f'process_features_{model_name}'):
+    processed_feature_dict = model_runner.process_features(
+        feature_dict, random_seed)
+
   if not overwrite and os.path.isfile(result_output_path):
     logging.info(f'Reusing existing model {model_name}; '
                  'pass --overwrite option to predict again')
 
-    with profiler(f'process_features_{model_name}'):
-      processed_feature_dict = features.np_example_to_features(
-          feature_dict, model_config, random_seed=random_seed)
-
     with open(result_output_path, 'rb') as f:
       prediction_result = pickle.load(f)
   else:
-    model_params = data.get_model_haiku_params(model_id=model_id,
-                                               model_type=model_type,
-                                               data_dir=data_dir)
-    model_runner = model.RunModel(model_config, model_params, device=device)
-
-    with profiler(f'process_features_{model_name}'):
-      processed_feature_dict = model_runner.process_features(
-          feature_dict, random_seed)
-
     with profiler(f'predict_and_compile_{model_name}') as p:
       prediction_result = model_runner.predict(processed_feature_dict,
                                                random_seed)
@@ -276,7 +286,8 @@ def predict_structure_permodel(
 
   ranking_confidence = prediction_result['ranking_confidence']
   label = 'iptm+ptm' if 'iptm' in prediction_result else 'plddts'
-  return label, model_name, profiler.timings, ranking_confidence, unrelaxed_pdb
+  return (label, model_name, profiler.timings, ranking_confidence,
+          unrelaxed_protein)
 
 
 def predict_structure_perdev(model_ids: List[int],
@@ -288,7 +299,11 @@ def predict_structure_perdev(model_ids: List[int],
                              feature_dict: dict,
                              benchmark: bool,
                              device_id: int = None,
-                             overwrite: bool = False):
+                             overwrite: bool = False,
+                             _loglvl: int = logging.INFO):
+  # Required for multiprocessing
+  logging.set_verbosity(_loglvl)
+
   logging.info(f"device:{device_id} is assigned {model_ids}")
   device = jax.devices()[device_id] if device_id is not None else None
   return [
@@ -308,12 +323,13 @@ def predict_structure(
     fasta_name: str,
     output_dir_base: str,
     data_pipeline: Union[pipeline.DataPipeline, pipeline_multimer.DataPipeline],
-    model_ids: List[int],
+    model_ids_chunked: List[List[int]],
     model_type: str,
     num_ensemble: int,
+    relaxer: relax.AmberRelaxation,
     benchmark: bool,
-    random_seed: int,
-    nproc: int = 1,
+    random_seeds_chunked: List[List[int]],
+    n_jobs: int,
     is_prokaryote: Optional[bool] = None,
     overwrite: Optional[bool] = False):
   """Predicts structure using AlphaFold for the given sequence."""
@@ -348,49 +364,51 @@ def predict_structure(
     with open(features_output_path, 'wb') as f:
       pickle.dump(feature_dict, f, protocol=4)
 
-  num_models = len(model_ids)
-  random_seeds = [i + random_seed * num_models for i in range(num_models)]
-
   # Run the models.
-  backend = jax.default_backend()
-  if backend != "cpu":
-    dev_cnt = len(jax.devices())
-    dev_pool = range(dev_cnt)
-  else:
-    dev_cnt = 1
-    dev_pool = [None]
-
-  n_jobs = min(num_models, dev_cnt)
-  ids_chunked = _chunk_list(model_ids, n_jobs)
-  random_seeds_chunked = _chunk_list(random_seeds, n_jobs)
-
-  if backend == "cpu":
-    per_pool_nproc = str(max(nproc // n_jobs, 1))
-    os.environ["OMP_NUM_THREADS"] = per_pool_nproc
-    os.environ["MKL_NUM_THREADS"] = per_pool_nproc
-    os.environ["OPENBLAS_NUM_THREADS"] = per_pool_nproc
-
-    old_xla_flags = os.environ.get("XLA_FLAGS", "")
-    os.environ["XLA_FLAGS"] = old_xla_flags + (
-        f"--xla_cpu_multi_thread_eigen=true "
-        f"intra_op_parallelism_threads={nproc} "
-        f"inter_op_parallelism_threads={nproc}")
-
   multiprocessing.set_start_method("spawn")
   dev_results = Parallel(n_jobs=n_jobs, backend="multiprocessing")(
       delayed(predict_structure_perdev)(
           ids, model_type, seeds, output_dir, FLAGS.data_dir, num_ensemble,
-          feature_dict, benchmark, device_id=device_id, overwrite=overwrite)
+          feature_dict, benchmark, device_id=device_id, overwrite=overwrite,
+          _loglvl=logging.get_verbosity())
       for ids, seeds, device_id
-      in zip(ids_chunked, random_seeds_chunked, cycle(dev_pool)))
+      in zip(model_ids_chunked, random_seeds_chunked, cycle(devices.DEV_POOL)))
   results = [result for dev_result in dev_results for result in dev_result]
 
   ranking_confidences = {}
-  unrelaxed_pdbs = {}
-  for _, model_name, model_timings, ranking_confidence, pdb in results:
+  unrelaxed_prots = {}
+  for _, model_name, model_timings, ranking_confidence, prot in results:
     profiler.timings.update(model_timings)
     ranking_confidences[model_name] = ranking_confidence
-    unrelaxed_pdbs[model_name] = pdb
+    unrelaxed_prots[model_name] = prot
+
+  if relaxer:
+    result_pdbs = {}
+    for model_name, unrelaxed_prot in unrelaxed_prots.items():
+      relaxed_output_path = os.path.join(output_dir,
+                                         f'relaxed_{model_name}.pdb')
+
+      if not overwrite and os.path.isfile(relaxed_output_path):
+        logging.info(f'Reusing existing relaxed model {model_name}; '
+                     'pass --overwrite option to relax again')
+        with open(relaxed_output_path, 'r') as f:
+          relaxed_pdb = f.read()
+      else:
+        # Relax the prediction.
+        with profiler(f'relax_{model_name}'):
+          relaxed_pdb, *_ = relaxer.process(prot=unrelaxed_prot)
+
+        # Save the relaxed PDB.
+        with open(relaxed_output_path, 'w') as f:
+          f.write(relaxed_pdb)
+
+      result_pdbs[model_name] = relaxed_pdb
+  else:
+    logging.info(f'Skipping relaxation for {model_name}')
+    result_pdbs = {
+        model_name: protein.to_pdb(prot)
+        for model_name, prot in unrelaxed_prots.items()
+    }
 
   # Rank by model confidence and write out relaxed PDBs in rank order.
   ranked_order = []
@@ -399,7 +417,7 @@ def predict_structure(
     ranked_order.append(model_name)
     ranked_output_path = os.path.join(output_dir, f'ranked_{idx}.pdb')
     with open(ranked_output_path, 'w') as f:
-      f.write(unrelaxed_pdbs[model_name])
+      f.write(result_pdbs[model_name])
 
   ranking_output_path = os.path.join(output_dir, 'ranking_debug.json')
   with open(ranking_output_path, 'w') as f:
@@ -435,6 +453,32 @@ def main(fasta_paths: List[str]):
   if len(fasta_names) != len(set(fasta_names)):
     raise ValueError('All FASTA paths must have a unique basename.')
 
+  logging.set_verbosity(logging.INFO)
+  if FLAGS.debug:
+    logging.set_verbosity(logging.DEBUG)
+  if FLAGS.quiet:
+    logging.set_verbosity(logging.WARNING)
+
+  check_nvidia_cache()
+
+  model_ids = list(range(FLAGS.model_cnt))
+  logging.info('Have %d models: %s', FLAGS.model_cnt, model_ids)
+  if FLAGS.model_cnt != 5:
+    logging.warning("5 models is recommended, as AlphaFold provides 5 "
+                    "pretrained model configurations")
+
+  random_seed = FLAGS.random_seed
+  if random_seed is None:
+    random_seed = random.randrange(sys.maxsize // FLAGS.model_cnt)
+  logging.info('Using random seed %d for the data pipeline', random_seed)
+  random_seeds: List[int] = [
+      i + random_seed * FLAGS.model_cnt for i in range(FLAGS.model_cnt)
+  ]
+
+  n_jobs = min(FLAGS.model_cnt, devices.DEV_CNT)
+  model_ids_chunked = list(_chunk_list(model_ids, n_jobs))
+  random_seeds_chunked = list(_chunk_list(random_seeds, n_jobs))
+
   run_multimer_system = 'multimer' in FLAGS.model_type
   if not run_multimer_system:
     if any(_check_multimer(fasta_path) for fasta_path in fasta_paths):
@@ -442,6 +486,9 @@ def main(fasta_paths: List[str]):
                       'Running multimer model instead.')
       FLAGS.model_type = 'multimer'
       run_multimer_system = True
+    elif FLAGS.model_type == 'casp14':
+      FLAGS.model_type = 'normal'
+      FLAGS.ensemble = 8
 
   # Check that is_prokaryote_list has same number of elements as fasta_paths,
   # and convert to bool.
@@ -502,37 +549,37 @@ def main(fasta_paths: List[str]):
   if run_multimer_system:
     data_pipeline = pipeline_multimer.DataPipeline(
         monomer_data_pipeline=monomer_data_pipeline,
-        jackhmmer_binary_path=FLAGS.jackhmmer_binary_path,
         uniprot_database_path=FLAGS.uniprot_database_path)
   else:
     data_pipeline = monomer_data_pipeline
 
-  if FLAGS.model_cnt != 5:
-    logging.warning("5 models is recommended, as AlphaFold provides 5 "
-                    "pretrained model configurations")
-
-  model_ids = list(range(FLAGS.model_cnt))
-  logging.info('Have %d models: %s', FLAGS.model_cnt, model_ids)
-
-  random_seed = FLAGS.random_seed
-  if random_seed is None:
-    random_seed = random.randrange(sys.maxsize // FLAGS.model_cnt)
-  logging.info('Using random seed %d for the data pipeline', random_seed)
+  if FLAGS.relax:
+    relaxer = relax.AmberRelaxation(
+        max_iterations=RELAX_MAX_ITERATIONS,
+        tolerance=RELAX_ENERGY_TOLERANCE,
+        stiffness=RELAX_STIFFNESS,
+        exclude_residues=RELAX_EXCLUDE_RESIDUES,
+        max_outer_iterations=RELAX_MAX_OUTER_ITERATIONS)
+  else:
+    relaxer = None
 
   # Predict structure for each of the sequences.
-  for fasta_path, fasta_name in zip(fasta_paths, fasta_names):
-    with profiler(
-        f"fasta name {fasta_name}", printer=logging.info, store=False):
+  for fasta_path, fasta_name, is_prokaryote \
+      in zip(fasta_paths, fasta_names, is_prokaryote_list):
+    with profiler(f"fasta name {fasta_name}", printer=logging.info,
+                  store=False):
       predict_structure(fasta_path=fasta_path,
                         fasta_name=fasta_name,
                         output_dir_base=FLAGS.output_dir,
                         data_pipeline=data_pipeline,
-                        model_ids=model_ids,
+                        model_ids_chunked=model_ids_chunked,
                         model_type=FLAGS.model_type,
                         num_ensemble=FLAGS.ensemble,
+                        relaxer=relaxer,
                         benchmark=FLAGS.benchmark,
-                        random_seed=random_seed,
-                        nproc=FLAGS.nproc,
+                        random_seeds_chunked=random_seeds_chunked,
+                        n_jobs=n_jobs,
+                        is_prokaryote=is_prokaryote,
                         overwrite=FLAGS.overwrite)
 
 

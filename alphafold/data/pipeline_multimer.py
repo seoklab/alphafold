@@ -172,7 +172,6 @@ class DataPipeline:
 
   def __init__(self,
                monomer_data_pipeline: pipeline.DataPipeline,
-               jackhmmer_binary_path: str,
                uniprot_database_path: str,
                max_uniprot_hits: int = 50000):
     """Initializes the data pipeline.
@@ -180,14 +179,13 @@ class DataPipeline:
     Args:
       monomer_data_pipeline: An instance of pipeline.DataPipeline - that runs
         the data pipeline for the monomer AlphaFold system.
-      jackhmmer_binary_path: Location of the jackhmmer binary.
       uniprot_database_path: Location of the unclustered uniprot sequences, that
         will be searched with jackhmmer and used for MSA pairing.
       max_uniprot_hits: The maximum number of hits to return from uniprot.
     """
     self._monomer_data_pipeline = monomer_data_pipeline
     self._uniprot_msa_runner = jackhmmer.Jackhmmer(
-        binary_path=jackhmmer_binary_path,
+        binary_path=monomer_data_pipeline.jackhmmer_uniref90_runner.binary_path,
         database_path=uniprot_database_path,
         n_cpu=monomer_data_pipeline.n_cpu)
     self._max_uniprot_hits = max_uniprot_hits
