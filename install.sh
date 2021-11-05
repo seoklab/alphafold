@@ -49,20 +49,24 @@ wget -P alphafold/common/ https://git.scicore.unibas.ch/schwede/openstructure/-/
 
 source "$__conda_prefix/bin/activate"
 conda update -y -c conda-forge -n base conda
-conda create -y -c defaults -n alphafold2 python=3.8 joblib --no-default-packages
+conda create -y -c conda-forge -n alphafold2 python=3.8
 
 conda activate alphafold2
 conda install -y -c conda-forge openmm=7.6 pdbfixer=1.8 cudnn=8.2 \
                                 cudatoolkit=11.0 cudatoolkit-dev=11.0 \
-                                psutil
+                                numpy=1.19 scipy=1.7 pandas=1.3 \
+                                biopython=1.79 absl-py=0.13 psutil joblib
 conda install -y -c bioconda hmmer=3.3 hhsuite=3.3 kalign2=2.04
 conda install -y -c nvidia libcusolver=11
 
-pip install absl-py==0.13.0 biopython==1.79 chex==0.0.7 dm-haiku==0.0.4   \
-    dm-tree==0.1.6 immutabledict==2.0.0 jax==0.2.14 ml-collections==0.1.0 \
-    numpy==1.19.5 pandas==1.3.4 scipy==1.7.0 tensorflow==2.5.0
+pip install chex==0.0.7 dm-haiku==0.0.4 dm-tree==0.1.6 immutabledict==2.0.0 \
+    jax==0.2.14 ml-collections==0.1.0 tensorflow==2.5.0
 pip install --upgrade jax jaxlib==0.1.69+cuda110 \
             -f https://storage.googleapis.com/jax-releases/jax_releases.html
+
+pushd "$CONDA_PREFIX/lib/python3.8/site-packages"
+git am "$__alphafold_home/patch/pdbfixer.patch"
+popd
 
 python setup.py develop
 

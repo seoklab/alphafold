@@ -1,0 +1,26 @@
+From 01281b4217704188d158c31ad2c9bdf3cbc53985 Mon Sep 17 00:00:00 2001
+From: jnooree <jnooree@snu.ac.kr>
+Date: Fri, 5 Nov 2021 13:35:47 +0900
+Subject: [PATCH] Fix DeprecationWarning (openmm/pdbfixer#233)
+
+Resolves openmm/pdbfixer#233.
+---
+ pdbfixer/soft.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pdbfixer/soft.xml b/pdbfixer/soft.xml
+index 477b4ed..78aa919 100644
+--- a/pdbfixer/soft.xml
++++ b/pdbfixer/soft.xml
+@@ -4223,7 +4223,7 @@
+   <Improper class1="C" class2="C" class3="C" class4="O"  periodicity1="2" phase1="3.14159" k1="43.932" />
+  </PeriodicTorsionForce>
+  <Script>
+-import simtk.openmm as mm
++import openmm as mm
+ nb = mm.CustomNonbondedForce('C/((r/0.2)^4+1)')
+ nb.addGlobalParameter('C', 1.0)
+ sys.addForce(nb)
+-- 
+2.33.1
+
