@@ -13,7 +13,8 @@ AlphaFold system.
 [Read the guide](#updating-existing-alphafold-installation-to-include-alphafold-multimers)
 for how to upgrade and update code.
 
-Any publication that discloses findings arising from using this source code or the model parameters should [cite](#citing-this-work) the
+Any publication that discloses findings arising from using this source code or
+the model parameters should [cite](#citing-this-work) the
 [AlphaFold  paper](https://doi.org/10.1038/s41586-021-03819-2) and, if
 applicable, the [AlphaFold-Multimer paper](https://www.biorxiv.org/content/10.1101/2021.10.04.463034v1).
 
@@ -33,22 +34,32 @@ Seoklab version of AlphaFold has few changes:
 - Major changes
   - No docker, no system libraries (please refer to [kalininalab/alphafold_non_docker](https://github.com/kalininalab/alphafold_non_docker) repository and [install.sh](install.sh)).
   - Can use multiple GPUs for inference.
-  - Skip relaxation step, as it takes very long time (~30 min per model) for preprocessing.
-  - Add environment variables `ALPHAFOLD_HOME` and `ALPHAFOLD_CONDA_PREFIX` for dynamic path resolving.
+  - Add environment variables `ALPHAFOLD_HOME` and `ALPHAFOLD_CONDA_PREFIX` for
+    dynamic path resolving.
 - Minor changes
   - Add runner script [`alphafold`](bin/alphafold).
-  - Support "resuming"; this version will automatically try to use the previous results, if they exists. You can force everything to run again by passing `--overwrite` flag from the command line.
+  - Support "resuming"; this version will automatically try to use the previous
+    results, if they exists. You can force everything to run again by passing
+    `--overwrite` flag from the command line.
   - Make command line interface more user-friendly.
   - Code refactoring.
 
 ## First time setup
 
-Clone this repository, then run `./install.sh`. The script requires `wget` to run. Few variables could change the behavior of the script, namely:
+Clone this repository, then run `./install.sh`. The script requires `wget` to
+run. Few variables could change the behavior of the script, namely:
 
-- `$CONDA_PREFIX`: The path for the newly-installed miniconda. Defaults to `/opt/conda` (for system-wide installations).
-- `$SUDO`: Either `y` or `n`. Defaults to `y`. If set to `y`, then the script will try to install AlphaFold system-wide, invoking `sudo` a few times. **Please be careful for running this script in SUDO mode.** Even though this script has been tested a few times, it is **NOT** fully tested for all types of Linux distros. (Currently tested in Ubuntu Server 16.04 LTS and Ubuntu Server 20.04 LTS)
+- `$CONDA_PREFIX`: The path for the newly-installed miniconda. Defaults to
+  `/opt/conda` (for system-wide installations).
+- `$SUDO`: Either `y` or `n`. Defaults to `y`. If set to `y`, then the script
+  will try to install AlphaFold system-wide, invoking `sudo` a few times.
+  **Please be careful for running this script in SUDO mode.** Even though this
+  script has been tested a few times, it is **NOT** fully tested for all types
+  of Linux distros. (Currently tested on Ubuntu Server 16.04 LTS and Ubuntu
+  Server 20.04 LTS)
 
-If you wish to run AlphaFold using Singularity (a common containerization platform on HPC systems) we recommend using some of the
+If you wish to run AlphaFold using Singularity (a common containerization
+platform on HPC systems) we recommend using some of the
 third party Singularity setups as linked in
 https://github.com/deepmind/alphafold/issues/10 or
 https://github.com/deepmind/alphafold/issues/24.
@@ -77,9 +88,16 @@ scripts/download_all_data.sh [<DOWNLOAD_DIR>]
 
 will download the full databases (including the `small_bfd` dataset).
 
-**The data should be downloaded into `$ALPHAFOLD_HOME/data`.** If you have chosen the other directory for the data to live, then it must be explicitly passed to the downloader script as a command line argument. The script will then automatically create a symlink pointing to the target directory at `$ALPHAFOLD_HOME/data`.
+**The data should be downloaded into `$ALPHAFOLD_HOME/data`.** If you have
+chosen the other directory for the data to live, then it must be explicitly
+passed to the downloader script as a command line argument. The script will then
+automatically create a symlink pointing to the target directory at
+`$ALPHAFOLD_HOME/data`.
 
-If such behavior is not desired or another database is being used, then the data directory could be explicitly passed as arguments, when invoking the `alphafold` script. (Please refer to the [next section](#running-alphafold) for more details.)
+If such behavior is not desired or another database is being used, then the data
+directory could be explicitly passed as arguments, when invoking the `alphafold`
+script. (Please refer to the [next section](#running-alphafold) for more
+details.)
 
 :ledger: **Note: The download directory `<DOWNLOAD_DIR>` should _not_ be a
 subdirectory in the AlphaFold repository directory.** If it is, the Docker build
@@ -188,7 +206,8 @@ change the following:
 
 ## Running AlphaFold
 
-Invoke the runner script `alphafold` with the fasta paths as arguments. Full configurations is as followings.
+Invoke the runner script `alphafold` with the fasta paths as arguments. Full
+configurations is as followings.
 
 ```txt
 usage: alphafold [-h] [--helpfull]
@@ -333,12 +352,16 @@ alphafold \
   multimer1.fasta multimer2.fasta
 ```
 
+Note that if any of the provided fasta files contains multiple chains, then the
+script automatically changes to multimer mode **even if the other model type was
+explicitly given**. Please provide single chains only to use other model types.
+
 ### AlphaFold output
 
-The outputs will be **in the current directory** for the default settings. They include the computed MSAs,
-unrelaxed structures, relaxed structures, ranked structures, raw model outputs,
-prediction metadata, and section timings. The directory will have
-the following structure:
+The outputs will be **in the current directory** for the default settings. They
+include the computed MSAs, unrelaxed structures, relaxed structures, ranked
+structures, raw model outputs, prediction metadata, and section timings.
+The directory will have the following structure:
 
 ```txt
 <target_name>/
@@ -350,7 +373,8 @@ the following structure:
     timings.json
     unrelaxed_model_{1,2,3,4,5,...}.pdb
     msas/
-        [bfd_uniclust_hits.a3m | small_bfd_hits.sto] (depending on configuration)
+        (depending on configuration)
+        [bfd_uniclust_hits.a3m | small_bfd_hits.sto]
         mgnify_hits.sto
         uniref90_hits.a3m
         uniref90_hits.sto
@@ -572,7 +596,8 @@ before use.
 
 ### Mirrored Databases
 
-The following databases have been mirrored by DeepMind, and are available with reference to the following:
+The following databases have been mirrored by DeepMind, and are available with
+reference to the following:
 
 *   [BFD](https://bfd.mmseqs.com/) (unmodified), by Steinegger M. and Söding J., available under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).
 
