@@ -30,6 +30,7 @@ from absl import logging
 from absl.flags import argparse_flags
 import numpy as np
 import jax
+import psutil
 from joblib import Parallel, delayed
 
 from alphafold.common import protein, residue_constants, devices, profiler
@@ -37,8 +38,6 @@ from alphafold.model import config, model, data
 from alphafold.data import pipeline, pipeline_multimer, templates
 from alphafold.data.tools import hhsearch, hmmsearch
 from alphafold.relax import relax
-
-from utils import check_nvidia_cache
 # Internal import (7716).
 
 #### USER CONFIGURATION ####
@@ -192,6 +191,41 @@ flags.DEFINE_boolean('overwrite', False, 'Whether to re-build the features, '
                      'even if the result exists in the target directories.')
 FLAGS = flags.FLAGS
 # yapf: enable
+
+
+def check_nvidia_cache():
+  pass
+
+
+if devices.BACKEND != "cpu":
+  _NFS_CACHE = frozenset(
+      os.stat(pi.mountpoint).st_dev
+      for pi in psutil.disk_partitions(all=True)
+      if pi.fstype == 'nfs')
+
+  if _NFS_CACHE:
+
+    def check_nvidia_cache():  # noqa: F811
+      nvidia_cachedir = os.path.expanduser('~/.nv')
+      nvidia_cachedir_non_nfs = os.path.expandvars("/tmp/$USER/nv")
+
+      try:
+        devid = os.stat(nvidia_cachedir, follow_symlinks=True).st_dev
+      except FileNotFoundError:
+        # Maybe broken symlink, test it
+        if os.path.islink(nvidia_cachedir):
+          os.makedirs(nvidia_cachedir_non_nfs, exist_ok=True)
+          assert os.path.isdir(nvidia_cachedir)
+          return
+
+      if devid in _NFS_CACHE:
+        raise RuntimeError("NVIDIA cache dir must be on non-nfs mountpoint, "
+                           "Please remove ~/.nv and retry.")
+      elif os.path.exists(nvidia_cachedir):
+        return
+
+      os.makedirs(nvidia_cachedir_non_nfs, exist_ok=True)
+      os.symlink(nvidia_cachedir_non_nfs, nvidia_cachedir)
 
 
 def fasta_parser(argv):
