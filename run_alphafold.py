@@ -99,12 +99,11 @@ obsolete_pdbs_path = os.path.join(DOWNLOAD_DIR, 'pdb_mmcif', 'obsolete.dat')
 
 # yapf: disable
 flags.DEFINE_list('is_prokaryote_list', None, 'Optional for multimer system, '
-                  'not used by the single chain system. '
-                  'This list should contain a boolean for each fasta '
-                  'specifying true where the target complex is from a '
-                  'prokaryote, and false where it is not, or where the '
-                  'origin is unknown. These values determine the pairing '
-                  'method for the MSA.')
+                  'not used by the single chain system. This list should '
+                  'contain a boolean for each fasta specifying true where the '
+                  'target complex is from a prokaryote, and false where it is '
+                  'not, or where the origin is unknown. These values determine '
+                  'the pairing method for the MSA.')
 
 flags.DEFINE_string('output_dir', output_dir, 'Path to a directory that will '
                     'store the results.')
@@ -230,12 +229,15 @@ if devices.BACKEND != "cpu":
 
 def fasta_parser(argv):
   parser = argparse_flags.ArgumentParser()
-  parser.add_argument("fasta_paths",
-                      nargs="+",
-                      help='Paths to FASTA files, each containing '
-                      'one sequence. All FASTA paths must have '
-                      'a unique basename as the basename is used to name the '
-                      'output directories for each prediction.')
+  parser.add_argument(
+      "fasta_paths",
+      nargs="+",
+      help='Paths to FASTA files, each containing a prediction '
+      'target that will be folded one after another. If a FASTA file contains '
+      'multiple sequences, then it will be folded as a multimer. Paths should '
+      'be separated by commas. All FASTA paths must have a unique basename as '
+      'the basename is used to name the output directories for each prediction.'
+  )
   return parser.parse_args(argv[1:]).fasta_paths
 
 
