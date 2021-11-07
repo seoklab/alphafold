@@ -15,7 +15,7 @@ for how to upgrade and update code.
 
 Any publication that discloses findings arising from using this source code or
 the model parameters should [cite](#citing-this-work) the
-[AlphaFold  paper](https://doi.org/10.1038/s41586-021-03819-2) and, if
+[AlphaFold paper](https://doi.org/10.1038/s41586-021-03819-2) and, if
 applicable, the [AlphaFold-Multimer paper](https://www.biorxiv.org/content/10.1101/2021.10.04.463034v1).
 
 Please also refer to the
