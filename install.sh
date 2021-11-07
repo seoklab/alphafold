@@ -65,7 +65,7 @@ pip install --upgrade jax jaxlib==0.1.69+cuda110 \
             -f https://storage.googleapis.com/jax-releases/jax_releases.html
 
 pushd "$CONDA_PREFIX/lib/python3.8/site-packages"
-git am "$__alphafold_home/patch/pdbfixer.patch"
+git apply "$__alphafold_home/patch/pdbfixer.patch"
 popd
 
 python setup.py develop
