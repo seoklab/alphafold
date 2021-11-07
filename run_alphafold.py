@@ -228,7 +228,7 @@ if devices.BACKEND != "cpu":
 
 
 def fasta_parser(argv):
-  parser = argparse_flags.ArgumentParser()
+  parser = argparse_flags.ArgumentParser(prog="alphafold")
   parser.add_argument(
       "fasta_paths",
       nargs="+",

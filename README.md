@@ -214,14 +214,12 @@ Invoke the runner script `alphafold` with the fasta paths as arguments. Full
 configurations is as followings.
 
 ```txt
-usage: alphafold [-h] [--helpfull]
-                 [--is_prokaryote_list IS_PROKARYOTE_LIST]
+usage: alphafold [-h] [--helpfull] [--is_prokaryote_list IS_PROKARYOTE_LIST]
                  [--output_dir OUTPUT_DIR] [--model_cnt MODEL_CNT]
-                 [--nproc NPROC]
-                 [--max_template_date MAX_TEMPLATE_DATE]
-                 [--ensemble ENSEMBLE] [--small_bfd]
-                 [--model_type MODEL_TYPE] [--relax] [--benchmark]
-                 [--debug] [--quiet] [--data_dir DATA_DIR]
+                 [--nproc NPROC] [--max_template_date MAX_TEMPLATE_DATE]
+                 [--ensemble ENSEMBLE] [--small_bfd] [--model_type MODEL_TYPE]
+                 [--relax] [--benchmark] [--debug] [--quiet]
+                 [--data_dir DATA_DIR]
                  [--jackhmmer_binary_path JACKHMMER_BINARY_PATH]
                  [--hhblits_binary_path HHBLITS_BINARY_PATH]
                  [--hhsearch_binary_path HHSEARCH_BINARY_PATH]
@@ -242,10 +240,13 @@ usage: alphafold [-h] [--helpfull]
                  fasta_paths [fasta_paths ...]
 
 positional arguments:
-  fasta_paths           Paths to FASTA files, each containing one sequence.
-                        All FASTA paths must have a unique basename as the
-                        basename is used to name the output directories for
-                        each prediction.
+  fasta_paths           Paths to FASTA files, each containing a prediction
+                        target that will be folded one after another. If a
+                        FASTA file contains multiple sequences, then it will
+                        be folded as a multimer. Paths should be separated by
+                        commas. All FASTA paths must have a unique basename as
+                        the basename is used to name the output directories
+                        for each prediction.
 
 optional arguments:
   -h, --help            show this help message and exit
