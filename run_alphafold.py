@@ -20,6 +20,7 @@ import pickle
 import random
 import sys
 import multiprocessing
+import shutil
 from datetime import date
 from itertools import cycle
 from typing import List, Union, Optional
@@ -217,12 +218,11 @@ if devices.BACKEND != "cpu":
           os.makedirs(nvidia_cachedir_non_nfs, exist_ok=True)
           assert os.path.isdir(nvidia_cachedir)
           return
-
-      if devid in _NFS_CACHE:
-        raise RuntimeError("NVIDIA cache dir must be on non-nfs mountpoint, "
-                           "Please remove ~/.nv and retry.")
-      elif os.path.exists(nvidia_cachedir):
-        return
+      else:
+        if devid in _NFS_CACHE:
+          shutil.rmtree(nvidia_cachedir, ignore_errors=True)
+        elif os.path.exists(nvidia_cachedir):
+          return
 
       os.makedirs(nvidia_cachedir_non_nfs, exist_ok=True)
       os.symlink(nvidia_cachedir_non_nfs, nvidia_cachedir)
@@ -526,10 +526,13 @@ def main(fasta_paths: List[str]):
 
   # Check that is_prokaryote_list has same number of elements as fasta_paths,
   # and convert to bool.
-  if FLAGS.is_prokaryote_list:
-    if len(FLAGS.is_prokaryote_list) != len(FLAGS.fasta_paths):
+  if not run_multimer_system:
+    is_prokaryote_list = [None] * len(fasta_paths)
+  elif FLAGS.is_prokaryote_list:
+    if len(FLAGS.is_prokaryote_list) != len(fasta_paths):
       raise ValueError('--is_prokaryote_list must either be omitted or match '
                        'length of --fasta_paths.')
+
     is_prokaryote_list = []
     for s in FLAGS.is_prokaryote_list:
       if s in ('true', 'false'):
@@ -538,7 +541,7 @@ def main(fasta_paths: List[str]):
         raise ValueError('--is_prokaryote_list must contain comma separated '
                          'true or false values.')
   else:  # Default is_prokaryote to False.
-    is_prokaryote_list = [False] * len(fasta_names)
+    is_prokaryote_list = [False] * len(fasta_paths)
 
   if run_multimer_system:
     template_searcher = hmmsearch.Hmmsearch(
