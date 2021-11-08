@@ -50,7 +50,7 @@ rsync -a --info=progress2 --delete --exclude='*.gz' \
 pushd "${RAW_DIR}"
 # Parallel download using up to 16 connections
 find -mindepth 1 -maxdepth 1 -type d -print0 \
-  | parallel -0 -j16 --bar rsync -amq --size-only --delete \
+  | parallel -0 -j16 --bar rsync -amq --delete \
       'ftp.pdbj.org::ftp_data/structures/divided/mmCIF/{/}/' '{}/'
 
 find -type d -empty -delete  # Delete empty directories.
@@ -66,7 +66,6 @@ mkdir --parents "${MMCIF_DIR}"
 for dir in "${RAW_DIR}"/*; do
   mv -t "${MMCIF_DIR}/" "$dir/"*.cif
 done
-find "${RAW_DIR}" -type f -name '*.cif' -delete
 
 aria2c "ftp://ftp.wwpdb.org/pub/pdb/data/status/obsolete.dat" \
   --allow-overwrite --dir="${ROOT_DIR}"

@@ -32,22 +32,18 @@ fi
 
 DOWNLOAD_DIR="$1"
 ROOT_DIR="${DOWNLOAD_DIR}/uniprot"
+SOURCE_FILE="$(dirname "$0")/uniprot.txt"
 
-TREMBL_SOURCE_FILE="$(dirname "$0")/uniprot_trembl.txt"
-TREMBL_BASENAME="$(basename "$(cut -d $'\t' -f 1 "${TREMBL_SOURCE_FILE}")")"
+TREMBL_BASENAME="$(basename "$(head -1 "${SOURCE_FILE}" | cut -d $'\t' -f 1)")"
 TREMBL_UNZIPPED_BASENAME="${TREMBL_BASENAME%.gz}"
-
-SPROT_SOURCE_FILE="$(dirname "$0")/uniprot_sprot.txt"
-SPROT_BASENAME="$(basename "$(cut -d $'\t' -f 1 "${SPROT_SOURCE_FILE}")")"
+SPROT_BASENAME="$(basename "$(tail -1 "${SOURCE_FILE}" | cut -d $'\t' -f 1)")"
 SPROT_UNZIPPED_BASENAME="${SPROT_BASENAME%.gz}"
 
 mkdir --parents "${ROOT_DIR}"
-aria2c -x16 -j32 -i "${TREMBL_SOURCE_FILE}" --dir="${ROOT_DIR}"
-aria2c -x16 -j32 -i "${SPROT_SOURCE_FILE}" --dir="${ROOT_DIR}"
+aria2c -x16 -j32 -i "${SOURCE_FILE}" --dir="${ROOT_DIR}"
 
 pushd "${ROOT_DIR}"
-pigz -d "${TREMBL_BASENAME}"
-pigz -d "${SPROT_BASENAME}"
+gunzip *.gz
 
 # Concatenate TrEMBL and SwissProt, rename to uniprot and clean up.
 cat "${SPROT_UNZIPPED_BASENAME}" >> "${TREMBL_UNZIPPED_BASENAME}"

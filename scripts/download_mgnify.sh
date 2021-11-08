@@ -37,5 +37,6 @@ BASENAME="$(basename "${SOURCE_FILE}")"
 mkdir --parents "${ROOT_DIR}"
 aria2c -x16 -j32 -i "${SOURCE_FILE}" --dir="${ROOT_DIR}"
 pushd "${ROOT_DIR}"
-gunzip "${ROOT_DIR}/${BASENAME}"
+gunzip "${BASENAME}"
+ln -fs "${BASENAME%.gz}" "mgy_clusters.fa"
 popd
