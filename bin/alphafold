@@ -19,10 +19,10 @@ source "$ALPHAFOLD_CONDA_PREFIX/bin/activate" alphafold2
 
 TF_FORCE_UNIFIED_MEMORY=1                                                      \
   XLA_PYTHON_CLIENT_MEM_FRACTION='4.0'                                         \
-  MKL_NUM_THREADS="${MKL_NUM_THREADS-NSLOTS}"                                  \
-  OMP_NUM_THREADS="${OMP_NUM_THREADS-NSLOTS}"                                  \
-  OPENBLAS_NUM_THREADS="${OPENBLAS_NUM_THREADS-NSLOTS}"                        \
-  OPENMM_CPU_THREADS="${OPENMM_CPU_THREADS-NSLOTS}"                            \
+  MKL_NUM_THREADS="${MKL_NUM_THREADS-$NSLOTS}"                                  \
+  OMP_NUM_THREADS="${OMP_NUM_THREADS-$NSLOTS}"                                  \
+  OPENBLAS_NUM_THREADS="${OPENBLAS_NUM_THREADS-$NSLOTS}"                        \
+  OPENMM_CPU_THREADS="${OPENMM_CPU_THREADS-$NSLOTS}"                            \
   XLA_FLAGS="--xla_cpu_multi_thread_eigen=true \
 intra_op_parallelism_threads='$NSLOTS' \
 inter_op_parallelism_threads='$NSLOTS' ${XLA_FLAGS-}"                          \
