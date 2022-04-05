@@ -27,6 +27,9 @@ for a detailed description of the method.
 notebook](https://colab.research.google.com/github/deepmind/alphafold/blob/main/notebooks/AlphaFold.ipynb)**
 or community-supported versions (see below).
 
+If you have any questions, please contact the AlphaFold team at
+[alphafold@deepmind.com](mailto:alphafold@deepmind.com).
+
 ![CASP14 predictions](imgs/casp14_predictions.gif)
 
 Seoklab version of AlphaFold has few changes:
@@ -150,12 +153,11 @@ $ALPHAFOLD_HOME/
 ### Model parameters
 
 While the AlphaFold code is licensed under the Apache 2.0 License, the AlphaFold
-parameters are made available for non-commercial use only under the terms of the
-CC BY-NC 4.0 license. Please see the [Disclaimer](#license-and-disclaimer) below
-for more detail.
+parameters are made available under the terms of the CC BY 4.0 license. Please
+see the [Disclaimer](#license-and-disclaimer) below for more detail.
 
 The AlphaFold parameters are available from
-https://storage.googleapis.com/alphafold/alphafold_params_2021-10-27.tar, and
+https://storage.googleapis.com/alphafold/alphafold_params_2022-03-02.tar, and
 are downloaded as part of the `scripts/download_all_data.sh` script. This script
 will download parameters for:
 
@@ -207,6 +209,25 @@ change the following:
     `alphafold/model/config.py`.
 *   Setting the `data_dir` flag is now needed when using `run_docker.py`.
 
+#### API changes between v2.1.0 and v2.2.0
+
+The AlphaFold-Multimer model weights have been updated, these new models have
+greatly reduced numbers of clashes on average and are slightly more accurate.
+
+A flag `--num_multimer_predictions_per_model` has been added that controls how
+many predictions will be made per model, by default the offline system will run
+each model 5 times for a total of 25 predictions.
+
+The `--is_prokaryote_list` flag has been removed along with the `is_prokaryote`
+argument in `run_alphafold.predict_structure()`, eukaryotes and prokaryotes are
+now paired in the same way.
+
+To use the deprecated v2.1.0 AlphaFold-Multimer model weights:
+
+1.  Change `SOURCE_URL` in `scripts/download_alphafold_params.sh` to
+`https://storage.googleapis.com/alphafold/alphafold_params_2022-01-19.tar`,
+and download the old parameters.
+2.  Remove the `_v2` in the multimer `MODEL_PRESETS` in `config.py`.
 
 ## Running AlphaFold
 
@@ -215,10 +236,12 @@ configurations is as followings.
 
 ```txt
 usage: alphafold [-h] [--helpfull] [--is_prokaryote_list IS_PROKARYOTE_LIST]
-                 [--output_dir OUTPUT_DIR] [--model_cnt MODEL_CNT]
-                 [--nproc NPROC] [--max_template_date MAX_TEMPLATE_DATE]
-                 [--ensemble ENSEMBLE] [--small_bfd] [--model_type MODEL_TYPE]
-                 [--relax] [--benchmark] [--debug] [--quiet]
+                 [--output_dir OUTPUT_DIR] [--overwrite]
+                 [--model_cnt MODEL_CNT] [--nproc NPROC]
+                 [--max_template_date MAX_TEMPLATE_DATE] [--ensemble ENSEMBLE]
+                 [--small_bfd] [--model_type MODEL_TYPE]
+                 [--num_multimer_predictions_per_model NUM_MULTIMER_PREDICTIONS_PER_MODEL]
+                 [--run_relax] [--benchmark] [--debug] [--quiet]
                  [--data_dir DATA_DIR]
                  [--jackhmmer_binary_path JACKHMMER_BINARY_PATH]
                  [--hhblits_binary_path HHBLITS_BINARY_PATH]
@@ -236,7 +259,7 @@ usage: alphafold [-h] [--helpfull] [--is_prokaryote_list IS_PROKARYOTE_LIST]
                  [--pdb_seqres_database_path PDB_SEQRES_DATABASE_PATH]
                  [--template_mmcif_dir TEMPLATE_MMCIF_DIR]
                  [--obsolete_pdbs_path OBSOLETE_PDBS_PATH]
-                 [--random_seed RANDOM_SEED] [--overwrite]
+                 [--random_seed RANDOM_SEED]
                  fasta_paths [fasta_paths ...]
 
 positional arguments:
@@ -260,6 +283,9 @@ optional arguments:
                         pairing method for the MSA.
   --output_dir OUTPUT_DIR
                         Path to a directory that will store the results.
+  --overwrite, --nooverwrite
+                        Whether to re-build the features, even if the result
+                        exists in the target directories.
   --model_cnt MODEL_CNT
                         Counts of models to use. Note that AlphaFold provides
                         5 pretrained models, so setting the count other than 5
@@ -282,7 +308,18 @@ optional arguments:
                         and normal model with 8 model ensemblings (casp14).
                         Note that the casp14 preset is just an alias of
                         --model_type=normal --ensemble=8 option.
-  --relax, --norelax    Whether to relax the predicted structure.
+  --num_multimer_predictions_per_model NUM_MULTIMER_PREDICTIONS_PER_MODEL
+                        How many predictions (each with a different random
+                        seed) will be generated per model. E.g. if this is 2
+                        and there are 5 models then there will be 10
+                        predictions per input. Note: this FLAG only applies if
+                        model_preset=multimer
+  --run_relax, --norun_relax
+                        Whether to run the final relaxation step on the
+                        predicted models. Turning relax off might result in
+                        predictions with distracting stereochemical violations
+                        but might help in case you are having issues with the
+                        relaxation stage.
   --benchmark, --nobenchmark
                         Run multiple JAX model evaluations to obtain a timing
                         that excludes the compilation time, which should be
@@ -331,9 +368,6 @@ optional arguments:
                         this is randomly generated. Note that even if this is
                         set, Alphafold may still not be deterministic, because
                         processes like GPU inference are nondeterministic.
-  --overwrite, --nooverwrite
-                        Whether to re-build the features, even if the result
-                        exists in the target directories.
 ```
 
 ### Running AlphaFold-Multimer
@@ -342,15 +376,11 @@ All steps are the same as when running the monomer system, but you will have to
 
 *   provide an input fasta with multiple sequences,
 *   set `--model_type=multimer`,
-*   optionally set the `--is_prokaryote_list` flag with booleans that determine
-    whether all input sequences in the given fasta file are prokaryotic. If that
-    is not the case or the origin is unknown, set to `false` for that fasta.
 
-An example that folds a protein complex `multimer.fasta` that is prokaryotic:
+An example that folds a protein complex `multimer.fasta`:
 
 ```bash
 alphafold \
-  --is_prokaryote_list=true \
   --max_template_date=2020-05-14 \
   --model_type=multimer \
   multimer.fasta
@@ -359,6 +389,11 @@ alphafold \
 Note that if any of the provided fasta files contains multiple chains, then the
 script automatically changes to multimer mode **even if the other model type was
 explicitly given**. Please provide single chains only to use other model types.
+
+By default the multimer system will run 5 seeds per model (25 total predictions)
+for a small drop in accuracy you may wish to run a single seed per model.  This
+can be done via the `--num_multimer_predictions_per_model` flag, e.g. set it to
+`--num_multimer_predictions_per_model=1` to run a single seed per model.
 
 ### Examples
 
@@ -384,7 +419,7 @@ alphafold \
 
 #### Folding a homomer
 
-Say we have a homomer from a prokaryote with 3 copies of the same sequence
+Say we have a homomer with 3 copies of the same sequence
 `<SEQUENCE>`. The input fasta should be:
 
 ```fasta
@@ -408,7 +443,7 @@ alphafold \
 
 #### Folding a heteromer
 
-Say we have a heteromer A2B3 of unknown origin, i.e. with 2 copies of
+Say we have an A2B3 heteromer, i.e. with 2 copies of
 `<SEQUENCE A>` and 3 copies of `<SEQUENCE B>`. The input fasta should be:
 
 ```fasta
@@ -449,14 +484,12 @@ alphafold \
 
 #### Folding multiple multimers one after another
 
-Say we have a two multimers, `multimer1.fasta` and `multimer2.fasta`. Both are
-from a prokaryotic organism.
+Say we have a two multimers, `multimer1.fasta` and `multimer2.fasta`.
 
 We can fold both sequentially by using the following command:
 
 ```bash
 alphafold \
-  --is_prokaryote_list=true,true \
   --max_template_date=2021-11-01 \
   --model_type=multimer \
   multimer1.fasta multimer2.fasta
@@ -667,6 +700,15 @@ Seoklab version makes use of two extra libaries:
 
 We thank all their contributors and maintainers!
 
+## Get in Touch
+
+If you have any questions not covered in this overview, please contact the
+AlphaFold team at [alphafold@deepmind.com](mailto:alphafold@deepmind.com).
+
+We would love to hear your feedback and understand how AlphaFold has been
+useful in your research. Share your stories with us at
+[alphafold@deepmind.com](mailto:alphafold@deepmind.com).
+
 ## License and Disclaimer
 
 This is not an officially supported Google product.
@@ -686,10 +728,9 @@ specific language governing permissions and limitations under the License.
 
 ### Model Parameters License
 
-The AlphaFold parameters are made available for non-commercial use only, under
-the terms of the Creative Commons Attribution-NonCommercial 4.0 International
-(CC BY-NC 4.0) license. You can find details at:
-https://creativecommons.org/licenses/by-nc/4.0/legalcode
+The AlphaFold parameters are made available under the terms of the Creative
+Commons Attribution 4.0 International (CC BY 4.0) license. You can find details
+at: https://creativecommons.org/licenses/by/4.0/legalcode
 
 ### Third-party software
 

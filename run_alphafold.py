@@ -107,6 +107,8 @@ flags.DEFINE_list('is_prokaryote_list', None, 'Optional for multimer system, '
 
 flags.DEFINE_string('output_dir', output_dir, 'Path to a directory that will '
                     'store the results.')
+flags.DEFINE_boolean('overwrite', False, 'Whether to re-build the features, '
+                     'even if the result exists in the target directories.')
 flags.DEFINE_integer('model_cnt', 5, 'Counts of models to use. Note that '
                      'AlphaFold provides 5 pretrained models, so setting '
                      'the count other than 5 is either redundant '
@@ -131,15 +133,23 @@ flags.DEFINE_enum('model_type', 'normal',
                   '8 model ensemblings (casp14).\n'
                   'Note that the casp14 preset is just an alias of '
                   '--model_type=normal --ensemble=8 option.')
-flags.DEFINE_boolean('relax', True, 'Whether to relax the predicted structure.')
+flags.DEFINE_integer('num_multimer_predictions_per_model', 5, 'How many '
+                     'predictions (each with a different random seed) will be '
+                     'generated per model. E.g. if this is 2 and there are 5 '
+                     'models then there will be 10 predictions per input. '
+                     'Note: this FLAG only applies if model_preset=multimer')
+flags.DEFINE_boolean('run_relax', True, 'Whether to run the final relaxation '
+                     'step on the predicted models. Turning relax off might '
+                     'result in predictions with distracting stereochemical '
+                     'violations but might help in case you are having issues '
+                     'with the relaxation stage.')
 flags.DEFINE_boolean('benchmark', False, 'Run multiple JAX model evaluations '
                      'to obtain a timing that excludes the compilation time, '
-                     'which should be more indicative of the time required '
-                     'for inferencing many proteins.')
+                     'which should be more indicative of the time required for '
+                     'inferencing many proteins.')
 flags.DEFINE_boolean('debug', False, 'Whether to print debug output.')
 flags.DEFINE_boolean('quiet', False, 'Whether to silence non-warning messages. '
                      'Takes precedence over --debug option.')
-
 flags.DEFINE_string('data_dir', data_dir,
                     'Path to directory of supporting data.')
 flags.DEFINE_string('jackhmmer_binary_path',
@@ -187,8 +197,6 @@ flags.DEFINE_integer('random_seed', None, 'The random seed for the '
                      'Note that even if this is set, Alphafold may still '
                      'not be deterministic, because processes like '
                      'GPU inference are nondeterministic.')
-flags.DEFINE_boolean('overwrite', False, 'Whether to re-build the features, '
-                     'even if the result exists in the target directories.')
 FLAGS = flags.FLAGS
 # yapf: enable
 
@@ -227,7 +235,7 @@ if devices.BACKEND != "cpu":
       os.symlink(nvidia_cachedir_non_nfs, nvidia_cachedir)
 
 
-def fasta_parser(argv):
+def fasta_parser(args):
   parser = argparse_flags.ArgumentParser(prog="alphafold")
   parser.add_argument(
       "fasta_paths",
@@ -238,7 +246,7 @@ def fasta_parser(argv):
       'be separated by commas. All FASTA paths must have a unique basename as '
       'the basename is used to name the output directories for each prediction.'
   )
-  return parser.parse_args(argv[1:]).fasta_paths
+  return parser.parse_args(args[1:]).fasta_paths
 
 
 MAX_TEMPLATE_HITS = 20
@@ -362,11 +370,10 @@ def predict_structure(
     model_ids_chunked: List[List[int]],
     model_type: str,
     num_ensemble: int,
-    relaxer: relax.AmberRelaxation,
+    relaxer: Optional[relax.AmberRelaxation],
     benchmark: bool,
     random_seeds_chunked: List[List[int]],
     n_jobs: int,
-    is_prokaryote: Optional[bool] = None,
     overwrite: Optional[bool] = False):
   """Predicts structure using AlphaFold for the given sequence."""
   logging.info('Predicting %s', fasta_name)
@@ -378,6 +385,7 @@ def predict_structure(
   if not os.path.exists(msa_output_dir):
     os.makedirs(msa_output_dir)
 
+  # Write out features as a pickled dictionary.
   features_output_path = os.path.join(output_dir, 'features.pkl')
   if not overwrite and os.path.isfile(features_output_path):
     logging.info("Skipping feature generation; pass --overwrite option to "
@@ -387,15 +395,9 @@ def predict_structure(
   else:
     with profiler("features"):
       # Get features.
-      if is_prokaryote is None:
-        feature_dict = data_pipeline.process(
-            input_fasta_path=fasta_path,
-            msa_output_dir=msa_output_dir)
-      else:
-        feature_dict = data_pipeline.process(
-            input_fasta_path=fasta_path,
-            msa_output_dir=msa_output_dir,
-            is_prokaryote=is_prokaryote)
+      feature_dict = data_pipeline.process(
+          input_fasta_path=fasta_path,
+          msa_output_dir=msa_output_dir)
     # Write out features as a pickled dictionary.
     with open(features_output_path, 'wb') as f:
       pickle.dump(feature_dict, f, protocol=4)
@@ -440,7 +442,7 @@ def predict_structure(
 
       result_pdbs[model_name] = relaxed_pdb
   else:
-    logging.info(f'Skipping relaxation for {model_name}')
+    logging.info(f'Skipping relaxation for {fasta_path}')
     result_pdbs = {
         model_name: protein.to_pdb(prot)
         for model_name, prot in unrelaxed_prots.items()
@@ -497,24 +499,6 @@ def main(fasta_paths: List[str]):
 
   check_nvidia_cache()
 
-  model_ids = list(range(FLAGS.model_cnt))
-  logging.info('Have %d models: %s', FLAGS.model_cnt, model_ids)
-  if FLAGS.model_cnt != 5:
-    logging.warning("5 models is recommended, as AlphaFold provides 5 "
-                    "pretrained model configurations")
-
-  random_seed = FLAGS.random_seed
-  if random_seed is None:
-    random_seed = random.randrange(sys.maxsize // FLAGS.model_cnt)
-  logging.info('Using random seed %d for the data pipeline', random_seed)
-  random_seeds: List[int] = [
-      i + random_seed * FLAGS.model_cnt for i in range(FLAGS.model_cnt)
-  ]
-
-  n_jobs = min(FLAGS.model_cnt, devices.DEV_CNT)
-  model_ids_chunked = list(_chunk_list(model_ids, n_jobs))
-  random_seeds_chunked = list(_chunk_list(random_seeds, n_jobs))
-
   run_multimer_system = 'multimer' in FLAGS.model_type
   if not run_multimer_system:
     if any(_check_multimer(fasta_path) for fasta_path in fasta_paths):
@@ -525,25 +509,6 @@ def main(fasta_paths: List[str]):
     elif FLAGS.model_type == 'casp14':
       FLAGS.model_type = 'normal'
       FLAGS.ensemble = 8
-
-  # Check that is_prokaryote_list has same number of elements as fasta_paths,
-  # and convert to bool.
-  if not run_multimer_system:
-    is_prokaryote_list = [None] * len(fasta_paths)
-  elif FLAGS.is_prokaryote_list:
-    if len(FLAGS.is_prokaryote_list) != len(fasta_paths):
-      raise ValueError('--is_prokaryote_list must either be omitted or match '
-                       'length of --fasta_paths.')
-
-    is_prokaryote_list = []
-    for s in FLAGS.is_prokaryote_list:
-      if s in ('true', 'false'):
-        is_prokaryote_list.append(s == 'true')
-      else:
-        raise ValueError('--is_prokaryote_list must contain comma separated '
-                         'true or false values.')
-  else:  # Default is_prokaryote to False.
-    is_prokaryote_list = [False] * len(fasta_paths)
 
   if run_multimer_system:
     template_searcher = hmmsearch.Hmmsearch(
@@ -592,21 +557,46 @@ def main(fasta_paths: List[str]):
   else:
     data_pipeline = monomer_data_pipeline
 
-  if FLAGS.relax:
-    relaxer = relax.AmberRelaxation(
+  if FLAGS.run_relax:
+    amber_relaxer = relax.AmberRelaxation(
         max_iterations=RELAX_MAX_ITERATIONS,
         tolerance=RELAX_ENERGY_TOLERANCE,
         stiffness=RELAX_STIFFNESS,
         exclude_residues=RELAX_EXCLUDE_RESIDUES,
         max_outer_iterations=RELAX_MAX_OUTER_ITERATIONS)
   else:
-    relaxer = None
+    amber_relaxer = None
+
+  if FLAGS.model_cnt != 5:
+    logging.warning("5 models is recommended, as AlphaFold provides 5 "
+                    "pretrained model configurations")
+
+  if run_multimer_system:
+    num_predictions_per_model = FLAGS.num_multimer_predictions_per_model
+    pred_cnt = FLAGS.model_cnt * num_predictions_per_model
+  else:
+    num_predictions_per_model = 1
+    pred_cnt = FLAGS.model_cnt
+
+  model_ids = list(range(pred_cnt))
+  logging.info('Have %d models: %s', FLAGS.model_cnt, model_ids)
+
+  random_seed = FLAGS.random_seed
+  if random_seed is None:
+    random_seed = random.randrange(sys.maxsize // pred_cnt)
+  logging.info('Using random seed %d for the data pipeline', random_seed)
+  random_seeds: List[int] = [
+      i + random_seed * pred_cnt for i in range(pred_cnt)
+  ]
+
+  n_jobs = min(pred_cnt, devices.DEV_CNT)
+  model_ids_chunked = list(_chunk_list(model_ids, n_jobs))
+  random_seeds_chunked = list(_chunk_list(random_seeds, n_jobs))
 
   # Predict structure for each of the sequences.
-  for fasta_path, fasta_name, is_prokaryote \
-      in zip(fasta_paths, fasta_names, is_prokaryote_list):
-    with profiler(f"fasta name {fasta_name}", printer=logging.info,
-                  store=False):
+  for fasta_path, fasta_name in zip(fasta_paths, fasta_names):
+    with profiler(
+        f"fasta name {fasta_name}", printer=logging.info, store=False):
       predict_structure(fasta_path=fasta_path,
                         fasta_name=fasta_name,
                         output_dir_base=FLAGS.output_dir,
@@ -614,11 +604,10 @@ def main(fasta_paths: List[str]):
                         model_ids_chunked=model_ids_chunked,
                         model_type=FLAGS.model_type,
                         num_ensemble=FLAGS.ensemble,
-                        relaxer=relaxer,
+                        relaxer=amber_relaxer,
                         benchmark=FLAGS.benchmark,
                         random_seeds_chunked=random_seeds_chunked,
                         n_jobs=n_jobs,
-                        is_prokaryote=is_prokaryote,
                         overwrite=FLAGS.overwrite)
 
 

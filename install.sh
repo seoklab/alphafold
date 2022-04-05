@@ -53,22 +53,23 @@ conda create -y -c conda-forge -n alphafold2 python=3.8
 
 conda activate alphafold2
 conda install -y -c conda-forge openmm=7.6 pdbfixer=1.8 cudnn=8.2 \
-                                cudatoolkit=11.0 cudatoolkit-dev=11.0 \
+                                cudatoolkit=11.1 cudatoolkit-dev=11.1 \
                                 numpy=1.19 scipy=1.7 pandas=1.3 \
                                 biopython=1.79 absl-py=0.13 psutil joblib
-conda install -y -c bioconda hmmer=3.3 hhsuite=3.3 kalign2=2.04
-conda install -y -c nvidia libcusolver=11
+conda install -y \
+  bioconda::hmmer=3.3 bioconda::hhsuite=3.3 bioconda::kalign2=2.04
+conda install -y nvidia::libcusolver=11
 
 pip install chex==0.0.7 dm-haiku==0.0.4 dm-tree==0.1.6 immutabledict==2.0.0 \
     jax==0.2.14 ml-collections==0.1.0 tensorflow==2.5.0
-pip install --upgrade jax jaxlib==0.1.69+cuda110 \
+pip install --upgrade 'jax>=0.2.14,<0.2.26' jaxlib==0.1.69+cuda111 \
             -f https://storage.googleapis.com/jax-releases/jax_releases.html
 
 pushd "$CONDA_PREFIX/lib/python3.8/site-packages"
 git apply "$__alphafold_home/patch/pdbfixer.patch"
 popd
 
-python setup.py develop
+pip install .
 
 if [[ "$__sudo" == 'y' ]]; then
   sudo chown -R root:root "$__conda_prefix"
