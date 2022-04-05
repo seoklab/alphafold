@@ -19,27 +19,18 @@
 # Usage: bash download_pdb_mmcif.sh /path/to/download/directory
 set -e
 
-type parallel
-
 if [[ $# -eq 0 ]]; then
     echo "Error: download directory must be provided as an input argument."
     exit 1
 fi
 
-if ! command -v aria2c &> /dev/null ; then
-    echo "Error: aria2c could not be found. Please install aria2c (sudo apt install aria2)."
-    exit 1
-fi
-
-if ! command -v rsync &> /dev/null ; then
-    echo "Error: rsync could not be found. Please install rsync."
-    exit 1
-fi
+type parallel aria2c rsync
 
 DOWNLOAD_DIR="$1"
 ROOT_DIR="${DOWNLOAD_DIR}/pdb_mmcif"
 RAW_DIR="${ROOT_DIR}/raw"
 MMCIF_DIR="${ROOT_DIR}/mmcif_files"
+CHOWN_TO="${USER}:$(id -gn)"
 
 echo "Running rsync to fetch all mmCIF files (note that the rsync progress estimate might be inaccurate)..."
 echo "If the download speed is too slow, try changing the mirror to:"
@@ -47,21 +38,26 @@ echo "  * rsync.ebi.ac.uk::pub/databases/pdb/data/structures/divided/mmCIF/ (Eur
 echo "  * ftp.pdbj.org::ftp_data/structures/divided/mmCIF/ (Asia)"
 echo "or see https://www.wwpdb.org/ftp/pdb-ftp-sites for more download options."
 mkdir --parents "${RAW_DIR}"
+
 # Fetch all directories from the PDB FTP site.
 rsync -a --info=progress2 --delete --exclude='*.gz' \
-  ftp.pdbj.org::ftp_data/structures/divided/mmCIF/ "${RAW_DIR}"
+	--chown="${CHOWN_TO}" --chmod=D755,F644 \
+  	ftp.pdbj.org::ftp_data/structures/divided/mmCIF/ "${RAW_DIR}/"
 
 pushd "${RAW_DIR}"
-# Parallel download using up to 16 connections
-find -mindepth 1 -maxdepth 1 -type d -print0 \
-  | parallel -0 -j16 --bar rsync -amq --delete \
-      'ftp.pdbj.org::ftp_data/structures/divided/mmCIF/{/}/' '{}/'
 
-find -type d -empty -delete  # Delete empty directories.
+# Parallel download using up to 16 connections
+find . -mindepth 1 -maxdepth 1 -type d -print0 \
+  | parallel -0 -j16 --bar rsync -amq --delete \
+			--chown="${CHOWN_TO}" --chmod=D755,F644 \
+      	'ftp.pdbj.org::ftp_data/structures/divided/mmCIF/{/}/' '{}/'
+
+find . -type d -empty -delete  # Delete empty directories.
 
 echo "Unzipping all mmCIF files..."
-find -type f -iname "*.gz" -print0 \
+find . -type f -iname "*.gz" -print0 \
   | parallel -0 -n1024 -j8 --bar '(gzip -dkq {} &>/dev/null || true)'
+
 popd
 
 echo "Flattening all mmCIF files..."
