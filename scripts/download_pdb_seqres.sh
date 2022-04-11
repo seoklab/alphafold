@@ -35,4 +35,4 @@ SOURCE_URL="ftp://ftp.pdbj.org/pub/pdb/derived_data/pdb_seqres.txt"
 BASENAME=$(basename "${SOURCE_URL}")
 
 mkdir --parents "${ROOT_DIR}"
-aria2c -x16 -j16 "${SOURCE_URL}" --dir="${ROOT_DIR}"
+aria2c -x16 -j16 --allow-overwrite "${SOURCE_URL}" --dir="${ROOT_DIR}"

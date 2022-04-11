@@ -10,7 +10,7 @@ if [[ -n "$CONDA_PREFIX" && "$CONDA_PREFIX" != "$ALPHAFOLD_CONDA_PREFIX/envs/alp
   exit 1
 fi
 
-if ! command -v nvidia-smi; then
+if ! command -v nvidia-smi &>/dev/null; then
   export LD_LIBRARY_PATH="$ALPHAFOLD_CONDA_PREFIX/lib64/stubs${LD_LIBRARY_PATH+:$LD_LIBRARY_PATH}"
 fi
 
