@@ -58,7 +58,6 @@ conda install -y -c conda-forge openmm=7.6 pdbfixer=1.8 cudnn=8.2 \
                                 biopython=1.79 absl-py=0.13 psutil joblib
 conda install -y \
   bioconda::hmmer=3.3 bioconda::hhsuite=3.3 bioconda::kalign2=2.04
-conda install -y nvidia::libcusolver=11
 
 pip install chex==0.0.7 dm-haiku==0.0.4 dm-tree==0.1.6 immutabledict==2.0.0 \
     jax==0.2.14 ml-collections==0.1.0 tensorflow==2.5.0
