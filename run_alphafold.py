@@ -23,7 +23,7 @@ import multiprocessing
 import shutil
 from datetime import date
 from itertools import cycle
-from typing import List, Union, Optional
+from typing import List, Dict, Union, Optional
 
 from absl import app
 from absl import flags
@@ -362,23 +362,11 @@ def _chunk_list(lst, n):
   return (lst[i::n] for i in range(n))
 
 
-def predict_structure(
+def _preprocess(
     fasta_path: str,
-    fasta_name: str,
-    output_dir_base: str,
+    output_dir: str,
     data_pipeline: Union[pipeline.DataPipeline, pipeline_multimer.DataPipeline],
-    model_ids_chunked: List[List[int]],
-    model_type: str,
-    num_ensemble: int,
-    relaxer: Optional[relax.AmberRelaxation],
-    benchmark: bool,
-    random_seeds_chunked: List[List[int]],
-    n_jobs: int,
-    overwrite: Optional[bool] = False):
-  """Predicts structure using AlphaFold for the given sequence."""
-  logging.info('Predicting %s', fasta_name)
-
-  output_dir = os.path.join(output_dir_base, fasta_name)
+    overwrite: Optional[bool]):
   if not os.path.exists(output_dir):
     os.makedirs(output_dir)
   msa_output_dir = os.path.join(output_dir, 'msas')
@@ -401,8 +389,19 @@ def predict_structure(
     # Write out features as a pickled dictionary.
     with open(features_output_path, 'wb') as f:
       pickle.dump(feature_dict, f, protocol=4)
+  return feature_dict
 
-  # Run the models.
+
+def _predict(
+    feature_dict: pipeline.FeatureDict,
+    output_dir: str,
+    model_ids_chunked: List[List[int]],
+    model_type: str,
+    num_ensemble: int,
+    benchmark: bool,
+    random_seeds_chunked: List[List[int]],
+    n_jobs: int,
+    overwrite: Optional[bool]):
   multiprocessing.set_start_method("spawn")
   dev_results = Parallel(n_jobs=n_jobs, backend="multiprocessing")(
       delayed(predict_structure_perdev)(
@@ -419,7 +418,15 @@ def predict_structure(
     profiler.timings.update(model_timings)
     ranking_confidences[model_name] = ranking_confidence
     unrelaxed_prots[model_name] = prot
+  return results, ranking_confidences, unrelaxed_prots
 
+
+def _relax(
+    unrelaxed_prots: Dict[str, protein.Protein],
+    fasta_path: str,
+    output_dir: str,
+    relaxer: Optional[relax.AmberRelaxation],
+    overwrite: Optional[bool]):
   if relaxer:
     result_pdbs = {}
     for model_name, unrelaxed_prot in unrelaxed_prots.items():
@@ -448,7 +455,15 @@ def predict_structure(
         for model_name, prot in unrelaxed_prots.items()
     }
 
-  # Rank by model confidence and write out relaxed PDBs in rank order.
+  return result_pdbs
+
+
+def _report(
+    results: List[tuple],
+    ranking_confidences: dict,
+    result_pdbs: Dict[str, str],
+    output_dir: str,):
+  """Rank by model confidence and write out relaxed PDBs in rank order."""
   ranked_order = []
   for idx, (model_name, _) in enumerate(
       sorted(ranking_confidences.items(), key=lambda x: x[1], reverse=True)):
@@ -460,10 +475,43 @@ def predict_structure(
   ranking_output_path = os.path.join(output_dir, 'ranking_debug.json')
   with open(ranking_output_path, 'w') as f:
     f.write(json.dumps(
-        {results[0][0]: ranking_confidences, 'order': ranked_order}, indent=4))
+      {results[0][0]: ranking_confidences, 'order': ranked_order}, indent=4))
 
   timings_output_path = os.path.join(output_dir, 'timings.json')
   profiler.dump(timings_output_path)
+
+
+def predict_structure(
+    fasta_path: str,
+    fasta_name: str,
+    output_dir_base: str,
+    data_pipeline: Union[pipeline.DataPipeline, pipeline_multimer.DataPipeline],
+    model_ids_chunked: List[List[int]],
+    model_type: str,
+    num_ensemble: int,
+    relaxer: Optional[relax.AmberRelaxation],
+    benchmark: bool,
+    random_seeds_chunked: List[List[int]],
+    n_jobs: int,
+    overwrite: Optional[bool] = False):
+  """Predicts structure using AlphaFold for the given sequence."""
+  logging.info('Predicting %s', fasta_name)
+  output_dir = os.path.join(output_dir_base, fasta_name)
+
+  # Run msa
+  feature_dict = _preprocess(fasta_path, output_dir, data_pipeline, overwrite)
+
+  # Run the models
+  results, ranking_confidences, unrelaxed_prots = _predict(
+    feature_dict, output_dir, model_ids_chunked, model_type, num_ensemble,
+    benchmark, random_seeds_chunked, n_jobs, overwrite)
+
+  # Run relaxation
+  result_pdbs = _relax(
+    unrelaxed_prots, fasta_path, output_dir, relaxer, overwrite)
+
+  # Report results
+  _report(results, ranking_confidences, result_pdbs, output_dir)
 
 
 def _check_multimer(fasta_path: str):
