@@ -21,7 +21,7 @@ source "$ALPHAFOLD_CONDA_PREFIX/bin/activate" alphafold2
 set -euo pipefail
 
 TF_FORCE_UNIFIED_MEMORY=1                                                      \
-  XLA_PYTHON_CLIENT_MEM_FRACTION='4.0'                                         \
+  XLA_PYTHON_CLIENT_MEM_FRACTION="$(af-memfraction)"                           \
   MKL_NUM_THREADS="${MKL_NUM_THREADS-$NSLOTS}"                                 \
   OMP_NUM_THREADS="${OMP_NUM_THREADS-$NSLOTS}"                                 \
   OPENBLAS_NUM_THREADS="${OPENBLAS_NUM_THREADS-$NSLOTS}"                       \
