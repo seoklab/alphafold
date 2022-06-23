@@ -283,7 +283,8 @@ def predict_structure_permodel(
     benchmark: bool,
     random_seed: int,
     device=None,
-    overwrite: bool = False):
+    overwrite: bool = False,
+    jit_compile: bool = False):
   model_name = f"model_{model_id + 1}"
   if model_type != "normal":
     model_name += f"_{model_type}"
@@ -299,7 +300,7 @@ def predict_structure_permodel(
                                              model_type=model_type,
                                              data_dir=data_dir)
   model_runner = model.RunModel(
-      model_config, model_params, device=device, jit_compile=FLAGS.jit)
+      model_config, model_params, device=device, jit_compile=jit_compile)
   with profiler(f'process_features_{model_name}'):
     processed_feature_dict = model_runner.process_features(
         feature_dict, random_seed)
@@ -361,6 +362,7 @@ def predict_structure_perdev(model_ids: List[int],
                              benchmark: bool,
                              device_id: int = None,
                              overwrite: bool = False,
+                             jit_compile: bool = False,
                              _loglvl: int = logging.INFO):
   # Required for multiprocessing
   logging.set_verbosity(_loglvl)
@@ -370,7 +372,8 @@ def predict_structure_perdev(model_ids: List[int],
   return [
       predict_structure_permodel(
           mid, model_type, output_dir, data_dir, num_ensemble, feature_dict,
-          benchmark, random_seed, device=device, overwrite=overwrite)
+          benchmark, random_seed, device=device, overwrite=overwrite,
+          jit_compile=jit_compile)
       for mid, random_seed in zip(model_ids, random_seeds)
   ]
 
@@ -424,7 +427,7 @@ def _predict(
       delayed(predict_structure_perdev)(
           ids, model_type, seeds, output_dir, FLAGS.data_dir, num_ensemble,
           feature_dict, benchmark, device_id=device_id, overwrite=overwrite,
-          _loglvl=logging.get_verbosity())
+          jit_compile=FLAGS.jit, _loglvl=logging.get_verbosity())
       for ids, seeds, device_id
       in zip(model_ids_chunked, random_seeds_chunked, cycle(devices.DEV_POOL)))
   results = [result for dev_result in dev_results for result in dev_result]
