@@ -68,9 +68,11 @@ class RunModel:
   def __init__(self,
                config: ml_collections.ConfigDict,
                params: Optional[Mapping[str, Mapping[str, np.ndarray]]] = None,
-               device: xc.Device = None):
+               device: xc.Device = None,
+               jit_compile: bool = False):
     self.config = config
     self.params = params
+    self.jit_compile = jit_compile
     self.multimer_mode = config.model.global_config.multimer_mode
 
     if self.multimer_mode:
@@ -88,8 +90,15 @@ class RunModel:
             compute_loss=False,
             ensemble_representations=True)
 
-    self.apply = jax.jit(hk.transform(_forward_fn).apply, device=device)
-    self.init = jax.jit(hk.transform(_forward_fn).init, device=device)
+    if jit_compile:
+      def _compile(fn):
+        return jax.jit(fn, device=device)
+    else:
+      def _compile(fn):
+        return fn
+
+    self.apply = _compile(hk.transform(_forward_fn).apply)
+    self.init = _compile(hk.transform(_forward_fn).init)
 
   def init_params(self, feat: features.FeatureDict, random_seed: int = 0):
     """Initializes the model parameters.
@@ -126,7 +135,10 @@ class RunModel:
     """
 
     if self.multimer_mode:
-      return raw_features
+      if self.jit_compile:
+        return raw_features
+      else:
+        return {k: jax.numpy.array(v) for k, v in raw_features.items()}
 
     # Single-chain mode.
     if isinstance(raw_features, dict):
