@@ -49,6 +49,9 @@ Seoklab version of AlphaFold has few changes:
 
 ## First time setup
 
+You will need a machine running Linux, AlphaFold does not support other
+operating systems.
+
 Clone this repository, then run `./install.sh`. The script requires `wget` to
 run. Few variables could change the behavior of the script, namely:
 
