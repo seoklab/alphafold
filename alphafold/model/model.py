@@ -72,6 +72,7 @@ class RunModel:
                jit_compile: bool = False):
     self.config = config
     self.params = params
+    self.device = device
     self.jit_compile = jit_compile
     self.multimer_mode = config.model.global_config.multimer_mode
 
@@ -178,7 +179,10 @@ class RunModel:
     self.init_params(feat)
     logging.info('Running predict with shape(feat) = %s',
                  tree.map_structure(lambda x: x.shape, feat))
-    result = self.apply(self.params, jax.random.PRNGKey(random_seed), feat)
+    result = self.apply(
+      jax.device_put(self.params, self.device),
+      jax.random.PRNGKey(random_seed),
+      feat)
 
     # This block is to ensure benchmark timings are accurate. Some blocking is
     # already happening when computing get_confidence_metrics, and this ensures
