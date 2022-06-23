@@ -51,6 +51,9 @@ bash "${SCRIPT_DIR}/download_mgnify.sh" "${DOWNLOAD_DIR}"
 echo "Downloading PDB70..."
 bash "${SCRIPT_DIR}/download_pdb70.sh" "${DOWNLOAD_DIR}"
 
+echo "Downloading GPCR100..."
+bash "${SCRIPT_DIR}/download_gpcr100.sh" "${DOWNLOAD_DIR}"
+
 echo "Downloading PDB mmCIF files..."
 bash "${SCRIPT_DIR}/download_pdb_mmcif.sh" "${DOWNLOAD_DIR}"
 
