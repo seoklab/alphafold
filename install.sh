@@ -58,7 +58,7 @@ conda activate alphafold2 || exit 1
 set -eu
 
 pip install --upgrade 'jax>=0.2.14,<0.2.26' 'jaxlib==0.1.69+cuda111' \
-            -f https://storage.googleapis.com/jax-releases/jax_releases.html
+            -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 
 pushd "$CONDA_PREFIX/lib/python3.8/site-packages"
 git apply "$__alphafold_home/patch/pdbfixer.patch"
