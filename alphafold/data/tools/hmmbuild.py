@@ -17,6 +17,7 @@
 import os
 import re
 import subprocess
+from tempfile import TemporaryDirectory
 
 from absl import logging
 from alphafold.data.tools import utils
@@ -98,7 +99,7 @@ class Hmmbuild(object):
       raise ValueError(f'Invalid model_construction {model_construction} - only'
                        'hand and fast supported.')
 
-    with utils.tmpdir_manager() as query_tmp_dir:
+    with TemporaryDirectory() as query_tmp_dir:
       input_query = os.path.join(query_tmp_dir, 'query.msa')
       output_hmm_path = os.path.join(query_tmp_dir, 'output.hmm')
 

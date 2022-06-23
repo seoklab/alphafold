@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright 2021 DeepMind Technologies Limited
+# Copyright (C) 2022 Lab of Computational Biology and Biomolecular Engineering
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,9 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# Downloads and unzips the PDB SeqRes database for AlphaFold.
+# Downloads and unzips the GPCR100 database for AlphaFold.
 #
-# Usage: bash download_pdb_seqres.sh /path/to/download/directory
+# Usage: bash download_gpcr100.sh /path/to/download/directory
 set -e
 
 if [[ $# -eq 0 ]]; then
@@ -29,12 +29,15 @@ if ! command -v aria2c &> /dev/null ; then
     exit 1
 fi
 
-SCRIPT_DIR="$(dirname "$(realpath "$0")")"
-
 DOWNLOAD_DIR="$1"
-ROOT_DIR="${DOWNLOAD_DIR}/pdb_seqres"
-SOURCE_URL="ftp://ftp.pdbj.org/pub/pdb/derived_data/pdb_seqres.txt"
+ROOT_DIR="${DOWNLOAD_DIR}/gpcr100"
+SOURCE_URL_PREFIX="https://zenodo.org/record/5745217/files/"
 
-mkdir --parents "${ROOT_DIR}"
-aria2c -x16 -j16 --allow-overwrite "${SOURCE_URL}" --dir="${ROOT_DIR}"
-"$SCRIPT_DIR/filter_pdb_seqres.py" "${ROOT_DIR}/pdb_seqres.txt"
+mkdir -p "${ROOT_DIR}"
+for state in Active Inactive Intermediate; do
+	aria2c "${SOURCE_URL_PREFIX}/GPCR100.${state}.tgz" --dir="${ROOT_DIR}"
+
+	archive="${ROOT_DIR}/GPCR100.${state}.tgz"
+	tar -xzf "${archive}" -C "${ROOT_DIR}"
+	rm -f "${archive}"
+done

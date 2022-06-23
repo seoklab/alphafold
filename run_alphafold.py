@@ -83,11 +83,21 @@ uniclust30_database_path = os.path.join(
 uniprot_database_path = os.path.join(DOWNLOAD_DIR, 'uniprot', 'uniprot.fasta')
 
 # Path to the PDB70 database for use by HHsearch.
-pdb70_database_path = os.path.join(DOWNLOAD_DIR, 'pdb70', 'pdb70')
+pdb70_database_paths = {
+  "normal": os.path.join(DOWNLOAD_DIR, 'pdb70', 'pdb70'),
+  "active": os.path.join(DOWNLOAD_DIR, 'gpcr100', 'GPCR100.Active'),
+  "intermediate": os.path.join(DOWNLOAD_DIR, 'gpcr100', 'GPCR100.Intermediate'),
+  "inactive": os.path.join(DOWNLOAD_DIR, 'gpcr100', 'GPCR100.Inactive'),
+}
 
 # Path to the PDB seqres database for use by hmmsearch.
-pdb_seqres_database_path = os.path.join(
-  DOWNLOAD_DIR, 'pdb_seqres', 'pdb_seqres.txt')
+_pdb_seqres_dir = os.path.join(DOWNLOAD_DIR, 'pdb_seqres')
+pdb_seqres_database_paths = {
+  "normal": os.path.join(_pdb_seqres_dir, 'pdb_seqres.txt'),
+  "active": os.path.join(_pdb_seqres_dir, 'pdb_seqres_active.txt'),
+  "intermediate": os.path.join(_pdb_seqres_dir, 'pdb_seqres_intermediate.txt'),
+  "inactive": os.path.join(_pdb_seqres_dir, 'pdb_seqres_inactive.txt'),
+}
 
 # Path to a directory with template mmCIF structures, each named <pdb_id>.cif')
 template_mmcif_dir = os.path.join(DOWNLOAD_DIR, 'pdb_mmcif', 'mmcif_files')
@@ -116,6 +126,8 @@ flags.DEFINE_integer('model_cnt', 5, 'Counts of models to use. Note that '
 flags.DEFINE_integer('nproc', nproc, 'Maximum cpu count to use. Note that '
                      'the actual cpu load might be different than '
                      'the configured value.')
+flags.DEFINE_boolean('jit', False,
+                     'Whether to jit compile the alphafold model.')
 flags.DEFINE_string('max_template_date', date.today().isoformat(),
                     'Maximum template release date to consider'
                     '(ISO-8601 format - i.e. YYYY-MM-DD). '
@@ -133,6 +145,11 @@ flags.DEFINE_enum('model_type', 'normal',
                   '8 model ensemblings (casp14).\n'
                   'Note that the casp14 preset is just an alias of '
                   '--model_type=normal --ensemble=8 option.')
+flags.DEFINE_enum('state', 'normal',
+                  tuple(pdb70_database_paths),
+                  'Choose state for GPCRs. Will be ignored if '
+                  '--pdb70_database_path (monomer) or '
+                  '--pdb_seqres_database_path (multimer) argument is set.')
 flags.DEFINE_integer('num_multimer_predictions_per_model', 5, 'How many '
                      'predictions (each with a different random seed) will be '
                      'generated per model. E.g. if this is 2 and there are 5 '
@@ -182,9 +199,9 @@ flags.DEFINE_string('uniclust30_database_path', uniclust30_database_path,
                     'Path to the Uniclust30 database for use by HHblits.')
 flags.DEFINE_string('uniprot_database_path', uniprot_database_path,
                     'Path to the Uniprot database for use by JackHMMer.')
-flags.DEFINE_string('pdb70_database_path', pdb70_database_path,
+flags.DEFINE_string('pdb70_database_path', None,
                     'Path to the PDB70 database for use by HHsearch.')
-flags.DEFINE_string('pdb_seqres_database_path', pdb_seqres_database_path,
+flags.DEFINE_string('pdb_seqres_database_path', None,
                     'Path to the PDB seqres database for use by hmmsearch.')
 flags.DEFINE_string('template_mmcif_dir', template_mmcif_dir,
                     'Path to a directory with template mmCIF structures, '
@@ -201,19 +218,17 @@ FLAGS = flags.FLAGS
 # yapf: enable
 
 
-def check_nvidia_cache():
-  pass
-
-
-if devices.BACKEND != "cpu":
+if devices.BACKEND == "cpu":
+  def check_nvidia_cache():
+    pass
+else:
   _NFS_CACHE = frozenset(
       os.stat(pi.mountpoint).st_dev
       for pi in psutil.disk_partitions(all=True)
       if pi.fstype == 'nfs')
 
   if _NFS_CACHE:
-
-    def check_nvidia_cache():  # noqa: F811
+    def check_nvidia_cache():
       nvidia_cachedir = os.path.expanduser('~/.nv')
       nvidia_cachedir_non_nfs = os.path.expandvars("/tmp/$USER/nv")
 
@@ -282,7 +297,8 @@ def predict_structure_permodel(
   model_params = data.get_model_haiku_params(model_id=model_id,
                                              model_type=model_type,
                                              data_dir=data_dir)
-  model_runner = model.RunModel(model_config, model_params, device=device)
+  model_runner = model.RunModel(
+      model_config, model_params, device=device, jit_compile=FLAGS.jit)
   with profiler(f'process_features_{model_name}'):
     processed_feature_dict = model_runner.process_features(
         feature_dict, random_seed)
@@ -539,6 +555,9 @@ def main(fasta_paths: List[str]):
   if len(fasta_names) != len(set(fasta_names)):
     raise ValueError('All FASTA paths must have a unique basename.')
 
+  if FLAGS.state != "normal":
+    fasta_names = [f"{name}_{FLAGS.state}" for name in fasta_names]
+
   logging.set_verbosity(logging.INFO)
   if FLAGS.debug:
     logging.set_verbosity(logging.DEBUG)
@@ -559,10 +578,13 @@ def main(fasta_paths: List[str]):
       FLAGS.ensemble = 8
 
   if run_multimer_system:
+    if (pdb_seqres_database_path := FLAGS.pdb_seqres_database_path) is None:
+      pdb_seqres_database_path = pdb_seqres_database_paths[FLAGS.state]
+
     template_searcher = hmmsearch.Hmmsearch(
         binary_path=FLAGS.hmmsearch_binary_path,
         hmmbuild_binary_path=FLAGS.hmmbuild_binary_path,
-        database_path=FLAGS.pdb_seqres_database_path,
+        database_path=pdb_seqres_database_path,
         n_cpu=FLAGS.nproc)
     template_featurizer = templates.HmmsearchHitFeaturizer(
         mmcif_dir=FLAGS.template_mmcif_dir,
@@ -572,9 +594,12 @@ def main(fasta_paths: List[str]):
         release_dates_path=None,
         obsolete_pdbs_path=FLAGS.obsolete_pdbs_path)
   else:
+    if (pdb70_database_path := FLAGS.pdb70_database_path) is None:
+      pdb70_database_path = pdb70_database_paths[FLAGS.state]
+
     template_searcher = hhsearch.HHSearch(
         binary_path=FLAGS.hhsearch_binary_path,
-        databases=[FLAGS.pdb70_database_path],
+        databases=[pdb70_database_path],
         n_cpu=FLAGS.nproc)
     template_featurizer = templates.HhsearchHitFeaturizer(
         mmcif_dir=FLAGS.template_mmcif_dir,

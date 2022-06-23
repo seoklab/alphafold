@@ -16,6 +16,7 @@
 
 import os
 import subprocess
+from tempfile import TemporaryDirectory
 from typing import Optional, Sequence
 
 from absl import logging
@@ -82,7 +83,7 @@ class Hmmsearch(object):
 
   def query_with_hmm(self, hmm: str) -> str:
     """Queries the database using hmmsearch using a given hmm."""
-    with utils.tmpdir_manager() as query_tmp_dir:
+    with TemporaryDirectory() as query_tmp_dir:
       hmm_input_path = os.path.join(query_tmp_dir, 'query.hmm')
       out_path = os.path.join(query_tmp_dir, 'output.sto')
       with open(hmm_input_path, 'w') as f:

@@ -17,6 +17,7 @@
 import glob
 import os
 import subprocess
+from tempfile import TemporaryDirectory
 from typing import Any, List, Mapping, Optional, Sequence
 
 from absl import logging
@@ -96,7 +97,7 @@ class HHBlits:
 
   def query(self, input_fasta_path: str) -> List[Mapping[str, Any]]:
     """Queries the database using HHblits."""
-    with utils.tmpdir_manager() as query_tmp_dir:
+    with TemporaryDirectory() as query_tmp_dir:
       a3m_path = os.path.join(query_tmp_dir, 'output.a3m')
 
       db_cmd = []

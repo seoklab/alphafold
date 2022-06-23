@@ -83,7 +83,10 @@ AlphaFold needs multiple genetic (sequence) databases to run:
 *   [PDB seqres](https://www.rcsb.org/) – only for AlphaFold-Multimer,
 *   [Uniclust30](https://uniclust.mmseqs.com/),
 *   [UniProt](https://www.uniprot.org/uniprot/) – only for AlphaFold-Multimer,
-*   [UniRef90](https://www.uniprot.org/help/uniref).
+*   [UniRef90](https://www.uniprot.org/help/uniref),
+*   [GPCRdb](https://gpcrdb.org/structure) - only for multistate GPCR modeling,
+*   [State-annotated GPCR database](https://zenodo.org/record/5745217) - only
+    for multistate GPCR modeling.
 
 We provide a script `scripts/download_all_data.sh` that can be used to download
 and set up all of these databases. This should take 8–12 hours.
@@ -126,6 +129,8 @@ $ALPHAFOLD_HOME/
     data/                             # Total: ~ 2.2 TB (download: 438 GB)
         bfd/                                   # ~ 1.7 TB (download: 271.6 GB)
             # 6 files.
+        gpcr100/                               # ~ 0.6 GB (download: 0.2 GB)
+            # 18 files.
         mgnify/                                # ~ 64 GB (download: 32.9 GB)
             mgy_clusters_2018_12.fa
         params/                                # ~ 3.5 GB (download: 3.5 GB)
@@ -142,6 +147,9 @@ $ALPHAFOLD_HOME/
             obsolete.dat
         pdb_seqres/                            # ~ 0.2 GB (download: 0.2 GB)
             pdb_seqres.txt
+            pdb_seqres_active.txt
+            pdb_seqres_inactive.txt
+            pdb_seqres_intermediate.txt
         small_bfd/                             # ~ 17 GB (download: 9.6 GB)
             bfd-first_non_consensus_sequences.fasta
         uniclust30/                            # ~ 86 GB (download: 24.9 GB)
@@ -240,9 +248,9 @@ configurations is as followings.
 ```txt
 usage: alphafold [-h] [--helpfull] [--is_prokaryote_list IS_PROKARYOTE_LIST]
                  [--output_dir OUTPUT_DIR] [--overwrite]
-                 [--model_cnt MODEL_CNT] [--nproc NPROC]
+                 [--model_cnt MODEL_CNT] [--nproc NPROC] [--jit]
                  [--max_template_date MAX_TEMPLATE_DATE] [--ensemble ENSEMBLE]
-                 [--small_bfd] [--model_type MODEL_TYPE]
+                 [--small_bfd] [--model_type MODEL_TYPE] [--state STATE]
                  [--num_multimer_predictions_per_model NUM_MULTIMER_PREDICTIONS_PER_MODEL]
                  [--run_relax] [--benchmark] [--debug] [--quiet]
                  [--data_dir DATA_DIR]
@@ -295,6 +303,7 @@ optional arguments:
                         is either redundant or insufficient configuration.
   --nproc NPROC         Maximum cpu count to use. Note that the actual cpu
                         load might be different than the configured value.
+  --jit, --nojit        Whether to jit compile the alphafold model.
   --max_template_date MAX_TEMPLATE_DATE
                         Maximum template release date to consider(ISO-8601
                         format - i.e. YYYY-MM-DD). Important if folding
@@ -311,6 +320,10 @@ optional arguments:
                         and normal model with 8 model ensemblings (casp14).
                         Note that the casp14 preset is just an alias of
                         --model_type=normal --ensemble=8 option.
+  --state STATE         <normal|active|intermediate|inactive>: Choose state
+                        for GPCRs. Will be ignored if --pdb70_database_path
+                        (monomer) or --pdb_seqres_database_path (multimer)
+                        argument is set.
   --num_multimer_predictions_per_model NUM_MULTIMER_PREDICTIONS_PER_MODEL
                         How many predictions (each with a different random
                         seed) will be generated per model. E.g. if this is 2
@@ -666,6 +679,8 @@ vary from our full AlphaFold system and we did not validate their accuracy):
     API hosted at the Södinglab based on the MMseqs2 server [(Mirdita et al.
     2019, Bioinformatics)](https://academic.oup.com/bioinformatics/article/35/16/2856/5280135)
     for the multiple sequence alignment creation.
+*   The [alphafold-multistate repository](https://github.com/huhlim/alphafold-multistate)
+    by Lim Heo and Michael Feig, for the multistate GPCR structure modeling.
 
 ## Acknowledgements
 
