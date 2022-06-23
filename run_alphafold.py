@@ -218,17 +218,18 @@ FLAGS = flags.FLAGS
 # yapf: enable
 
 
-if devices.BACKEND == "cpu":
-  def check_nvidia_cache():
-    pass
-else:
+def check_nvidia_cache():
+  pass
+
+
+if devices.BACKEND != "cpu":
   _NFS_CACHE = frozenset(
       os.stat(pi.mountpoint).st_dev
       for pi in psutil.disk_partitions(all=True)
       if pi.fstype == 'nfs')
 
   if _NFS_CACHE:
-    def check_nvidia_cache():
+    def check_nvidia_cache():  # noqa: F811
       nvidia_cachedir = os.path.expanduser('~/.nv')
       nvidia_cachedir_non_nfs = os.path.expandvars("/tmp/$USER/nv")
 
