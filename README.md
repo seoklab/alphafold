@@ -36,6 +36,7 @@ Seoklab version of AlphaFold has few changes:
 
 - Major changes
   - No docker, no system libraries (please refer to [kalininalab/alphafold_non_docker](https://github.com/kalininalab/alphafold_non_docker) repository and [install.sh](install.sh)).
+  - Merged with the [multistate GPCR modeling repository](https://github.com/huhlim/alphafold-multistate).
   - Can use multiple GPUs for inference.
   - Add environment variables `ALPHAFOLD_HOME` and `ALPHAFOLD_CONDA_PREFIX` for
     dynamic path resolving.
