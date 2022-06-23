@@ -18,6 +18,7 @@ from concurrent import futures
 import glob
 import os
 import subprocess
+from tempfile import TemporaryDirectory
 from typing import Any, Callable, Mapping, Optional, Sequence
 from urllib import request
 
@@ -93,7 +94,7 @@ class Jackhmmer:
                    database_path: str,
                    max_sequences: Optional[int] = None) -> Mapping[str, Any]:
     """Queries the database chunk using Jackhmmer."""
-    with utils.tmpdir_manager() as query_tmp_dir:
+    with TemporaryDirectory() as query_tmp_dir:
       sto_path = os.path.join(query_tmp_dir, 'output.sto')
 
       # The F1/F2/F3 are the expected proportion to pass each of the filtering

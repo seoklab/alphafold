@@ -15,6 +15,7 @@
 """A Python wrapper for Kalign."""
 import os
 import subprocess
+from tempfile import TemporaryDirectory
 from typing import Sequence
 
 from absl import logging
@@ -70,7 +71,7 @@ class Kalign:
         raise ValueError('Kalign requires all sequences to be at least 6 '
                          'residues long. Got %s (%d residues).' % (s, len(s)))
 
-    with utils.tmpdir_manager() as query_tmp_dir:
+    with TemporaryDirectory() as query_tmp_dir:
       input_fasta_path = os.path.join(query_tmp_dir, 'input.fasta')
       output_a3m_path = os.path.join(query_tmp_dir, 'output.a3m')
 
