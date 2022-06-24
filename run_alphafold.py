@@ -150,7 +150,7 @@ flags.DEFINE_enum('state', 'normal',
                   'Choose state for GPCRs. Will be ignored if '
                   '--pdb70_database_path (monomer) or '
                   '--pdb_seqres_database_path (multimer) argument is set.')
-flags.DEFINE_integer('num_multimer_predictions_per_model', 5, 'How many '
+flags.DEFINE_integer('num_multimer_predictions_per_model', 1, 'How many '
                      'predictions (each with a different random seed) will be '
                      'generated per model. E.g. if this is 2 and there are 5 '
                      'models then there will be 10 predictions per input. '
