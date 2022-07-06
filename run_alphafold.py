@@ -317,8 +317,12 @@ def predict_structure_permodel(
                                                random_seed)
 
     fasta_name = os.path.basename(output_dir)
-    logging.info(f'Total JAX model {model_name} on {fasta_name} predict time '
-                 f'(includes compilation time, see --benchmark): {p.delta}')
+
+    info = 'Total JAX model %s on %s predict time'
+    if jit_compile:
+      info += ' (includes compilation time, see --benchmark)'
+    info += ': %s'
+    logging.info(info, model_name, fasta_name, p.delta)
 
     if benchmark:
       with profiler(f'predict_benchmark_{model_name}'):
