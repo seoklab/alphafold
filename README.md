@@ -45,6 +45,7 @@ Seoklab version of AlphaFold has few changes:
   - Support "resuming"; this version will automatically try to use the previous
     results, if they exists. You can force everything to run again by passing
     `--overwrite` flag from the command line.
+  - Add command-line option for number of recycling iterations ([seoklab/alphafold#1](https://github.com/seoklab/alphafold/issues/1)).
   - Make command line interface more user-friendly.
   - Code refactoring.
 
@@ -253,8 +254,8 @@ usage: alphafold [-h] [--helpfull] [--is_prokaryote_list IS_PROKARYOTE_LIST]
                  [--max_template_date MAX_TEMPLATE_DATE] [--ensemble ENSEMBLE]
                  [--small_bfd] [--model_type MODEL_TYPE] [--state STATE]
                  [--num_multimer_predictions_per_model NUM_MULTIMER_PREDICTIONS_PER_MODEL]
-                 [--run_relax] [--benchmark] [--debug] [--quiet]
-                 [--data_dir DATA_DIR]
+                 [--num_recycle NUM_RECYCLE] [--run_relax] [--benchmark]
+                 [--debug] [--quiet] [--data_dir DATA_DIR]
                  [--jackhmmer_binary_path JACKHMMER_BINARY_PATH]
                  [--hhblits_binary_path HHBLITS_BINARY_PATH]
                  [--hhsearch_binary_path HHSEARCH_BINARY_PATH]
@@ -331,6 +332,8 @@ optional arguments:
                         and there are 5 models then there will be 10
                         predictions per input. Note: this FLAG only applies if
                         model_preset=multimer
+  --num_recycle NUM_RECYCLE
+                        How many recycling iterations to use.
   --run_relax, --norun_relax
                         Whether to run the final relaxation step on the
                         predicted models. Turning relax off might result in
