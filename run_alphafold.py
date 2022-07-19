@@ -155,6 +155,7 @@ flags.DEFINE_integer('num_multimer_predictions_per_model', 1, 'How many '
                      'generated per model. E.g. if this is 2 and there are 5 '
                      'models then there will be 10 predictions per input. '
                      'Note: this FLAG only applies if model_preset=multimer')
+flags.DEFINE_integer('num_recycle', 3, 'How many recycling iterations to use.')
 flags.DEFINE_boolean('run_relax', True, 'Whether to run the final relaxation '
                      'step on the predicted models. Turning relax off might '
                      'result in predictions with distracting stereochemical '
@@ -279,6 +280,7 @@ def predict_structure_permodel(
     output_dir: str,
     data_dir: str,
     num_ensemble: int,
+    num_recycle: int,
     feature_dict: dict,
     benchmark: bool,
     random_seed: int,
@@ -295,6 +297,9 @@ def predict_structure_permodel(
     model_config.model.num_ensemble_eval = num_ensemble
   else:
     model_config.data.eval.num_ensemble = num_ensemble
+    model_config.data.common.num_recycle = num_recycle
+
+  model_config.model.num_recycle = num_recycle
 
   model_params = data.get_model_haiku_params(model_id=model_id,
                                              model_type=model_type,
@@ -362,6 +367,7 @@ def predict_structure_perdev(model_ids: List[int],
                              output_dir: str,
                              data_dir: str,
                              num_ensemble: int,
+                             num_recycle: int,
                              feature_dict: dict,
                              benchmark: bool,
                              device_id: int = None,
@@ -375,9 +381,9 @@ def predict_structure_perdev(model_ids: List[int],
   device = jax.devices()[device_id] if device_id is not None else None
   return [
       predict_structure_permodel(
-          mid, model_type, output_dir, data_dir, num_ensemble, feature_dict,
-          benchmark, random_seed, device=device, overwrite=overwrite,
-          jit_compile=jit_compile)
+          mid, model_type, output_dir, data_dir, num_ensemble, num_recycle,
+          feature_dict, benchmark, random_seed, device=device,
+          overwrite=overwrite, jit_compile=jit_compile)
       for mid, random_seed in zip(model_ids, random_seeds)
   ]
 
@@ -422,6 +428,7 @@ def _predict(
     model_ids_chunked: List[List[int]],
     model_type: str,
     num_ensemble: int,
+    num_recycle: int,
     benchmark: bool,
     random_seeds_chunked: List[List[int]],
     n_jobs: int,
@@ -430,8 +437,9 @@ def _predict(
   dev_results = Parallel(n_jobs=n_jobs, backend="multiprocessing")(
       delayed(predict_structure_perdev)(
           ids, model_type, seeds, output_dir, FLAGS.data_dir, num_ensemble,
-          feature_dict, benchmark, device_id=device_id, overwrite=overwrite,
-          jit_compile=FLAGS.jit, _loglvl=logging.get_verbosity())
+          num_recycle, feature_dict, benchmark, device_id=device_id,
+          overwrite=overwrite, jit_compile=FLAGS.jit,
+          _loglvl=logging.get_verbosity())
       for ids, seeds, device_id
       in zip(model_ids_chunked, random_seeds_chunked, cycle(devices.DEV_POOL)))
   results = [result for dev_result in dev_results for result in dev_result]
@@ -513,6 +521,7 @@ def predict_structure(
     model_ids_chunked: List[List[int]],
     model_type: str,
     num_ensemble: int,
+    num_recycle: int,
     relaxer: Optional[relax.AmberRelaxation],
     benchmark: bool,
     random_seeds_chunked: List[List[int]],
@@ -528,7 +537,7 @@ def predict_structure(
   # Run the models
   results, ranking_confidences, unrelaxed_prots = _predict(
     feature_dict, output_dir, model_ids_chunked, model_type, num_ensemble,
-    benchmark, random_seeds_chunked, n_jobs, overwrite)
+    num_recycle, benchmark, random_seeds_chunked, n_jobs, overwrite)
 
   # Run relaxation
   result_pdbs = _relax(
@@ -685,6 +694,7 @@ def main(fasta_paths: List[str]):
                         model_ids_chunked=model_ids_chunked,
                         model_type=FLAGS.model_type,
                         num_ensemble=FLAGS.ensemble,
+                        num_recycle=FLAGS.num_recycle,
                         relaxer=amber_relaxer,
                         benchmark=FLAGS.benchmark,
                         random_seeds_chunked=random_seeds_chunked,
