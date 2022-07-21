@@ -254,8 +254,8 @@ usage: alphafold [-h] [--helpfull] [--is_prokaryote_list IS_PROKARYOTE_LIST]
                  [--max_template_date MAX_TEMPLATE_DATE] [--ensemble ENSEMBLE]
                  [--small_bfd] [--model_type MODEL_TYPE] [--state STATE]
                  [--num_multimer_predictions_per_model NUM_MULTIMER_PREDICTIONS_PER_MODEL]
-                 [--num_recycle NUM_RECYCLE] [--run_relax] [--benchmark]
-                 [--debug] [--quiet] [--data_dir DATA_DIR]
+                 [--num_recycle NUM_RECYCLE] [--only_msa] [--run_relax]
+                 [--benchmark] [--debug] [--quiet] [--data_dir DATA_DIR]
                  [--jackhmmer_binary_path JACKHMMER_BINARY_PATH]
                  [--hhblits_binary_path HHBLITS_BINARY_PATH]
                  [--hhsearch_binary_path HHSEARCH_BINARY_PATH]
@@ -334,6 +334,8 @@ optional arguments:
                         model_preset=multimer
   --num_recycle NUM_RECYCLE
                         How many recycling iterations to use.
+  --only_msa, --noonly_msa
+                        Whether to run only the MSA pipeline.
   --run_relax, --norun_relax
                         Whether to run the final relaxation step on the
                         predicted models. Turning relax off might result in
