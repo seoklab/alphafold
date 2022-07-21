@@ -156,6 +156,7 @@ flags.DEFINE_integer('num_multimer_predictions_per_model', 1, 'How many '
                      'models then there will be 10 predictions per input. '
                      'Note: this FLAG only applies if model_preset=multimer')
 flags.DEFINE_integer('num_recycle', 3, 'How many recycling iterations to use.')
+flags.DEFINE_boolean('only_msa', False, 'Whether to run only the MSA pipeline.')
 flags.DEFINE_boolean('run_relax', True, 'Whether to run the final relaxation '
                      'step on the predicted models. Turning relax off might '
                      'result in predictions with distracting stereochemical '
@@ -526,13 +527,18 @@ def predict_structure(
     benchmark: bool,
     random_seeds_chunked: List[List[int]],
     n_jobs: int,
-    overwrite: Optional[bool] = False):
+    overwrite: Optional[bool] = False,
+    only_msa: Optional[bool] = False):
   """Predicts structure using AlphaFold for the given sequence."""
   logging.info('Predicting %s', fasta_name)
   output_dir = os.path.join(output_dir_base, fasta_name)
 
   # Run msa
   feature_dict = _preprocess(fasta_path, output_dir, data_pipeline, overwrite)
+
+  if only_msa:
+    logging.info('Running only MSA pipelines as requested')
+    return
 
   # Run the models
   results, ranking_confidences, unrelaxed_prots = _predict(
@@ -699,7 +705,8 @@ def main(fasta_paths: List[str]):
                         benchmark=FLAGS.benchmark,
                         random_seeds_chunked=random_seeds_chunked,
                         n_jobs=n_jobs,
-                        overwrite=FLAGS.overwrite)
+                        overwrite=FLAGS.overwrite,
+                        only_msa=FLAGS.only_msa)
 
 
 if __name__ == '__main__':
