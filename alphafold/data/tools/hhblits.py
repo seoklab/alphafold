@@ -137,12 +137,13 @@ class HHBlits:
       if retcode:
         # Logs have a 15k character limit, so log HHblits error line by line.
         logging.error('HHblits failed. HHblits stderr begin:')
-        for error_line in stderr.decode('utf-8').splitlines():
+        for error_line in stderr.decode('utf-8', errors="replace").splitlines():
           if error_line.strip():
             logging.error(error_line.strip())
         logging.error('HHblits stderr end')
         raise RuntimeError('HHblits failed\nstdout:\n%s\n\nstderr:\n%s\n' % (
-            stdout.decode('utf-8'), stderr[:500_000].decode('utf-8')))
+            stdout.decode('utf-8', errors="replace"),
+            stderr[:500_000].decode('utf-8', errors="replace")))
 
       with open(a3m_path) as f:
         a3m = f.read()

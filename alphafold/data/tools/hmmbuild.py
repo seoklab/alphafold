@@ -127,11 +127,13 @@ class Hmmbuild(object):
         stdout, stderr = process.communicate()
         retcode = process.wait()
         logging.info('hmmbuild stdout:\n%s\n\nstderr:\n%s\n',
-                     stdout.decode('utf-8'), stderr.decode('utf-8'))
+                     stdout.decode('utf-8', errors="replace"),
+                     stderr.decode('utf-8', errors="replace"))
 
       if retcode:
         raise RuntimeError('hmmbuild failed\nstdout:\n%s\n\nstderr:\n%s\n'
-                           % (stdout.decode('utf-8'), stderr.decode('utf-8')))
+                           % (stdout.decode('utf-8', errors="replace"),
+                              stderr.decode('utf-8', errors="replace")))
 
       with open(output_hmm_path, encoding='utf-8') as f:
         hmm = f.read()

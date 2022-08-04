@@ -97,7 +97,8 @@ class HHSearch:
         # Stderr is truncated to prevent proto size errors in Beam.
         raise RuntimeError(
             'HHSearch failed:\nstdout:\n%s\n\nstderr:\n%s\n' % (
-                stdout.decode('utf-8'), stderr[:100_000].decode('utf-8')))
+                stdout.decode('utf-8', errors="replace"),
+                stderr[:100_000].decode('utf-8', errors="replace")))
 
       with open(hhr_path) as f:
         hhr = f.read()

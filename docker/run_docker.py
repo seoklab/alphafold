@@ -252,7 +252,7 @@ def main(argv):
                 lambda unused_sig, unused_frame: container.kill())
 
   for line in container.logs(stream=True):
-    logging.info(line.strip().decode('utf-8'))
+    logging.info(line.strip().decode('utf-8', errors="replace"))
 
 
 if __name__ == '__main__':

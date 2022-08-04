@@ -114,7 +114,8 @@ class Hmmsearch(object):
       if retcode:
         raise RuntimeError(
             'hmmsearch failed:\nstdout:\n%s\n\nstderr:\n%s\n' % (
-                stdout.decode('utf-8'), stderr.decode('utf-8')))
+                stdout.decode('utf-8', errors="replace"),
+                stderr.decode('utf-8', errors="replace")))
 
       with open(out_path) as f:
         out_msa = f.read()

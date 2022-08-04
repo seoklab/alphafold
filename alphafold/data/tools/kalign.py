@@ -93,11 +93,13 @@ class Kalign:
         stdout, stderr = process.communicate()
         retcode = process.wait()
         logging.info('Kalign stdout:\n%s\n\nstderr:\n%s\n',
-                     stdout.decode('utf-8'), stderr.decode('utf-8'))
+                     stdout.decode('utf-8', errors="replace"),
+                     stderr.decode('utf-8', errors="replace"))
 
       if retcode:
         raise RuntimeError('Kalign failed\nstdout:\n%s\n\nstderr:\n%s\n'
-                           % (stdout.decode('utf-8'), stderr.decode('utf-8')))
+                           % (stdout.decode('utf-8', errors="replace"),
+                              stderr.decode('utf-8', errors="replace")))
 
       with open(output_a3m_path) as f:
         a3m = f.read()

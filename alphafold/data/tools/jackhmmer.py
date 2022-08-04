@@ -142,7 +142,8 @@ class Jackhmmer:
 
       if retcode:
         raise RuntimeError(
-            'Jackhmmer failed\nstderr:\n%s\n' % stderr.decode('utf-8'))
+            'Jackhmmer failed\nstderr:\n%s\n'
+            % stderr.decode('utf-8', errors="replace"))
 
       # Get e-values for each target name
       tbl = ''
