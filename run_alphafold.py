@@ -434,7 +434,6 @@ def _predict(
     random_seeds_chunked: List[List[int]],
     n_jobs: int,
     overwrite: Optional[bool]):
-  multiprocessing.set_start_method("spawn")
   dev_results = Parallel(n_jobs=n_jobs, backend="multiprocessing")(
       delayed(predict_structure_perdev)(
           ids, model_type, seeds, output_dir, FLAGS.data_dir, num_ensemble,
@@ -568,6 +567,8 @@ def _check_multimer(fasta_path: str):
 
 
 def main(fasta_paths: List[str]):
+  multiprocessing.set_start_method("spawn")
+
   # Check for duplicate FASTA file names and existence of them
   fasta_names = []
   for fasta_path in fasta_paths:
