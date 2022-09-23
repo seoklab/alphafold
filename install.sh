@@ -57,7 +57,7 @@ conda activate alphafold2 || exit 1
 
 set -eu
 
-pip install --upgrade 'jax>=0.3.17,jax<0.4' 'jaxlib==0.3.5+cuda11.cudnn82' \
+pip install --upgrade 'jax>=0.3.17,<0.4' 'jaxlib==0.3.15+cuda11.cudnn82' \
             -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 
 pushd "$CONDA_PREFIX/lib/python3.8/site-packages"
