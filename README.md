@@ -324,7 +324,7 @@ optional arguments:
                         --model_type=normal --ensemble=8 option.
   --state STATE         <normal|active|intermediate|inactive>: Choose state
                         for GPCRs. Will be ignored if --pdb70_database_path
-                        (monomer) or --pdb_seqres_database_path (multimer)
+                        (normal) or --pdb_seqres_database_path (multimer)
                         argument is set.
   --num_multimer_predictions_per_model NUM_MULTIMER_PREDICTIONS_PER_MODEL
                         How many predictions (each with a different random
@@ -435,7 +435,7 @@ Then run the following command:
 ```bash
 alphafold \
   --max_template_date=2021-11-01 \
-  --model_type=monomer \
+  --model_type=normal \
   monomer.fasta
 ```
 
@@ -500,7 +500,7 @@ We can fold both sequentially by using the following command:
 ```bash
 alphafold \
   --max_template_date=2021-11-01 \
-  --model_type=monomer \
+  --model_type=normal \
   monomer1.fasta monomer2.fasta
 ```
 
