@@ -75,9 +75,9 @@ small_bfd_database_path = os.path.join(
     DOWNLOAD_DIR, 'small_bfd',
     'bfd-first_non_consensus_sequences.fasta')
 
-# Path to the Uniclust30 database for use by HHblits.
-uniclust30_database_path = os.path.join(
-    DOWNLOAD_DIR, 'uniclust30', 'uniclust30_2018_08', 'uniclust30_2018_08')
+# Path to the UniRef30 database for use by HHblits.
+uniref30_database_path = os.path.join(
+  DOWNLOAD_DIR, 'uniref30', 'UniRef30_2021_03')
 
 # Path to the Uniprot database for use by JackHMMER.
 uniprot_database_path = os.path.join(DOWNLOAD_DIR, 'uniprot', 'uniprot.fasta')
@@ -155,7 +155,13 @@ flags.DEFINE_integer('num_multimer_predictions_per_model', 1, 'How many '
                      'generated per model. E.g. if this is 2 and there are 5 '
                      'models then there will be 10 predictions per input. '
                      'Note: this FLAG only applies if model_preset=multimer')
-flags.DEFINE_integer('num_recycle', 3, 'How many recycling iterations to use.')
+flags.DEFINE_integer('num_recycle', 20, 'How many recycling iterations to use.')
+flags.DEFINE_float('recycle_early_stop_tolerance', 0.5,
+                   'A negative value indicates that no early stopping will '
+                   'occur, i.e. the model will always run `num_recycle` number '
+                   'of recycling iterations. A positive value will enable '
+                   'early stopping if the difference in pairwise distances is '
+                   'less than the tolerance between recycling steps.')
 flags.DEFINE_boolean('only_msa', False, 'Whether to run only the MSA pipeline.')
 flags.DEFINE_boolean('run_relax', True, 'Whether to run the final relaxation '
                      'step on the predicted models. Turning relax off might '
@@ -197,8 +203,8 @@ flags.DEFINE_string('bfd_database_path', bfd_database_path,
                     'Path to the BFD database for use by HHblits.')
 flags.DEFINE_string('small_bfd_database_path', small_bfd_database_path,
                     'Path to the BFD database for use by HHblits.')
-flags.DEFINE_string('uniclust30_database_path', uniclust30_database_path,
-                    'Path to the Uniclust30 database for use by HHblits.')
+flags.DEFINE_string('uniref30_database_path', uniref30_database_path,
+                    'Path to the UniRef30 database for use by HHblits.')
 flags.DEFINE_string('uniprot_database_path', uniprot_database_path,
                     'Path to the Uniprot database for use by JackHMMer.')
 flags.DEFINE_string('pdb70_database_path', None,
@@ -459,8 +465,11 @@ def _relax(
     output_dir: str,
     relaxer: Optional[relax.AmberRelaxation],
     overwrite: Optional[bool]):
+  relax_metrics = {}
+
   if relaxer:
     result_pdbs = {}
+
     for model_name, unrelaxed_prot in unrelaxed_prots.items():
       relaxed_output_path = os.path.join(output_dir,
                                          f'relaxed_{model_name}.pdb')
@@ -473,7 +482,11 @@ def _relax(
       else:
         # Relax the prediction.
         with profiler(f'relax_{model_name}'):
-          relaxed_pdb, *_ = relaxer.process(prot=unrelaxed_prot)
+          relaxed_pdb, _, violations = relaxer.process(prot=unrelaxed_prot)
+          relax_metrics[model_name] = {
+              'remaining_violations': violations,
+              'remaining_violations_count': sum(violations)
+          }
 
         # Save the relaxed PDB.
         with open(relaxed_output_path, 'w') as f:
@@ -487,13 +500,14 @@ def _relax(
         for model_name, prot in unrelaxed_prots.items()
     }
 
-  return result_pdbs
+  return result_pdbs, relax_metrics
 
 
 def _report(
     results: List[tuple],
     ranking_confidences: dict,
     result_pdbs: Dict[str, str],
+    relax_metrics: dict,
     output_dir: str,):
   """Rank by model confidence and write out relaxed PDBs in rank order."""
   ranked_order = []
@@ -511,6 +525,11 @@ def _report(
 
   timings_output_path = os.path.join(output_dir, 'timings.json')
   profiler.dump(timings_output_path)
+
+  if relax_metrics:
+    relax_metrics_path = os.path.join(output_dir, 'relax_metrics.json')
+    with open(relax_metrics_path, 'w') as f:
+      json.dump(relax_metrics, f, indent=4)
 
 
 def predict_structure(
@@ -545,11 +564,11 @@ def predict_structure(
     num_recycle, benchmark, random_seeds_chunked, n_jobs, overwrite)
 
   # Run relaxation
-  result_pdbs = _relax(
+  result_pdbs, relax_metrics = _relax(
     unrelaxed_prots, fasta_path, output_dir, relaxer, overwrite)
 
   # Report results
-  _report(results, ranking_confidences, result_pdbs, output_dir)
+  _report(results, ranking_confidences, result_pdbs, relax_metrics, output_dir)
 
 
 def _check_multimer(fasta_path: str):
@@ -639,7 +658,7 @@ def main(fasta_paths: List[str]):
       uniref90_database_path=FLAGS.uniref90_database_path,
       mgnify_database_path=FLAGS.mgnify_database_path,
       bfd_database_path=FLAGS.bfd_database_path,
-      uniclust30_database_path=FLAGS.uniclust30_database_path,
+      uniref30_database_path=FLAGS.uniref30_database_path,
       small_bfd_database_path=FLAGS.small_bfd_database_path,
       template_searcher=template_searcher,
       template_featurizer=template_featurizer,

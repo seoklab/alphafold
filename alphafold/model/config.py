@@ -27,12 +27,12 @@ NUM_TEMPLATES = shape_placeholders.NUM_TEMPLATES
 def model_config(model_id: int, model_type: str) -> ml_collections.ConfigDict:
   """Get the ConfigDict of a CASP14 model."""
 
-  if 'multimer' in model_type:
-    return CONFIG_MULTIMER
-
   if model_type not in CONFIG_DIFFS:
     raise ValueError(f'Invalid model type {model_type}.')
-  cfg = copy.deepcopy(CONFIG)
+  if 'multimer' in model_type:
+    cfg = copy.deepcopy(CONFIG_MULTIMER)
+  else:
+    cfg = copy.deepcopy(CONFIG)
   cfg_diff = CONFIG_DIFFS[model_type]
   cfg.update_from_flattened_dict(cfg_diff[model_id % len(cfg_diff)])
   return cfg
@@ -122,7 +122,18 @@ CONFIG_DIFFS = {
       {
           'model.heads.predicted_aligned_error.weight': 0.1
       }
-  ]
+  ],
+  "multimer": [
+      {},
+      {},
+      {},
+      {
+          'model.embeddings_and_evoformer.num_extra_msa': 1152
+      },
+      {
+          'model.embeddings_and_evoformer.num_extra_msa': 1152
+      },
+  ],
 }
 
 CONFIG = ml_collections.ConfigDict({
@@ -263,14 +274,16 @@ CONFIG = ml_collections.ConfigDict({
                     'equation': 'ikc,jkc->ijc',
                     'num_intermediate_channel': 128,
                     'orientation': 'per_row',
-                    'shared_dropout': True
+                    'shared_dropout': True,
+                    'fuse_projection_weights': False,
                 },
                 'triangle_multiplication_incoming': {
                     'dropout_rate': 0.25,
                     'equation': 'kjc,kic->ijc',
                     'num_intermediate_channel': 128,
                     'orientation': 'per_row',
-                    'shared_dropout': True
+                    'shared_dropout': True,
+                    'fuse_projection_weights': False,
                 },
                 'pair_transition': {
                     'dropout_rate': 0.0,
@@ -331,14 +344,16 @@ CONFIG = ml_collections.ConfigDict({
                         'equation': 'ikc,jkc->ijc',
                         'num_intermediate_channel': 64,
                         'orientation': 'per_row',
-                        'shared_dropout': True
+                        'shared_dropout': True,
+                        'fuse_projection_weights': False,
                     },
                     'triangle_multiplication_incoming': {
                         'dropout_rate': 0.25,
                         'equation': 'kjc,kic->ijc',
                         'num_intermediate_channel': 64,
                         'orientation': 'per_row',
-                        'shared_dropout': True
+                        'shared_dropout': True,
+                        'fuse_projection_weights': False,
                     },
                     'pair_transition': {
                         'dropout_rate': 0.0,
@@ -357,7 +372,7 @@ CONFIG = ml_collections.ConfigDict({
             'multimer_mode': False,
             'subbatch_size': 4,
             'use_remat': False,
-            'zero_init': True
+            'zero_init': True,
         },
         'heads': {
             'distogram': {
@@ -485,27 +500,29 @@ CONFIG_MULTIMER = ml_collections.ConfigDict({
                     'gating': True,
                     'num_head': 4,
                     'orientation': 'per_row',
-                    'shared_dropout': True
+                    'shared_dropout': True,
                 },
                 'triangle_multiplication_incoming': {
                     'dropout_rate': 0.25,
                     'equation': 'kjc,kic->ijc',
                     'num_intermediate_channel': 128,
                     'orientation': 'per_row',
-                    'shared_dropout': True
+                    'shared_dropout': True,
+                    'fuse_projection_weights': True,
                 },
                 'triangle_multiplication_outgoing': {
                     'dropout_rate': 0.25,
                     'equation': 'ikc,jkc->ijc',
                     'num_intermediate_channel': 128,
                     'orientation': 'per_row',
-                    'shared_dropout': True
+                    'shared_dropout': True,
+                    'fuse_projection_weights': True,
                 }
             },
             'extra_msa_channel': 64,
             'extra_msa_stack_num_block': 4,
-            'num_msa': 252,
-            'num_extra_msa': 1152,
+            'num_msa': 508,
+            'num_extra_msa': 2048,
             'masked_msa': {
                 'profile_prob': 0.1,
                 'replace_fraction': 0.15,
@@ -566,24 +583,28 @@ CONFIG_MULTIMER = ml_collections.ConfigDict({
                         'equation': 'kjc,kic->ijc',
                         'num_intermediate_channel': 64,
                         'orientation': 'per_row',
-                        'shared_dropout': True
+                        'shared_dropout': True,
+                        'fuse_projection_weights': True,
                     },
                     'triangle_multiplication_outgoing': {
                         'dropout_rate': 0.25,
                         'equation': 'ikc,jkc->ijc',
                         'num_intermediate_channel': 64,
                         'orientation': 'per_row',
-                        'shared_dropout': True
+                        'shared_dropout': True,
+                        'fuse_projection_weights': True,
                     }
                 }
             },
         },
         'global_config': {
+            'bfloat16': True,
+            'bfloat16_output': False,
             'deterministic': False,
             'multimer_mode': True,
             'subbatch_size': 4,
             'use_remat': False,
-            'zero_init': True
+            'zero_init': True,
         },
         'heads': {
             'distogram': {

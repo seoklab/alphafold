@@ -15,9 +15,9 @@ dependencies:
   - biopython=1.79
   - absl-py=1.0
   - chex=0.0.7
-  - dm-haiku=0.0.7
+  - dm-haiku=0.0.9
   - dm-tree=0.1.6
-  - jax=0.3.17
+  - jax=0.3.25
   - protobuf==3.20.1
   - immutabledict=2.0
   - bioconda::hmmer=3.3
