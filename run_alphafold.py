@@ -155,13 +155,15 @@ flags.DEFINE_integer('num_multimer_predictions_per_model', 1, 'How many '
                      'generated per model. E.g. if this is 2 and there are 5 '
                      'models then there will be 10 predictions per input. '
                      'Note: this FLAG only applies if model_preset=multimer')
-flags.DEFINE_integer('num_recycle', 20, 'How many recycling iterations to use.')
+flags.DEFINE_integer('num_recycle', None,
+                     'How many recycling iterations to use.')
 flags.DEFINE_float('recycle_early_stop_tolerance', 0.5,
                    'A negative value indicates that no early stopping will '
                    'occur, i.e. the model will always run `num_recycle` number '
                    'of recycling iterations. A positive value will enable '
                    'early stopping if the difference in pairwise distances is '
-                   'less than the tolerance between recycling steps.')
+                   'less than the tolerance between recycling steps.'
+                   'Applied only for multimer predictions.')
 flags.DEFINE_boolean('only_msa', False, 'Whether to run only the MSA pipeline.')
 flags.DEFINE_boolean('run_relax', True, 'Whether to run the final relaxation '
                      'step on the predicted models. Turning relax off might '
@@ -288,6 +290,7 @@ def predict_structure_permodel(
     data_dir: str,
     num_ensemble: int,
     num_recycle: int,
+    recycle_early_stop_tolerance: float,
     feature_dict: dict,
     benchmark: bool,
     random_seed: int,
@@ -302,6 +305,8 @@ def predict_structure_permodel(
   model_config = config.model_config(model_id, model_type)
   if model_type == "multimer":
     model_config.model.num_ensemble_eval = num_ensemble
+    model_config.model.recycle_early_stop_tolerance = \
+      recycle_early_stop_tolerance
   else:
     model_config.data.eval.num_ensemble = num_ensemble
     model_config.data.common.num_recycle = num_recycle
@@ -375,6 +380,7 @@ def predict_structure_perdev(model_ids: List[int],
                              data_dir: str,
                              num_ensemble: int,
                              num_recycle: int,
+                             recycle_early_stop_tolerance: float,
                              feature_dict: dict,
                              benchmark: bool,
                              device_id: int = None,
@@ -389,8 +395,9 @@ def predict_structure_perdev(model_ids: List[int],
   return [
       predict_structure_permodel(
           mid, model_type, output_dir, data_dir, num_ensemble, num_recycle,
-          feature_dict, benchmark, random_seed, device=device,
-          overwrite=overwrite, jit_compile=jit_compile)
+          recycle_early_stop_tolerance, feature_dict, benchmark,
+          random_seed, device=device, overwrite=overwrite,
+          jit_compile=jit_compile)
       for mid, random_seed in zip(model_ids, random_seeds)
   ]
 
@@ -436,6 +443,7 @@ def _predict(
     model_type: str,
     num_ensemble: int,
     num_recycle: int,
+    recycle_early_stop_tolerance: float,
     benchmark: bool,
     random_seeds_chunked: List[List[int]],
     n_jobs: int,
@@ -443,8 +451,8 @@ def _predict(
   dev_results = Parallel(n_jobs=n_jobs, backend="multiprocessing")(
       delayed(predict_structure_perdev)(
           ids, model_type, seeds, output_dir, FLAGS.data_dir, num_ensemble,
-          num_recycle, feature_dict, benchmark, device_id=device_id,
-          overwrite=overwrite, jit_compile=FLAGS.jit,
+          num_recycle, recycle_early_stop_tolerance, feature_dict, benchmark,
+          device_id=device_id, overwrite=overwrite, jit_compile=FLAGS.jit,
           _loglvl=logging.get_verbosity())
       for ids, seeds, device_id
       in zip(model_ids_chunked, random_seeds_chunked, cycle(devices.DEV_POOL)))
@@ -541,6 +549,7 @@ def predict_structure(
     model_type: str,
     num_ensemble: int,
     num_recycle: int,
+    recycle_early_stop_tolerance: float,
     relaxer: Optional[relax.AmberRelaxation],
     benchmark: bool,
     random_seeds_chunked: List[List[int]],
@@ -561,7 +570,8 @@ def predict_structure(
   # Run the models
   results, ranking_confidences, unrelaxed_prots = _predict(
     feature_dict, output_dir, model_ids_chunked, model_type, num_ensemble,
-    num_recycle, benchmark, random_seeds_chunked, n_jobs, overwrite)
+    num_recycle, recycle_early_stop_tolerance, benchmark,
+    random_seeds_chunked, n_jobs, overwrite)
 
   # Run relaxation
   result_pdbs, relax_metrics = _relax(
@@ -624,6 +634,9 @@ def main(fasta_paths: List[str]):
     if (pdb_seqres_database_path := FLAGS.pdb_seqres_database_path) is None:
       pdb_seqres_database_path = pdb_seqres_database_paths[FLAGS.state]
 
+    if FLAGS.num_recycle is None:
+      FLAGS.num_recycle = 20
+
     template_searcher = hmmsearch.Hmmsearch(
         binary_path=FLAGS.hmmsearch_binary_path,
         hmmbuild_binary_path=FLAGS.hmmbuild_binary_path,
@@ -639,6 +652,9 @@ def main(fasta_paths: List[str]):
   else:
     if (pdb70_database_path := FLAGS.pdb70_database_path) is None:
       pdb70_database_path = pdb70_database_paths[FLAGS.state]
+
+    if FLAGS.num_recycle is None:
+      FLAGS.num_recycle = 3
 
     template_searcher = hhsearch.HHSearch(
         binary_path=FLAGS.hhsearch_binary_path,
@@ -713,20 +729,22 @@ def main(fasta_paths: List[str]):
   for fasta_path, fasta_name in zip(fasta_paths, fasta_names):
     with profiler(
         f"fasta name {fasta_name}", printer=logging.info, store=False):
-      predict_structure(fasta_path=fasta_path,
-                        fasta_name=fasta_name,
-                        output_dir_base=FLAGS.output_dir,
-                        data_pipeline=data_pipeline,
-                        model_ids_chunked=model_ids_chunked,
-                        model_type=FLAGS.model_type,
-                        num_ensemble=FLAGS.ensemble,
-                        num_recycle=FLAGS.num_recycle,
-                        relaxer=amber_relaxer,
-                        benchmark=FLAGS.benchmark,
-                        random_seeds_chunked=random_seeds_chunked,
-                        n_jobs=n_jobs,
-                        overwrite=FLAGS.overwrite,
-                        only_msa=FLAGS.only_msa)
+      predict_structure(
+          fasta_path=fasta_path,
+          fasta_name=fasta_name,
+          output_dir_base=FLAGS.output_dir,
+          data_pipeline=data_pipeline,
+          model_ids_chunked=model_ids_chunked,
+          model_type=FLAGS.model_type,
+          num_ensemble=FLAGS.ensemble,
+          num_recycle=FLAGS.num_recycle,
+          recycle_early_stop_tolerance=FLAGS.recycle_early_stop_tolerance,
+          relaxer=amber_relaxer,
+          benchmark=FLAGS.benchmark,
+          random_seeds_chunked=random_seeds_chunked,
+          n_jobs=n_jobs,
+          overwrite=FLAGS.overwrite,
+          only_msa=FLAGS.only_msa)
 
 
 if __name__ == '__main__':
