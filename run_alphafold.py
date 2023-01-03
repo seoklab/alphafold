@@ -162,7 +162,7 @@ flags.DEFINE_float('recycle_early_stop_tolerance', 0.5,
                    'occur, i.e. the model will always run `num_recycle` number '
                    'of recycling iterations. A positive value will enable '
                    'early stopping if the difference in pairwise distances is '
-                   'less than the tolerance between recycling steps.'
+                   'less than the tolerance between recycling steps. '
                    'Applied only for multimer predictions.')
 flags.DEFINE_boolean('only_msa', False, 'Whether to run only the MSA pipeline.')
 flags.DEFINE_boolean('run_relax', True, 'Whether to run the final relaxation '
