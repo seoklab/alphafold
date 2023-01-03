@@ -334,7 +334,7 @@ optional arguments:
                         number of recycling iterations. A positive value will
                         enable early stopping if the difference in pairwise
                         distances is less than the tolerance between recycling
-                        steps.
+                        steps. Applied only for multimer predictions.
   --only_msa, --noonly_msa
                         Whether to run only the MSA pipeline.
   --run_relax, --norun_relax
