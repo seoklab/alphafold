@@ -13,6 +13,7 @@
 # limitations under the License.
 
 """Full AlphaFold protein structure prediction script."""
+import enum
 import json
 import os
 import pathlib
@@ -44,6 +45,14 @@ from alphafold.relax import relax
 #### USER CONFIGURATION ####
 
 _conda_bin = os.path.join(os.getenv('CONDA_PREFIX'), 'bin')
+
+
+@enum.unique
+class ModelsToRelax(enum.Enum):
+  ALL = 0
+  BEST = 1
+  NONE = 2
+
 
 # Set to target of scripts/download_all_databases.sh
 DOWNLOAD_DIR = os.path.join(os.getenv('ALPHAFOLD_HOME'), 'data')
@@ -157,11 +166,19 @@ flags.DEFINE_integer('num_multimer_predictions_per_model', 1, 'How many '
                      'Note: this FLAG only applies if model_preset=multimer')
 flags.DEFINE_integer('num_recycle', 3, 'How many recycling iterations to use.')
 flags.DEFINE_boolean('only_msa', False, 'Whether to run only the MSA pipeline.')
-flags.DEFINE_boolean('run_relax', True, 'Whether to run the final relaxation '
-                     'step on the predicted models. Turning relax off might '
-                     'result in predictions with distracting stereochemical '
-                     'violations but might help in case you are having issues '
-                     'with the relaxation stage.')
+flags.DEFINE_enum_class('models_to_relax', ModelsToRelax.ALL, ModelsToRelax,
+                        'The models to run the final relaxation step on. '
+                        'If `all`, all models are relaxed, which may be time '
+                        'consuming. If `best`, only the most confident model '
+                        'is relaxed. If `none`, relaxation is not run. Turning '
+                        'off relaxation might result in predictions with '
+                        'distracting stereochemical violations but might help '
+                        'in case you are having issues with the relaxation '
+                        'stage.')
+flags.DEFINE_boolean('use_gpu_relax', True, 'Whether to relax on GPU. '
+                     'Relax on GPU can be much faster than CPU, so it is '
+                     'recommended to enable if possible. Ignored if no GPU '
+                     'is available.')
 flags.DEFINE_boolean('benchmark', False, 'Run multiple JAX model evaluations '
                      'to obtain a timing that excludes the compilation time, '
                      'which should be more indicative of the time required for '
@@ -455,13 +472,27 @@ def _predict(
 
 def _relax(
     unrelaxed_prots: Dict[str, protein.Protein],
+    ranked_order: List[str],
     fasta_path: str,
     output_dir: str,
     relaxer: Optional[relax.AmberRelaxation],
+    models_to_relax: ModelsToRelax,
     overwrite: Optional[bool]):
-  if relaxer:
-    result_pdbs = {}
-    for model_name, unrelaxed_prot in unrelaxed_prots.items():
+  relax_metrics = {}
+  result_pdbs = {
+      model_name: protein.to_pdb(prot)
+      for model_name, prot in unrelaxed_prots.items()
+  }
+
+  if models_to_relax != ModelsToRelax.NONE:
+    # Relax predictions.
+    if models_to_relax == ModelsToRelax.BEST:
+      to_relax = [ranked_order[0]]
+    elif models_to_relax == ModelsToRelax.ALL:
+      to_relax = ranked_order
+
+    for model_name in to_relax:
+      unrelaxed_prot = unrelaxed_prots[model_name]
       relaxed_output_path = os.path.join(output_dir,
                                          f'relaxed_{model_name}.pdb')
 
@@ -473,7 +504,11 @@ def _relax(
       else:
         # Relax the prediction.
         with profiler(f'relax_{model_name}'):
-          relaxed_pdb, *_ = relaxer.process(prot=unrelaxed_prot)
+          relaxed_pdb, _, violations = relaxer.process(prot=unrelaxed_prot)
+          relax_metrics[model_name] = {
+              'remaining_violations': violations,
+              'remaining_violations_count': sum(violations)
+          }
 
         # Save the relaxed PDB.
         with open(relaxed_output_path, 'w') as f:
@@ -482,24 +517,20 @@ def _relax(
       result_pdbs[model_name] = relaxed_pdb
   else:
     logging.info(f'Skipping relaxation for {fasta_path}')
-    result_pdbs = {
-        model_name: protein.to_pdb(prot)
-        for model_name, prot in unrelaxed_prots.items()
-    }
 
-  return result_pdbs
+  return result_pdbs, relax_metrics
 
 
 def _report(
     results: List[tuple],
-    ranking_confidences: dict,
+    ranked_order: List[str],
+    ranking_confidences: Dict[str, float],
     result_pdbs: Dict[str, str],
+    relax_metrics: dict,
     output_dir: str,):
   """Rank by model confidence and write out relaxed PDBs in rank order."""
-  ranked_order = []
-  for idx, (model_name, _) in enumerate(
-      sorted(ranking_confidences.items(), key=lambda x: x[1], reverse=True)):
-    ranked_order.append(model_name)
+  # Write out relaxed PDBs in rank order.
+  for idx, model_name in enumerate(ranked_order):
     ranked_output_path = os.path.join(output_dir, f'ranked_{idx}.pdb')
     with open(ranked_output_path, 'w') as f:
       f.write(result_pdbs[model_name])
@@ -512,6 +543,11 @@ def _report(
   timings_output_path = os.path.join(output_dir, 'timings.json')
   profiler.dump(timings_output_path)
 
+  if relax_metrics:
+    relax_metrics_path = os.path.join(output_dir, 'relax_metrics.json')
+    with open(relax_metrics_path, 'w') as f:
+      json.dump(relax_metrics, f, indent=4)
+
 
 def predict_structure(
     fasta_path: str,
@@ -523,6 +559,7 @@ def predict_structure(
     num_ensemble: int,
     num_recycle: int,
     relaxer: Optional[relax.AmberRelaxation],
+    models_to_relax: ModelsToRelax,
     benchmark: bool,
     random_seeds_chunked: List[List[int]],
     n_jobs: int,
@@ -544,12 +581,19 @@ def predict_structure(
     feature_dict, output_dir, model_ids_chunked, model_type, num_ensemble,
     num_recycle, benchmark, random_seeds_chunked, n_jobs, overwrite)
 
+  # Rank by model confidence.
+  ranked_order = [
+      model_name for model_name, _ in
+      sorted(ranking_confidences.items(), key=lambda x: x[1], reverse=True)]
+
   # Run relaxation
-  result_pdbs = _relax(
-    unrelaxed_prots, fasta_path, output_dir, relaxer, overwrite)
+  result_pdbs, relax_metrics = _relax(
+    unrelaxed_prots, ranked_order, fasta_path,
+    output_dir, relaxer, models_to_relax, overwrite)
 
   # Report results
-  _report(results, ranking_confidences, result_pdbs, output_dir)
+  _report(results, ranked_order, ranking_confidences,
+          result_pdbs, relax_metrics, output_dir)
 
 
 def _check_multimer(fasta_path: str):
@@ -654,13 +698,14 @@ def main(fasta_paths: List[str]):
   else:
     data_pipeline = monomer_data_pipeline
 
-  if FLAGS.run_relax:
+  if FLAGS.models_to_relax != ModelsToRelax.NONE:
     amber_relaxer = relax.AmberRelaxation(
         max_iterations=RELAX_MAX_ITERATIONS,
         tolerance=RELAX_ENERGY_TOLERANCE,
         stiffness=RELAX_STIFFNESS,
         exclude_residues=RELAX_EXCLUDE_RESIDUES,
-        max_outer_iterations=RELAX_MAX_OUTER_ITERATIONS)
+        max_outer_iterations=RELAX_MAX_OUTER_ITERATIONS,
+        use_gpu=FLAGS.use_gpu_relax)
   else:
     amber_relaxer = None
 
@@ -694,20 +739,22 @@ def main(fasta_paths: List[str]):
   for fasta_path, fasta_name in zip(fasta_paths, fasta_names):
     with profiler(
         f"fasta name {fasta_name}", printer=logging.info, store=False):
-      predict_structure(fasta_path=fasta_path,
-                        fasta_name=fasta_name,
-                        output_dir_base=FLAGS.output_dir,
-                        data_pipeline=data_pipeline,
-                        model_ids_chunked=model_ids_chunked,
-                        model_type=FLAGS.model_type,
-                        num_ensemble=FLAGS.ensemble,
-                        num_recycle=FLAGS.num_recycle,
-                        relaxer=amber_relaxer,
-                        benchmark=FLAGS.benchmark,
-                        random_seeds_chunked=random_seeds_chunked,
-                        n_jobs=n_jobs,
-                        overwrite=FLAGS.overwrite,
-                        only_msa=FLAGS.only_msa)
+      predict_structure(
+          fasta_path=fasta_path,
+          fasta_name=fasta_name,
+          output_dir_base=FLAGS.output_dir,
+          data_pipeline=data_pipeline,
+          model_ids_chunked=model_ids_chunked,
+          model_type=FLAGS.model_type,
+          num_ensemble=FLAGS.ensemble,
+          num_recycle=FLAGS.num_recycle,
+          relaxer=amber_relaxer,
+          models_to_relax=FLAGS.models_to_relax,
+          benchmark=FLAGS.benchmark,
+          random_seeds_chunked=random_seeds_chunked,
+          n_jobs=n_jobs,
+          overwrite=FLAGS.overwrite,
+          only_msa=FLAGS.only_msa)
 
 
 if __name__ == '__main__':
