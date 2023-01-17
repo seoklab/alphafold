@@ -24,7 +24,7 @@ import multiprocessing
 import shutil
 from datetime import date
 from itertools import cycle
-from typing import List, Dict, Union, Optional
+from typing import Any, List, Dict, Union, Optional
 
 from absl import app
 from absl import flags
@@ -32,6 +32,7 @@ from absl import logging
 from absl.flags import argparse_flags
 import numpy as np
 import jax
+import jax.numpy as jnp
 import psutil
 from joblib import Parallel, delayed
 
@@ -284,6 +285,16 @@ def fasta_parser(args):
   return parser.parse_args(args[1:]).fasta_paths
 
 
+def _jnp_to_np(output: Dict[str, Any]) -> Dict[str, Any]:
+  """Recursively changes jax arrays to numpy arrays."""
+  for k, v in output.items():
+    if isinstance(v, dict):
+      output[k] = _jnp_to_np(v)
+    elif isinstance(v, jnp.ndarray):
+      output[k] = np.array(v)
+  return output
+
+
 MAX_TEMPLATE_HITS = 20
 RELAX_MAX_ITERATIONS = 0
 RELAX_ENERGY_TOLERANCE = 2.39
@@ -351,10 +362,13 @@ def predict_structure_permodel(
       with profiler(f'predict_benchmark_{model_name}'):
         model_runner.predict(processed_feature_dict, random_seed)
 
+    # Remove jax dependency from results.
+    np_prediction_result = _jnp_to_np(dict(prediction_result))
+
     # Save the model outputs.
     result_output_path = os.path.join(output_dir, f'result_{model_name}.pkl')
     with open(result_output_path, 'wb') as f:
-      pickle.dump(prediction_result, f, protocol=4)
+      pickle.dump(np_prediction_result, f, protocol=4)
 
   # Get mean pLDDT confidence metric.
   plddt = prediction_result['plddt']
