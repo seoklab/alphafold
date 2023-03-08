@@ -174,7 +174,7 @@ flags.DEFINE_float('recycle_early_stop_tolerance', 0.5,
                    'less than the tolerance between recycling steps. '
                    'Applied only for multimer predictions.')
 flags.DEFINE_boolean('only_msa', False, 'Whether to run only the MSA pipeline.')
-flags.DEFINE_enum_class('models_to_relax', ModelsToRelax.BEST, ModelsToRelax,
+flags.DEFINE_enum_class('models_to_relax', ModelsToRelax.ALL, ModelsToRelax,
                         'The models to run the final relaxation step on. '
                         'If `all`, all models are relaxed, which may be time '
                         'consuming. If `best`, only the most confident model '
