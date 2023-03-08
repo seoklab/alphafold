@@ -3,16 +3,15 @@
 # AlphaFold
 
 This package provides an implementation of the inference pipeline of AlphaFold
-v2.0. For simplicity, we refer to this model as AlphaFold throughout the rest
-of this document.
+v2. For simplicity, we refer to this model as AlphaFold throughout the rest of
+this document.
 
 We also provide:
 
 1.  An implementation of AlphaFold-Multimer. This represents a work in progress
     and AlphaFold-Multimer isn't expected to be as stable as our monomer
-    AlphaFold system.
-    [Read the guide](#updating-existing-installation)
-    for how to upgrade and update code.
+    AlphaFold system. [Read the guide](#updating-existing-installation) for how
+    to upgrade and update code.
 2.  The [technical note](docs/technical_note_v2.3.0.md) containing the models
     and inference procedure for an updated AlphaFold v2.3.0.
 3.  A [CASP15 baseline](docs/casp15_predictions.zip) set of predictions along
@@ -54,22 +53,57 @@ Seoklab version of AlphaFold has few changes:
   - Make command line interface more user-friendly.
   - Code refactoring.
 
-## First time setup
+## Installation and running your first prediction
 
 You will need a machine running Linux, AlphaFold does not support other
-operating systems.
+operating systems. Full installation requires up to 3 TB of disk space to keep
+genetic databases (SSD storage is recommended) and a modern NVIDIA GPU (GPUs
+with more memory can predict larger protein structures).
 
-Clone this repository, then run `./install.sh`. The script requires `wget` to
+Please follow these steps:
+
+1. Clone this repository, then run `./install.sh`. The script requires `wget` to
 run. Few variables could change the behavior of the script, namely:
 
-- `$CONDA_PREFIX`: The path for the newly-installed miniconda. Defaults to
-  `/opt/conda` (for system-wide installations).
-- `$SUDO`: Either `y` or `n`. Defaults to `y`. If set to `y`, then the script
-  will try to install AlphaFold system-wide, invoking `sudo` a few times.
-  **Please be careful for running this script in SUDO mode.** Even though this
-  script has been tested a few times, it is **NOT** fully tested for all types
-  of Linux distros. (Currently tested on Ubuntu Server 16.04 LTS and Ubuntu
-  Server 20.04 LTS)
+   - `$CONDA_PREFIX`: The path for the newly-installed miniconda. Defaults to
+     `/opt/conda` (for system-wide installations).
+   - `$SUDO`: Either `y` or `n`. Defaults to `y`. If set to `y`, then the script
+     will try to install AlphaFold system-wide, invoking `sudo` a few times.
+     **Please be careful for running this script in SUDO mode.** Even though
+     this script has been tested a few times, it is **NOT** fully tested for all
+     types of Linux distros. (Currently tested on Ubuntu Server 16.04 LTS and
+     Ubuntu Server 20.04 LTS)
+
+1.  Download genetic databases and model parameters:
+
+    *   Install `aria2c`. On most Linux distributions it is available via the
+    package manager as the `aria2` package (on Debian-based distributions this
+    can be installed by running `sudo apt install aria2`).
+
+    *   Please use the script `scripts/download_all_data.sh` to download
+    and set up full databases. This may take substantial time (download size is
+    556 GB), so we recommend running this script in the background:
+
+    ```bash
+    scripts/download_all_data.sh <DOWNLOAD_DIR> > download.log 2> download_all.log &
+    ```
+
+    *   It is possible to run AlphaFold with reduced databases; please refer to
+    the [complete documentation](#genetic-databases).
+
+1.  Run `alphafold` script with FASTA file(s) containing the protein
+    sequence(s) for which you wish to predict the structure. AlphaFold will
+    search for the available templates before the date specified by the
+    `--max_template_date` parameter (default to all pdb files); this could be
+    used to avoid certain templates during modeling.
+
+    ```bash
+    alphafold your_protein.fasta [--max_template_date=2022-01-01]
+    ```
+
+1.  Once the run is over, the output directory shall contain predicted
+    structures of the target protein. Please check the documentation below for
+    additional options and troubleshooting tips.
 
 ### Genetic databases
 
@@ -90,34 +124,38 @@ AlphaFold needs multiple genetic (sequence) databases to run:
     for multistate GPCR modeling.
 
 We provide a script `scripts/download_all_data.sh` that can be used to download
-and set up all of these databases. This should take 8–12 hours.
+and set up all of these databases:
 
-```bash
-scripts/download_all_data.sh [<DOWNLOAD_DIR>]
-```
+*   Recommended default:
 
-will download the full databases (including the `small_bfd` dataset).
+    ```bash
+    scripts/download_all_data.sh <DOWNLOAD_DIR>
+    ```
 
-**The data should be downloaded into `$ALPHAFOLD_HOME/data`.** If you have
-chosen the other directory for the data to live, then it must be explicitly
+    will download the full databases.
+
+*   With `reduced_dbs` parameter:
+
+    ```bash
+    scripts/download_all_data.sh <DOWNLOAD_DIR> reduced_dbs
+    ```
+
+    will download a reduced version of the databases to be used with the
+    `reduced_dbs` database preset. This shall be used with the corresponding
+    AlphaFold parameter `--db_preset=reduced_dbs` later during the AlphaFold run
+    (please see [AlphaFold parameters](#running-alphafold) section).
+
+:ledger: **The data should be downloaded into `$ALPHAFOLD_HOME/data`.** If you
+have chosen the other directory for the data to live, then it must be explicitly
 passed to the downloader script as a command line argument. The script will then
 automatically create a symlink pointing to the target directory at
 `$ALPHAFOLD_HOME/data`.
 
-If such behavior is not desired or another database is being used, then the data
-directory could be explicitly passed as arguments, when invoking the `alphafold`
-script. (Please refer to the [next section](#running-alphafold) for more
-details.)
-
-:ledger: **Note: The download directory `<DOWNLOAD_DIR>` should *not* be a
-subdirectory in the AlphaFold repository directory.** If it is, the Docker build
-will be slow as the large databases will be copied during the image creation.
-
 We don't provide exactly the database versions used in CASP14 – see the
-[note on reproducibility](#note-on-casp14-reproducibility). Some of the databases are
-mirrored for speed, see [mirrored databases](#mirrored-databases).
+[note on reproducibility](#note-on-casp14-reproducibility). Some of the
+databases are mirrored for speed, see [mirrored databases](#mirrored-databases).
 
-:ledger: **Note: The total download size for the full databases is around 415 GB
+:ledger: **Note: The total download size for the full databases is around 556 GB
 and the total size when unzipped is 2.62 TB. Please make sure you have a large
 enough hard drive space, bandwidth and time to download. We recommend using an
 SSD for better genetic search performance.**
@@ -130,41 +168,38 @@ e.g. with the `sudo chmod 755 --recursive "$DOWNLOAD_DIR"` command.**
 The `download_all_data.sh` script will also download the model parameter files.
 Once the script has finished, you should have the following directory structure:
 
-```txt
-$ALPHAFOLD_HOME/
-    data/                             # Total: ~ 2.2 TB (download: 438 GB)
-        bfd/                                   # ~ 1.7 TB (download: 271.6 GB)
-            # 6 files.
-        gpcr100/                               # ~ 0.6 GB (download: 0.2 GB)
-            # 18 files.
-        mgnify/                                # ~ 120 GB (download: 67 GB)
-            mgy_clusters_2022_05.fa
-        params/                                # ~ 5.3 GB (download: 5.3 GB)
-            # 5 CASP14 models,
-            # 5 pTM models,
-            # 5 AlphaFold-Multimer models,
-            # LICENSE,
-            # = 16 files.
-        pdb70/                                 # ~ 56 GB (download: 19.5 GB)
-            # 9 files.
-        pdb_mmcif/                             # ~ 238 GB (download: 43 GB)
-            mmcif_files/
-                # About 199,000 .cif files.
-            obsolete.dat
-        pdb_seqres/                            # ~ 0.2 GB (download: 0.2 GB)
-            pdb_seqres.txt
-            pdb_seqres_active.txt
-            pdb_seqres_inactive.txt
-            pdb_seqres_intermediate.txt
-        small_bfd/                             # ~ 17 GB (download: 9.6 GB)
-            bfd-first_non_consensus_sequences.fasta
-        uniref30/                              # ~ 206 GB (download: 52.5 GB)
-            # 7 files.
-        uniprot/                               # ~ 105 GB (download: 53 GB)
-            uniprot.fasta
-        uniref90/                              # ~ 67 GB (download: 34 GB)
-            uniref90.fasta
 ```
+$DOWNLOAD_DIR/                             # Total: ~ 2.62 TB (download: 556 GB)
+    bfd/                                   # ~ 1.8 TB (download: 271.6 GB)
+        # 6 files.
+    mgnify/                                # ~ 120 GB (download: 67 GB)
+        mgy_clusters_2022_05.fa
+    params/                                # ~ 5.3 GB (download: 5.3 GB)
+        # 5 CASP14 models,
+        # 5 pTM models,
+        # 5 AlphaFold-Multimer models,
+        # LICENSE,
+        # = 16 files.
+    pdb70/                                 # ~ 56 GB (download: 19.5 GB)
+        # 9 files.
+    pdb_mmcif/                             # ~ 238 GB (download: 43 GB)
+        mmcif_files/
+            # About 199,000 .cif files.
+        obsolete.dat
+    pdb_seqres/                            # ~ 0.2 GB (download: 0.2 GB)
+        pdb_seqres.txt
+    small_bfd/                             # ~ 17 GB (download: 9.6 GB)
+        bfd-first_non_consensus_sequences.fasta
+    uniref30/                              # ~ 206 GB (download: 52.5 GB)
+        # 7 files.
+    uniprot/                               # ~ 105 GB (download: 53 GB)
+        uniprot.fasta
+    uniref90/                              # ~ 67 GB (download: 34 GB)
+        uniref90.fasta
+```
+
+`bfd/` is only downloaded if you download the full databases, and `small_bfd/`
+is only downloaded if you download the reduced databases.
 
 ### Model parameters
 
@@ -248,7 +283,8 @@ usage: alphafold [-h] [--helpfull] [--is_prokaryote_list IS_PROKARYOTE_LIST]
                  [--num_multimer_predictions_per_model NUM_MULTIMER_PREDICTIONS_PER_MODEL]
                  [--num_recycle NUM_RECYCLE]
                  [--recycle_early_stop_tolerance RECYCLE_EARLY_STOP_TOLERANCE]
-                 [--only_msa] [--run_relax] [--benchmark] [--debug] [--quiet]
+                 [--only_msa] [--models_to_relax MODELS_TO_RELAX]
+                 [--use_gpu_relax] [--benchmark] [--debug] [--quiet]
                  [--data_dir DATA_DIR]
                  [--jackhmmer_binary_path JACKHMMER_BINARY_PATH]
                  [--hhblits_binary_path HHBLITS_BINARY_PATH]
@@ -337,12 +373,19 @@ optional arguments:
                         steps. Applied only for multimer predictions.
   --only_msa, --noonly_msa
                         Whether to run only the MSA pipeline.
-  --run_relax, --norun_relax
-                        Whether to run the final relaxation step on the
-                        predicted models. Turning relax off might result in
+  --models_to_relax MODELS_TO_RELAX
+                        <all|best|none>: The models to run the final
+                        relaxation step on. If `all`, all models are relaxed,
+                        which may be time consuming. If `best`, only the most
+                        confident model is relaxed. If `none`, relaxation is
+                        not run. Turning off relaxation might result in
                         predictions with distracting stereochemical violations
                         but might help in case you are having issues with the
                         relaxation stage.
+  --use_gpu_relax, --nouse_gpu_relax
+                        Whether to relax on GPU. Relax on GPU can be much
+                        faster than CPU, so it is recommended to enable if
+                        possible. Ignored if no GPU is available.
   --benchmark, --nobenchmark
                         Run multiple JAX model evaluations to obtain a timing
                         that excludes the compilation time, which should be
@@ -393,6 +436,22 @@ optional arguments:
                         processes like GPU inference are nondeterministic.
 ```
 
+1.  After generating the predicted model, AlphaFold runs a relaxation
+    step to improve local geometry. By default, only the best model (by
+    pLDDT) is relaxed (`--models_to_relax=best`), but also all of the models
+    (`--models_to_relax=all`) or none of the models (`--models_to_relax=none`)
+    can be relaxed.
+
+1.  The relaxation step can be run on GPU (faster, but could be less stable) or
+    CPU (slow, but stable). This can be controlled with `--enable_gpu_relax=true`
+    (default) or `--enable_gpu_relax=false`.
+
+1.  AlphaFold can re-use MSAs (multiple sequence alignments) for the same
+    sequence via `--use_precomputed_msas=true` option; this can be useful for
+    trying different AlphaFold parameters. This option assumes that the
+    directory structure generated by the first AlphaFold run in the output
+    directory exists and that the protein sequence is the same.
+
 ### Running AlphaFold-Multimer
 
 All steps are the same as when running the monomer system, but you will have to
@@ -417,6 +476,38 @@ By default the multimer system will run 5 seeds per model (25 total predictions)
 for a small drop in accuracy you may wish to run a single seed per model. This
 can be done via the `--num_multimer_predictions_per_model` flag, e.g. set it to
 `--num_multimer_predictions_per_model=1` to run a single seed per model.
+
+### AlphaFold prediction speed
+
+The table below reports prediction runtimes for proteins of various lengths. We
+only measure unrelaxed structure prediction with three recycles while
+excluding runtimes from MSA and template search. When running
+`docker/run_docker.py` with `--benchmark=true`, this runtime is stored in
+`timings.json`. All runtimes are from a single A100 NVIDIA GPU. Prediction
+speed on A100 for smaller structures can be improved by increasing
+`global_config.subbatch_size` in `alphafold/model/config.py`.
+
+No. residues | Prediction time (s)
+-----------: | ------------------:
+100          | 4.9
+200          | 7.7
+300          | 13
+400          | 18
+500          | 29
+600          | 36
+700          | 53
+800          | 60
+900          | 91
+1,000        | 96
+1,100        | 140
+1,500        | 280
+2,000        | 450
+2,500        | 969
+3,000        | 1,240
+3,500        | 2,465
+4,000        | 5,660
+4,500        | 12,475
+5,000        | 18,824
 
 ### Examples
 
@@ -460,7 +551,6 @@ Then run the following command:
 alphafold \
   --max_template_date=2021-11-01 \
   --model_type=multimer \
-  --is_prokaryote_list=true \
   homomer.fasta
 ```
 
@@ -488,7 +578,6 @@ Then run the following command:
 alphafold \
   --max_template_date=2021-11-01 \
   --model_type=multimer \
-  --is_prokaryote_list=false \
   heteromer.fasta
 ```
 
@@ -537,9 +626,8 @@ The directory will have the following structure:
     unrelaxed_model_{1,2,3,4,5,...}.pdb
     msas/
         (depending on configuration)
-        [bfd_uniclust_hits.a3m | small_bfd_hits.sto]
+        [bfd_uniref_hits.a3m | small_bfd_hits.sto]
         mgnify_hits.sto
-        uniref90_hits.a3m
         uniref90_hits.sto
 ```
 

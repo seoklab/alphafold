@@ -13,6 +13,7 @@
 # limitations under the License.
 
 """Full AlphaFold protein structure prediction script."""
+import enum
 import json
 import os
 import pathlib
@@ -44,6 +45,14 @@ from alphafold.relax import relax
 #### USER CONFIGURATION ####
 
 _conda_bin = os.path.join(os.getenv('CONDA_PREFIX'), 'bin')
+
+
+@enum.unique
+class ModelsToRelax(enum.Enum):
+  ALL = 0
+  BEST = 1
+  NONE = 2
+
 
 # Set to target of scripts/download_all_databases.sh
 DOWNLOAD_DIR = os.path.join(os.getenv('ALPHAFOLD_HOME'), 'data')
@@ -165,11 +174,19 @@ flags.DEFINE_float('recycle_early_stop_tolerance', 0.5,
                    'less than the tolerance between recycling steps. '
                    'Applied only for multimer predictions.')
 flags.DEFINE_boolean('only_msa', False, 'Whether to run only the MSA pipeline.')
-flags.DEFINE_boolean('run_relax', True, 'Whether to run the final relaxation '
-                     'step on the predicted models. Turning relax off might '
-                     'result in predictions with distracting stereochemical '
-                     'violations but might help in case you are having issues '
-                     'with the relaxation stage.')
+flags.DEFINE_enum_class('models_to_relax', ModelsToRelax.BEST, ModelsToRelax,
+                        'The models to run the final relaxation step on. '
+                        'If `all`, all models are relaxed, which may be time '
+                        'consuming. If `best`, only the most confident model '
+                        'is relaxed. If `none`, relaxation is not run. Turning '
+                        'off relaxation might result in predictions with '
+                        'distracting stereochemical violations but might help '
+                        'in case you are having issues with the relaxation '
+                        'stage.')
+flags.DEFINE_boolean('use_gpu_relax', True, 'Whether to relax on GPU. '
+                     'Relax on GPU can be much faster than CPU, so it is '
+                     'recommended to enable if possible. Ignored if no GPU '
+                     'is available.')
 flags.DEFINE_boolean('benchmark', False, 'Run multiple JAX model evaluations '
                      'to obtain a timing that excludes the compilation time, '
                      'which should be more indicative of the time required for '
@@ -275,6 +292,16 @@ def fasta_parser(args):
   return parser.parse_args(args[1:]).fasta_paths
 
 
+def _jnp_to_np(output: dict) -> dict:
+  """Recursively changes jax arrays to numpy arrays."""
+  for k, v in output.items():
+    if isinstance(v, dict):
+      output[k] = _jnp_to_np(v)
+    elif isinstance(v, np.ndarray):
+      output[k] = np.array(v)
+  return output
+
+
 MAX_TEMPLATE_HITS = 20
 RELAX_MAX_ITERATIONS = 0
 RELAX_ENERGY_TOLERANCE = 2.39
@@ -305,8 +332,8 @@ def predict_structure_permodel(
   model_config = config.model_config(model_id, model_type)
   if model_type == "multimer":
     model_config.model.num_ensemble_eval = num_ensemble
-    model_config.model.recycle_early_stop_tolerance = \
-      recycle_early_stop_tolerance
+    model_config.model.recycle_early_stop_tolerance \
+      = recycle_early_stop_tolerance
   else:
     model_config.data.eval.num_ensemble = num_ensemble
     model_config.data.common.num_recycle = num_recycle
@@ -345,12 +372,16 @@ def predict_structure_permodel(
       with profiler(f'predict_benchmark_{model_name}'):
         model_runner.predict(processed_feature_dict, random_seed)
 
+    # Remove jax dependency from results.
+    np_prediction_result = _jnp_to_np(dict(prediction_result))
+
     # Save the model outputs.
     result_output_path = os.path.join(output_dir, f'result_{model_name}.pkl')
     with open(result_output_path, 'wb') as f:
-      pickle.dump(prediction_result, f, protocol=4)
+      pickle.dump(np_prediction_result, f, protocol=4)
 
-  # Get mean pLDDT confidence metric.
+  # Add the predicted LDDT in the b-factor column.
+  # Note that higher predicted LDDT value means higher model confidence.
   plddt = prediction_result['plddt']
   plddt_b_factors = np.repeat(
         plddt[:, None], residue_constants.atom_type_num, axis=-1)
@@ -469,16 +500,27 @@ def _predict(
 
 def _relax(
     unrelaxed_prots: Dict[str, protein.Protein],
+    ranked_order: List[str],
     fasta_path: str,
     output_dir: str,
     relaxer: Optional[relax.AmberRelaxation],
+    models_to_relax: ModelsToRelax,
     overwrite: Optional[bool]):
   relax_metrics = {}
+  result_pdbs = {
+      model_name: protein.to_pdb(prot)
+      for model_name, prot in unrelaxed_prots.items()
+  }
 
-  if relaxer:
-    result_pdbs = {}
+  if models_to_relax != ModelsToRelax.NONE:
+    # Relax predictions.
+    if models_to_relax == ModelsToRelax.BEST:
+      to_relax = [ranked_order[0]]
+    elif models_to_relax == ModelsToRelax.ALL:
+      to_relax = ranked_order
 
-    for model_name, unrelaxed_prot in unrelaxed_prots.items():
+    for model_name in to_relax:
+      unrelaxed_prot = unrelaxed_prots[model_name]
       relaxed_output_path = os.path.join(output_dir,
                                          f'relaxed_{model_name}.pdb')
 
@@ -503,25 +545,20 @@ def _relax(
       result_pdbs[model_name] = relaxed_pdb
   else:
     logging.info(f'Skipping relaxation for {fasta_path}')
-    result_pdbs = {
-        model_name: protein.to_pdb(prot)
-        for model_name, prot in unrelaxed_prots.items()
-    }
 
   return result_pdbs, relax_metrics
 
 
 def _report(
     results: List[tuple],
-    ranking_confidences: dict,
+    ranked_order: List[str],
+    ranking_confidences: Dict[str, float],
     result_pdbs: Dict[str, str],
     relax_metrics: dict,
     output_dir: str,):
   """Rank by model confidence and write out relaxed PDBs in rank order."""
-  ranked_order = []
-  for idx, (model_name, _) in enumerate(
-      sorted(ranking_confidences.items(), key=lambda x: x[1], reverse=True)):
-    ranked_order.append(model_name)
+  # Write out relaxed PDBs in rank order.
+  for idx, model_name in enumerate(ranked_order):
     ranked_output_path = os.path.join(output_dir, f'ranked_{idx}.pdb')
     with open(ranked_output_path, 'w') as f:
       f.write(result_pdbs[model_name])
@@ -551,6 +588,7 @@ def predict_structure(
     num_recycle: int,
     recycle_early_stop_tolerance: float,
     relaxer: Optional[relax.AmberRelaxation],
+    models_to_relax: ModelsToRelax,
     benchmark: bool,
     random_seeds_chunked: List[List[int]],
     n_jobs: int,
@@ -573,12 +611,19 @@ def predict_structure(
     num_recycle, recycle_early_stop_tolerance, benchmark,
     random_seeds_chunked, n_jobs, overwrite)
 
+  # Rank by model confidence.
+  ranked_order = [
+      model_name for model_name, _ in
+      sorted(ranking_confidences.items(), key=lambda x: x[1], reverse=True)]
+
   # Run relaxation
   result_pdbs, relax_metrics = _relax(
-    unrelaxed_prots, fasta_path, output_dir, relaxer, overwrite)
+    unrelaxed_prots, ranked_order, fasta_path,
+    output_dir, relaxer, models_to_relax, overwrite)
 
   # Report results
-  _report(results, ranking_confidences, result_pdbs, relax_metrics, output_dir)
+  _report(results, ranked_order, ranking_confidences,
+          result_pdbs, relax_metrics, output_dir)
 
 
 def _check_multimer(fasta_path: str):
@@ -695,7 +740,8 @@ def main(fasta_paths: List[str]):
         tolerance=RELAX_ENERGY_TOLERANCE,
         stiffness=RELAX_STIFFNESS,
         exclude_residues=RELAX_EXCLUDE_RESIDUES,
-        max_outer_iterations=RELAX_MAX_OUTER_ITERATIONS)
+        max_outer_iterations=RELAX_MAX_OUTER_ITERATIONS,
+        use_gpu=FLAGS.use_gpu_relax)
   else:
     amber_relaxer = None
 
@@ -740,6 +786,7 @@ def main(fasta_paths: List[str]):
           num_recycle=FLAGS.num_recycle,
           recycle_early_stop_tolerance=FLAGS.recycle_early_stop_tolerance,
           relaxer=amber_relaxer,
+          models_to_relax=FLAGS.models_to_relax,
           benchmark=FLAGS.benchmark,
           random_seeds_chunked=random_seeds_chunked,
           n_jobs=n_jobs,

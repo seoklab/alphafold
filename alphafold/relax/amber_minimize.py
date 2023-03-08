@@ -27,17 +27,17 @@ from alphafold.relax import cleanup
 from alphafold.relax import utils
 import ml_collections
 import numpy as np
+import jax
 import openmm
-import openmm.app
 from openmm import unit
+from openmm import app as openmm_app
 from openmm.app.internal.pdbstructure import PdbStructure
-
 
 ENERGY = unit.kilocalories_per_mole
 LENGTH = unit.angstroms
 
 
-def will_restrain(atom: openmm.app.Atom, rset: str) -> bool:
+def will_restrain(atom: openmm_app.Atom, rset: str) -> bool:
   """Returns True if the atom will be restrained by the given restraint set."""
 
   if rset == "non_hydrogen":
@@ -48,7 +48,7 @@ def will_restrain(atom: openmm.app.Atom, rset: str) -> bool:
 
 def _add_restraints(
     system: openmm.System,
-    reference_pdb: openmm.app.PDBFile,
+    reference_pdb: openmm_app.PDBFile,
     stiffness: unit.Unit,
     rset: str,
     exclude_residues: Sequence[int]):
@@ -77,23 +77,26 @@ def _openmm_minimize(
     tolerance: unit.Unit,
     stiffness: unit.Unit,
     restraint_set: str,
-    exclude_residues: Sequence[int]):
+    exclude_residues: Sequence[int],
+    use_gpu: bool):
   """Minimize energy via openmm."""
 
   pdb_file = io.StringIO(pdb_str)
-  pdb = openmm.app.PDBFile(pdb_file)
+  pdb = openmm_app.PDBFile(pdb_file)
 
-  force_field = openmm.app.ForceField("amber99sb.xml")
-  constraints = openmm.app.HBonds
+  force_field = openmm_app.ForceField("amber99sb.xml")
+  constraints = openmm_app.HBonds
   system = force_field.createSystem(
       pdb.topology, constraints=constraints)
   if stiffness > 0 * ENERGY / (LENGTH**2):
     _add_restraints(system, pdb, stiffness, restraint_set, exclude_residues)
 
   integrator = openmm.LangevinIntegrator(0, 0.01, 0.0)
-  platform = openmm.Platform.getPlatformByName(devices.PLATFORM)
-  simulation = openmm.app.Simulation(
-      pdb.topology, system, integrator, platform, devices.PROPERTIES)
+  platform = openmm.Platform.getPlatformByName(
+      devices.PLATFORM if use_gpu else "CPU")
+  simulation = openmm_app.Simulation(
+      pdb.topology, system, integrator, platform,
+      devices.PROPERTIES if use_gpu else None)
   simulation.context.setPositions(pdb.positions)
 
   ret = {}
@@ -109,17 +112,17 @@ def _openmm_minimize(
   return ret
 
 
-def _get_pdb_string(topology: openmm.app.Topology, positions: unit.Quantity):
+def _get_pdb_string(topology: openmm_app.Topology, positions: unit.Quantity):
   """Returns a pdb string provided OpenMM topology and positions."""
   with io.StringIO() as f:
-    openmm.app.PDBFile.writeFile(topology, positions, f)
+    openmm_app.PDBFile.writeFile(topology, positions, f)
     return f.getvalue()
 
 
 def _check_cleaned_atoms(pdb_cleaned_string: str, pdb_ref_string: str):
   """Checks that no atom positions have been altered by cleaning."""
-  cleaned = openmm.app.PDBFile(io.StringIO(pdb_cleaned_string))
-  reference = openmm.app.PDBFile(io.StringIO(pdb_ref_string))
+  cleaned = openmm_app.PDBFile(io.StringIO(pdb_cleaned_string))
+  reference = openmm_app.PDBFile(io.StringIO(pdb_ref_string))
 
   cl_xyz = np.array(cleaned.getPositions().value_in_unit(LENGTH))
   ref_xyz = np.array(reference.getPositions().value_in_unit(LENGTH))
@@ -177,7 +180,7 @@ def clean_protein(
   logging.info("alterations info: %s", alterations_info)
 
   # Write pdb file of cleaned structure.
-  as_file = openmm.app.PDBFile(pdb_structure)
+  as_file = openmm_app.PDBFile(pdb_structure)
   pdb_string = _get_pdb_string(as_file.getTopology(), as_file.getPositions())
   if checks:
     _check_cleaned_atoms(pdb_string, prot_pdb_string)
@@ -339,10 +342,10 @@ def find_violations(prot_np: protein.Protein):
   violations = folding.find_structural_violations(
       batch=batch,
       atom14_pred_positions=batch["atom14_gt_positions"],
-      config=ml_collections.ConfigDict({
-          "violation_tolerance_factor": 12,  # Taken from model config.
-          "clash_overlap_tolerance": 1.5,  # Taken from model config.
-      }))
+      config=ml_collections.ConfigDict(
+          {"violation_tolerance_factor": 12,  # Taken from model config.
+           "clash_overlap_tolerance": 1.5,  # Taken from model config.
+          }))
   violation_metrics = folding.compute_violation_metrics(
       batch=batch,
       atom14_pred_positions=batch["atom14_gt_positions"],
@@ -372,6 +375,7 @@ def _run_one_iteration(
     stiffness: float,
     restraint_set: str,
     max_attempts: int,
+    use_gpu: bool,
     exclude_residues: Optional[Collection[int]] = None):
   """Runs the minimization pipeline.
 
@@ -384,6 +388,7 @@ def _run_one_iteration(
       potential.
     restraint_set: The set of atoms to restrain.
     max_attempts: The maximum number of minimization attempts.
+    use_gpu: Whether to run on GPU.
     exclude_residues: An optional list of zero-indexed residues to exclude from
         restraints.
 
@@ -404,12 +409,12 @@ def _run_one_iteration(
       try:
         logging.info("Minimizing protein, attempt %d of %d.", attempts,
                      max_attempts)
-        ret = _openmm_minimize(pdb_string,
-                               max_iterations=max_iterations,
-                               tolerance=tolerance,
-                               stiffness=stiffness,
-                               restraint_set=restraint_set,
-                               exclude_residues=exclude_residues)
+        ret = _openmm_minimize(
+            pdb_string, max_iterations=max_iterations,
+            tolerance=tolerance, stiffness=stiffness,
+            restraint_set=restraint_set,
+            exclude_residues=exclude_residues,
+            use_gpu=use_gpu)
         minimized = True
       except Exception as e:  # pylint: disable=broad-except
         logging.info(e)
@@ -422,6 +427,7 @@ def _run_one_iteration(
 def run_pipeline(
     prot: protein.Protein,
     stiffness: float,
+    use_gpu: bool,
     max_outer_iterations: int = 1,
     place_hydrogens_every_iteration: bool = True,
     max_iterations: int = 0,
@@ -439,6 +445,7 @@ def run_pipeline(
   Args:
     prot: A protein to be relaxed.
     stiffness: kcal/mol A**2, the restraint stiffness.
+    use_gpu: Whether to run on GPU.
     max_outer_iterations: The maximum number of iterative minimization.
     place_hydrogens_every_iteration: Whether hydrogens are re-initialized
         prior to every minimization.
@@ -474,13 +481,16 @@ def run_pipeline(
         tolerance=tolerance,
         stiffness=stiffness,
         restraint_set=restraint_set,
-        max_attempts=max_attempts)
+        max_attempts=max_attempts,
+        use_gpu=use_gpu)
     prot = protein.from_pdb_string(ret["min_pdb"])
     if place_hydrogens_every_iteration:
       pdb_string = clean_protein(prot, checks=True)
     else:
       pdb_string = ret["min_pdb"]
-    ret.update(get_violation_metrics(prot))
+    # Calculation of violations can cause CUDA errors for some JAX versions.
+    with jax.default_device(jax.devices("cpu")[0]):
+      ret.update(get_violation_metrics(prot))
     ret.update({
         "num_exclusions": len(exclude_residues),
         "iteration": iteration,
