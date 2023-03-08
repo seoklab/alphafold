@@ -734,7 +734,7 @@ def main(fasta_paths: List[str]):
   else:
     data_pipeline = monomer_data_pipeline
 
-  if FLAGS.run_relax:
+  if FLAGS.models_to_relax != ModelsToRelax.NONE:
     amber_relaxer = relax.AmberRelaxation(
         max_iterations=RELAX_MAX_ITERATIONS,
         tolerance=RELAX_ENERGY_TOLERANCE,
