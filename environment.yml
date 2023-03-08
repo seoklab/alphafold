@@ -27,5 +27,5 @@ dependencies:
   - pip
   - pip:
       - ml-collections==0.1.0
-      - tensorflow==2.9.0
+      - tensorflow-cpu==2.11.0
       - dm-haiku==0.0.9
