@@ -60,7 +60,7 @@ set -eu
 pip install --upgrade 'jax>=0.3.25,<0.4' 'jaxlib==0.3.25+cuda11.cudnn82' \
             -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 
-pushd "$CONDA_PREFIX/lib/python3.9/site-packages"
+pushd "$(python -c 'import sysconfig; print(sysconfig.get_path("purelib"))')"
 git apply "$__alphafold_home/patch/pdbfixer.patch"
 popd
 
