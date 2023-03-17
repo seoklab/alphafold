@@ -254,7 +254,8 @@ usage: alphafold [-h] [--helpfull] [--is_prokaryote_list IS_PROKARYOTE_LIST]
                  [--max_template_date MAX_TEMPLATE_DATE] [--ensemble ENSEMBLE]
                  [--small_bfd] [--model_type MODEL_TYPE] [--state STATE]
                  [--num_multimer_predictions_per_model NUM_MULTIMER_PREDICTIONS_PER_MODEL]
-                 [--num_recycle NUM_RECYCLE] [--only_msa] [--run_relax]
+                 [--num_recycle NUM_RECYCLE] [--only_msa]
+                 [--models_to_relax MODELS_TO_RELAX] [--use_gpu_relax]
                  [--benchmark] [--debug] [--quiet] [--data_dir DATA_DIR]
                  [--jackhmmer_binary_path JACKHMMER_BINARY_PATH]
                  [--hhblits_binary_path HHBLITS_BINARY_PATH]
@@ -324,7 +325,7 @@ optional arguments:
                         --model_type=normal --ensemble=8 option.
   --state STATE         <normal|active|intermediate|inactive>: Choose state
                         for GPCRs. Will be ignored if --pdb70_database_path
-                        (normal) or --pdb_seqres_database_path (multimer)
+                        (monomer) or --pdb_seqres_database_path (multimer)
                         argument is set.
   --num_multimer_predictions_per_model NUM_MULTIMER_PREDICTIONS_PER_MODEL
                         How many predictions (each with a different random
@@ -336,12 +337,19 @@ optional arguments:
                         How many recycling iterations to use.
   --only_msa, --noonly_msa
                         Whether to run only the MSA pipeline.
-  --run_relax, --norun_relax
-                        Whether to run the final relaxation step on the
-                        predicted models. Turning relax off might result in
+  --models_to_relax MODELS_TO_RELAX
+                        <all|best|none>: The models to run the final
+                        relaxation step on. If `all`, all models are relaxed,
+                        which may be time consuming. If `best`, only the most
+                        confident model is relaxed. If `none`, relaxation is
+                        not run. Turning off relaxation might result in
                         predictions with distracting stereochemical violations
                         but might help in case you are having issues with the
                         relaxation stage.
+  --use_gpu_relax, --nouse_gpu_relax
+                        Whether to relax on GPU. Relax on GPU can be much
+                        faster than CPU, so it is recommended to enable if
+                        possible. Ignored if no GPU is available.
   --benchmark, --nobenchmark
                         Run multiple JAX model evaluations to obtain a timing
                         that excludes the compilation time, which should be
