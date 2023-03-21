@@ -58,6 +58,7 @@ class TemplateHit:
   index: int
   name: str
   aligned_cols: int
+  sequence_identity: float
   sum_probs: Optional[float]
   query: str
   hit_sequence: str
@@ -421,7 +422,7 @@ def _parse_hhr_hit(detailed_lines: Sequence[str]) -> TemplateHit:
     raise RuntimeError(
         'Could not parse section: %s. Expected this: \n%s to contain summary.' %
         (detailed_lines, detailed_lines[2]))
-  (_, _, _, aligned_cols, _, _, sum_probs, _) = [float(x)
+  (_, _, _, aligned_cols, sequence_identity, _, sum_probs, _) = [float(x)
                                                  for x in match.groups()]
 
   # The next section reads the detailed comparisons. These are in a 'human
@@ -481,6 +482,7 @@ def _parse_hhr_hit(detailed_lines: Sequence[str]) -> TemplateHit:
       name=name_hit,
       aligned_cols=int(aligned_cols),
       sum_probs=sum_probs,
+      sequence_identity=sequence_identity,
       query=query,
       hit_sequence=hit_sequence,
       indices_query=indices_query,
@@ -588,6 +590,7 @@ def parse_hmmsearch_a3m(query_sequence: str,
     parsed_a3m = parsed_a3m[1:]
 
   indices_query = _get_indices(query_sequence, start=0)
+  num_res = len(query_sequence)
 
   hits = []
   for i, (hit_sequence, hit_description) in enumerate(parsed_a3m, start=1):
@@ -597,12 +600,14 @@ def parse_hmmsearch_a3m(query_sequence: str,
     # Aligned columns are only the match states.
     aligned_cols = sum([r.isupper() and r != '-' for r in hit_sequence])
     indices_hit = _get_indices(hit_sequence, start=metadata.start - 1)
+    sequence_identity = aligned_cols / num_res * 100
 
     hit = TemplateHit(
         index=i,
         name=f'{metadata.pdb_id}_{metadata.chain}',
         aligned_cols=aligned_cols,
         sum_probs=None,
+        sequence_identity = sequence_identity,
         query=query_sequence,
         hit_sequence=hit_sequence.upper(),
         indices_query=indices_query,
