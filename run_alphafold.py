@@ -128,7 +128,8 @@ flags.DEFINE_integer('nproc', nproc, 'Maximum cpu count to use. Note that '
                      'the configured value.')
 flags.DEFINE_boolean('jit', False,
                      'Whether to jit compile the alphafold model.')
-flags.DEFINE_float("max_sequence_identity", -1., "Maximum sequence identity for template prefilter")
+flags.DEFINE_float("max_sequence_identity", -1, "Maximum sequence identity for "
+                   "template prefilter.")
 flags.DEFINE_string('max_template_date', date.today().isoformat(),
                     'Maximum template release date to consider'
                     '(ISO-8601 format - i.e. YYYY-MM-DD). '

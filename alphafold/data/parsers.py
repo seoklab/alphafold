@@ -422,8 +422,8 @@ def _parse_hhr_hit(detailed_lines: Sequence[str]) -> TemplateHit:
     raise RuntimeError(
         'Could not parse section: %s. Expected this: \n%s to contain summary.' %
         (detailed_lines, detailed_lines[2]))
-  (_, _, _, aligned_cols, sequence_identity, _, sum_probs, _) = [float(x)
-                                                 for x in match.groups()]
+  (_, _, _, aligned_cols, sequence_identity, _, sum_probs, _) = [
+      float(x) for x in match.groups()]
 
   # The next section reads the detailed comparisons. These are in a 'human
   # readable' format which has a fixed length. The strategy employed is to

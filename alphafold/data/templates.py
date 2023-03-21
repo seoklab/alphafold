@@ -32,9 +32,9 @@ import numpy as np
 # Internal import (7716).
 
 
-
 class Error(Exception):
   """Base class for exceptions."""
+
 
 class NoChainsError(Error):
   """An error indicating that template mmCIF didn't have any chains."""
@@ -68,8 +68,10 @@ class MultipleChainsError(Error):
 class PrefilterError(Exception):
   """A base class for template prefilter exceptions."""
 
+
 class HighSequenceIdentityError(PrefilterError):
     """An error indicating that the hit has a very high sequence identity."""
+
 
 class DateError(PrefilterError):
   """An error indicating that the hit date was after the max allowed date."""
@@ -178,7 +180,7 @@ def _assess_hhsearch_hit(
     query_sequence: str,
     release_dates: Mapping[str, datetime.datetime],
     release_date_cutoff: datetime.datetime,
-    max_sequence_identity: float = -1.,
+    max_sequence_identity: float = -1,
     max_subsequence_ratio: float = 0.95,
     min_align_ratio: float = 0.1) -> bool:
   """Determines if template is valid (without parsing the template mmcif file).
@@ -212,9 +214,11 @@ def _assess_hhsearch_hit(
 
   # Check whether the template is a large subsequence or duplicate of original
   # query. This can happen due to duplicate entries in the PDB database.
-  if max_sequence_identity > 0. and hit.sequence_identity > max_sequence_identity:
-      raise HighSequenceIdentityError(f"High sequence identity {hit.sequence_identity:.1f} %% \
-              {max_sequence_identity:.1f} %%")
+  if (max_sequence_identity > 0
+        and hit.sequence_identity > max_sequence_identity):
+      raise HighSequenceIdentityError(
+        f"High sequence identity {hit.sequence_identity:.1f%} > "
+        f"{max_sequence_identity:.1f%}.")
   duplicate = (template_sequence in query_sequence
                and length_ratio > max_subsequence_ratio)
 
@@ -855,12 +859,14 @@ class TemplateHitFeaturizer(abc.ABC):
     self._kalign_binary_path = kalign_binary_path
     self._strict_error_check = strict_error_check
 
-    if max_sequence_identity and max_sequence_identity > 0.:
+    if max_sequence_identity and max_sequence_identity > 0:
         self._max_sequence_identity = max_sequence_identity
-        logging.info("Using maximum sequence identity cutoff for template filtering: %3d %%", \
-                self._max_sequence_identity)
+        logging.info(
+          ("Using maximum sequence identity cutoff for "
+           "template filtering: %3d %%."), self._max_sequence_identity)
     else:
-        self._max_sequence_identity = -1.
+        self._max_sequence_identity = -1
+
     if release_dates_path:
       logging.info('Using precomputed release dates %s.', release_dates_path)
       self._release_dates = _parse_release_dates(release_dates_path)
@@ -915,7 +921,6 @@ class HhsearchHitFeaturizer(TemplateHitFeaturizer):
           strict_error_check=self._strict_error_check,
           kalign_binary_path=self._kalign_binary_path)
 
-      print('max_seqeunce_identity', self._max_sequence_identity)
       if result.error:
         errors.append(result.error)
 

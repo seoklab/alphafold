@@ -64,7 +64,7 @@ def create_paired_features(
   """
   chains = list(chains)
   chain_keys = chains[0].keys()
-  print(chains)
+
   if len(chains) < 2:
     return chains
   else:
@@ -184,13 +184,13 @@ def pair_sequences(examples: List[pipeline.FeatureDict]
   all_chain_species_dict = []
   common_species = set()
   for chain_features in examples:
-    msa_df = _make_msa_df(chain_features)       #특정 feature만 가지는 dataframe 만든다.
-    species_dict = _create_species_dict(msa_df) #특정 species로부터 그 species의 dataframe갖도록 추출 
-    all_chain_species_dict.append(species_dict) #모든 chain에 대해 all_chain_species_dict에 추가
-    common_species.update(set(species_dict))    #겹치치 않는 species 받음
+    msa_df = _make_msa_df(chain_features)
+    species_dict = _create_species_dict(msa_df)
+    all_chain_species_dict.append(species_dict)
+    common_species.update(set(species_dict))
 
-  common_species = sorted(common_species)       #그냥 alphabet순으로 정렬
-  common_species.remove(b'')                    # Remove target sequence species. #첫번째 target은 b''로 저장되어있었음
+  common_species = sorted(common_species)
+  common_species.remove(b'')  # Remove target sequence species.
 
   all_paired_msa_rows = [np.zeros(len(examples), int)]
   all_paired_msa_rows_dict = {k: [] for k in range(num_examples)}

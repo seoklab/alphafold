@@ -191,8 +191,7 @@ class DataPipeline:
     self._max_uniprot_hits = max_uniprot_hits
 
     self.overwrite = monomer_data_pipeline.overwrite
-  #_process_single_chain에서는 일단 monomer_pipeline을 돌리고 (data/pipeline.py)
-  #그 다음에 만약 homomer이거나 monomer가 아닐 경우에는 _all_seq_msa라는 것을 통해 feature 얻고 update 해준다.
+
   def _process_single_chain(
       self,
       chain_id: str,
@@ -205,11 +204,9 @@ class DataPipeline:
     chain_msa_output_dir = os.path.join(msa_output_dir, chain_id)
     if not os.path.exists(chain_msa_output_dir):
       os.makedirs(chain_msa_output_dir)
-      #temporary file for one chain
     with temp_fasta_file(chain_fasta_str) as chain_fasta_path:
       logging.info('Running monomer pipeline on chain %s: %s',
                    chain_id, description)
-      #pipeline.py code의 process 돌린다.
       chain_features = self._monomer_data_pipeline.process(
           input_fasta_path=chain_fasta_path,
           msa_output_dir=chain_msa_output_dir)
@@ -249,8 +246,6 @@ class DataPipeline:
     chain_id_map = _make_chain_id_map(sequences=input_seqs,
                                       descriptions=input_descs)
     chain_id_map_path = os.path.join(msa_output_dir, 'chain_id_map.json')
-    # read fasta file and make chain_id_map.json file
-    # 이 과정에서 첫 chain은 A에 대응, 두 번째 chain은 B에 대응
     with open(chain_id_map_path, 'w') as f:
       chain_id_map_dict = {chain_id: dataclasses.asdict(fasta_chain)
                            for chain_id, fasta_chain in chain_id_map.items()}
@@ -259,30 +254,28 @@ class DataPipeline:
     all_chain_features = {}
     sequence_features = {}
     is_homomer_or_monomer = len(set(input_seqs)) == 1
-    #is_homomer_or_monomer = True
     for chain_id, fasta_chain in chain_id_map.items():
       if fasta_chain.sequence in sequence_features:
         all_chain_features[chain_id] = copy.deepcopy(
             sequence_features[fasta_chain.sequence])
         continue
-      #여기서 이제 _process_single_chain으로 chain_feature를 얻는다. 
       chain_features = self._process_single_chain(
           chain_id=chain_id,
           sequence=fasta_chain.sequence,
           description=fasta_chain.description,
           msa_output_dir=msa_output_dir,
           is_homomer_or_monomer=is_homomer_or_monomer)
+
       chain_features = convert_monomer_features(chain_features,
                                                 chain_id=chain_id)
       all_chain_features[chain_id] = chain_features
       sequence_features[fasta_chain.sequence] = chain_features
 
     all_chain_features = add_assembly_features(all_chain_features)
-    #print('singlechain_A_1', list(all_chain_features['A_1']['msa']))
-    #print('singlechain_B_1', list(all_chain_features['B_1']['msa']))
+
     np_example = feature_processing.pair_and_merge(
         all_chain_features=all_chain_features)
-    #print('diagonalized', list(np_example['msa']))
+
     # Pad MSA to avoid zero-sized extra_msa.
     np_example = pad_msa(np_example, 512)
 
