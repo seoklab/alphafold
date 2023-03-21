@@ -137,6 +137,8 @@ flags.DEFINE_integer('nproc', nproc, 'Maximum cpu count to use. Note that '
                      'the configured value.')
 flags.DEFINE_boolean('jit', False,
                      'Whether to jit compile the alphafold model.')
+flags.DEFINE_float("max_sequence_identity", -1, "Maximum sequence identity for "
+                   "template prefilter.")
 flags.DEFINE_string('max_template_date', date.today().isoformat(),
                     'Maximum template release date to consider'
                     '(ISO-8601 format - i.e. YYYY-MM-DD). '
@@ -693,7 +695,8 @@ def main(fasta_paths: List[str]):
         max_hits=MAX_TEMPLATE_HITS,
         kalign_binary_path=FLAGS.kalign_binary_path,
         release_dates_path=None,
-        obsolete_pdbs_path=FLAGS.obsolete_pdbs_path)
+        obsolete_pdbs_path=FLAGS.obsolete_pdbs_path,
+        max_sequence_identity=FLAGS.max_sequence_identity)
   else:
     if (pdb70_database_path := FLAGS.pdb70_database_path) is None:
       pdb70_database_path = pdb70_database_paths[FLAGS.state]
@@ -711,7 +714,8 @@ def main(fasta_paths: List[str]):
         max_hits=MAX_TEMPLATE_HITS,
         kalign_binary_path=FLAGS.kalign_binary_path,
         release_dates_path=None,
-        obsolete_pdbs_path=FLAGS.obsolete_pdbs_path)
+        obsolete_pdbs_path=FLAGS.obsolete_pdbs_path,
+        max_sequence_identity=FLAGS.max_sequence_identity)
 
   monomer_data_pipeline = pipeline.DataPipeline(
       jackhmmer_binary_path=FLAGS.jackhmmer_binary_path,
