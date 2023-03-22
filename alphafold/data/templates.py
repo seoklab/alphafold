@@ -215,8 +215,8 @@ def _assess_hhsearch_hit(
   # Check whether the template is a large subsequence or duplicate of original
   # query. This can happen due to duplicate entries in the PDB database.
   if (max_sequence_identity > 0
-        and hit.sequence_identity > max_sequence_identity):
-      raise HighSequenceIdentityError(
+      and hit.sequence_identity > max_sequence_identity):
+    raise HighSequenceIdentityError(
         f"High sequence identity {hit.sequence_identity:.1%} > "
         f"{max_sequence_identity:.1%}.")
   duplicate = (template_sequence in query_sequence
