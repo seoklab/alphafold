@@ -236,7 +236,7 @@ class DataPipeline:
   def process(self,
               input_fasta_path: str,
               msa_output_dir: str,
-              heteromer_paired_msa: bool) -> pipeline.FeatureDict:
+              heteromer_paired_msa: bool = True) -> pipeline.FeatureDict:
     """Runs alignment tools on the input sequences and creates features."""
     with open(input_fasta_path) as f:
       input_fasta_str = f.read()
