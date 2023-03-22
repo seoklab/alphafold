@@ -217,8 +217,8 @@ def _assess_hhsearch_hit(
   if (max_sequence_identity > 0
         and hit.sequence_identity > max_sequence_identity):
       raise HighSequenceIdentityError(
-        f"High sequence identity {hit.sequence_identity:.1f%} > "
-        f"{max_sequence_identity:.1f%}.")
+        f"High sequence identity {hit.sequence_identity:.1%} > "
+        f"{max_sequence_identity:.1%}.")
   duplicate = (template_sequence in query_sequence
                and length_ratio > max_subsequence_ratio)
 
