@@ -198,7 +198,7 @@ class DataPipeline:
       sequence: str,
       description: str,
       msa_output_dir: str,
-      is_homomer_or_monomer: bool) -> pipeline.FeatureDict:
+      paired_msa: bool) -> pipeline.FeatureDict:
     """Runs the monomer pipeline on a single chain."""
     chain_fasta_str = f'>chain_{chain_id}\n{sequence}\n'
     chain_msa_output_dir = os.path.join(msa_output_dir, chain_id)
@@ -211,9 +211,7 @@ class DataPipeline:
           input_fasta_path=chain_fasta_path,
           msa_output_dir=chain_msa_output_dir)
 
-      # We only construct the pairing features if there are 2 or more unique
-      # sequences.
-      if not is_homomer_or_monomer:
+      if paired_msa:
         all_seq_msa_features = self._all_seq_msa_features(chain_fasta_path,
                                                           chain_msa_output_dir)
         chain_features.update(all_seq_msa_features)
@@ -237,7 +235,8 @@ class DataPipeline:
 
   def process(self,
               input_fasta_path: str,
-              msa_output_dir: str) -> pipeline.FeatureDict:
+              msa_output_dir: str,
+              heteromer_paired_msa: bool) -> pipeline.FeatureDict:
     """Runs alignment tools on the input sequences and creates features."""
     with open(input_fasta_path) as f:
       input_fasta_str = f.read()
@@ -253,7 +252,7 @@ class DataPipeline:
 
     all_chain_features = {}
     sequence_features = {}
-    is_homomer_or_monomer = len(set(input_seqs)) == 1
+    paired_msa = len(set(input_seqs)) > 1 and heteromer_paired_msa
     for chain_id, fasta_chain in chain_id_map.items():
       if fasta_chain.sequence in sequence_features:
         all_chain_features[chain_id] = copy.deepcopy(
@@ -264,7 +263,7 @@ class DataPipeline:
           sequence=fasta_chain.sequence,
           description=fasta_chain.description,
           msa_output_dir=msa_output_dir,
-          is_homomer_or_monomer=is_homomer_or_monomer)
+          paired_msa=paired_msa)
 
       chain_features = convert_monomer_features(chain_features,
                                                 chain_id=chain_id)
@@ -274,7 +273,8 @@ class DataPipeline:
     all_chain_features = add_assembly_features(all_chain_features)
 
     np_example = feature_processing.pair_and_merge(
-        all_chain_features=all_chain_features)
+        all_chain_features=all_chain_features,
+        heteromer_paired_msa=heteromer_paired_msa)
 
     # Pad MSA to avoid zero-sized extra_msa.
     np_example = pad_msa(np_example, 512)

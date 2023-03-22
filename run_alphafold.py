@@ -140,6 +140,9 @@ flags.DEFINE_boolean('jit', False,
                      'Whether to jit compile the alphafold model.')
 flags.DEFINE_float("max_sequence_identity", -1, "Maximum sequence identity for "
                    "template prefilter.")
+flags.DEFINE_boolean('heteromer_paired_msa', True,
+                     'Whether to turn on msa pairing for heteromers. No-op '
+                     'for monomers or homomers.')
 flags.DEFINE_string('max_template_date', date.today().isoformat(),
                     'Maximum template release date to consider'
                     '(ISO-8601 format - i.e. YYYY-MM-DD). '
@@ -430,7 +433,8 @@ def _preprocess(
     fasta_path: str,
     output_dir: str,
     data_pipeline: Union[pipeline.DataPipeline, pipeline_multimer.DataPipeline],
-    overwrite: Optional[bool]):
+    overwrite: Optional[bool],
+    heteromer_paired_msa: bool = True):
   if not os.path.exists(output_dir):
     os.makedirs(output_dir)
   msa_output_dir = os.path.join(output_dir, 'msas')
@@ -449,7 +453,8 @@ def _preprocess(
       # Get features.
       feature_dict = data_pipeline.process(
           input_fasta_path=fasta_path,
-          msa_output_dir=msa_output_dir)
+          msa_output_dir=msa_output_dir,
+          heteromer_paired_msa=heteromer_paired_msa)
     # Write out features as a pickled dictionary.
     with open(features_output_path, 'wb') as f:
       pickle.dump(feature_dict, f, protocol=4)
@@ -580,13 +585,15 @@ def predict_structure(
     random_seeds_chunked: List[List[int]],
     n_jobs: int,
     overwrite: Optional[bool] = False,
+    heteromer_paired_msa: bool = True,
     only_msa: Optional[bool] = False):
   """Predicts structure using AlphaFold for the given sequence."""
   logging.info('Predicting %s', fasta_name)
   output_dir = os.path.join(output_dir_base, fasta_name)
 
   # Run msa
-  feature_dict = _preprocess(fasta_path, output_dir, data_pipeline, overwrite)
+  feature_dict = _preprocess(
+      fasta_path, output_dir, data_pipeline, overwrite, heteromer_paired_msa)
 
   if only_msa:
     logging.info('Running only MSA pipelines as requested')
@@ -772,6 +779,7 @@ def main(fasta_paths: List[str]):
           random_seeds_chunked=random_seeds_chunked,
           n_jobs=n_jobs,
           overwrite=FLAGS.overwrite,
+          heteromer_paired_msa=FLAGS.heteromer_paired_msa,
           only_msa=FLAGS.only_msa)
 
 
