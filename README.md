@@ -279,6 +279,7 @@ usage: alphafold [-h] [--helpfull] [--is_prokaryote_list IS_PROKARYOTE_LIST]
                  [--output_dir OUTPUT_DIR] [--overwrite]
                  [--model_cnt MODEL_CNT] [--nproc NPROC] [--jit]
                  [--max_sequence_identity MAX_SEQUENCE_IDENTITY]
+                 [--heteromer_paired_msa]
                  [--max_template_date MAX_TEMPLATE_DATE] [--ensemble ENSEMBLE]
                  [--small_bfd] [--model_type MODEL_TYPE] [--state STATE]
                  [--num_multimer_predictions_per_model NUM_MULTIMER_PREDICTIONS_PER_MODEL]
@@ -339,6 +340,9 @@ optional arguments:
   --jit, --nojit        Whether to jit compile the alphafold model.
   --max_sequence_identity MAX_SEQUENCE_IDENTITY
                         Maximum sequence identity for template prefilter.
+  --heteromer_paired_msa, --noheteromer_paired_msa
+                        Whether to turn on msa pairing for heteromers. No-op
+                        for monomers or homomers.
   --max_template_date MAX_TEMPLATE_DATE
                         Maximum template release date to consider(ISO-8601
                         format - i.e. YYYY-MM-DD). Important if folding
