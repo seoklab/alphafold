@@ -46,7 +46,8 @@ def _is_homomer_or_monomer(chains: Iterable[pipeline.FeatureDict]) -> bool:
 
 
 def pair_and_merge(
-    all_chain_features: MutableMapping[str, pipeline.FeatureDict]
+    all_chain_features: MutableMapping[str, pipeline.FeatureDict],
+    heteromer_paired_msa: bool
     ) -> pipeline.FeatureDict:
   """Runs processing on features to augment, pair and merge.
 
@@ -61,7 +62,8 @@ def pair_and_merge(
 
   np_chains_list = list(all_chain_features.values())
 
-  pair_msa_sequences = not _is_homomer_or_monomer(np_chains_list)
+  pair_msa_sequences = heteromer_paired_msa and not _is_homomer_or_monomer(
+      np_chains_list)
 
   if pair_msa_sequences:
     np_chains_list = msa_pairing.create_paired_features(
