@@ -297,16 +297,6 @@ def fasta_parser(args):
   return parser.parse_args(args[1:]).fasta_paths
 
 
-def _jnp_to_np(output: dict) -> dict:
-  """Recursively changes jax arrays to numpy arrays."""
-  for k, v in output.items():
-    if isinstance(v, dict):
-      output[k] = _jnp_to_np(v)
-    elif isinstance(v, np.ndarray):
-      output[k] = np.array(v)
-  return output
-
-
 MAX_TEMPLATE_HITS = 20
 RELAX_MAX_ITERATIONS = 0
 RELAX_ENERGY_TOLERANCE = 2.39
@@ -378,7 +368,9 @@ def predict_structure_permodel(
         model_runner.predict(processed_feature_dict, random_seed)
 
     # Remove jax dependency from results.
-    np_prediction_result = _jnp_to_np(dict(prediction_result))
+    np_prediction_result = jax.tree_util.tree_map(
+      lambda v: np.asarray(v) if isinstance(v, jax.numpy.ndarray) else v,
+      prediction_result)
 
     # Save the model outputs.
     result_output_path = os.path.join(output_dir, f'result_{model_name}.pkl')
