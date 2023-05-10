@@ -3,8 +3,8 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - python=3.9
-  - openmm=7.6
+  - python=3.10
+  - openmm=7.7
   - pdbfixer=1.8
   - cudnn=8.2
   - cudatoolkit=11.1
