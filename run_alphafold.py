@@ -35,7 +35,8 @@ import jax
 import psutil
 from joblib import Parallel, delayed
 
-from alphafold.common import protein, residue_constants, devices, profiler
+from alphafold.common import (
+    confidence, protein, residue_constants, devices, profiler)
 from alphafold.model import config, model, data
 from alphafold.data import pipeline, pipeline_multimer, templates
 from alphafold.data.tools import hhsearch, hmmsearch
@@ -275,6 +276,37 @@ if devices.BACKEND != "cpu":
       os.symlink(nvidia_cachedir_non_nfs, nvidia_cachedir)
 
 
+def _save_confidence_json_file(
+    plddt: np.ndarray, output_dir: str, model_name: str
+) -> None:
+  confidence_json = confidence.confidence_json(plddt)
+
+  # Save the confidence json.
+  confidence_json_output_path = os.path.join(
+      output_dir, f'confidence_{model_name}.json'
+  )
+  with open(confidence_json_output_path, 'w') as f:
+    f.write(confidence_json)
+
+
+def _save_pae_json_file(
+    pae: np.ndarray, max_pae: float, output_dir: str, model_name: str
+) -> None:
+  """Check prediction result for PAE data and save to a JSON file if present.
+  Args:
+    pae: The n_res x n_res PAE array.
+    max_pae: The maximum possible PAE value.
+    output_dir: Directory to which files are saved.
+    model_name: Name of a model.
+  """
+  pae_json = confidence.pae_json(pae, max_pae)
+
+  # Save the PAE json.
+  pae_json_output_path = os.path.join(output_dir, f'pae_{model_name}.json')
+  with open(pae_json_output_path, 'w') as f:
+    f.write(pae_json)
+
+
 def fasta_parser(args):
   parser = argparse_flags.ArgumentParser(prog="alphafold")
   parser.add_argument(
@@ -368,6 +400,7 @@ def predict_structure_permodel(
 
   # Get mean pLDDT confidence metric.
   plddt = prediction_result['plddt']
+  _save_confidence_json_file(plddt, output_dir, model_name)
   plddt_b_factors = np.repeat(
         plddt[:, None], residue_constants.atom_type_num, axis=-1)
 
@@ -385,6 +418,13 @@ def predict_structure_permodel(
 
   ranking_confidence = prediction_result['ranking_confidence']
   label = 'iptm+ptm' if 'iptm' in prediction_result else 'plddts'
+
+  if ('predicted_aligned_error' in prediction_result
+      and 'max_predicted_aligned_error' in prediction_result):
+    pae = prediction_result['predicted_aligned_error']
+    max_pae = prediction_result['max_predicted_aligned_error']
+    _save_pae_json_file(pae, float(max_pae), output_dir, model_name)
+
   return (label, model_name, profiler.timings, ranking_confidence,
           unrelaxed_protein)
 
