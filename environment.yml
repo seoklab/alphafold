@@ -1,14 +1,12 @@
 name: alphafold2
 channels:
+  - nvidia
   - conda-forge
-  - defaults
 dependencies:
   - python=3.10
   - openmm=7.7
   - pdbfixer=1.8
-  - cudnn=8.2
-  - cudatoolkit=11.1
-  - cudatoolkit-dev=11.1
+  - cuda=11.3
   - numpy=1.21
   - scipy=1.7
   - pandas=1.3
