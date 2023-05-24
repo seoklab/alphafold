@@ -122,6 +122,7 @@ class DataPipeline:
                template_searcher: TemplateSearcher,
                template_featurizer: templates.TemplateHitFeaturizer,
                use_small_bfd: bool,
+               split_bfd_uniclust: bool,
                mgnify_max_hits: int = 501,
                uniref_max_hits: int = 10000,
                n_cpu: int = 1,
@@ -144,6 +145,7 @@ class DataPipeline:
       self.hhblits_bfd_uniref_runner = hhblits.HHBlits(
           binary_path=hhblits_binary_path,
           databases=[bfd_database_path, uniref30_database_path],
+          split_bfd_uniclust=split_bfd_uniclust,
           n_cpu=n_cpu)
     self.jackhmmer_mgnify_runner = jackhmmer.Jackhmmer(
         binary_path=jackhmmer_binary_path,
