@@ -254,7 +254,8 @@ usage: alphafold [-h] [--helpfull] [--is_prokaryote_list IS_PROKARYOTE_LIST]
                  [--max_sequence_identity MAX_SEQUENCE_IDENTITY]
                  [--heteromer_paired_msa]
                  [--max_template_date MAX_TEMPLATE_DATE] [--ensemble ENSEMBLE]
-                 [--small_bfd] [--model_type MODEL_TYPE] [--state STATE]
+                 [--small_bfd] [--split_bfd_uniclust]
+                 [--model_type MODEL_TYPE] [--state STATE]
                  [--num_multimer_predictions_per_model NUM_MULTIMER_PREDICTIONS_PER_MODEL]
                  [--num_recycle NUM_RECYCLE] [--only_msa]
                  [--models_to_relax MODELS_TO_RELAX] [--use_gpu_relax]
@@ -287,7 +288,7 @@ positional arguments:
                         the basename is used to name the output directories
                         for each prediction.
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   --helpfull            show full help message and exit
   --is_prokaryote_list IS_PROKARYOTE_LIST
@@ -323,6 +324,13 @@ optional arguments:
                         ensemblings ("casp14").
   --small_bfd, --nosmall_bfd
                         Whether to use smaller genetic database config.
+  --split_bfd_uniclust, --nosplit_bfd_uniclust
+                        Whether to run hhblits on the bfd and uniclust
+                        databases separately. This is useful for some rare
+                        cases where the hhblits fails when run on the two
+                        databases simultaneously. Note that this option might
+                        produce inconsistent results compared to the default
+                        setting. No-op if --small_bfd is set.
   --model_type MODEL_TYPE
                         <normal|ptm|multimer|casp14>: Choose model type to use
                         - the casp14 equivalent model (normal), fined-tunded
