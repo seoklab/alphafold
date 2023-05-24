@@ -152,6 +152,14 @@ flags.DEFINE_integer('ensemble', 1, 'Choose ensemble count: note that '
                      'have used 8 model ensemblings ("casp14").')
 flags.DEFINE_boolean('small_bfd', False,
                      'Whether to use smaller genetic database config.')
+# See https://github.com/soedinglab/hh-suite/issues/277#issuecomment-1191652084
+flags.DEFINE_boolean('split_bfd_uniclust', False,
+                     'Whether to run hhblits on the bfd and uniclust databases '
+                     'separately. This is useful for some rare cases where '
+                     'the hhblits fails when run on the two databases '
+                     'simultaneously. Note that this option might produce '
+                     'inconsistent results compared to the default setting. '
+                     'No-op if --small_bfd is set.')
 flags.DEFINE_enum('model_type', 'normal',
                   tuple(config.MODEL_PRESETS) + ("casp14", ),
                   'Choose model type to use - the casp14 equivalent '
@@ -744,8 +752,9 @@ def main(fasta_paths: List[str]):
       template_searcher=template_searcher,
       template_featurizer=template_featurizer,
       use_small_bfd=FLAGS.small_bfd,
+      split_bfd_uniclust=FLAGS.split_bfd_uniclust,
       n_cpu=FLAGS.nproc,
-      overwrite=FLAGS.overwrite)
+    overwrite=FLAGS.overwrite)
 
   if run_multimer_system:
     data_pipeline = pipeline_multimer.DataPipeline(
