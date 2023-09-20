@@ -30,7 +30,7 @@ DOWNLOAD_DIR="$1"
 ROOT_DIR="${DOWNLOAD_DIR}/pdb_mmcif"
 RAW_DIR="${ROOT_DIR}/raw"
 MMCIF_DIR="${ROOT_DIR}/mmcif_files"
-CHOWN_TO="${USER}:$(id -gn)"
+CHOWN_TO="$(id -un):$(id -gn)"
 
 echo "Running rsync to fetch all mmCIF files (note that the rsync progress estimate might be inaccurate)..."
 echo "If the download speed is too slow, try changing the mirror to:"
