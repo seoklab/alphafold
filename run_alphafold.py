@@ -305,6 +305,41 @@ def _save_confidence_json_file(
     f.write(confidence_json)
 
 
+def _save_mmcif_file(
+    prot: protein.Protein,
+    output_dir: str,
+    model_name: str,
+    file_id: str,
+    model_type: str,
+    overwrite: bool = False
+) -> None:
+  """Crate mmCIF string and save to a file.
+
+  Args:
+    prot: Protein object.
+    output_dir: Directory to which files are saved.
+    model_name: Name of a model.
+    file_id: The file ID (usually the PDB ID) to be used in the mmCIF.
+    model_type: Monomer or multimer.
+  """
+  # Save the MMCIF.
+  mmcif_output_path = os.path.join(output_dir, f'{model_name}.cif')
+  if not overwrite and os.path.isfile(mmcif_output_path):
+    return
+
+  # seoklab -> deepmind conversion
+  if model_type == "multimer":
+      model_type = "Multimer"
+  elif model_type == "normal":
+      model_type = "Monomer"
+  else:
+      raise ValueError(f"Unknown model_type: {model_type}")
+
+  mmcif_string = protein.to_mmcif(prot, file_id, model_type)
+  with open(mmcif_output_path, 'w') as f:
+    f.write(mmcif_string)
+
+
 def _save_pae_json_file(
     pae: np.ndarray, max_pae: float, output_dir: str, model_name: str
 ) -> None:
@@ -436,6 +471,14 @@ def predict_structure_permodel(
     with open(unrelaxed_pdb_path, 'w') as f:
       f.write(unrelaxed_pdb)
 
+    _save_mmcif_file(
+        prot=unrelaxed_protein,
+        output_dir=output_dir,
+        model_name=f'unrelaxed_{model_name}',
+        file_id=str(model_id),
+        model_type=model_type,
+    )
+
   ranking_confidence = prediction_result['ranking_confidence']
   label = 'iptm+ptm' if 'iptm' in prediction_result else 'plddts'
 
@@ -552,6 +595,7 @@ def _relax(
     output_dir: str,
     relaxer: Optional[relax.AmberRelaxation],
     models_to_relax: ModelsToRelax,
+    model_type: str,
     overwrite: Optional[bool]):
   relax_metrics = {}
   result_pdbs = {
@@ -589,6 +633,15 @@ def _relax(
         with open(relaxed_output_path, 'w') as f:
           f.write(relaxed_pdb)
 
+        relaxed_protein = protein.from_pdb_string(relaxed_pdb)
+        _save_mmcif_file(
+            prot=relaxed_protein,
+            output_dir=output_dir,
+            model_name=f'relaxed_{model_name}',
+            file_id='0',
+            model_type=model_type,
+        )
+
       result_pdbs[model_name] = relaxed_pdb
   else:
     logging.info(f'Skipping relaxation for {fasta_path}')
@@ -600,15 +653,30 @@ def _report(
     results: List[tuple],
     ranked_order: List[str],
     ranking_confidences: Dict[str, float],
+    unrelaxed_prots: Dict[str, protein.Protein],
     result_pdbs: Dict[str, str],
     relax_metrics: dict,
-    output_dir: str,):
+    model_type: str,
+    output_dir: str):
   """Rank by model confidence and write out relaxed PDBs in rank order."""
   # Write out relaxed PDBs in rank order.
   for idx, model_name in enumerate(ranked_order):
     ranked_output_path = os.path.join(output_dir, f'ranked_{idx}.pdb')
     with open(ranked_output_path, 'w') as f:
       f.write(result_pdbs[model_name])
+
+    if model_name in result_pdbs:
+      protein_instance = protein.from_pdb_string(result_pdbs[model_name])
+    else:
+      protein_instance = unrelaxed_prots[model_name]
+
+    _save_mmcif_file(
+        prot=protein_instance,
+        output_dir=output_dir,
+        model_name=f'ranked_{idx}',
+        file_id=str(idx),
+        model_type=model_type,
+    )
 
   ranking_output_path = os.path.join(output_dir, 'ranking_debug.json')
   with open(ranking_output_path, 'w') as f:
@@ -668,11 +736,12 @@ def predict_structure(
   # Run relaxation
   result_pdbs, relax_metrics = _relax(
     unrelaxed_prots, ranked_order, fasta_path,
-    output_dir, relaxer, models_to_relax, overwrite)
+    output_dir, relaxer, models_to_relax, model_type, overwrite)
 
   # Report results
   _report(results, ranked_order, ranking_confidences,
-          result_pdbs, relax_metrics, output_dir)
+          unrelaxed_prots, result_pdbs, relax_metrics,
+          model_type, output_dir)
 
 
 def _check_multimer(fasta_path: str):
