@@ -67,5 +67,5 @@ for dir in "${RAW_DIR}"/*; do
   mv -t "${MMCIF_DIR}/" "$dir/"*.cif
 done
 
-aria2c "ftp://ftp.wwpdb.org/pub/pdb/data/status/obsolete.dat" \
+aria2c "https://files.wwpdb.org/pub/pdb/data/status/obsolete.dat" \
   --allow-overwrite --dir="${ROOT_DIR}"

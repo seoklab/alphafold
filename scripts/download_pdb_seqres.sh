@@ -33,7 +33,7 @@ SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 
 DOWNLOAD_DIR="$1"
 ROOT_DIR="${DOWNLOAD_DIR}/pdb_seqres"
-SOURCE_URL="ftp://ftp.pdbj.org/pub/pdb/derived_data/pdb_seqres.txt"
+SOURCE_URL="https://files.wwpdb.org/pub/pdb/derived_data/pdb_seqres.txt"
 
 mkdir --parents "${ROOT_DIR}"
 aria2c -x16 -j16 --allow-overwrite "${SOURCE_URL}" --dir="${ROOT_DIR}"
