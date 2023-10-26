@@ -1,0 +1,1 @@
+ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/uniref/uniref90/uniref90.fasta.gz	ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/uniref/uniref90/uniref90.fasta.gz	ftp://ftp.expasy.org/databases/uniprot/current_release/uniref/uniref90/uniref90.fasta.gz
