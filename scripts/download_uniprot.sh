@@ -40,7 +40,7 @@ SPROT_BASENAME="$(basename "$(tail -1 "${SOURCE_FILE}" | cut -d $'\t' -f 1)")"
 SPROT_UNZIPPED_BASENAME="${SPROT_BASENAME%.gz}"
 
 mkdir --parents "${ROOT_DIR}"
-aria2c -x16 -j32 -i "${SOURCE_FILE}" --dir="${ROOT_DIR}"
+aria2c -x16 -j48 -s48 -i "${SOURCE_FILE}" --dir="${ROOT_DIR}"
 
 pushd "${ROOT_DIR}"
 gunzip *.gz
