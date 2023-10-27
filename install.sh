@@ -29,9 +29,9 @@ if [[ -d "$__conda_prefix" ]]; then
   echo "Skipping anaconda installation existing at $__conda_prefix" >&2
 else
   __tmpdir="$(mktemp -d)"
-  wget -P "$__tmpdir" https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-  maybe_sudo bash "$__tmpdir/Miniconda3-latest-Linux-x86_64.sh" -b -p "$__conda_prefix"
-  rm "$__tmpdir/Miniconda3-latest-Linux-x86_64.sh"
+  wget -P "$__tmpdir" https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
+  maybe_sudo bash "$__tmpdir/Miniforge3-Linux-x86_64.sh" -b -p "$__conda_prefix"
+  rm "$__tmpdir/Miniforge3-Linux-x86_64.sh"
   rmdir "$__tmpdir"
 fi
 
@@ -51,14 +51,14 @@ set +eu
 set --
 
 source "$__conda_prefix/bin/activate" base
-conda update -y -c conda-forge -n base conda
-conda env create -v -f environment.yml || exit 1
+mamba env create -v -f environment.yml || exit 1
 conda activate alphafold2 || exit 1
 
 set -eu
 
-pip install --upgrade 'jax>=0.3.25,<0.4' 'jaxlib==0.3.25+cuda11.cudnn82' \
-            -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+pip install --upgrade \
+	'jax==0.4.14' jaxlib=='0.4.14+cuda11.cudnn86' 'nvidia-cudnn-cu11' \
+	-f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 
 pushd "$(python -c 'import sysconfig; print(sysconfig.get_path("purelib"))')"
 git apply "$__alphafold_home/patch/pdbfixer.patch"
