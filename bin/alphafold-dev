@@ -24,7 +24,6 @@ TF_FORCE_UNIFIED_MEMORY=1                                                      \
   OPENBLAS_NUM_THREADS="${OPENBLAS_NUM_THREADS-$NSLOTS}"                       \
   OPENMM_CPU_THREADS="${OPENMM_CPU_THREADS-$NSLOTS}"                           \
   XLA_FLAGS="--xla_cpu_multi_thread_eigen=true \
-intra_op_parallelism_threads='$NSLOTS' \
-inter_op_parallelism_threads='$NSLOTS' ${XLA_FLAGS-}"                          \
+--xla_force_host_platform_device_count=$NSLOTS ${XLA_FLAGS-}"                  \
   python -W 'ignore:resource_tracker:UserWarning'                              \
          -u "${ALPHAFOLD_HOME}/run_alphafold.py" "$@"
