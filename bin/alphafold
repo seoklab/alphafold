@@ -14,9 +14,9 @@ __args=("$@")
 set --
 source "$ALPHAFOLD_CONDA_PREFIX/bin/activate" alphafold2
 
-export LD_LIBRARY_PATH="$CONDA_PREFIX/lib64${LD_LIBRARY_PATH+:$LD_LIBRARY_PATH}"
+export LD_LIBRARY_PATH="$CONDA_PREFIX/lib${LD_LIBRARY_PATH+:$LD_LIBRARY_PATH}"
 if ! command -v nvidia-smi &>/dev/null; then
-  export LD_LIBRARY_PATH="$CONDA_PREFIX/lib64/stubs:$LD_LIBRARY_PATH"
+  export LD_LIBRARY_PATH="$CONDA_PREFIX/lib/stubs:$LD_LIBRARY_PATH"
 fi
 
 set -euo pipefail
