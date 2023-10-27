@@ -402,10 +402,10 @@ def to_mmcif(
     types.
   """
   atom_mask = prot.atom_mask
-  aatype = prot.aatype
+  aatype = prot.aatype.astype(int)
   atom_positions = prot.atom_positions
-  residue_index = prot.residue_index.astype(np.int32)
-  chain_index = prot.chain_index.astype(np.int32)
+  residue_index = prot.residue_index.astype(int)
+  chain_index = prot.chain_index.astype(int)
   b_factors = prot.b_factors
 
   # Construct a mapping from chain integer indices to chain ID strings.
