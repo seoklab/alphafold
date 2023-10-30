@@ -545,7 +545,8 @@ def _get_entity_poly_seq(
 
   # Group the present residues by chain index.
   present = collections.defaultdict(list)
-  for chain_id, res_id, aa in zip(chain_indices, residue_indices, aatypes):
+  for data in zip(chain_indices, residue_indices, aatypes):
+    chain_id, res_id, aa = map(int, data)
     present[chain_id].append((res_id, aa))
 
   # Add any missing residues (from 1 to the first residue and for any gaps).
