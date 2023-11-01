@@ -32,7 +32,7 @@ fi
 DOWNLOAD_DIR="$1"
 ROOT_DIR="${DOWNLOAD_DIR}/uniref90"
 SOURCE_FILE="$(dirname "$0")/uniref90.txt"
-BASENAME=$(basename "${SOURCE_URL}")
+BASENAME=uniref90.fasta.gz
 
 mkdir --parents "${ROOT_DIR}"
 aria2c -x16 -j48 -s48 -i "${SOURCE_FILE}" --dir="${ROOT_DIR}"

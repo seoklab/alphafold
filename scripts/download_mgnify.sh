@@ -32,7 +32,7 @@ fi
 DOWNLOAD_DIR="$1"
 ROOT_DIR="${DOWNLOAD_DIR}/mgnify"
 SOURCE_FILE="$(basename "$0")/mgnify.txt"
-BASENAME="$(basename "${SOURCE_FILE}")"
+BASENAME=mgy_clusters_2018_12.fa.gz
 
 mkdir --parents "${ROOT_DIR}"
 aria2c -x16 -j32 -i "${SOURCE_FILE}" --dir="${ROOT_DIR}"
