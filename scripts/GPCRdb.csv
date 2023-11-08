@@ -1,758 +1,1103 @@
-﻿UniProt,IUPHAR,Receptor family,Cl.,Species,Method,PDB,Refined,Resolution,Preferred,State,Degree active,% of Seq,Family,Subtype,Note,% of Seq,Fusion,Antibodies,Name,Type,Function,Name,Type,PDB Date,Annotated
-CALCR,CT,Calcitonin,B1,Human,cryo-EM,7TYN,7TYN_refined,2.6,R,Active,100,79,Gs,αs,-,58,-,Nanobody-35,Calcitonin salmon PubChem,peptide,Agonist,"amylin, α-CGRP, adrenomedullin, calcitonin, adrenomedullin 2/intermedin, calcitonin (salmon), β-CGRP",peptide,22-03-30,Yes
-CALCR,CT,Calcitonin,B1,Human,cryo-EM,7TYI,7TYI_refined,3.3,R,Active,100,77,Gs,αs,-,58,-,Nanobody-35,Amylin rat PubChem,peptide,Agonist,"amylin, α-CGRP, adrenomedullin, calcitonin, adrenomedullin 2/intermedin, calcitonin (salmon), β-CGRP",peptide,22-03-30,Yes
-CALCR,CT,Calcitonin,B1,Human,cryo-EM,7TYX,-,2.6,R,Active,100,77,Gs,αs,-,59,-,Nanobody-35,amylin peptide,peptide,Agonist,"amylin, α-CGRP, adrenomedullin, calcitonin, adrenomedullin 2/intermedin, calcitonin (salmon), β-CGRP",peptide,22-03-30,Yes
-FPR1,FPR1,Formylpeptide,A,Human,cryo-EM,7T6T,7T6T_refined,3.2,R,Active,100,85,Gi/o,αi1,-,61,-,-,synthetic peptide,peptide,Agonist,"annexin I, cathepsin G, spinorphin, fMet-Leu-Phe",peptide,22-03-30,Yes
-FPR2,FPR2/ALX,Formylpeptide,A,Human,cryo-EM,7T6V,7T6V_refined,3.1,R,Active,100,85,Gi/o,αi1,-,61,-,scFv16,synthetic peptide,peptide,Agonist,"aspirin triggered lipoxin A4, PrP106-126, humanin, LTC4, LTD4, 15-deoxy-LXA4, aspirin-triggered resolvin D1, fMet-Leu-Phe, LL-37, resolvin D1, ATLa2, annexin I, LXA4, serum amyloid A",peptide,22-03-30,Yes
-FPR2,FPR2/ALX,Formylpeptide,A,Human,cryo-EM,7T6U,7T6U_refined,2.9,R,Active,100,85,Gi/o,αi1,-,62,-,-,synthetic peptide,peptide,Agonist,"aspirin triggered lipoxin A4, PrP106-126, humanin, LTC4, LTD4, 15-deoxy-LXA4, aspirin-triggered resolvin D1, fMet-Leu-Phe, LL-37, resolvin D1, ATLa2, annexin I, LXA4, serum amyloid A",peptide,22-03-30,Yes
-FPR2,FPR2/ALX,Formylpeptide,A,Human,cryo-EM,7T6S,7T6S_refined,3,R,Active,100,85,Gi/o,αi1,-,61,-,scFv16,"N-(4-chlorophenyl)-N'-[1-methyl-3-oxo-2-phenyl-5-(propan-2-yl)-2,3-dihydro-1H-pyrazol-4-yl]urea PubChem",small-molecule,Agonist,"aspirin triggered lipoxin A4, PrP106-126, humanin, LTC4, LTD4, 15-deoxy-LXA4, aspirin-triggered resolvin D1, fMet-Leu-Phe, LL-37, resolvin D1, ATLa2, annexin I, LXA4, serum amyloid A",peptide,22-03-30,Yes
-CALCR,CT,Calcitonin,B1,Human,cryo-EM,7TYH,7TYH_refined,3.3,R,Active,100,78,Gs,αs,-,58,-,Nanobody-35,Calcitonin human PubChem,peptide,Agonist,"amylin, α-CGRP, adrenomedullin, calcitonin, adrenomedullin 2/intermedin, calcitonin (salmon), β-CGRP",peptide,22-03-23,Yes
-CALCR,CT,Calcitonin,B1,Human,cryo-EM,7TYY,7TYY_refined,3,R,Active,100,78,Gs,αs,-,58,-,Nanobody-35,Calcitonin salmon PubChem,peptide,Agonist,"amylin, α-CGRP, adrenomedullin, calcitonin, adrenomedullin 2/intermedin, calcitonin (salmon), β-CGRP",peptide,22-03-23,Yes
-CALCR,CT,Calcitonin,B1,Human,cryo-EM,7TYW,7TYW_refined,3,R,Active,100,78,Gs,αs,-,58,-,Nanobody-35,Calcitonin salmon PubChem,peptide,Agonist,"amylin, α-CGRP, adrenomedullin, calcitonin, adrenomedullin 2/intermedin, calcitonin (salmon), β-CGRP",peptide,22-03-23,Yes
-CALCR,CT,Calcitonin,B1,Human,cryo-EM,7TYF,-,2.2,R,Active,100,77,Gs,αs,-,58,-,Nanobody-35,amylin peptide,peptide,Agonist,"amylin, α-CGRP, adrenomedullin, calcitonin, adrenomedullin 2/intermedin, calcitonin (salmon), β-CGRP",peptide,22-03-23,Yes
-CALCR,CT,Calcitonin,B1,Human,cryo-EM,7TYL,7TYL_refined,3.3,R,Active,100,78,Gs,αs,-,58,-,Nanobody-35,amylin peptide,peptide,Agonist,"amylin, α-CGRP, adrenomedullin, calcitonin, adrenomedullin 2/intermedin, calcitonin (salmon), β-CGRP",peptide,22-03-23,Yes
-CALCR,CT,Calcitonin,B1,Human,cryo-EM,7TYO,7TYO_refined,2.7,R,Active,100,76,Gs,αs,-,58,-,Nanobody-35,Calcitonin human PubChem,peptide,Agonist,"amylin, α-CGRP, adrenomedullin, calcitonin, adrenomedullin 2/intermedin, calcitonin (salmon), β-CGRP",peptide,22-03-23,Yes
-CALCR,CT,Calcitonin,B1,Human,cryo-EM,7TZF,-,2.4,R,Active,100,77,Gs,αs,-,59,-,Nanobody-35,amylin peptide,peptide,Agonist,"amylin, α-CGRP, adrenomedullin, calcitonin, adrenomedullin 2/intermedin, calcitonin (salmon), β-CGRP",peptide,22-03-23,Yes
-CCR1,CCR1,Chemokine,A,Human,cryo-EM,7VL9,7VL9_refined,2.6,R,Active,100,85,Gi/o,αi1,-,62,-,scFv16,CCL15(26-92),peptide,Agonist,"CCL5, CCL23, CCL7, CCL16, CCL15, CCL4, CCL3, CCL14, CCL13, CCL8",peptide,22-03-23,Yes
-CCR1,CCR1,Chemokine,A,Human,cryo-EM,7VL8,7VL8_refined,2.9,R,Active,100,80,Gi/o,αi1,-,62,-,scFv16,Apo (no ligand),none,Apo (no ligand),"CCL5, CCL23, CCL7, CCL16, CCL15, CCL4, CCL3, CCL14, CCL13, CCL8",peptide,22-03-23,Yes
-CCR1,CCR1,Chemokine,A,Human,cryo-EM,7VLA,7VLA_refined,2.7,R,Active,100,85,Gi/o,αi1,-,64,-,scFv16,CCL15(27-92),peptide,Agonist,"CCL5, CCL23, CCL7, CCL16, CCL15, CCL4, CCL3, CCL14, CCL13, CCL8",peptide,22-03-23,Yes
-GRM3,mGlu3,Metabotropic glutamate,C,Human,cryo-EM,7WI6,7WI6_refined,3.7,A,Inactive,23,82,-,-,-,-,-,-,LY341495 PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology,small-molecule,Antagonist,"L-glutamic acid, NAAG",small-molecule,22-03-16,Yes
-GRM3,mGlu3,Metabotropic glutamate,C,Human,cryo-EM,7WI8,7WI8_refined,4.2,A,Inactive,5,82,-,-,-,-,-,-,LY341495 PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology,small-molecule,Antagonist,"L-glutamic acid, NAAG",small-molecule,22-03-16,Yes
-GRM3,mGlu3,Metabotropic glutamate,C,Human,cryo-EM,7WIH,7WIH_refined,3.7,A,Inactive,5,84,-,-,-,-,-,-,CHEMBL4081453 ChEMBL_compound_ids PubChem,small-molecule,Agonist,"L-glutamic acid, NAAG",small-molecule,22-03-16,Yes
-LT4R1,BLT1,Leukotriene,A,Human,cryo-EM,7VKT,7VKT_refined,2.9,A,Active,100,82,Gi/o,αi1,-,64,-,scFv16,LTB4 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Agonist,"12R-HETE, 20-hydroxy-LTB4, LTB4",small-molecule,22-03-09,Yes
-OXYR,OT,Vasopressin and oxytocin,A,Human,cryo-EM,7RYC,-,2.9,O,Active,100,73,Gq/11,αq,Gamma subunit fused to alpha subunit,57,-,scFv16,oxytocin PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central Guide To Pharmacology,peptide,Agonist,"oxytocin, vasopressin",peptide,22-03-09,Yes
-SSR2,SST2,Somatostatin,A,Human,cryo-EM,7T11,7T11_refined,2.7,R,Active,100,77,Gi/o,αi3,-,62,-,scFv16,octreotide PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank ChEMBL_compound_ids,peptide,Agonist,"cortistatin-14, CST-17, SRIF-28, SRIF-14",peptide,22-03-09,Yes
-SSR2,SST2,Somatostatin,A,Human,cryo-EM,7T10,7T10_refined,2.5,R,Active,100,78,Gi/o,αi3,-,62,-,scFv16,SOMATOSTATIN ChEMBL_compound_ids PubChem,protein,Agonist,"cortistatin-14, CST-17, SRIF-28, SRIF-14",peptide,22-03-09,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,7PX4,7PX4_refined,2.3,A,Inactive,1,72,-,-,-,-,BRIL,-,Preladenant conjugate PSB-2113 PubChem,small-molecule,Antagonist,adenosine,small-molecule,22-03-02,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,7PYR,7PYR_refined,2.6,A,Inactive,1,72,-,-,-,-,BRIL,-,Preladenant conjugate PSB-2115,small-molecule,Antagonist,adenosine,small-molecule,22-03-02,Yes
-GIPR,GIP,Glucagon,B1,Human,cryo-EM,7VAB,-,3.2,R,Active,100,58,Gs,αs,Mini-Gs,56,-,Nanobody-35,Tirzepatide PubChem,peptide,Agonist,gastric inhibitory polypeptide,peptide,22-03-02,Yes
-GIPR,GIP,Glucagon,B1,Human,cryo-EM,7FIY,7FIY_refined,3.4,R,Active,100,77,Gs,αs,-,60,-,Nanobody-35,Tirzepatide PubChem,peptide,Agonist,gastric inhibitory polypeptide,peptide,22-03-02,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,cryo-EM,7FIM,7FIM_refined,3.4,R,Active,100,83,Gs,αs,-,57,-,Nanobody-35,Tirzepatide PubChem,peptide,Agonist,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,22-03-02,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,cryo-EM,7VBI,7VBI_refined,3,R,Active,100,83,Gs,αs,Mini-Gs,58,-,-,Tirzepatide PubChem,peptide,Agonist,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,22-03-02,Yes
-GLR,glucagon,Glucagon,B1,Human,cryo-EM,7V35,7V35_refined,3.4,R,Active,100,82,Gs,αs,-,53,-,Nanobody-35,Peptide-20,peptide,Agonist,glucagon,peptide,22-03-02,Yes
-MTR1A,MT1,Melatonin,A,Human,cryo-EM,7VGZ,7VGZ_refined,3.3,B,Active,100,81,Gi/o,αi1,-,62,-,scFv16,ramelteon PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,melatonin,small-molecule,22-03-02,Yes
-MTR1A,MT1,Melatonin,A,Human,cryo-EM,7VGY,7VGY_refined,3.1,A,Active,100,80,Gi/o,αi1,-,62,-,scFv16,2-iodo-melatonin PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Agonist,melatonin,small-molecule,22-03-02,Yes
-MTR1B,MT2,Melatonin,A,Human,cryo-EM,7VH0,7VH0_refined,3.5,A,Active,100,75,Gi/o,αi1,-,61,-,scFv16,ramelteon PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,melatonin,small-molecule,22-03-02,Yes
-GIPR,GIP,Glucagon,B1,Human,cryo-EM,7FIN,7FIN_refined,3.1,R,Active,100,82,Gs,αs,-,59,-,Nanobody-35,Peptide-20,peptide,Agonist,gastric inhibitory polypeptide,peptide,22-02-23,Yes
-NPY1R,Y1,Neuropeptide Y,A,Human,cryo-EM,7VGX,7VGX_refined,3.2,R,Active,100,73,Gi/o,αi1,-,63,-,scFv16,neuropeptide Y PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology Guide To Pharmacology PubChem PubChem PubChem,peptide,Agonist,"peptide YY, neuropeptide Y, pancreatic polypeptide",peptide,22-02-23,Yes
-AGTR2,AT2,Angiotensin,A,Human,X-ray,7JNI,7JNI_refined,3,A,Active,99,82,-,-,-,-,BRIL,-,olodanrigan PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,"angiotensin-(1-7), angiotensin II, angiotensin III",peptide,22-02-09,Yes
-LPAR1,LPA1,Lysophospholipid (LPA),A,Human,cryo-EM,7TD1,7TD1_refined,3.1,R,Active,100,80,Gi/o,αi1,-,62,-,-,(2r)-2-Hydroxy-3-(Phosphonooxy)propyl (9e)-Octadec-9-Enoate PubChem,small-molecule,Agonist,1-O-Oleoyl-D-glycerol 3-phosphoric acid,small-molecule,22-02-09,Yes
-LPAR1,LPA1,Lysophospholipid (LPA),A,Human,cryo-EM,7TD0,7TD0_refined,2.8,R,Active,100,80,Gi/o,αi1,-,62,-,-,(2r)-2-Hydroxy-3-(Phosphonooxy)propyl (9e)-Octadec-9-Enoate PubChem,small-molecule,Agonist,1-O-Oleoyl-D-glycerol 3-phosphoric acid,small-molecule,22-02-09,Yes
-LPAR1,LPA1,Lysophospholipid (LPA),A,Human,cryo-EM,7TD2,7TD2_refined,3.1,R,Active,100,80,Gi/o,αi1,-,62,-,-,(2r)-2-Hydroxy-3-(Phosphonooxy)propyl (9e)-Octadec-9-Enoate PubChem,small-molecule,Agonist,1-O-Oleoyl-D-glycerol 3-phosphoric acid,small-molecule,22-02-09,Yes
-S1PR1,S1P1,Lysophospholipid (S1P),A,Human,cryo-EM,7TD3,7TD3_refined,3,R,Active,100,76,Gi/o,αi1,-,63,-,-,sphingosine 1-phosphate PubChem Guide To Pharmacology ChEMBL_compound_ids PubChem,small-molecule,Agonist,"sphingosylphosphorylcholine, sphingosine 1-phosphate, dihydrosphingosine 1-phosphate",small-molecule,22-02-09,Yes
-S1PR1,S1P1,Lysophospholipid (S1P),A,Human,cryo-EM,7TD4,7TD4_refined,2.6,R,Active,100,76,Gi/o,αi1,-,63,-,-,siponimod PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central DrugBank,small-molecule,Agonist,"sphingosylphosphorylcholine, sphingosine 1-phosphate, dihydrosphingosine 1-phosphate",small-molecule,22-02-09,Yes
-5HT2A,5-HT2A,5-Hydroxytryptamine,A,Human,X-ray,7WC4,7WC4_refined,3.2,A,Inactive,1,61,-,-,-,-,BRIL,-,5-hydroxytryptamine PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Agonist,"tryptamine, 5-hydroxytryptamine",small-molecule,22-01-26,Yes
-5HT2A,5-HT2A,5-Hydroxytryptamine,A,Human,X-ray,7WC8,7WC8_refined,2.5,A,Inactive,1,59,-,-,-,-,BRIL,-,LUMATEPERONE ChEMBL_compound_ids ChEMBL_compound_ids PubChem,small-molecule,Agonist,"tryptamine, 5-hydroxytryptamine",small-molecule,22-01-26,Yes
-5HT2A,5-HT2A,5-Hydroxytryptamine,A,Human,X-ray,7WC5,7WC5_refined,3.2,A,Inactive,1,60,-,-,-,-,BRIL,-,psilocin PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Agonist,"tryptamine, 5-hydroxytryptamine",small-molecule,22-01-26,Yes
-5HT2A,5-HT2A,5-Hydroxytryptamine,A,Human,X-ray,7WC9,7WC9_refined,2.5,A,Inactive,1,59,-,-,-,-,BRIL,-,"(10~{R},15~{S})-12-[3-(2-methoxyphenyl)propyl]-4-methyl-1,4,12-triazatetracyclo[7.6.1.0^{5,16}.0^{10,15}]hexadeca-5(16),6,8-triene PubChem",small-molecule,Agonist,"tryptamine, 5-hydroxytryptamine",small-molecule,22-01-26,Yes
-5HT2A,5-HT2A,5-Hydroxytryptamine,A,Human,X-ray,7WC7,7WC7_refined,2.6,A,Inactive,1,59,-,-,-,-,BRIL,-,lisuride PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,"tryptamine, 5-hydroxytryptamine",small-molecule,22-01-26,Yes
-5HT2A,5-HT2A,5-Hydroxytryptamine,A,Human,X-ray,7WC6,7WC6_refined,2.6,A,Inactive,1,58,-,-,-,-,BRIL,-,Lysergide PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,"tryptamine, 5-hydroxytryptamine",small-molecule,22-01-26,Yes
-US28,US28,Unclassified,A,strain AD169,cryo-EM,7RKN,7RKN_refined,3.6,R,Active,100,83,Gi/o,αi1,-,61,-,scFv16,Fractalkine PubChem,peptide,Agonist,-,-,22-01-26,Yes
-US28,US28,Unclassified,A,strain AD169,cryo-EM,7RKM,7RKM_refined,3.5,R,Active,100,83,Gi/o,αi1,-,61,-,scFv16,Fractalkine PubChem,peptide,Agonist,-,-,22-01-26,Yes
-US28,US28,Unclassified,A,strain AD169,cryo-EM,7RKF,-,4,R,Active,100,84,Gq/11,α11,-,96,-,scFv16,Fractalkine PubChem,peptide,Agonist,-,-,22-01-26,Yes
-CASR,CaS,Calcium-sensing,C,Human,cryo-EM,7SIL,7SIL_refined,2.7,A,Active,77,72,-,-,-,-,-,-,Cyclomethyltryptophan PubChem,small-molecule,Agonist,"L-tryptophan, Mg2+, spermine, Ca2+",small-molecule,22-01-19,Yes
-CASR,CaS,Calcium-sensing,C,Human,cryo-EM,7SIM,7SIM_refined,2.7,A,Active,77,72,-,-,-,-,-,-,Cyclomethyltryptophan PubChem,small-molecule,Agonist,"L-tryptophan, Mg2+, spermine, Ca2+",small-molecule,22-01-19,Yes
-CASR,CaS,Calcium-sensing,C,Human,cryo-EM,7SIN,7SIN_refined,5.9,A,Active,77,74,-,-,-,-,-,-,NPS 2143 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,"L-tryptophan, Mg2+, spermine, Ca2+",small-molecule,22-01-19,Yes
-GHSR,ghrelin,Ghrelin,A,Human,cryo-EM,7W2Z,7W2Z_refined,2.8,R,Active,100,82,Gi/o,αo,-,60,-,scFv16,Ghrelin PubChem,peptide,Agonist,"ghrelin, [des-Gln14]ghrelin",peptide,22-01-19,Yes
-GHSR,ghrelin,Ghrelin,A,Human,X-ray,7F83,7F83_refined,2.9,A,Inactive,12,78,-,-,-,-,BRIL,-,PF-05190457 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Inverse agonist,"ghrelin, [des-Gln14]ghrelin",peptide,22-01-19,Yes
-ADA1B,α1B,Adrenoceptors,A,Human,X-ray,7B6W,-,2.9,A,Inactive,1,51,-,-,-,-,DARPin D12,-,(+)-cyclazosin PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Inverse agonist,"(-)-noradrenaline, (-)-adrenaline",small-molecule,22-01-12,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,cryo-EM,7LLL,7LLL_refined,3.7,R,Active,100,79,Gs,αs,-,59,-,Nanobody-35,exendin-4 PubChem Guide To Pharmacology PubChem,peptide,Agonist,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,22-01-12,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,cryo-EM,7LLY,7LLY_refined,3.3,R,Active,100,77,Gs,αs,-,50,-,Nanobody-35,Pro-glucagon PubChem,peptide,Agonist,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,22-01-12,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,cryo-EM,7S1M,7S1M_refined,2.4,R,Active,100,82,Gs,αs,-,59,-,Nanobody-35,exendin-4 PubChem Guide To Pharmacology PubChem,peptide,Agonist,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,22-01-05,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,cryo-EM,7S3I,-,2.5,R,Active,100,57,Gs,αs,-,59,-,Nanobody-35,exendin-4 PubChem Guide To Pharmacology PubChem,peptide,Agonist,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,22-01-05,Yes
-S1PR1,S1P1,Lysophospholipid (S1P),A,Human,cryo-EM,7EO4,7EO4_refined,2.9,A,Active,100,74,Gi/o,αi1,-,43,-,scFv16,siponimod PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central DrugBank,small-molecule,Agonist,"sphingosylphosphorylcholine, sphingosine 1-phosphate, dihydrosphingosine 1-phosphate",small-molecule,22-01-05,Yes
-S1PR1,S1P1,Lysophospholipid (S1P),A,Human,cryo-EM,7WF7,7WF7_refined,3.4,A,Active,100,71,Gi/o,αi1,-,40,-,scFv16,sphingosine 1-phosphate PubChem Guide To Pharmacology ChEMBL_compound_ids PubChem,small-molecule,Agonist,"sphingosylphosphorylcholine, sphingosine 1-phosphate, dihydrosphingosine 1-phosphate",small-molecule,22-01-05,Yes
-S1PR1,S1P1,Lysophospholipid (S1P),A,Human,cryo-EM,7EO2,7EO2_refined,2.9,A,Active,100,73,Gi/o,αi1,-,62,-,scFv16,(S)-FTY720-phosphate PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Agonist,"sphingosylphosphorylcholine, sphingosine 1-phosphate, dihydrosphingosine 1-phosphate",small-molecule,22-01-05,Yes
-CCKAR,CCK1,Cholecystokinin,A,Human,X-ray,7F8X,7F8X_refined,3,A,Inactive,1,66,-,-,-,-,T4-Lysozyme,-,NN9056,peptide,Agonist,"CCK-8, desulfated cholecystokinin-8, gastrin-17, CCK-4, CCK-33, CCK-58, CCK-39",peptide,21-12-29,Yes
-GP139,GPR139,A orphans,A,Human,cryo-EM,7VUH,-,3.2,R,Active,100,80,Gs,αs,-,59,-,Nanobody-35,JNJ-63533054 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Agonist,"L-phenylalanine, L-tryptophan",small-molecule,21-12-29,Yes
-GP139,GPR139,A orphans,A,Human,cryo-EM,7VUJ,-,3.8,R,Active,100,79,Gs,αs,-,58,-,Nanobody-35,JNJ-63533054 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Agonist,"L-phenylalanine, L-tryptophan",small-molecule,21-12-29,Yes
-GP139,GPR139,A orphans,A,Human,cryo-EM,7VUG,7VUG_refined,3.2,R,Active,100,80,Gi/o,αi1,-,62,-,scFv16,JNJ-63533054 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Agonist,"L-phenylalanine, L-tryptophan",small-molecule,21-12-29,Yes
-GP139,GPR139,A orphans,A,Human,cryo-EM,7VUI,-,3.3,R,Active,100,79,Gs,αs,-,57,-,Nanobody-35,JNJ-63533054 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Agonist,"L-phenylalanine, L-tryptophan",small-molecule,21-12-29,Yes
-5HT2A,5-HT2A,5-Hydroxytryptamine,A,Human,X-ray,7VOD,7VOD_refined,3.3,A,Inactive,1,58,-,-,-,-,BRIL,-,cariprazine PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central DrugBank,small-molecule,Agonist (partial),"tryptamine, 5-hydroxytryptamine",small-molecule,21-12-22,Yes
-5HT2A,5-HT2A,5-Hydroxytryptamine,A,Human,X-ray,7VOE,7VOE_refined,2.9,A,Inactive,1,58,-,-,-,-,BRIL,-,aripiprazole PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist (partial),"tryptamine, 5-hydroxytryptamine",small-molecule,21-12-22,Yes
-GHSR,ghrelin,Ghrelin,A,Human,cryo-EM,7NA7,7NA7_refined,2.7,R,Active,100,80,Gi/o,αi1,-,61,-,Antibody fragment,Ghrelin-27,peptide,Agonist,"ghrelin, [des-Gln14]ghrelin",peptide,21-12-15,Yes
-GHSR,ghrelin,Ghrelin,A,Human,cryo-EM,7NA8,7NA8_refined,2.7,R,Active,100,78,Gi/o,αi1,-,61,-,Antibody fragment,ibutamoren PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Agonist,"ghrelin, [des-Gln14]ghrelin",peptide,21-12-15,Yes
-NK1R,NK1,Tachykinin,A,Human,cryo-EM,7P00,7P00_refined,2.7,R,Active,100,71,Gq/11,αq,Gq-Gs-Gi1 chimera,59,-,scFv16,substance P PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology Guide To Pharmacology,peptide,Agonist,"neuropeptide-γ, substance P, neuropeptide K, hemokinin 1, neurokinin A, neurokinin B",peptide,21-12-15,Yes
-NK1R,NK1,Tachykinin,A,Human,cryo-EM,7P02,7P02_refined,2.9,R,Active,100,71,Gs,αs,Gs-Gi1 chimera,57,-,scFv16,substance P PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology Guide To Pharmacology,peptide,Agonist,"neuropeptide-γ, substance P, neuropeptide K, hemokinin 1, neurokinin A, neurokinin B",peptide,21-12-15,Yes
-GP158,GPR158,C Orphans,C,Human,cryo-EM,7EWL,7EWL_refined,3.5,A,Inactive,14,41,-,-,-,-,-,-,Apo (no ligand),none,Apo (no ligand),-,-,21-12-01,Yes
-GP158,GPR158,C Orphans,C,Human,cryo-EM,7SHF,7SHF_refined,3.4,B,Inactive,14,23,-,-,-,-,-,-,Apo (no ligand),none,Apo (no ligand),-,-,21-12-01,Yes
-GP158,GPR158,C Orphans,C,Human,cryo-EM,7SHE,7SHE_refined,3.4,A,Inactive,14,45,-,-,-,-,-,-,Apo (no ligand),none,Apo (no ligand),-,-,21-12-01,Yes
-GP158,GPR158,C Orphans,C,Human,cryo-EM,7EWP,7EWP_refined,4.3,A,Inactive,14,47,-,-,-,-,-,-,Apo (no ligand),none,Apo (no ligand),-,-,21-12-01,Yes
-GP158,GPR158,C Orphans,C,Human,cryo-EM,7EWR,7EWR_refined,4.7,A,Inactive,14,47,-,-,-,-,-,-,Apo (no ligand),none,Apo (no ligand),-,-,21-12-01,Yes
-MRGX2,MRGPRX2,A orphans,A,Human,cryo-EM,7VDM,7VDM_refined,3,R,Active,100,77,Gi/o,αi1,-,61,-,scFv16,substance P PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology Guide To Pharmacology,peptide,Agonist,PAMP-20,peptide,21-12-01,Yes
-MRGX2,MRGPRX2,A orphans,A,Human,cryo-EM,7VV4,7VV4_refined,3,R,Active,99,80,-,-,-,-,-,-,Cortistatin 14 PubChem,peptide,Agonist,PAMP-20,peptide,21-12-01,Yes
-MRGX2,MRGPRX2,A orphans,A,Human,cryo-EM,7VDH,7VDH_refined,2.9,R,Active,100,81,Gi/o,αi1,-,62,-,scFv16,compound 48/80 PubChem Guide To Pharmacology,small-molecule,Agonist,PAMP-20,peptide,21-12-01,Yes
-MRGX2,MRGPRX2,A orphans,A,Human,cryo-EM,7VUZ,-,2.9,R,Active,100,76,Gi/o,αi1,-,62,-,scFv16,PAMP-12 PubChem,peptide,Agonist,PAMP-20,peptide,21-12-01,Yes
-MRGX2,MRGPRX2,A orphans,A,Human,cryo-EM,7VV6,7VV6_refined,3.3,R,Active,99,82,-,-,-,-,-,-,compound 48/80 PubChem Guide To Pharmacology,small-molecule,Agonist,PAMP-20,peptide,21-12-01,Yes
-MRGX2,MRGPRX2,A orphans,A,Human,cryo-EM,7VDL,7VDL_refined,3.2,R,Active,100,78,Gi/o,αi1,-,61,-,scFv16,Cortistatin 14 PubChem,peptide,Agonist,PAMP-20,peptide,21-12-01,Yes
-MRGX2,MRGPRX2,A orphans,A,Human,cryo-EM,7VV0,7VV0_refined,3.5,R,Active,99,80,-,-,-,-,-,-,PAMP-12 PubChem,peptide,Agonist,PAMP-20,peptide,21-12-01,Yes
-MRGX2,MRGPRX2,A orphans,A,Human,cryo-EM,7VV5,7VV5_refined,2.8,R,Active,100,81,Gi/o,αi1,-,64,-,scFv16,compound 48/80 PubChem Guide To Pharmacology,small-molecule,Agonist,PAMP-20,peptide,21-12-01,Yes
-MRGX2,MRGPRX2,A orphans,A,Human,cryo-EM,7VUY,-,2.8,R,Active,100,78,Gi/o,αi1,-,64,-,scFv16,PAMP-12 PubChem,peptide,Agonist,PAMP-20,peptide,21-12-01,Yes
-MRGX2,MRGPRX2,A orphans,A,Human,cryo-EM,7VV3,-,3,R,Active,100,79,Gi/o,αi1,-,62,-,scFv16,Cortistatin 14 PubChem,peptide,Agonist,PAMP-20,peptide,21-12-01,Yes
-CNR1,CB1,Cannabinoid,A,Human,X-ray,7V3Z,7V3Z_refined,3.3,A,Active,96,60,-,-,-,-,Flavodoxin,-,CP55940 PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology,small-molecule,Agonist,"anandamide, 2-arachidonoylglycerol",small-molecule,21-11-24,Yes
-MC4R,MC4,Melanocortin,A,Human,cryo-EM,7PIU,-,2.6,R,Active,100,78,Gs,αs,-,48,-,Nanobody-35,setmelanotide PubChem Guide To Pharmacology Drug Central ChEMBL_compound_ids DrugBank,peptide,Agonist,"β-MSH, agouti-related protein, ACTH, α-MSH, γ-MSH",peptide,21-11-17,Yes
-MC4R,MC4,Melanocortin,A,Human,cryo-EM,7PIV,7PIV_refined,2.9,R,Active,100,78,Gs,αs,-,46,-,Nanobody-35,afamelanotide PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank PubChem PubChem PubChem PubChem,peptide,Agonist,"β-MSH, agouti-related protein, ACTH, α-MSH, γ-MSH",peptide,21-11-17,Yes
-MRGX2,MRGPRX2,A orphans,A,Human,cryo-EM,7S8M,7S8M_refined,2.5,R,Active,100,77,Gi/o,αi1,-,62,BRIL,scFv16,Cortistatin 14 PubChem,peptide,Agonist,PAMP-20,peptide,21-11-17,Yes
-MRGX2,MRGPRX2,A orphans,A,Human,cryo-EM,7S8N,7S8N_refined,2.9,R,Active,100,76,Gq/11,αq,Gq-Gs chimera,57,-,scFv16,(R)-ZINC-3573 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Agonist,PAMP-20,peptide,21-11-17,Yes
-MRGX2,MRGPRX2,A orphans,A,Human,cryo-EM,7S8L,7S8L_refined,2.5,R,Active,100,76,Gq/11,αq,Gq-Gs chimera,57,-,scFv16,Cortistatin 14 PubChem,peptide,Agonist,PAMP-20,peptide,21-11-17,Yes
-MRGX2,MRGPRX2,A orphans,A,Human,cryo-EM,7S8O,7S8O_refined,2.6,R,Active,100,78,Gi/o,αi1,-,62,BRIL,scFv16,(R)-ZINC-3573 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Agonist,PAMP-20,peptide,21-11-17,Yes
-MRGX4,MRGPRX4,A orphans,A,Human,cryo-EM,7S8P,7S8P_refined,2.6,R,Active,100,77,Gq/11,αq,Gq-Gs chimera,57,BRIL,scFv16,"N-[(1r,3R,5S,7R)-3,5-dimethyltricyclo[3.3.1.1~3,7~]decane-1-carbonyl]-D-phenylalanine PubChem",small-molecule,Agonist,-,-,21-11-17,Yes
-MC4R,MC4,Melanocortin,A,Human,cryo-EM,7F55,7F55_refined,3.1,R,Active,100,82,Gs,αs,-,58,-,Nanobody-35,bremelanotide PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,peptide,Agonist,"β-MSH, agouti-related protein, ACTH, α-MSH, γ-MSH",peptide,21-11-03,Yes
-MC4R,MC4,Melanocortin,A,Human,cryo-EM,7F58,7F58_refined,3.1,R,Active,100,82,Gs,αs,-,58,-,Nanobody-35,THIQ PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Agonist,"β-MSH, agouti-related protein, ACTH, α-MSH, γ-MSH",peptide,21-11-03,Yes
-MC4R,MC4,Melanocortin,A,Human,cryo-EM,7F54,7F54_refined,3,R,Active,100,82,Gs,αs,-,58,-,Nanobody-35,afamelanotide PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank PubChem PubChem PubChem PubChem,peptide,Agonist,"β-MSH, agouti-related protein, ACTH, α-MSH, γ-MSH",peptide,21-11-03,Yes
-MC4R,MC4,Melanocortin,A,Human,cryo-EM,7F53,7F53_refined,3,R,Active,100,82,Gs,αs,-,58,-,Nanobody-35,α-MSH PubChem Guide To Pharmacology,peptide,Agonist,"β-MSH, agouti-related protein, ACTH, α-MSH, γ-MSH",peptide,21-11-03,Yes
-NK1R,NK1,Tachykinin,A,Human,cryo-EM,7RMH,7RMH_refined,3.1,R,Active,100,70,Gs,αs,-,55,-,Nanobody-35,substance P PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology Guide To Pharmacology,peptide,Agonist,"neuropeptide-γ, substance P, neuropeptide K, hemokinin 1, neurokinin A, neurokinin B",peptide,21-11-03,Yes
-NK1R,NK1,Tachykinin,A,Human,cryo-EM,7RMI,7RMI_refined,3.2,R,Active,100,70,Gs,αs,Gs-Gq chimera,49,-,Nanobody-35,substance P PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology Guide To Pharmacology,peptide,Agonist,"neuropeptide-γ, substance P, neuropeptide K, hemokinin 1, neurokinin A, neurokinin B",peptide,21-11-03,Yes
-NK1R,NK1,Tachykinin,A,Human,cryo-EM,7RMG,7RMG_refined,3,R,Active,100,71,Gs,αs,Gs-Gq chimera,49,-,Nanobody-35,substance P PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology Guide To Pharmacology,peptide,Agonist,"neuropeptide-γ, substance P, neuropeptide K, hemokinin 1, neurokinin A, neurokinin B",peptide,21-11-03,Yes
-GHRHR,GHRH,Glucagon,B1,Human,cryo-EM,7V9M,7V9M_refined,3.3,R,Active,100,63,Gs,αs,-,57,-,Nanobody-35,Somatoliberin PubChem,peptide,Agonist,GHRH,peptide,21-10-20,Yes
-BKRB1,B1,Bradykinin,A,Human,cryo-EM,7EIB,7EIB_refined,3,A,Active,100,84,Gq/11,αq,Gq-Gi1 chimera,61,-,-,[des-Arg10]kallidin PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology,peptide,Agonist,"Lys-[Hyp3]-bradykinin, [des-Arg9]bradykinin, [des-Arg10]kallidin, kallidin, bradykinin, [Hyp3]bradykinin, T-kinin",peptide,21-10-13,Yes
-BKRB2,B2,Bradykinin,A,Human,cryo-EM,7F2O,7F2O_refined,2.9,R,Active,100,73,Gq/11,αq,Gq-Gi1 chimera,60,-,scFv16,bradykinin PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Guide To Pharmacology,peptide,Agonist,"Lys-[Hyp3]-bradykinin, [des-Arg9]bradykinin, [des-Arg10]kallidin, kallidin, bradykinin, [Hyp3]bradykinin, T-kinin",peptide,21-10-13,Yes
-CCKAR,CCK1,Cholecystokinin,A,Human,X-ray,7F8Y,7F8Y_refined,2.5,A,Inactive,1,65,-,-,-,-,T4-Lysozyme,-,DEVAZEPIDE ChEMBL_compound_ids PubChem,small-molecule,Antagonist,"CCK-8, desulfated cholecystokinin-8, gastrin-17, CCK-4, CCK-33, CCK-58, CCK-39",peptide,21-10-13,Yes
-CCKAR,CCK1,Cholecystokinin,A,Human,X-ray,7F8U,7F8U_refined,2.8,A,Inactive,1,65,-,-,-,-,T4-Lysozyme,-,lintitript PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,"CCK-8, desulfated cholecystokinin-8, gastrin-17, CCK-4, CCK-33, CCK-58, CCK-39",peptide,21-10-13,Yes
-GASR,CCK2,Cholecystokinin,A,Human,cryo-EM,7F8V,7F8V_refined,3.3,R,Active,100,62,Gi/o,αi2,-,61,-,-,desulfated gastrin-17 PubChem Guide To Pharmacology ChEMBL_compound_ids PubChem,peptide,Agonist,"CCK-8, desulfated gastrin-71, gastrin-71, desulfated cholecystokinin-8, gastrin-17, CCK-4, desulfated gastrin-34, gastrin-14, desulfated gastrin-14, CCK-33, gastrin-34, desulfated gastrin-17, CCK-58, CCK-39",peptide,21-10-13,Yes
-GASR,CCK2,Cholecystokinin,A,Human,cryo-EM,7F8W,7F8W_refined,3.1,R,Active,100,62,Gq/11,αq,Gq-Gi1 chimera,62,-,scFv16,desulfated gastrin-17 PubChem Guide To Pharmacology ChEMBL_compound_ids PubChem,peptide,Agonist,"CCK-8, desulfated gastrin-71, gastrin-71, desulfated cholecystokinin-8, gastrin-17, CCK-4, desulfated gastrin-34, gastrin-14, desulfated gastrin-14, CCK-33, gastrin-34, desulfated gastrin-17, CCK-58, CCK-39",peptide,21-10-13,Yes
-ACM1,M1,Acetylcholine (muscarinic),A,Human,X-ray,6ZG4,6ZG4_refined,2.3,A,Inactive,3,62,-,-,-,-,T4-Lysozyme,-,Ethyl (4S)-4-[4-[(1-methylcyclobutyl)carbamoyl]piperidin-1-yl]azepane-1-carboxylate PubChem,small-molecule,Agonist,acetylcholine,small-molecule,21-10-06,Yes
-ACM1,M1,Acetylcholine (muscarinic),A,Human,X-ray,6ZFZ,6ZFZ_refined,2.2,A,Inactive,3,62,-,-,-,-,T4-Lysozyme,-,77-LH-28-1 PubChem ChEMBL_compound_ids,small-molecule,Agonist,acetylcholine,small-molecule,21-10-06,Yes
-ACM1,M1,Acetylcholine (muscarinic),A,Human,X-ray,6ZG9,6ZG9_refined,2.5,A,Inactive,3,62,-,-,-,-,T4-Lysozyme,-,7-fluoro-5-methyl-3-[1-(oxan-4-yl)piperidin-4-yl]-1H-benzimidazol-2-one PubChem,small-molecule,Agonist,acetylcholine,small-molecule,21-10-06,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,cryo-EM,7RTB,7RTB_refined,2.1,R,Active,100,83,Gs,αs,-,60,-,Nanobody-35,Peptide-19,peptide,Agonist,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,21-10-06,Yes
-LSHR,LH,Glycoprotein hormone,A,Human,cryo-EM,7FII,-,4.3,R,Active,100,82,Gs,αs,-,71,-,-,Choriogonadotropin beta Guide To Pharmacology,protein,Agonist,"hCG, LH",peptide,21-09-29,Yes
-LSHR,LH,Glycoprotein hormone,A,Human,cryo-EM,7FIH,-,3.2,R,Active,100,79,Gs,αs,-,56,-,-,Choriogonadotropin beta Guide To Pharmacology,protein,Agonist,"hCG, LH",peptide,21-09-29,Yes
-LSHR,LH,Glycoprotein hormone,A,Human,cryo-EM,7FIJ,7FIJ_refined,3.8,R,Inactive,10,80,-,-,-,-,-,-,Apo (no ligand),none,Apo (no ligand),"hCG, LH",peptide,21-09-29,Yes
-LSHR,LH,Glycoprotein hormone,A,Human,cryo-EM,7FIG,-,3.9,R,Active,100,79,Gs,αs,-,71,-,Nanobody-35,Choriogonadotropin beta Guide To Pharmacology,protein,Agonist,"hCG, LH",peptide,21-09-29,Yes
-S1PR1,S1P1,Lysophospholipid (S1P),A,Human,cryo-EM,7EVY,7EVY_refined,3,D,Active,100,71,Gi/o,αi1,-,64,-,scFv16,siponimod PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central DrugBank,small-molecule,Agonist,"sphingosylphosphorylcholine, sphingosine 1-phosphate, dihydrosphingosine 1-phosphate",small-molecule,21-09-29,Yes
-S1PR1,S1P1,Lysophospholipid (S1P),A,Human,cryo-EM,7EW0,7EW0_refined,3.4,D,Active,100,71,Gi/o,αi1,-,64,-,scFv16,ozanimod PubChem Guide To Pharmacology Drug Central ChEMBL_compound_ids DrugBank,small-molecule,Agonist,"sphingosylphosphorylcholine, sphingosine 1-phosphate, dihydrosphingosine 1-phosphate",small-molecule,21-09-29,Yes
-S1PR1,S1P1,Lysophospholipid (S1P),A,Human,cryo-EM,7EW7,7EW7_refined,3.3,D,Active,100,75,Gi/o,αi1,-,64,-,scFv16,SEW2871 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Agonist,"sphingosylphosphorylcholine, sphingosine 1-phosphate, dihydrosphingosine 1-phosphate",small-molecule,21-09-29,Yes
-S1PR1,S1P1,Lysophospholipid (S1P),A,Human,cryo-EM,7EVZ,7EVZ_refined,3.1,D,Active,100,71,Gi/o,αi1,-,64,-,scFv16,cenerimod PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Agonist,"sphingosylphosphorylcholine, sphingosine 1-phosphate, dihydrosphingosine 1-phosphate",small-molecule,21-09-29,Yes
-S1PR3,S1P3,Lysophospholipid (S1P),A,Human,cryo-EM,7EW4,-,3.2,R,Active,100,76,Gi/o,αi1,-,64,-,scFv16,CYM-5541 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Agonist,"sphingosylphosphorylcholine, sphingosine 1-phosphate, dihydrosphingosine 1-phosphate",small-molecule,21-09-29,Yes
-S1PR3,S1P3,Lysophospholipid (S1P),A,Human,cryo-EM,7EW2,7EW2_refined,3.1,R,Active,100,77,Gi/o,αi1,-,64,-,scFv16,(S)-FTY720-phosphate PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Agonist,"sphingosylphosphorylcholine, sphingosine 1-phosphate, dihydrosphingosine 1-phosphate",small-molecule,21-09-29,Yes
-S1PR3,S1P3,Lysophospholipid (S1P),A,Human,cryo-EM,7EW3,-,3.1,R,Active,100,77,Gi/o,αi1,-,64,-,scFv16,Sphingosine 1-phosphate PubChem,lipid,Agonist,"sphingosylphosphorylcholine, sphingosine 1-phosphate, dihydrosphingosine 1-phosphate",small-molecule,21-09-29,Yes
-S1PR5,S1P5,Lysophospholipid (S1P),A,Human,cryo-EM,7EW1,7EW1_refined,3.4,A,Active,100,68,Gi/o,αi1,-,64,-,scFv16,siponimod PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central DrugBank,small-molecule,Agonist,"sphingosylphosphorylcholine, sphingosine 1-phosphate, dihydrosphingosine 1-phosphate",small-molecule,21-09-29,Yes
-CASR,CaS,Calcium-sensing,C,Human,cryo-EM,7E6U,7E6U_refined,6,A,Inactive,45,72,-,-,-,-,-,Nanobody-2D11,Apo (no ligand),none,Apo (no ligand),"L-tryptophan, Mg2+, spermine, Ca2+",small-molecule,21-09-22,Yes
-CASR,CaS,Calcium-sensing,C,Human,cryo-EM,7E6T,7E6T_refined,3,A,Inactive,45,74,-,-,-,-,-,-,Calcium PubChem,small-molecule,Agonist,"L-tryptophan, Mg2+, spermine, Ca2+",small-molecule,21-09-22,Yes
-GRM1,mGlu1,Metabotropic glutamate,C,Human,cryo-EM,7DGE,7DGE_refined,3.7,A,Inactive,45,66,-,-,-,-,-,Nanobody-43,quisqualate PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Guide To Pharmacology PubChem,small-molecule,Agonist,L-glutamic acid,small-molecule,21-09-22,Yes
-GRM1,mGlu1,Metabotropic glutamate,C,Human,cryo-EM,7DGD,7DGD_refined,4,A,Inactive,45,66,-,-,-,-,-,-,Apo (no ligand),none,Apo (no ligand),L-glutamic acid,small-molecule,21-09-22,Yes
-AA1R,A1,Adenosine,A,Human,cryo-EM,7LD3,7LD3_refined,3.2,R,Active,100,88,Gi/o,αi2,-,59,-,-,adenosine PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,adenosine,small-molecule,21-09-08,Yes
-AA1R,A1,Adenosine,A,Human,cryo-EM,7LD4,7LD4_refined,3.3,R,Active,100,88,Gi/o,αi2,-,59,-,-,adenosine PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,adenosine,small-molecule,21-09-08,Yes
-AA2AR,A2A,Adenosine,A,Human,MicroED,7RM5,7RM5_refined,2.8,A,Inactive,1,72,-,-,-,-,BRIL,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,21-09-08,Yes
-GRM5,mGlu5,Metabotropic glutamate,C,Human,cryo-EM,7FD8,7FD8_refined,3.8,A,Inactive,25,63,-,-,-,-,-,-,quisqualate PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Guide To Pharmacology PubChem,small-molecule,Agonist,L-glutamic acid,small-molecule,21-09-08,Yes
-GRM5,mGlu5,Metabotropic glutamate,C,Human,X-ray,7P2L,7P2L_refined,2.5,A,Inactive,20,21,-,-,-,-,T4-Lysozyme,-,alloswitch-1 PubChem Guide To Pharmacology,small-molecule,NAM,L-glutamic acid,small-molecule,21-09-08,Yes
-GRM5,mGlu5,Metabotropic glutamate,C,Human,cryo-EM,7FD9,7FD9_refined,4,A,Inactive,43,63,-,-,-,-,-,-,LY341495 PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology,small-molecule,Antagonist,L-glutamic acid,small-molecule,21-09-08,Yes
-MSHR,MC1,Melanocortin,A,Human,cryo-EM,7F4D,7F4D_refined,3,R,Active,100,83,Gs,αs,-,59,-,Nanobody-35,αMSH PubChem ChEMBL_compound_ids PubChem PubChem,small-molecule,Agonist,"ACTH, α-MSH, β-MSH, γ-MSH",peptide,21-09-08,Yes
-MSHR,MC1,Melanocortin,A,Human,cryo-EM,7F4H,7F4H_refined,2.7,R,Active,100,84,Gs,αs,-,59,-,Nanobody-35,"[Nle4,D-Phe7]-αMSH PubChem ChEMBL_compound_ids",small-molecule,Agonist,"ACTH, α-MSH, β-MSH, γ-MSH",peptide,21-09-08,Yes
-MSHR,MC1,Melanocortin,A,Human,cryo-EM,7F4I,7F4I_refined,3.1,R,Active,100,84,Gs,αs,-,59,-,Nanobody-35,SHU9119 PubChem Guide To Pharmacology,peptide,Agonist,"ACTH, α-MSH, β-MSH, γ-MSH",peptide,21-09-08,Yes
-MSHR,MC1,Melanocortin,A,Human,cryo-EM,7F4F,7F4F_refined,2.9,R,Active,100,85,Gs,αs,-,59,-,scFv16,"[Nle4,D-Phe7]-αMSH PubChem ChEMBL_compound_ids",small-molecule,Agonist,"ACTH, α-MSH, β-MSH, γ-MSH",peptide,21-09-08,Yes
-CCKAR,CCK1,Cholecystokinin,A,Human,cryo-EM,7EZM,-,2.9,D,Active,100,71,Gq/11,αq,-,63,-,scFv16,CCK-8 PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central DrugBank,peptide,Agonist,"CCK-8, desulfated cholecystokinin-8, gastrin-17, CCK-4, CCK-33, CCK-58, CCK-39",peptide,21-08-25,Yes
-CCKAR,CCK1,Cholecystokinin,A,Human,cryo-EM,7EZK,7EZK_refined,3.1,D,Active,100,69,Gs,αs,-,58,-,-,CCK-8 PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central DrugBank,peptide,Agonist,"CCK-8, desulfated cholecystokinin-8, gastrin-17, CCK-4, CCK-33, CCK-58, CCK-39",peptide,21-08-25,Yes
-CCKAR,CCK1,Cholecystokinin,A,Human,cryo-EM,7EZH,7EZH_refined,3.2,D,Active,100,69,Gi/o,αi1,-,61,-,scFv16,CCK-8 PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central DrugBank,peptide,Agonist,"CCK-8, desulfated cholecystokinin-8, gastrin-17, CCK-4, CCK-33, CCK-58, CCK-39",peptide,21-08-25,Yes
-PD2R2,DP2,Prostanoid,A,Human,X-ray,7M8W,7M8W_refined,2.6,A,Inactive,20,83,-,-,-,-,T4-Lysozyme,-,15(R)-15-methyl-PGD2 PubChem Guide To Pharmacology,small-molecule,Antagonist,"thromboxane A2, PGJ2, PGE2, PGI2, PGF2α, PGD3, PGD2",small-molecule,21-08-25,Yes
-GHSR,ghrelin,Ghrelin,A,Human,cryo-EM,7F9Z,7F9Z_refined,3.2,R,Active,100,77,Gq/11,αq,Engineered G alpha,59,-,Nanobody-35,GHRP-6 PubChem Guide To Pharmacology,peptide,Agonist,"ghrelin, [des-Gln14]ghrelin",peptide,21-08-18,Yes
-GHSR,ghrelin,Ghrelin,A,Human,cryo-EM,7F9Y,7F9Y_refined,2.9,R,Active,100,78,Gq/11,αq,Engineered G alpha,59,-,Nanobody-35,ghrelin Guide To Pharmacology,peptide,Agonist,"ghrelin, [des-Gln14]ghrelin",peptide,21-08-18,Yes
-MTR1A,MT1,Melatonin,A,Human,cryo-EM,7DB6,7DB6_refined,3.3,D,Active,100,79,Gi/o,αi1,-,62,-,scFv16,ramelteon PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,melatonin,small-molecule,21-08-18,Yes
-PTH2R,PTH2,Parathyroid hormone,B1,Human,cryo-EM,7F16,7F16_refined,2.8,R,Active,100,68,Gs,αs,-,58,-,Nanobody-35,TIP39 Guide To Pharmacology,peptide,Agonist,"PTHrP-(1-36), PTHrP, TIP39, PTH, PTHrP-(1-34) (human)",peptide,21-08-18,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,cryo-EM,7DUR,7DUR_refined,3.3,R,Active,100,80,Gs,αs,-,60,-,Nanobody-35,"N-Tert-butyl-6,7-dichloroquinoxalin-2-amine PubChem",small-molecule,Ago-PAM,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,21-08-11,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,cryo-EM,7EVM,7EVM_refined,2.5,R,Active,100,61,Gs,αs,-,60,-,Nanobody-35,"N-Tert-butyl-6,7-dichloroquinoxalin-2-amine PubChem",small-molecule,Ago-PAM,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,21-08-11,Yes
-5HT1F,5-HT1F,5-Hydroxytryptamine,A,Human,cryo-EM,7EXD,7EXD_refined,3.4,R,Active,100,74,Gi/o,αi1,-,62,BRIL,scFv16,lasmiditan PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central DrugBank,small-molecule,Agonist,5-hydroxytryptamine,small-molecule,21-08-04,Yes
-ADRB3,β3,Adrenoceptors,A,Dog,cryo-EM,7DH5,7DH5_refined,3.2,R,Active,100,68,Gs,αs,-,59,-,Nanobody-35,mirabegron PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,-,-,21-08-04,Yes
-FZD7,FZD7,Frizzled,F,Human,cryo-EM,7EVW,-,3.2,R,Active,100,59,Gs,αs,-,58,-,Nanobody-35,Apo (no ligand),none,Apo (no ligand),-,-,21-08-04,Yes
-GIPR,GIP,Glucagon,B1,Human,cryo-EM,7DTY,7DTY_refined,3,R,Active,100,79,Gs,αs,-,59,-,Nanobody-35,GIP PubChem,small-molecule,Agonist,gastric inhibitory polypeptide,peptide,21-08-04,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,cryo-EM,7KI0,-,2.5,R,Active,100,83,Gs,αs,-,53,-,Nanobody-35,semaglutide PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank PubChem,peptide,Agonist,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,21-08-04,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,cryo-EM,7KI1,7KI1_refined,2.5,R,Active,100,83,Gs,αs,-,89,-,Nanobody-35,Taspoglutide PubChem,peptide,Agonist,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,21-08-04,Yes
-V2R,V2,Vasopressin and oxytocin,A,Human,cryo-EM,7DW9,-,2.6,R,Active,100,75,Gs,αs,-,56,-,Nanobody-35,vasopressin PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,peptide,Agonist,"oxytocin, vasopressin",peptide,21-07-21,Yes
-CCR5,CCR5,Chemokine,A,Human,cryo-EM,7F1Q,7F1Q_refined,2.9,R,Active,100,84,Gi/o,αi1,-,61,-,-,CCL3 Guide To Pharmacology,peptide,Agonist,"CCL5, CCL8, CCL2, CCL16, CCL4, CCL3, CCL14, CCL11, CCL13, CCL7",peptide,21-07-14,Yes
-CCR5,CCR5,Chemokine,A,Human,X-ray,7F1T,7F1T_refined,2.6,A,Inactive,14,86,-,-,-,-,Rubredoxin,-,CCL3 Guide To Pharmacology,peptide,Agonist,"CCL5, CCL8, CCL2, CCL16, CCL4, CCL3, CCL14, CCL11, CCL13, CCL7",peptide,21-07-14,Yes
-CCR5,CCR5,Chemokine,A,Human,cryo-EM,7F1S,7F1S_refined,2.8,R,Active,100,78,Gi/o,αi1,-,61,-,-,Apo (no ligand),none,Apo (no ligand),"CCL5, CCL8, CCL2, CCL16, CCL4, CCL3, CCL14, CCL11, CCL13, CCL7",peptide,21-07-14,Yes
-CCR5,CCR5,Chemokine,A,Human,cryo-EM,7F1R,7F1R_refined,3,R,Active,100,79,Gi/o,αi1,-,61,-,-,CCL5 Guide To Pharmacology,peptide,Agonist,"CCL5, CCL8, CCL2, CCL16, CCL4, CCL3, CCL14, CCL11, CCL13, CCL7",peptide,21-07-14,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,cryo-EM,7DUQ,7DUQ_refined,2.5,R,Active,100,83,Gs,αs,-,61,-,Nanobody-35,"N-Tert-butyl-6,7-dichloroquinoxalin-2-amine PubChem",small-molecule,Ago-PAM,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,21-07-14,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,cryo-EM,7.00E+14,7E14_refined,2.9,R,Active,100,81,Gs,αs,-,48,-,Nanobody-35,"N-Tert-butyl-6,7-dichloroquinoxalin-2-amine PubChem",small-molecule,Ago-PAM,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,21-07-07,Yes
-GRM2,mGlu2,Metabotropic glutamate,C,Human,cryo-EM,7MTR,7MTR_refined,3.3,A,Active,100,88,-,-,-,-,-,-,"2-methoxy-6-propyl-N-(2-{4-[(1H-tetrazol-5-yl)methoxy]phenyl}ethyl)thieno[2,3-d]pyrimidin-4-amine PubChem",small-molecule,Ago-PAM,L-glutamic acid,small-molecule,21-07-07,Yes
-GRM2,mGlu2,Metabotropic glutamate,C,Human,cryo-EM,7MTS,7MTS_refined,3.2,A,Active,100,90,Gi/o,αi1,-,58,-,-,"2-methoxy-6-propyl-N-(2-{4-[(1H-tetrazol-5-yl)methoxy]phenyl}ethyl)thieno[2,3-d]pyrimidin-4-amine PubChem",small-molecule,Ago-PAM,L-glutamic acid,small-molecule,21-07-07,Yes
-GRM2,mGlu2,Metabotropic glutamate,C,Human,cryo-EM,7MTQ,7MTQ_refined,3.7,B,Inactive,34,85,-,-,-,-,-,-,LY341495 PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology,small-molecule,Antagonist,L-glutamic acid,small-molecule,21-07-07,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,cryo-EM,7MT9,7MT9_refined,7,R,Active,98,93,-,-,-,-,-,GRK1,Retinal (all-trans) PubChem,small-molecule,Agonist,-,-,21-07-07,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,cryo-EM,7MT8,7MT8_refined,5.8,R,Active,98,93,-,-,-,-,-,GRK1,Retinal (all-trans) PubChem,small-molecule,Agonist,-,-,21-07-07,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,cryo-EM,7MTB,7MTB_refined,4,R,Active,98,93,-,-,-,-,-,Fab light chain,Retinal (all-trans) PubChem,small-molecule,Agonist,-,-,21-07-07,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,cryo-EM,7MTA,7MTA_refined,4.1,R,Active,98,93,-,-,-,-,-,Fab heavy chain,Retinal (all-trans) PubChem,small-molecule,Agonist,-,-,21-07-07,Yes
-Q3KSP2,BILF1,Unclassified,A,strain GD1,cryo-EM,7JHJ,7JHJ_refined,3.2,R,Active,100,89,Gi/o,αi1,-,62,-,scFv16,Apo (no ligand),none,Apo (no ligand),-,-,21-07-07,Yes
-CASR,CaS,Calcium-sensing,C,Human,cryo-EM,7M3E,7M3E_refined,3.2,B,Inactive,77,75,-,-,-,-,-,-,Calcium PubChem,small-molecule,Agonist,"L-tryptophan, Mg2+, spermine, Ca2+",small-molecule,21-06-30,Yes
-CASR,CaS,Calcium-sensing,C,Human,cryo-EM,7M3J,7M3J_refined,4.1,A,Inactive,77,72,-,-,-,-,-,-,NPS 2143 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,NAM,"L-tryptophan, Mg2+, spermine, Ca2+",small-molecule,21-06-30,Yes
-CASR,CaS,Calcium-sensing,C,Human,cryo-EM,7M3G,7M3G_refined,2.5,A,Active,77,76,-,-,-,-,-,-,Calcium PubChem,small-molecule,Agonist,"L-tryptophan, Mg2+, spermine, Ca2+",small-molecule,21-06-30,Yes
-CASR,CaS,Calcium-sensing,C,Human,cryo-EM,7M3F,7M3F_refined,2.8,B,Active,77,75,-,-,-,-,-,-,Calcium PubChem,small-molecule,Agonist,"L-tryptophan, Mg2+, spermine, Ca2+",small-molecule,21-06-30,Yes
-CCR5,CCR5,Chemokine,A,Human,cryo-EM,7O7F,7O7F_refined,3.2,C,Active,100,85,Gi/o,αi1,-,62,-,Fab heavy chain,CCL5 Guide To Pharmacology,peptide,Agonist,"CCL5, CCL8, CCL2, CCL16, CCL4, CCL3, CCL14, CCL11, CCL13, CCL7",peptide,21-06-30,Yes
-GRM2,mGlu2,Metabotropic glutamate,C,Human,cryo-EM,7E9G,7E9G_refined,3.5,R,Active,100,88,Gi/o,αi1,-,63,-,scFv16,eglumegad PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology,small-molecule,Agonist,L-glutamic acid,small-molecule,21-06-23,Yes
-GRM2,mGlu2,Metabotropic glutamate,C,Human,X-ray,7EPE,7EPE_refined,2.5,A,Inactive,22,28,-,-,-,-,Flavodoxin,-,CHEMBL3894759 ChEMBL_compound_ids PubChem,small-molecule,NAM,L-glutamic acid,small-molecule,21-06-23,Yes
-GRM2,mGlu2,Metabotropic glutamate,C,Human,cryo-EM,7EPD,7EPD_refined,3.9,A,Inactive,37,89,-,-,-,-,-,-,Apo (no ligand),none,Apo (no ligand),L-glutamic acid,small-molecule,21-06-23,Yes
-GRM2,mGlu2,Metabotropic glutamate,C,Human,cryo-EM,7EPB,7EPB_refined,3.1,B,Inactive,37,89,-,-,-,-,-,Anti-RON nanobody,eglumegad PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology,small-molecule,Agonist,L-glutamic acid,small-molecule,21-06-23,Yes
-GRM2,mGlu2,Metabotropic glutamate,C,Human,X-ray,7EPF,7EPF_refined,2.7,A,Inactive,22,28,-,-,-,-,Flavodoxin,-,"(8~{R})-4-[2,4-Bis(fluoranyl)phenyl]-8-methyl-7-[(2-methylpyrazol-3-yl)methyl]-6,8-dihydro-5~{H}-1,7-naphthyridine-2-carboxamide PubChem",small-molecule,NAM,L-glutamic acid,small-molecule,21-06-23,Yes
-GRM2,mGlu2,Metabotropic glutamate,C,Human,cryo-EM,7EPA,7EPA_refined,3.6,A,Inactive,37,90,-,-,-,-,-,-,Apo (no ligand),none,Apo (no ligand),L-glutamic acid,small-molecule,21-06-23,Yes
-GRM4,mGlu4,Metabotropic glutamate,C,Human,cryo-EM,7E9H,7E9H_refined,4,R,Active,100,84,Gi/o,αi3,-,63,-,scFv16,L-serine-O-phosphate PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central PubChem,small-molecule,Agonist,"L-glutamic acid, L-serine-O-phosphate",small-molecule,21-06-23,Yes
-GRM7,mGlu7,Metabotropic glutamate,C,Human,cryo-EM,7EPC,7EPC_refined,4,B,Inactive,45,85,-,-,-,-,-,-,Apo (no ligand),none,Apo (no ligand),"L-glutamic acid, L-serine-O-phosphate",small-molecule,21-06-23,Yes
-CASR,CaS,Calcium-sensing,C,Human,cryo-EM,7DD5,7DD5_refined,3.2,A,Inactive,77,74,-,-,-,-,-,-,Calcium PubChem,small-molecule,Agonist,"L-tryptophan, Mg2+, spermine, Ca2+",small-molecule,21-06-16,Yes
-CASR,CaS,Calcium-sensing,C,Human,cryo-EM,7DD7,7DD7_refined,3.2,B,Active,77,73,-,-,-,-,-,-,Calcium PubChem,small-molecule,Agonist,"L-tryptophan, Mg2+, spermine, Ca2+",small-molecule,21-06-16,Yes
-CASR,CaS,Calcium-sensing,C,Human,cryo-EM,7DD6,7DD6_refined,3.2,B,Active,77,73,-,-,-,-,-,-,Calcium PubChem,small-molecule,Agonist,"L-tryptophan, Mg2+, spermine, Ca2+",small-molecule,21-06-16,Yes
-S1PR3,S1P3,Lysophospholipid (S1P),A,Human,X-ray,7C4S,7C4S_refined,3.2,A,Active,90,75,-,-,-,-,-,Fab light chain,sphingosine 1-phosphate PubChem Guide To Pharmacology ChEMBL_compound_ids PubChem,small-molecule,Agonist,"sphingosylphosphorylcholine, sphingosine 1-phosphate, dihydrosphingosine 1-phosphate",small-molecule,21-06-09,Yes
-V2R,V2,Vasopressin and oxytocin,A,Human,cryo-EM,7BB7,7BB7_refined,4.4,A,Active,100,72,Gs,αs,-,55,-,Nanobody-35,vasopressin PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,peptide,Agonist,"oxytocin, vasopressin",peptide,21-06-02,Yes
-V2R,V2,Vasopressin and oxytocin,A,Human,cryo-EM,7BB6,7BB6_refined,4.2,A,Active,100,73,Gs,αs,-,54,-,Nanobody-35,vasopressin PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,peptide,Agonist,"oxytocin, vasopressin",peptide,21-06-02,Yes
-CCKAR,CCK1,Cholecystokinin,A,Human,cryo-EM,7MBY,7MBY_refined,2.4,R,Active,100,66,Gq/11,αq,Gq-Gs-Gi1 chimera,55,-,-,CHEMBL216166 ChEMBL_compound_ids PubChem,protein,Agonist,"CCK-8, desulfated cholecystokinin-8, gastrin-17, CCK-4, CCK-33, CCK-58, CCK-39",peptide,21-05-26,Yes
-CCKAR,CCK1,Cholecystokinin,A,Human,cryo-EM,7MBX,7MBX_refined,2,R,Active,100,68,Gs,αs,-,61,-,Nanobody-35,CHEMBL216166 ChEMBL_compound_ids PubChem,protein,Agonist,"CCK-8, desulfated cholecystokinin-8, gastrin-17, CCK-4, CCK-33, CCK-58, CCK-39",peptide,21-05-26,Yes
-V2R,V2,Vasopressin and oxytocin,A,Human,cryo-EM,7KH0,7KH0_refined,2.8,R,Active,100,74,Gs,αs,-,58,-,scFv16,vasopressin PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,peptide,Agonist,"oxytocin, vasopressin",peptide,21-05-26,Yes
-GABR2,GABAB2,GABAB,C,Human,cryo-EM,7EB2,7EB2_refined,3.5,D,Active,100,72,Gi/o,αi1,-,99,-,scFv16,(-)-baclofen PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank DrugBank Guide To Pharmacology PubChem,small-molecule,Agonist,-,-,21-05-05,Yes
-PE2R2,EP2,Prostanoid,A,Human,cryo-EM,7CX2,7CX2_refined,2.8,R,Active,100,74,Gs,αs,-,58,-,Nanobody-35,PGE2 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central Guide To Pharmacology,small-molecule,Agonist,"thromboxane A2, PGE1, PGE2, PGI2, PGF2α, PGD2",small-molecule,21-05-05,Yes
-PE2R2,EP2,Prostanoid,A,Human,cryo-EM,7CX4,7CX4_refined,2.9,R,Active,100,74,Gs,αs,-,58,-,Nanobody-35,evatanepag PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Agonist,"thromboxane A2, PGE1, PGE2, PGI2, PGF2α, PGD2",small-molecule,21-05-05,Yes
-PE2R2,EP2,Prostanoid,A,Human,cryo-EM,7CX3,7CX3_refined,2.8,R,Active,100,74,Gs,αs,-,58,-,Nanobody-35,taprenepag PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Agonist,"thromboxane A2, PGE1, PGE2, PGI2, PGF2α, PGD2",small-molecule,21-05-05,Yes
-MC4R,MC4,Melanocortin,A,Human,cryo-EM,7AUE,7AUE_refined,3,R,Active,100,79,Gs,αs,-,59,-,scFv16,setmelanotide PubChem Guide To Pharmacology Drug Central ChEMBL_compound_ids DrugBank,peptide,Agonist,"β-MSH, agouti-related protein, ACTH, α-MSH, γ-MSH",peptide,21-04-28,Yes
-5HT1D,5-HT1D,5-Hydroxytryptamine,A,Human,cryo-EM,7.00E+32,7E32_refined,2.9,R,Active,100,76,Gi/o,αi1,-,62,-,scFv16,5-hydroxytryptamine PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Agonist,"5-HT-moduline, 5-hydroxytryptamine",peptide,21-04-21,Yes
-5HT1A,5-HT1A,5-Hydroxytryptamine,A,Human,cryo-EM,7E2Z,7E2Z_refined,3.1,R,Active,100,66,Gi/o,αi1,-,62,-,-,aripiprazole PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist (partial),5-hydroxytryptamine,small-molecule,21-04-14,Yes
-5HT1A,5-HT1A,5-Hydroxytryptamine,A,Human,cryo-EM,7E2X,7E2X_refined,3,R,Active,100,66,Gi/o,αi1,-,62,-,-,Apo (no ligand),none,Apo (no ligand),5-hydroxytryptamine,small-molecule,21-04-14,Yes
-5HT1A,5-HT1A,5-Hydroxytryptamine,A,Human,cryo-EM,7E2Y,7E2Y_refined,3,R,Active,100,65,Gi/o,αi1,-,62,-,-,5-hydroxytryptamine PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Agonist,5-hydroxytryptamine,small-molecule,21-04-14,Yes
-5HT1E,5-HT1E,5-Hydroxytryptamine,A,Human,cryo-EM,7.00E+33,7E33_refined,2.9,R,Active,100,70,Gi/o,αi1,-,61,-,scFv16,BRL-54443 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Agonist,"tryptamine, 5-hydroxytryptamine",small-molecule,21-04-14,Yes
-DRD1,D1,Dopamine,A,Human,X-ray,7JOZ,7JOZ_refined,3.8,R,Active,100,64,Gs,αs,-,86,-,Nanobody-35,10 PubChem ChEMBL_compound_ids,small-molecule,Agonist,"dopamine, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, 5-hydroxytryptamine",small-molecule,21-04-14,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,7ARO,7ARO_refined,3.1,A,Inactive,1,72,-,-,-,-,BRIL,-,LUF5833 PubChem ChEMBL_compound_ids,small-molecule,Agonist (partial),adenosine,small-molecule,21-04-07,Yes
-HRH1,H1,Histamine,A,Human,cryo-EM,7DFL,7DFL_refined,3.3,R,Active,100,56,Gq/11,αq,-,63,-,scFv16,histamine PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central DrugBank Guide To Pharmacology,small-molecule,Agonist,histamine,small-molecule,21-03-31,Yes
-CASR,CaS,Calcium-sensing,C,Human,cryo-EM,7DTU,7DTU_refined,4.4,A,Inactive,27,72,-,-,-,-,-,-,L-tryptophan PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central PubChem,small-molecule,PAM,"L-tryptophan, Mg2+, spermine, Ca2+",small-molecule,21-03-10,Yes
-CASR,CaS,Calcium-sensing,C,Human,cryo-EM,7DTW,7DTW_refined,4.5,A,Inactive,27,72,-,-,-,-,-,-,Apo (no ligand),none,Apo (no ligand),"L-tryptophan, Mg2+, spermine, Ca2+",small-molecule,21-03-10,Yes
-CASR,CaS,Calcium-sensing,C,Human,cryo-EM,7DTV,7DTV_refined,3.5,A,Inactive,27,72,-,-,-,-,-,-,Calcium PubChem,small-molecule,Agonist,"L-tryptophan, Mg2+, spermine, Ca2+",small-molecule,21-03-10,Yes
-CASR,CaS,Calcium-sensing,C,Human,cryo-EM,7DTT,7DTT_refined,3.8,A,Inactive,27,72,-,-,-,-,-,-,Calcium PubChem,small-molecule,Agonist,"L-tryptophan, Mg2+, spermine, Ca2+",small-molecule,21-03-10,Yes
-DRD3,D3,Dopamine,A,Human,cryo-EM,7CMV,7CMV_refined,2.7,R,Active,100,68,Gi/o,αi1,-,64,BRIL,scFv16,CHEMBL70565 ChEMBL_compound_ids ChEMBL_compound_ids PubChem,small-molecule,Agonist,dopamine,small-molecule,21-03-10,Yes
-DRD3,D3,Dopamine,A,Human,cryo-EM,7CMU,7CMU_refined,3,R,Active,100,68,Gi/o,αi1,-,64,BRIL,scFv16,pramipexole PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,dopamine,small-molecule,21-03-10,Yes
-DRD1,D1,Dopamine,A,Human,cryo-EM,7CKY,7CKY_refined,3.2,R,Active,100,62,Gs,αs,-,60,-,Nanobody-35,PW0464 (24) PubChem ChEMBL_compound_ids,small-molecule,Agonist,"dopamine, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, 5-hydroxytryptamine",small-molecule,21-03-03,Yes
-DRD1,D1,Dopamine,A,Human,cryo-EM,7LJD,-,3.2,R,Active,100,64,Gs,αs,Engineered G alpha,58,-,Nanobody-35,dopamine PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,"dopamine, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, 5-hydroxytryptamine",small-molecule,21-03-03,Yes
-DRD1,D1,Dopamine,A,Human,cryo-EM,7CKW,7CKW_refined,3.2,R,Active,100,61,Gs,αs,-,60,-,Nanobody-35,(-)-SKF-82526 PubChem Guide To Pharmacology DrugBank ChEMBL_compound_ids PubChem,small-molecule,Agonist,"dopamine, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, 5-hydroxytryptamine",small-molecule,21-03-03,Yes
-DRD1,D1,Dopamine,A,Human,cryo-EM,7CRH,7CRH_refined,3.3,R,Active,100,61,Gs,αs,-,60,-,Nanobody-35,CHEMBL1416789 ChEMBL_compound_ids PubChem,small-molecule,Agonist,"dopamine, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, 5-hydroxytryptamine",small-molecule,21-03-03,Yes
-DRD1,D1,Dopamine,A,Human,cryo-EM,7CKZ,7CKZ_refined,3.1,R,Active,100,62,Gs,αs,-,60,-,Nanobody-35,dopamine PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,"dopamine, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, 5-hydroxytryptamine",small-molecule,21-03-03,Yes
-DRD1,D1,Dopamine,A,Human,cryo-EM,7CKX,7CKX_refined,3.5,R,Active,100,61,Gs,αs,-,60,-,Nanobody-35,A77636 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Agonist,"dopamine, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, 5-hydroxytryptamine",small-molecule,21-03-03,Yes
-DRD1,D1,Dopamine,A,Human,cryo-EM,7LJC,-,3,R,Active,100,63,Gs,αs,Engineered G alpha,58,-,Nanobody-35,SKF81297 PubChem ChEMBL_compound_ids,small-molecule,Agonist,"dopamine, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, 5-hydroxytryptamine",small-molecule,21-03-03,Yes
-CALRL,calcitonin-like,Calcitonin,B1,Human,cryo-EM,7KNU,7KNU_refined,3.5,R,Inactive,9,74,-,-,-,-,-,RAMP1,Calcitonin gene-related peptide 1 PubChem,peptide,Agonist,-,-,21-02-24,Yes
-CALRL,calcitonin-like,Calcitonin,B1,Human,cryo-EM,7KNT,7KNT_refined,3.2,R,Inactive,9,74,-,-,-,-,-,RAMP1,Apo (no ligand),none,Apo (no ligand),-,-,21-02-24,Yes
-DRD1,D1,Dopamine,A,Human,cryo-EM,7JVP,7JVP_refined,2.9,R,Active,100,63,Gs,αs,-,60,-,Nanobody-35,39YLC3L0ZU PubChem,small-molecule,Agonist,"dopamine, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, 5-hydroxytryptamine",small-molecule,21-02-24,Yes
-DRD1,D1,Dopamine,A,Human,cryo-EM,7JVQ,7JVQ_refined,3,R,Active,100,64,Gs,αs,Engineered G alpha,60,-,Nanobody-35,apomorphine PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,"dopamine, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, 5-hydroxytryptamine",small-molecule,21-02-24,Yes
-DRD1,D1,Dopamine,A,Human,cryo-EM,7JV5,7JV5_refined,3,R,Active,100,63,Gs,αs,-,60,-,Nanobody-35,SKF81297 PubChem ChEMBL_compound_ids,small-molecule,Agonist,"dopamine, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, 5-hydroxytryptamine",small-molecule,21-02-24,Yes
-DRD2,D2,Dopamine,A,Human,cryo-EM,7JVR,7JVR_refined,2.8,R,Active,100,61,Gi/o,αi1,-,63,-,scFv16,bromocriptine PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,dopamine,small-molecule,21-02-24,Yes
-LT4R1,BLT1,Leukotriene,A,Human,X-ray,7K15,7K15_refined,2.9,A,Inactive,5,85,-,-,-,-,Flavodoxin,-,"N-(tert-butylsulfonyl)-4-fluoro-2-{(3S,4R)-4-hydroxy-3-[(pyridin-2-yl)methyl]-3,4-dihydro-2H-1-benzopyran-7-yl}benzamide PubChem",small-molecule,Antagonist,"12R-HETE, 20-hydroxy-LTB4, LTB4",small-molecule,21-02-17,Yes
-NTR1,NTS1,Neurotensin,A,Rat,X-ray,6Z4S,-,2.7,A,Inactive,2,77,-,-,-,-,DARPin D12,-,meclinertant PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Inverse agonist,"neuromedin N, neurotensin",peptide,21-02-10,Yes
-NTR1,NTS1,Neurotensin,A,Rat,X-ray,6ZA8,-,2.7,A,Intermediate,39,78,-,-,-,-,DARPin D12,-,CHEMBL508044 ChEMBL_compound_ids PubChem,small-molecule,Agonist (partial),"neuromedin N, neurotensin",peptide,21-02-10,Yes
-NTR1,NTS1,Neurotensin,A,Rat,X-ray,6Z4Q,-,2.9,A,Inactive,31,75,-,-,-,-,DARPin D12,-,SR142948A PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Inverse agonist,"neuromedin N, neurotensin",peptide,21-02-10,Yes
-NTR1,NTS1,Neurotensin,A,Rat,X-ray,6Z8N,-,2.8,A,Intermediate,39,80,-,-,-,-,DARPin D12,-,(2~{S})-4-methyl-2-[(1-quinolin-8-ylsulfonylindol-3-yl)carbonylamino]pentanoic acid PubChem,small-molecule,Agonist,"neuromedin N, neurotensin",peptide,21-02-10,Yes
-NTR1,NTS1,Neurotensin,A,Rat,X-ray,6Z66,-,3.2,A,Intermediate,39,80,-,-,-,-,DARPin D12,-,Apo (no ligand),none,Apo (no ligand),"neuromedin N, neurotensin",peptide,21-02-10,Yes
-NTR1,NTS1,Neurotensin,A,Rat,X-ray,6YVR,-,2.5,B,Inactive,2,83,-,-,-,-,DARPin D12,-,JMV431 Guide To Pharmacology ChEMBL_compound_ids PubChem,peptide,Agonist,"neuromedin N, neurotensin",peptide,21-02-10,Yes
-NTR1,NTS1,Neurotensin,A,Rat,X-ray,6Z4V,-,2.6,A,Intermediate,39,79,-,-,-,-,DARPin D12,-,JMV431 Guide To Pharmacology ChEMBL_compound_ids PubChem,peptide,Agonist,"neuromedin N, neurotensin",peptide,21-02-10,Yes
-NTR1,NTS1,Neurotensin,A,Rat,X-ray,6ZIN,-,2.6,A,Inactive,31,76,-,-,-,-,DARPin D12,-,meclinertant PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Inverse agonist,"neuromedin N, neurotensin",peptide,21-02-10,Yes
-OX2R,OX2,Orexin,A,Human,cryo-EM,7L1V,7L1V_refined,3,R,Active,100,64,Gs,αs,Engineered G alpha,58,-,scFv16,compound 1 [PMID: 33547286] PubChem Guide To Pharmacology,small-molecule,Agonist,"orexin-B, orexin-A",peptide,21-02-10,Yes
-OX2R,OX2,Orexin,A,Human,cryo-EM,7L1U,7L1U_refined,3.2,R,Active,100,63,Gs,αs,Engineered G alpha,58,-,scFv16,Orexin-A PubChem,peptide,Agonist,"orexin-B, orexin-A",peptide,21-02-10,Yes
-AGRG3,ADGRG3,ADGRG,B2,Human,cryo-EM,7D76,-,3.1,R,Active,-,48,Gi/o,αo,-,59,-,-,Beclomethasone PubChem,small-molecule,Agonist,-,-,21-02-03,Yes
-AGRG3,ADGRG3,ADGRG,B2,Human,cryo-EM,7D77,7D77_refined,2.9,R,Active,-,48,Gi/o,αo,-,61,-,scFv16,HYDROCORTISONE ChEMBL_compound_ids PubChem,small-molecule,Agonist,-,-,21-02-03,Yes
-NPY2R,Y2,Neuropeptide Y,A,Human,X-ray,7DDZ,7DDZ_refined,2.8,A,Inactive,1,76,-,-,-,-,Flavodoxin,-,CHEMBL1823578 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,"neuropeptide Y, PYY-(3-36), peptide YY, neuropeptide Y-(3-36), pancreatic polypeptide",peptide,21-01-27,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,cryo-EM,7LCJ,7LCJ_refined,2.8,R,Active,99,84,-,-,-,-,-,-,DANUGLIPRON ChEMBL_compound_ids PubChem,small-molecule,Agonist,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,21-01-20,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,cryo-EM,7LCK,7LCK_refined,3.2,R,Active,99,84,-,-,-,-,-,-,DANUGLIPRON ChEMBL_compound_ids PubChem,small-molecule,Agonist,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,21-01-20,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,cryo-EM,7LCI,7LCI_refined,2.9,R,Active,100,85,Gs,αs,-,62,-,-,DANUGLIPRON ChEMBL_compound_ids PubChem,small-molecule,Agonist,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,21-01-20,Yes
-NTR1,NTS1,Neurotensin,A,Rat,cryo-EM,7L0Q,7L0Q_refined,4.3,C,Active,100,73,Gi/o,αi1,-,95,-,-,neurotensin PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology Guide To Pharmacology,peptide,Agonist,"neuromedin N, neurotensin",peptide,21-01-06,Yes
-NTR1,NTS1,Neurotensin,A,Rat,cryo-EM,7L0S,7L0S_refined,4.5,C,Active,100,73,Gi/o,αi1,Non-canonical conformation,95,-,-,neurotensin PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology Guide To Pharmacology,peptide,Agonist,"neuromedin N, neurotensin",peptide,21-01-06,Yes
-NTR1,NTS1,Neurotensin,A,Rat,cryo-EM,7L0R,7L0R_refined,4.2,C,Active,100,73,Gi/o,αi1,Non-canonical conformation,63,-,-,neurotensin PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology Guide To Pharmacology,peptide,Agonist,"neuromedin N, neurotensin",peptide,21-01-06,Yes
-NTR1,NTS1,Neurotensin,A,Rat,cryo-EM,7L0P,7L0P_refined,4.1,C,Active,100,73,Gi/o,αi1,-,63,-,-,neurotensin PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology Guide To Pharmacology,peptide,Agonist,"neuromedin N, neurotensin",peptide,21-01-06,Yes
-DRD2,D2,Dopamine,A,Human,X-ray,7DFP,7DFP_refined,3.1,A,Inactive,1,57,-,-,-,-,BRIL,Fab heavy chain,spiperone PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central Guide To Pharmacology,small-molecule,Antagonist,dopamine,small-molecule,20-12-30,Yes
-ADRB2,β2,Adrenoceptors,A,Human,cryo-EM,7DHR,7DHR_refined,3.8,R,Active,100,69,Gs,αs,-,49,-,Nanobody-35,(R)-Isoproterenol PubChem ChEMBL_compound_ids,small-molecule,Agonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,20-12-16,Yes
-ADRB2,β2,Adrenoceptors,A,Human,cryo-EM,7DHI,7DHI_refined,3.3,R,Active,100,70,Gs,αs,-,55,-,Nanobody-35,levosalbutamol PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central DrugBank,small-molecule,Agonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,20-12-16,Yes
-GLP2R,GLP-2,Glucagon,B1,Human,cryo-EM,7D68,7D68_refined,3,R,Active,100,53,Gs,αs,-,57,-,Nanobody-35,glucagon PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central Guide To Pharmacology PubChem PubChem PubChem PubChem,peptide,Agonist,"glucagon-like peptide 2, glucagon-like peptide 2-(3-33)",peptide,20-12-16,Yes
-STE2,STE2,STE2,D1,strain ATCC 204508 / S288c,cryo-EM,7AD3,-,3.5,A,Active,-,69,GPa1 family,αPa1,Two alpha subunits bound to STE2 dimer,46,-,-,Alpha-factor mating pheromone PubChem,peptide,Agonist,-,-,20-12-09,Yes
-ADRB1,β1,Adrenoceptors,A,Human,X-ray,7BU6,7BU6_refined,2.7,A,Active,100,58,-,-,-,-,T4-Lysozyme,Camelid antibody fragment Nb6B9,Noradrenaline PubChem,small-molecule,Agonist,"(-)-noradrenaline, (-)-adrenaline, noradrenaline, L-NOREPINEPHRINE",small-molecule,20-12-02,Yes
-ADRB1,β1,Adrenoceptors,A,Human,X-ray,7BTS,7BTS_refined,3.1,A,Active,100,58,-,-,-,-,T4-Lysozyme,Camelid antibody fragment Nb6B9,(-)-adrenaline PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central PubChem,small-molecule,Agonist,"(-)-noradrenaline, (-)-adrenaline, noradrenaline, L-NOREPINEPHRINE",small-molecule,20-12-02,Yes
-ADRB1,β1,Adrenoceptors,A,Human,X-ray,7BVQ,7BVQ_refined,2.5,A,Inactive,0,60,-,-,-,-,T4-Lysozyme,-,Carazolol PubChem,small-molecule,Inverse agonist,"(-)-noradrenaline, (-)-adrenaline, noradrenaline, L-NOREPINEPHRINE",small-molecule,20-12-02,Yes
-ADRB1,β1,Adrenoceptors,A,Human,X-ray,7BU7,7BU7_refined,2.6,A,Active,100,58,-,-,-,-,T4-Lysozyme,Camelid antibody fragment Nb6B9,BI-167107 PubChem,small-molecule,Agonist,"(-)-noradrenaline, (-)-adrenaline, noradrenaline, L-NOREPINEPHRINE",small-molecule,20-12-02,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,6LPJ,6LPJ_refined,1.8,A,Inactive,1,72,-,-,-,-,BRIL,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,20-11-25,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,6LPL,6LPL_refined,2,A,Inactive,1,72,-,-,-,-,BRIL,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,20-11-25,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,6LPK,6LPK_refined,1.8,A,Inactive,1,72,-,-,-,-,BRIL,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,20-11-25,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,6WQA,6WQA_refined,2,A,Inactive,1,72,-,-,-,-,BRIL,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,20-11-18,Yes
-GHRHR,GHRH,Glucagon,B1,Human,cryo-EM,7CZ5,7CZ5_refined,2.6,R,Active,100,64,Gs,αs,-,58,-,Nanobody-35,Somatoliberin PubChem,peptide,Agonist,GHRH,peptide,20-11-18,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,cryo-EM,6XOX,6XOX_refined,3.1,R,Active,100,82,Gs,αs,-,56,-,scFv16,CHEMBL4446782 ChEMBL_compound_ids PubChem,small-molecule,Agonist,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,20-11-18,Yes
-PE2R4,EP4,Prostanoid,A,Human,cryo-EM,7D7M,7D7M_refined,3.3,A,Active,100,58,Gs,αs,-,58,-,Nanobody-35,PGE2 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central Guide To Pharmacology,small-molecule,Agonist,"thromboxane A2, PGE1, PGE2, PGI2, PGF2α, PGD2",small-molecule,20-11-18,Yes
-GABR2,GABAB2,GABAB,C,Human,cryo-EM,7CUM,7CUM_refined,3.5,B,Inactive,1,72,-,-,-,-,-,-,CGP 54626A PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology,small-molecule,Antagonist,-,-,20-11-11,Yes
-GABR2,GABAB2,GABAB,C,Human,cryo-EM,7CA5,7CA5_refined,7.6,B,Intermediate,17,70,-,-,-,-,-,-,Apo (no ligand),none,Apo (no ligand),-,-,20-11-11,Yes
-GABR2,GABAB2,GABAB,C,Human,cryo-EM,7CA3,7CA3_refined,4.5,B,Active,35,72,-,-,-,-,-,-,BHFF PubChem,small-molecule,PAM,-,-,20-11-11,Yes
-SCTR,secretin,Glucagon,B1,Human,cryo-EM,7D3S,7D3S_refined,2.9,R,Active,100,60,Gs,αs,-,58,-,Nanobody-35,SECRETIN ChEMBL_compound_ids PubChem,protein,Agonist,"secretin, VIP",peptide,20-11-04,Yes
-GNRHR,GnRH1,Gonadotrophin-releasing hormone,A,Human,X-ray,7BR3,7BR3_refined,2.8,A,Inactive,27,84,-,-,-,-,GlgA glycogen synthase,-,elagolix PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central DrugBank,small-molecule,Antagonist,"GnRH I, GnRH II",peptide,20-10-07,Yes
-SMO,SMO,Frizzled,F,Human,cryo-EM,6XBL,6XBL_refined,3.9,R,Active,100,59,Gi/o,αi1,-,61,-,scFv16,Cholesterol PubChem,small-molecule,Agonist,-,-,20-09-30,Yes
-SMO,SMO,Frizzled,F,Human,cryo-EM,6XBJ,6XBJ_refined,3.9,R,Active,100,59,Gi/o,αi1,-,61,-,scFv16,Cholesterol PubChem,small-molecule,Agonist,-,-,20-09-30,Yes
-SMO,SMO,Frizzled,F,Human,cryo-EM,6XBK,6XBK_refined,3.2,R,Active,100,59,Gi/o,αi1,-,61,-,scFv16,Cholesterol PubChem,small-molecule,Agonist,-,-,20-09-30,Yes
-SMO,SMO,Frizzled,F,Human,cryo-EM,6XBM,6XBM_refined,3.2,R,Active,100,42,Gi/o,αi1,-,61,-,scFv16,"24,25-Epoxy-cholesterol PubChem",small-molecule,Agonist,-,-,20-09-30,Yes
-5HT2A,5-HT2A,5-Hydroxytryptamine,A,Human,cryo-EM,6WHA,6WHA_refined,3.4,A,Active,100,52,Gq/11,αq,Gq-Gi2-Gs chimera,59,BRIL,scFv16,25-CN-NBOH PubChem,small-molecule,Agonist,"tryptamine, 5-hydroxytryptamine",small-molecule,20-09-23,Yes
-5HT2A,5-HT2A,5-Hydroxytryptamine,A,Human,X-ray,6WGT,6WGT_refined,3.4,B,Inactive,1,59,-,-,-,-,BRIL,-,Lysergide PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,"tryptamine, 5-hydroxytryptamine",small-molecule,20-09-23,Yes
-5HT2A,5-HT2A,5-Hydroxytryptamine,A,Human,X-ray,6WH4,6WH4_refined,3.4,C,Inactive,1,59,-,-,-,-,BRIL,-,CHEMBL428892 ChEMBL_compound_ids PubChem,small-molecule,Inverse agonist,"tryptamine, 5-hydroxytryptamine",small-molecule,20-09-23,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,6ZDR,6ZDR_refined,1.9,A,Inactive,1,72,-,-,-,-,BRIL,-,CHEMBL2030687 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,adenosine,small-molecule,20-09-16,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,6ZDV,6ZDV_refined,2.1,A,Inactive,1,72,-,-,-,-,BRIL,-,2-Methyl-3-(4-methylthiazol-2-yl)-4-oxo-6-propyl-4H-chromen-7-yl acetate PubChem,small-molecule,Antagonist,adenosine,small-molecule,20-09-16,Yes
-SUCR1,succinate,Succinate,A,Rat,X-ray,6Z10,6Z10_refined,2.3,A,Intermediate,39,90,-,-,-,-,-,Nanobody-6,CHEMBL4751488 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,-,-,20-09-16,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,cryo-EM,6X1A,6X1A_refined,2.5,R,Active,100,84,Gs,αs,-,89,-,Nanobody-35,DANUGLIPRON ChEMBL_compound_ids PubChem,small-molecule,Agonist,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,20-09-09,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,cryo-EM,6X18,6X18_refined,2.1,R,Active,100,83,Gs,αs,-,90,-,Nanobody-35,GLP-1 PubChem PubChem ChEMBL_compound_ids,small-molecule,Agonist,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,20-09-09,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,cryo-EM,6X19,6X19_refined,2.1,R,Active,100,84,Gs,αs,-,89,-,Nanobody-35,CHU-128 PubChem,small-molecule,Agonist,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,20-09-09,Yes
-GPBAR,GPBA,Bile acid,A,Human,cryo-EM,7CFM,7CFM_refined,3,R,Active,100,83,Gs,αs,-,58,-,Nanobody-35,CHEMBL2331646 ChEMBL_compound_ids PubChem,small-molecule,Agonist,"deoxycholic acid, chenodeoxycholic acid, lithocholic acid, cholic acid",small-molecule,20-09-09,Yes
-GPBAR,GPBA,Bile acid,A,Human,cryo-EM,7CFN,7CFN_refined,3,R,Active,100,83,Gs,αs,-,59,-,Nanobody-35,INT-777 PubChem,small-molecule,Agonist,"deoxycholic acid, chenodeoxycholic acid, lithocholic acid, cholic acid",small-molecule,20-09-09,Yes
-ADRB1,β1,Adrenoceptors,A,Wild turkey,cryo-EM,7JJO,7JJO_refined,2.6,R,Active,100,58,Gs,αs,-,51,-,Nanobody-35,(R)-Isoproterenol PubChem ChEMBL_compound_ids,small-molecule,Agonist,-,-,20-09-02,Yes
-CXCR2,CXCR2,Chemokine,A,Human,X-ray,6LFL,6LFL_refined,3.2,A,Inactive,5,76,-,-,-,-,GlgA glycogen synthase,-,"4-[[3,4-Dioxo-2-[[(1R)-1-(4-propan-2-ylfuran-2-yl)propyl]amino]cyclobuten-1-yl]amino]-3-hydroxy-N,N-dimethylpyridine-2-carboxamide PubChem",small-molecule,Allosteric antagonist,"CXCL5, CXCL6, CXCL2, CXCL8, CXCL3, CXCL1, CXCL7",peptide,20-09-02,Yes
-CXCR2,CXCR2,Chemokine,A,Human,cryo-EM,6LFM,6LFM_refined,3.5,R,Active,100,85,Gi/o,αi1,-,65,-,scFv16,Interleukin-8 PubChem,protein,Agonist,"CXCL5, CXCL6, CXCL2, CXCL8, CXCL3, CXCL1, CXCL7",peptide,20-09-02,Yes
-CXCR2,CXCR2,Chemokine,A,Human,cryo-EM,6LFO,6LFO_refined,3.4,R,Active,100,85,Gi/o,αi1,-,65,-,scFv16,Interleukin-8 PubChem,protein,Agonist,"CXCL5, CXCL6, CXCL2, CXCL8, CXCL3, CXCL1, CXCL7",peptide,20-09-02,Yes
-GPBAR,GPBA,Bile acid,A,Human,cryo-EM,7BW0,7BW0_refined,3.9,R,Active,100,85,Gs,αs,-,56,BRIL,Nanobody-35,-,-,-,"deoxycholic acid, chenodeoxycholic acid, lithocholic acid, cholic acid",small-molecule,20-09-02,Yes
-VIPR1,VPAC1,VIP and PACAP,B1,Human,cryo-EM,6VN7,6VN7_refined,3.2,R,Active,100,58,Gs,αs,-,61,-,Nanobody-35,CHEMBL524658 ChEMBL_compound_ids PubChem,protein,Agonist,"GHRH, secretin, PACAP-27, VIP, PACAP-38, PHI, PHM, PHV",peptide,20-09-02,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,cryo-EM,7C2E,7C2E_refined,4.2,R,Active,100,82,Gs,αs,-,48,-,Nanobody-35,"2-[[4-[6-[(4-cyano-2-fluoranyl-phenyl)methoxy]pyridin-2-yl]-3,6-dihydro-2~{H}-pyridin-1-yl]methyl]-3-[[(2~{S})-oxetan-2-yl]methyl]imidazo[4,5-b]pyridine-5-carboxylic acid PubChem",small-molecule,Agonist,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,20-08-26,Yes
-FZD5,FZD5,Frizzled,F,Human,cryo-EM,6WW2,6WW2_refined,3.7,R,Inactive,17,55,-,-,-,-,BRIL,anti-BRIL Fab heavy chain,Apo (no ligand),none,Apo (no ligand),-,-,20-08-19,Yes
-GHSR,ghrelin,Ghrelin,A,Human,X-ray,6KO5,6KO5_refined,3.3,A,Inactive,1,80,-,-,-,-,BRIL,Fab7881 heavy chain,CHEMBL1956994 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,"ghrelin, [des-Gln14]ghrelin",peptide,20-08-12,Yes
-GLR,glucagon,Glucagon,B1,Human,cryo-EM,6WPW,6WPW_refined,3.1,R,Active,100,83,Gs,αs,-,56,-,Nanobody-35,Glucagon derivative ZP3780,peptide,Agonist,glucagon,peptide,20-08-12,Yes
-SCTR,secretin,Glucagon,B1,Human,cryo-EM,6WI9,6WI9_refined,4.3,R,Active,100,84,Gs,αs,-,49,-,Nanobody-35,SECRETIN ChEMBL_compound_ids PubChem,protein,Agonist,"secretin, VIP",peptide,20-08-12,Yes
-SCTR,secretin,Glucagon,B1,Human,cryo-EM,6WZG,6WZG_refined,2.3,R,Active,100,86,Gs,αs,-,61,-,Nanobody-35,SECRETIN ChEMBL_compound_ids PubChem,protein,Agonist,"secretin, VIP",peptide,20-08-12,Yes
-ADRB2,β2,Adrenoceptors,A,Human,cryo-EM,7BZ2,7BZ2_refined,3.8,R,Active,100,69,Gs,αs,-,50,-,Nanobody-35,arformoterol PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,20-08-05,Yes
-OXYR,OT,Vasopressin and oxytocin,A,Human,X-ray,6TPK,-,3.2,A,Inactive,14,68,-,-,-,-,GlgA glycogen synthase,-,retosiban PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,"oxytocin, vasopressin",peptide,20-08-05,Yes
-5HT1B,5-HT1B,5-Hydroxytryptamine,A,Human,X-ray,7C61,7C61_refined,3,A,Inactive,83,68,-,-,-,-,BRIL,IgG heavy chain,ergotamine PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Antagonist,"5-HT-moduline, tryptamine, 5-hydroxytryptamine",small-molecule,20-07-29,Yes
-AGTR2,AT2,Angiotensin,A,Human,X-ray,7C6A,7C6A_refined,3.4,A,Active,99,77,-,-,-,-,BRIL,IgG heavy chain,SI PubChem ChEMBL_compound_ids,small-molecule,Agonist,"angiotensin-(1-7), angiotensin II, angiotensin III",peptide,20-07-29,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,cryo-EM,6VCB,6VCB_refined,3.3,R,Active,100,82,Gs,αs,-,57,-,Nanobody-35,glucagon-like peptide 1-(7-37) PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology PubChem PubChem,peptide,Agonist,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,20-07-22,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,6S0L,6S0L_refined,2.7,A,Inactive,1,72,-,-,-,-,BRIL,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,20-07-15,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,6S0Q,6S0Q_refined,2.7,A,Inactive,1,72,-,-,-,-,BRIL,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,20-07-15,Yes
-OX1R,OX1,Orexin,A,Human,X-ray,6V9S,6V9S_refined,3.5,A,Inactive,1,72,-,-,-,-,GlgA glycogen synthase,-,JH112 PubChem Guide To Pharmacology,small-molecule,Antagonist,"orexin-B, orexin-A",peptide,20-07-15,Yes
-ACM1,M1,Acetylcholine (muscarinic),A,Human,X-ray,6WJC,6WJC_refined,2.6,A,Inactive,3,62,-,-,-,-,T4-Lysozyme,-,ENDO-ATROPINE ChEMBL_compound_ids PubChem,small-molecule,Antagonist,acetylcholine,small-molecule,20-07-08,Yes
-GABR1,GABAB1,GABAB,C,Human,cryo-EM,6W2Y,6W2Y_refined,3.2,B,Inactive,0,69,-,-,-,-,-,-,CGP55845 PubChem,small-molecule,Inverse agonist,GABA,small-molecule,20-07-01,Yes
-GABR2,GABAB2,GABAB,C,Human,cryo-EM,6W2X,-,3.6,B,Inactive,1,71,-,-,-,-,-,-,CGP55845 PubChem,small-molecule,Inverse agonist,-,-,20-07-01,Yes
-GABR2,GABAB2,GABAB,C,Human,cryo-EM,6WIV,6WIV_refined,3.3,B,Inactive,0,71,-,-,-,-,-,-,[(2R)-3-[(Z)-icos-11-enoyl]oxy-2-[(Z)-octadec-9-enoyl]oxypropyl] 2-(trimethylazaniumyl)ethylphosphate PubChem,small-molecule,NAM,-,-,20-07-01,Yes
-GABR2,GABAB2,GABAB,C,Human,cryo-EM,7C7Q,7C7Q_refined,3,B,Active,100,71,-,-,-,-,-,-,(-)-baclofen PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank DrugBank Guide To Pharmacology PubChem,small-molecule,Agonist,-,-,20-07-01,Yes
-GABR2,GABAB2,GABAB,C,Human,cryo-EM,7C7S,7C7S_refined,2.9,B,Inactive,0,71,-,-,-,-,-,-,CGP 54626A PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology,small-molecule,Antagonist,-,-,20-07-01,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,6PGS,6PGS_refined,2.9,A,Active,100,94,Gi/o,αt2,Only H5,3,-,-,Geraniol PubChem,small-molecule,unknown,-,-,20-07-01,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,6PH7,6PH7_refined,2.9,A,Active,100,94,Gi/o,αt2,Only H5,3,-,-,Nerol PubChem,small-molecule,unknown,-,-,20-07-01,Yes
-CCR6,CCR6,Chemokine,A,Human,cryo-EM,6WWZ,6WWZ_refined,3.3,R,Active,100,83,Gi/o,αo,-,59,-,scFv16,CCL20 Guide To Pharmacology,peptide,Agonist,"beta-defensin 4A, CCL20",peptide,20-06-24,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,6PEL,6PEL_refined,3.2,A,Active,100,93,Gi/o,αt1,Only H5,3,-,-,Citronellol PubChem,small-molecule,unknown,-,-,20-06-24,Yes
-ADRB1,β1,Adrenoceptors,A,Wild turkey,cryo-EM,6TKO,6TKO_refined,3.3,A,Active,100,58,Beta,Beta-arrestin-1,-,82,-,Fab30 heavy chain,arformoterol PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,-,-,20-06-17,Yes
-DRD2,D2,Dopamine,A,Human,cryo-EM,6VMS,6VMS_refined,3.8,R,Active,100,63,Gi/o,αi1,-,64,T4-Lysozyme,scFv16,bromocriptine PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,dopamine,small-molecule,20-06-17,Yes
-GABR2,GABAB2,GABAB,C,Human,cryo-EM,6UO8,6UO8_refined,3.6,B,Active,98,74,-,-,-,-,-,-,CHEMBL112710 ChEMBL_compound_ids PubChem PubChem,small-molecule,Agonist,-,-,20-06-10,Yes
-GABR2,GABAB2,GABAB,C,Human,cryo-EM,6UO9,6UO9_refined,4.8,B,Inactive,8,73,-,-,-,-,-,-,CHEMBL112710 ChEMBL_compound_ids PubChem PubChem,small-molecule,Agonist,-,-,20-06-10,Yes
-GABR2,GABAB2,GABAB,C,Human,cryo-EM,6UOA,6UOA_refined,6.3,B,Inactive,3,71,-,-,-,-,-,-,CHEMBL112710 ChEMBL_compound_ids PubChem PubChem,small-molecule,Agonist,-,-,20-06-10,Yes
-GABR2,GABAB2,GABAB,C,Human,cryo-EM,6VJM,6VJM_refined,4,B,Inactive,3,73,-,-,-,-,-,-,Apo (no ligand),none,Apo (no ligand),-,-,20-06-10,Yes
-GLR,glucagon,Glucagon,B1,Human,cryo-EM,6WHC,6WHC_refined,3.4,R,Active,100,78,Gs,αs,-,56,-,Nanobody-35,Dual-agonist peptide P15,peptide,Agonist,glucagon,peptide,20-05-27,Yes
-MC4R,MC4,Melanocortin,A,Human,X-ray,6W25,6W25_refined,2.8,A,Intermediate,44,79,-,-,-,-,GlgA glycogen synthase,-,SHU9119 PubChem Guide To Pharmacology,peptide,Antagonist,"β-MSH, agouti-related protein, ACTH, α-MSH, γ-MSH",peptide,20-04-29,Yes
-ADA2B,α2B,Adrenoceptors,A,Human,cryo-EM,6K41,-,2.9,R,Active,100,54,Gi/o,αo,-,60,T4-Lysozyme,scFv,dexmedetomidine PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,"(-)-noradrenaline, (-)-adrenaline",small-molecule,20-04-15,Yes
-ADA2B,α2B,Adrenoceptors,A,Human,cryo-EM,6K42,-,4.1,R,Active,100,60,Gi/o,αi1,-,62,T4-Lysozyme,scFv,dexmedetomidine PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,"(-)-noradrenaline, (-)-adrenaline",small-molecule,20-04-15,Yes
-CALRL,calcitonin-like,Calcitonin,B1,Human,cryo-EM,6UVA,6UVA_refined,2.3,R,Active,100,75,Gs,αs,-,48,-,Nanobody-35,adrenomedullin 2/intermedin Guide To Pharmacology,peptide,Agonist,-,-,20-04-01,Yes
-CALRL,calcitonin-like,Calcitonin,B1,Human,cryo-EM,6UUS,6UUS_refined,2.4,R,Active,100,74,Gs,αs,-,48,-,Nanobody-35,Adrenomedullin PubChem,peptide,Agonist,-,-,20-04-01,Yes
-GLR,glucagon,Glucagon,B1,Human,cryo-EM,6LMK,6LMK_refined,3.7,R,Active,100,83,Gs,αs,-,59,-,Nanobody-35,glucagon PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central Guide To Pharmacology PubChem PubChem PubChem PubChem,peptide,Agonist,glucagon,peptide,20-04-01,Yes
-GLR,glucagon,Glucagon,B1,Human,cryo-EM,6LML,6LML_refined,3.9,R,Active,100,83,Gi/o,αi1,-,63,-,scFv16,glucagon PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central Guide To Pharmacology PubChem PubChem PubChem PubChem,peptide,Agonist,glucagon,peptide,20-04-01,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,6OBA,6OBA_refined,3.1,A,Inactive,0,68,-,-,-,-,T4-Lysozyme,-,CHEMBL1160734 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,20-03-25,Yes
-CALRL,calcitonin-like,Calcitonin,B1,Human,cryo-EM,6UUN,6UUN_refined,3,R,Active,100,77,Gs,αs,-,48,-,Nanobody-35,Adrenomedullin PubChem,peptide,Agonist,-,-,20-03-25,Yes
-FPR2,FPR2/ALX,Formylpeptide,A,Human,X-ray,6LW5,6LW5_refined,2.8,A,Active,99,91,-,-,-,-,BRIL,-,WKYMVM PubChem ChEMBL_compound_ids,small-molecule,Agonist,"aspirin triggered lipoxin A4, PrP106-126, humanin, LTC4, LTD4, 15-deoxy-LXA4, aspirin-triggered resolvin D1, fMet-Leu-Phe, LL-37, resolvin D1, ATLa2, annexin I, LXA4, serum amyloid A",peptide,20-03-25,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,X-ray,6LN2,6LN2_refined,3.2,A,Inactive,0,83,-,-,-,-,-,Fab7F38 light chain,PF-06372222 PubChem,small-molecule,NAM,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,20-03-18,Yes
-OPRK,κ,Opioid,A,Human,X-ray,6VI4,6VI4_refined,3.3,B,Inactive,5,73,-,-,-,-,-,Nanobody-6,JDTic PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"big dynorphin, α-neoendorphin, dynorphin B, dynorphin A-(1-8), β-neoendorphin, dynorphin A, β-endorphin, dynorphin A-(1-13)",peptide,20-03-18,Yes
-ACM4,M4,Acetylcholine (muscarinic),A,Human,X-ray,6KP6,6KP6_refined,3,A,Inactive,3,59,-,-,-,-,GlgA glycogen synthase,-,-,-,-,acetylcholine,small-molecule,20-03-11,Yes
-PACR,PAC1,VIP and PACAP,B1,Human,cryo-EM,6LPB,6LPB_refined,3.9,R,Active,100,71,Gs,αs,-,57,-,Nanobody-35,CHEMBL524658 ChEMBL_compound_ids PubChem,protein,Agonist,"PACAP-27, VIP, PACAP-38, PHI, PHM, PHV",peptide,20-03-11,Yes
-PACR,PAC1,VIP and PACAP,B1,Human,cryo-EM,6M1H,6M1H_refined,3.6,A,Active,100,73,Gs,αs,-,54,-,Nanobody-35,Maxadilan PubChem,peptide,Agonist,"PACAP-27, VIP, PACAP-38, PHI, PHM, PHV",peptide,20-03-11,Yes
-PACR,PAC1,VIP and PACAP,B1,Human,cryo-EM,6M1I,6M1I_refined,3.5,A,Active,100,75,Gs,αs,-,56,-,Nanobody-35,CHEMBL524658 ChEMBL_compound_ids PubChem,protein,Agonist,"PACAP-27, VIP, PACAP-38, PHI, PHM, PHV",peptide,20-03-11,Yes
-DRD2,D2,Dopamine,A,Human,X-ray,6LUQ,-,3.1,A,Inactive,1,59,-,-,-,-,T4-Lysozyme,-,haloperidol PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Antagonist,dopamine,small-molecule,20-03-04,Yes
-ACM2,M2,Acetylcholine (muscarinic),A,Human,cryo-EM,6U1N,6U1N_refined,4,R,Active,88,57,Beta,Beta-arrestin-1,-,86,-,Fab30 light chain,LY2119620 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Agonist,acetylcholine,small-molecule,20-02-26,Yes
-FPR2,FPR2/ALX,Formylpeptide,A,Human,cryo-EM,6OMM,6OMM_refined,3.2,R,Active,100,85,Gi/o,αi1,-,61,-,-,WKYMVM PubChem ChEMBL_compound_ids,small-molecule,Agonist,"aspirin triggered lipoxin A4, PrP106-126, humanin, LTC4, LTD4, 15-deoxy-LXA4, aspirin-triggered resolvin D1, fMet-Leu-Phe, LL-37, resolvin D1, ATLa2, annexin I, LXA4, serum amyloid A",peptide,20-02-26,Yes
-GPR52,GPR52,A orphans,A,Human,X-ray,6LI2,6LI2_refined,2.8,A,Intermediate,35,80,-,-,-,-,Rubredoxin,-,-,-,-,-,-,20-02-26,Yes
-GPR52,GPR52,A orphans,A,Human,X-ray,6LI1,6LI1_refined,2.9,A,Intermediate,35,81,-,-,-,-,Flavodoxin,-,-,-,-,-,-,20-02-26,Yes
-GPR52,GPR52,A orphans,A,Human,X-ray,6LI0,6LI0_refined,2.2,A,Intermediate,35,81,-,-,-,-,Flavodoxin,-,"derivative 17 [Nakahata et al., 2018] PubChem Guide To Pharmacology ChEMBL_compound_ids",small-molecule,Agonist,-,-,20-02-26,Yes
-GPR52,GPR52,A orphans,A,Human,cryo-EM,6LI3,6LI3_refined,3.3,R,Active,100,79,Gs,αs,Mini-Gs,61,-,Nanobody-35,Apo (no ligand),none,Apo (no ligand),-,-,20-02-26,Yes
-NTR1,NTS1,Neurotensin,A,Human,cryo-EM,6UP7,6UP7_refined,4.2,R,Active,99,77,Beta,Beta-arrestin-1,-,83,-,-,JMV431 Guide To Pharmacology ChEMBL_compound_ids PubChem,peptide,Agonist,"large neuromedin N, large neurotensin, neuromedin N, neurotensin",peptide,20-02-26,Yes
-AGTR1,AT1,Angiotensin,A,Human,X-ray,6OS0,6OS0_refined,2.9,A,Active,93,85,-,-,-,-,BRIL,Nanobody-Nb.AT110i1,Angiotensinogen PubChem,peptide,Agonist,"angiotensin A, angiotensin IV, angiotensin II, angiotensin III",peptide,20-02-19,Yes
-AGTR1,AT1,Angiotensin,A,Human,X-ray,6OS1,6OS1_refined,2.8,A,Active,93,85,-,-,-,-,BRIL,Nanobody-Nb.AT110i1_le,TRV023 PubChem Guide To Pharmacology ChEMBL_compound_ids,peptide,Agonist,"angiotensin A, angiotensin IV, angiotensin II, angiotensin III",peptide,20-02-19,Yes
-AGTR1,AT1,Angiotensin,A,Human,X-ray,6OS2,6OS2_refined,2.7,A,Active,93,85,-,-,-,-,BRIL,Nanobody-Nb.AT110i1_le,TRV026 PubChem Guide To Pharmacology ChEMBL_compound_ids,peptide,Agonist,"angiotensin A, angiotensin IV, angiotensin II, angiotensin III",peptide,20-02-19,Yes
-CNR1,CB1,Cannabinoid,A,Human,cryo-EM,6KPG,6KPG_refined,3,R,Active,100,60,Gi/o,αi1,-,64,-,scFv16,AM841 PubChem Guide To Pharmacology,small-molecule,Agonist,"anandamide, 2-arachidonoylglycerol",small-molecule,20-02-12,Yes
-CNR2,CB2,Cannabinoid,A,Human,cryo-EM,6PT0,6PT0_refined,3.2,R,Active,100,83,Gi/o,αi1,-,100,-,scFv16,WIN55212-2 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Agonist,"anandamide, 2-arachidonoylglycerol",small-molecule,20-02-12,Yes
-CNR2,CB2,Cannabinoid,A,Human,X-ray,6KPC,6KPC_refined,3.2,A,Inactive,9,79,-,-,-,-,T4-Lysozyme,-,AM841 PubChem Guide To Pharmacology,small-molecule,Agonist,"anandamide, 2-arachidonoylglycerol",small-molecule,20-02-12,Yes
-CNR2,CB2,Cannabinoid,A,Human,cryo-EM,6KPF,6KPF_refined,2.9,R,Active,100,81,Gi/o,αi1,-,62,-,scFv16,AM841 PubChem Guide To Pharmacology,small-molecule,Agonist,"anandamide, 2-arachidonoylglycerol",small-molecule,20-02-12,Yes
-CRFR1,CRF1,Corticotropin-releasing factor,B1,Human,cryo-EM,6PB0,6PB0_refined,3,R,Active,100,68,Gs,αs,Gs-Gi1 chimera,58,-,Nanobody-35,CHEMBL427807 ChEMBL_compound_ids PubChem,protein,Agonist,"corticotrophin-releasing hormone, urocortin 1, urocortin 2",peptide,20-02-12,Yes
-CRFR2,CRF2,Corticotropin-releasing factor,B1,Human,cryo-EM,6PB1,6PB1_refined,2.8,P,Active,100,68,Gs,αs,-,58,-,Nanobody-35,CHEMBL427807 ChEMBL_compound_ids PubChem,protein,Agonist,"corticotrophin-releasing hormone, urocortin 3, urocortin 1, urocortin 2",peptide,20-02-12,Yes
-EDNRB,ETB,Endothelin,A,Human,X-ray,6LRY,6LRY_refined,3,A,Inactive,14,70,-,-,-,-,T4-Lysozyme,-,sarafotoxin S6b PubChem Guide To Pharmacology ChEMBL_compound_ids ChEMBL_compound_ids PubChem,peptide,Agonist,"endothelin-3, endothelin-2, endothelin-1",peptide,20-02-12,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,6NWE,6NWE_refined,2.7,A,Active,100,94,Gi/o,αt1,Only H5,3,-,-,B-Octylglucoside PubChem,small-molecule,unknown,-,-,20-02-12,Yes
-CRFR1,CRF1,Corticotropin-releasing factor,B1,Human,cryo-EM,6P9X,6P9X_refined,2.9,R,Active,100,65,Gs,αs,-,49,-,Nanobody-35,Corticoliberin PubChem,peptide,Agonist,"corticotrophin-releasing hormone, urocortin 1, urocortin 2",peptide,20-02-05,Yes
-PACR,PAC1,VIP and PACAP,B1,Human,cryo-EM,6P9Y,6P9Y_refined,3,R,Active,100,55,Gs,αs,-,49,-,Nanobody-35,CHEMBL524658 ChEMBL_compound_ids PubChem,protein,Agonist,"PACAP-27, VIP, PACAP-38, PHI, PHM, PHV",peptide,20-02-05,Yes
-APJ,apelin,Apelin,A,Human,X-ray,6KNM,6KNM_refined,3.2,B,Inactive,5,78,-,-,-,-,Rubredoxin,-,Single domain antibody JN241,protein,Agonist,"apelin-36, apelin-17, apelin-13, Elabela/Toddler-11, [Pyr1]apelin-13, Elabela/Toddler-21, Elabela/Toddler-32, apelin receptor early endogenous ligand",peptide,20-01-29,Yes
-AGTR2,AT2,Angiotensin,A,Human,X-ray,6JOD,6JOD_refined,3.2,A,Active,99,84,-,-,-,-,BRIL,Heavy chain of 4A03Fab,angiotensin II PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central DrugBank PubChem,peptide,Agonist,"angiotensin-(1-7), angiotensin II, angiotensin III",peptide,20-01-15,Yes
-OX1R,OX1,Orexin,A,Human,X-ray,6TOS,6TOS_refined,2.1,B,Inactive,1,72,-,-,-,-,-,-,CHEMBL2413522 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,"orexin-B, orexin-A",peptide,20-01-15,Yes
-OX1R,OX1,Orexin,A,Human,X-ray,6TOT,6TOT_refined,2.2,B,Inactive,1,71,-,-,-,-,-,-,lemborexant PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central DrugBank,small-molecule,Antagonist,"orexin-B, orexin-A",peptide,20-01-15,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,cryo-EM,6ORV,-,3,E,Active,100,61,Gs,αs,-,48,-,Nanobody-35,CHEMBL3950796 ChEMBL_compound_ids PubChem,small-molecule,Agonist,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,20-01-08,Yes
-OX1R,OX1,Orexin,A,Human,X-ray,6TP4,6TP4_refined,3,A,Inactive,1,70,-,-,-,-,-,-,ACT-462206 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"orexin-B, orexin-A",peptide,20-01-01,Yes
-OX1R,OX1,Orexin,A,Human,X-ray,6TQ7,6TQ7_refined,2.7,A,Inactive,1,71,-,-,-,-,-,-,SB-334867 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"orexin-B, orexin-A",peptide,20-01-01,Yes
-OX1R,OX1,Orexin,A,Human,X-ray,6TOD,6TOD_refined,2.1,A,Inactive,1,71,-,-,-,-,-,-,EMPA PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"orexin-B, orexin-A",peptide,20-01-01,Yes
-OX1R,OX1,Orexin,A,Human,X-ray,6TQ4,6TQ4_refined,2.3,B,Inactive,1,70,-,-,-,-,-,-,CHEMBL4590386 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,"orexin-B, orexin-A",peptide,20-01-01,Yes
-OX1R,OX1,Orexin,A,Human,X-ray,6TO7,6TO7_refined,2.3,A,Inactive,1,71,-,-,-,-,-,-,suvorexant PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central DrugBank,small-molecule,Antagonist,"orexin-B, orexin-A",peptide,20-01-01,Yes
-OX1R,OX1,Orexin,A,Human,X-ray,6TP6,6TP6_refined,2.3,B,Inactive,1,71,-,-,-,-,-,-,filorexant PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,"orexin-B, orexin-A",peptide,20-01-01,Yes
-OX1R,OX1,Orexin,A,Human,X-ray,6TQ6,6TQ6_refined,2.6,B,Inactive,1,71,-,-,-,-,-,-,CHEMBL4592653 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,"orexin-B, orexin-A",peptide,20-01-01,Yes
-OX1R,OX1,Orexin,A,Human,X-ray,6TP3,6TP3_refined,3,A,Inactive,1,74,-,-,-,-,-,-,daridorexant PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,"orexin-B, orexin-A",peptide,20-01-01,Yes
-OX1R,OX1,Orexin,A,Human,X-ray,6TQ9,6TQ9_refined,2.7,B,Inactive,1,71,-,-,-,-,-,-,SB-408124 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"orexin-B, orexin-A",peptide,20-01-01,Yes
-OX2R,OX2,Orexin,A,Human,X-ray,6TPN,6TPN_refined,2.6,A,Inactive,1,71,-,-,-,-,GlgA glycogen synthase,-,HTL6641 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"orexin-B, orexin-A",peptide,20-01-01,Yes
-OX2R,OX2,Orexin,A,Human,X-ray,6TPG,6TPG_refined,2.7,A,Inactive,1,69,-,-,-,-,GlgA glycogen synthase,-,EMPA PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"orexin-B, orexin-A",peptide,20-01-01,Yes
-OX2R,OX2,Orexin,A,Human,X-ray,6TPJ,6TPJ_refined,2.7,A,Inactive,1,68,-,-,-,-,GlgA glycogen synthase,-,suvorexant PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central DrugBank,small-molecule,Antagonist,"orexin-B, orexin-A",peptide,20-01-01,Yes
-ACM5,M5,Acetylcholine (muscarinic),A,Human,X-ray,6OL9,6OL9_refined,2.5,A,Inactive,3,53,-,-,-,-,T4-Lysozyme,-,tiotropium PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Guide To Pharmacology,small-molecule,Inverse agonist,acetylcholine,small-molecule,19-12-11,Yes
-CLTR2,CysLT2,Leukotriene,A,Human,X-ray,6RZ9,6RZ9_refined,2.7,A,Intermediate,39,81,-,-,-,-,BRIL,-,ONO-2770372 PubChem,small-molecule,Antagonist,"LTD4, LTE4, LTC4",small-molecule,19-12-11,Yes
-CLTR2,CysLT2,Leukotriene,A,Human,X-ray,6RZ6,6RZ6_refined,2.4,A,Intermediate,39,82,-,-,-,-,BRIL,-,ONO-2570366 Guide To Pharmacology PubChem,small-molecule,Antagonist,"LTD4, LTE4, LTC4",small-molecule,19-12-11,Yes
-CLTR2,CysLT2,Leukotriene,A,Human,X-ray,6RZ7,6RZ7_refined,2.4,A,Intermediate,39,79,-,-,-,-,BRIL,-,ONO-2570366 Guide To Pharmacology PubChem,small-molecule,Antagonist,"LTD4, LTE4, LTC4",small-molecule,19-12-11,Yes
-CLTR2,CysLT2,Leukotriene,A,Human,X-ray,6RZ8,6RZ8_refined,2.7,A,Intermediate,39,78,-,-,-,-,BRIL,-,ONO-2080365 PubChem,small-molecule,Antagonist,"LTD4, LTE4, LTC4",small-molecule,19-12-11,Yes
-OPRD,δ,Opioid,A,Human,X-ray,6PT3,6PT3_refined,3.3,A,Active,73,78,-,-,-,-,BRIL,-,DPI-287 PubChem,small-molecule,Agonist,"endomorphin-1, dynorphin B, [Leu]enkephalin, dynorphin A-(1-8), dynorphin A, β-endorphin, dynorphin A-(1-13)",peptide,19-12-11,Yes
-OPRD,δ,Opioid,A,Human,X-ray,6PT2,6PT2_refined,2.8,A,Active,73,78,-,-,-,-,BRIL,-,KGCHM07,peptide,Agonist,"endomorphin-1, dynorphin B, [Leu]enkephalin, dynorphin A-(1-8), dynorphin A, β-endorphin, dynorphin A-(1-13)",peptide,19-12-11,Yes
-ADA2A,α2A,Adrenoceptors,A,Human,X-ray,6KUY,6KUY_refined,3.2,A,Inactive,1,56,-,-,-,-,BRIL,-,"(2~{S})-4-fluoranyl-2-(1~{H}-imidazol-5-yl)-1-propan-2-yl-2,3-dihydroindole PubChem",small-molecule,Agonist (partial),"(-)-noradrenaline, (-)-adrenaline",small-molecule,19-12-04,Yes
-ADA2A,α2A,Adrenoceptors,A,Human,X-ray,6KUX,-,2.7,A,Inactive,1,57,-,-,-,-,BRIL,-,RSC PubChem,small-molecule,Antagonist,"(-)-noradrenaline, (-)-adrenaline",small-molecule,19-12-04,Yes
-ADA2C,α2C,Adrenoceptors,A,Human,X-ray,6KUW,6KUW_refined,2.8,A,Inactive,1,60,-,-,-,-,GlgA glycogen synthase,-,"(8Ar,12aS,13aR)-12-ethylsulfonyl-3-methoxy-5,6,8,8a,9,10,11,12a,13,13a-decahydroisoquinolino[2,1-g][1,6]naphthyridine PubChem",small-molecule,Antagonist,"(-)-noradrenaline, (-)-adrenaline",small-molecule,19-12-04,Yes
-DRD4,D4,Dopamine,A,Mouse,X-ray,6IQL,6IQL_refined,3.5,A,Inactive,83,65,-,-,-,-,BRIL,-,L745870 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,-,-,19-12-04,Yes
-NTR1,NTS1,Neurotensin,A,Human,cryo-EM,6PWC,6PWC_refined,4.9,R,Active,83,77,Beta,Beta-arrestin-1,-,84,-,Fab30 heavy chain,Neurotensin PubChem,peptide,Agonist,"large neuromedin N, large neurotensin, neuromedin N, neurotensin",peptide,19-12-04,Yes
-ADRB2,β2,Adrenoceptors,A,Human,cryo-EM,6NI3,6NI3_refined,3.8,R,Active,100,69,Gs,αs,-,59,-,Nanobody-35,BI-167107 PubChem,small-molecule,Agonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,19-11-20,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,6PS7,6PS7_refined,1.9,A,Inactive,1,72,-,-,-,-,BRIL,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,19-11-13,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,6PS2,6PS2_refined,2.4,A,Inactive,0,68,-,-,-,-,T4-Lysozyme,-,CHEMBL1160734 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,19-11-13,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,6PS6,6PS6_refined,2.7,A,Inactive,0,68,-,-,-,-,T4-Lysozyme,-,timolol PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Antagonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,19-11-13,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,6PS1,6PS1_refined,3.2,A,Inactive,0,68,-,-,-,-,T4-Lysozyme,-,timolol PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Antagonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,19-11-13,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,6PS5,6PS5_refined,2.9,A,Inactive,0,68,-,-,-,-,T4-Lysozyme,-,(-)-propranolol PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,19-11-13,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,6PRZ,6PRZ_refined,2.8,A,Inactive,0,68,-,-,-,-,T4-Lysozyme,-,CHEMBL1160734 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,19-11-13,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,6PS3,6PS3_refined,2.5,A,Inactive,0,68,-,-,-,-,T4-Lysozyme,-,(S)-Carvedilol PubChem ChEMBL_compound_ids,small-molecule,Antagonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,19-11-13,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,6PS0,6PS0_refined,3.4,A,Inactive,0,68,-,-,-,-,T4-Lysozyme,-,carazolol PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central,small-molecule,Antagonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,19-11-13,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,6PS4,6PS4_refined,2.6,A,Inactive,0,68,-,-,-,-,T4-Lysozyme,-,CHEMBL1233766 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,19-11-13,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,X-ray,6KK7,6KK7_refined,3.1,B,Inactive,0,56,-,-,-,-,T4-Lysozyme,-,PF-06372222 PubChem,small-molecule,NAM,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,19-11-13,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,X-ray,6KK1,6KK1_refined,2.8,B,Inactive,0,57,-,-,-,-,T4-Lysozyme,-,PF-06372222 PubChem,small-molecule,NAM,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,19-11-13,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,X-ray,6KJV,6KJV_refined,2.8,B,Inactive,0,57,-,-,-,-,T4-Lysozyme,-,PF-06372222 PubChem,small-molecule,NAM,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,19-11-13,Yes
-MTR1A,MT1,Melatonin,A,Human,X-ray,6PS8,6PS8_refined,3.3,A,Inactive,1,83,-,-,-,-,GlgA glycogen synthase,-,2-phenylmelatonin PubChem,small-molecule,Agonist,melatonin,small-molecule,19-11-13,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,6JZH,6JZH_refined,2.3,A,Inactive,1,72,-,-,-,-,BRIL,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,19-10-30,Yes
-CLTR1,CysLT1,Leukotriene,A,Human,X-ray,6RZ4,6RZ4_refined,2.7,A,Intermediate,39,85,-,-,-,-,BRIL,-,pranlukast PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Antagonist,"LTD4, LTE4, LTC4",small-molecule,19-10-30,Yes
-CLTR1,CysLT1,Leukotriene,A,Human,X-ray,6RZ5,6RZ5_refined,2.5,B,Intermediate,39,84,-,-,-,-,BRIL,-,zafirlukast PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Antagonist,"LTD4, LTE4, LTC4",small-molecule,19-10-30,Yes
-CNR1,CB1,Cannabinoid,A,Human,X-ray,6KQI,6KQI_refined,3.3,A,Inactive,8,60,-,-,-,-,GlgA glycogen synthase,-,CP55940 PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology,small-molecule,Agonist,"anandamide, 2-arachidonoylglycerol",small-molecule,19-10-23,Yes
-CCR7,CCR7,Chemokine,A,Human,X-ray,6QZH,6QZH_refined,2.1,A,Inactive,5,71,-,-,-,-,Sialidase NanA,-,SCHEMBL13407377 PubChem,small-molecule,Allosteric antagonist,"Ccl21b, CCL21, CCL19",peptide,19-09-04,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,cryo-EM,6OFJ,6OFJ_refined,4.5,A,Inactive,24,93,-,-,-,-,-,-,Apo (no ligand),none,Apo (no ligand),-,-,19-08-21,Yes
-SUCR1,succinate,Succinate,A,Rat,X-ray,6RNK,6RNK_refined,1.9,A,Intermediate,39,90,-,-,-,-,-,Nanobody-6,NF-56-EJ40 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,-,-,19-08-14,Yes
-SUCR1,succinate,Succinate,A,Rat,X-ray,6IBB,6IBB_refined,2.1,A,Intermediate,39,93,-,-,-,-,-,Nanobody-6,-,-,-,-,-,19-08-14,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,cryo-EM,6OYA,6OYA_refined,3.3,R,Active,100,94,Gi/o,αt1,-,59,-,Camelid antibody VHH fragment,Retinal (all-trans) PubChem,small-molecule,Agonist,-,-,19-07-24,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,cryo-EM,6OY9,6OY9_refined,3.9,R,Active,100,94,Gi/o,αt1,-,64,-,-,Retinal (all-trans) PubChem,small-molecule,Agonist,-,-,19-07-24,Yes
-EDNRB,ETB,Endothelin,A,Human,X-ray,6K1Q,6K1Q_refined,2.7,A,Inactive,5,68,-,-,-,-,T4-Lysozyme,-,IRL 2500 PubChem Guide To Pharmacology ChEMBL_compound_ids,peptide,Inverse agonist,"endothelin-3, endothelin-2, endothelin-1",peptide,19-07-17,Yes
-NTR1,NTS1,Neurotensin,A,Human,cryo-EM,6OSA,6OSA_refined,3,R,Active,100,77,Gi/o,αi1,Non-canonical conformation,62,-,-,JMV449 PubChem Guide To Pharmacology ChEMBL_compound_ids,peptide,Agonist,"large neuromedin N, large neurotensin, neuromedin N, neurotensin",peptide,19-07-10,Yes
-NTR1,NTS1,Neurotensin,A,Human,cryo-EM,6OS9,6OS9_refined,3,R,Active,100,73,Gi/o,αi1,-,62,-,scFv16,JMV449 PubChem Guide To Pharmacology ChEMBL_compound_ids,peptide,Agonist,"large neuromedin N, large neurotensin, neuromedin N, neurotensin",peptide,19-07-10,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,cryo-EM,6QNO,6QNO_refined,4.4,R,Active,100,96,Gi/o,αi1,-,60,-,Fab antibody fragment light chain,Retinal (all-trans) PubChem,small-molecule,Agonist,-,-,19-07-10,Yes
-B1B1U5,Rhodopsin,Opsins,A,Hasarius adansoni,X-ray,6I9K,6I9K_refined,2.2,A,Inactive,14,83,-,-,-,-,-,-,Retinal (11-cis) PubChem,small-molecule,Inverse agonist,-,-,19-07-03,Yes
-SMO,SMO,Frizzled,F,Mouse,X-ray,6O3C,6O3C_refined,2.8,A,Active,94,61,-,-,-,-,-,Nanobody-Smo8,SAG21k PubChem,small-molecule,Agonist,-,-,19-07-03,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,6GT3,6GT3_refined,2,A,Inactive,1,72,-,-,-,-,BRIL,-,imaradenant PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,19-06-26,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,6N48,6N48_refined,3.2,A,Active,100,70,-,-,-,-,T4-Lysozyme,Camelid Antibody Fragment,BI-167107 PubChem,small-molecule,Agonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,19-06-26,Yes
-SMO,SMO,Frizzled,F,Human,cryo-EM,6OT0,-,3.9,R,Active,100,46,Gi/o,αi1,-,100,-,Fab light chain,"24,25-Epoxy-cholesterol PubChem",small-molecule,Agonist,-,-,19-06-12,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,6.00E+67,6E67_refined,3.7,B,Active,100,72,Gs,αs,Fused partial Gs,44,T4-Lysozyme,-,BI-167107 PubChem,small-molecule,Agonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,19-06-05,Yes
-ACM1,M1,Acetylcholine (muscarinic),A,Human,cryo-EM,6OIJ,6OIJ_refined,3.3,R,Active,100,64,Gq/11,α11,-,63,-,Antibody fragment,iperoxo PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Agonist,acetylcholine,small-molecule,19-05-08,Yes
-ACM2,M2,Acetylcholine (muscarinic),A,Human,cryo-EM,6OIK,6OIK_refined,3.6,R,Active,100,60,Gi/o,αo,-,61,-,-,iperoxo PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Agonist,acetylcholine,small-molecule,19-05-08,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,6MH8,6MH8_refined,4.2,A,Inactive,1,72,-,-,-,-,BRIL,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,19-04-24,Yes
-MTR1A,MT1,Melatonin,A,Human,X-ray,6ME4,6ME4_refined,3.2,A,Inactive,1,83,-,-,-,-,GlgA glycogen synthase,-,2-iodo-melatonin PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Agonist,melatonin,small-molecule,19-04-24,Yes
-MTR1A,MT1,Melatonin,A,Human,X-ray,6ME2,6ME2_refined,2.8,A,Inactive,1,83,-,-,-,-,GlgA glycogen synthase,-,ramelteon PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,melatonin,small-molecule,19-04-24,Yes
-MTR1A,MT1,Melatonin,A,Human,X-ray,6ME3,6ME3_refined,2.9,A,Inactive,1,82,-,-,-,-,GlgA glycogen synthase,-,2-phenylmelatonin PubChem,small-molecule,Agonist,melatonin,small-molecule,19-04-24,Yes
-MTR1A,MT1,Melatonin,A,Human,X-ray,6ME5,6ME5_refined,3.2,A,Inactive,1,83,-,-,-,-,GlgA glycogen synthase,-,agomelatine PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,melatonin,small-molecule,19-04-24,Yes
-MTR1B,MT2,Melatonin,A,Human,X-ray,6ME6,6ME6_refined,2.8,B,Inactive,1,78,-,-,-,-,Rubredoxin,-,2-phenylmelatonin PubChem,small-molecule,Agonist,melatonin,small-molecule,19-04-24,Yes
-MTR1B,MT2,Melatonin,A,Human,X-ray,6ME8,6ME8_refined,3.1,B,Inactive,1,78,-,-,-,-,Rubredoxin,-,2-phenylmelatonin PubChem,small-molecule,Agonist,melatonin,small-molecule,19-04-24,Yes
-MTR1B,MT2,Melatonin,A,Human,X-ray,6ME7,6ME7_refined,3.2,A,Inactive,1,79,-,-,-,-,Rubredoxin,-,2-phenylmelatonin PubChem,small-molecule,Agonist,melatonin,small-molecule,19-04-24,Yes
-MTR1B,MT2,Melatonin,A,Human,X-ray,6ME9,6ME9_refined,3.3,B,Inactive,1,79,-,-,-,-,Rubredoxin,-,ramelteon PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,melatonin,small-molecule,19-04-24,Yes
-PTH1R,PTH1,Parathyroid hormone,B1,Human,cryo-EM,6NBF,6NBF_refined,3,R,Active,100,62,Gs,αs,-,58,-,Nanobody-35,Long-acting parathyroid hormone analog,peptide,Agonist,"PTHrP, TIP39, PTHrP-(1-36), PTH",peptide,19-04-17,Yes
-PTH1R,PTH1,Parathyroid hormone,B1,Human,cryo-EM,6NBI,6NBI_refined,4,R,Active,100,62,Gs,αs,-,56,-,Nanobody-35,Long-acting parathyroid hormone analog,peptide,Agonist,"PTHrP, TIP39, PTHrP-(1-36), PTH",peptide,19-04-17,Yes
-PTH1R,PTH1,Parathyroid hormone,B1,Human,cryo-EM,6NBH,-,3.5,R,Active,100,64,Gs,αs,-,57,-,Nanobody-35,Long-acting parathyroid hormone analog,peptide,Agonist,"PTHrP, TIP39, PTHrP-(1-36), PTH",peptide,19-04-17,Yes
-NK1R,NK1,Tachykinin,A,Human,X-ray,6J20,6J20_refined,2.7,A,Inactive,1,71,-,-,-,-,T4-Lysozyme,-,aprepitant PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central PubChem,small-molecule,Antagonist,"neuropeptide-γ, substance P, neuropeptide K, hemokinin 1, neurokinin A, neurokinin B",peptide,19-03-06,Yes
-NK1R,NK1,Tachykinin,A,Human,X-ray,6J21,6J21_refined,3.2,A,Inactive,1,71,-,-,-,-,T4-Lysozyme,-,aprepitant PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central PubChem,small-molecule,Antagonist,"neuropeptide-γ, substance P, neuropeptide K, hemokinin 1, neurokinin A, neurokinin B",peptide,19-03-06,Yes
-5HT2A,5-HT2A,5-Hydroxytryptamine,A,Human,X-ray,6A94,6A94_refined,2.9,A,Inactive,1,60,-,-,-,-,BRIL,-,zotepine PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central DrugBank,small-molecule,Antagonist,"tryptamine, 5-hydroxytryptamine",small-molecule,19-02-13,Yes
-5HT2A,5-HT2A,5-Hydroxytryptamine,A,Human,X-ray,6A93,6A93_refined,3,A,Inactive,1,60,-,-,-,-,BRIL,-,risperidone PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Antagonist,"tryptamine, 5-hydroxytryptamine",small-molecule,19-02-13,Yes
-AGTR1,AT1,Angiotensin,A,Human,X-ray,6DO1,6DO1_refined,2.9,A,Active,93,85,-,-,-,-,BRIL,Nanobody-Nb.AT110i1,SI PubChem ChEMBL_compound_ids,small-molecule,Agonist,"angiotensin A, angiotensin IV, angiotensin II, angiotensin III",peptide,19-01-30,Yes
-CNR1,CB1,Cannabinoid,A,Human,cryo-EM,6N4B,6N4B_refined,3,R,Active,100,58,Gi/o,αi1,-,62,-,scFv16,MDMB-Fubinaca PubChem Guide To Pharmacology,small-molecule,Agonist,"anandamide, 2-arachidonoylglycerol",small-molecule,19-01-30,Yes
-CNR2,CB2,Cannabinoid,A,Human,X-ray,5ZTY,5ZTY_refined,2.8,A,Inactive,9,80,-,-,-,-,T4-Lysozyme,-,AM10257 Guide To Pharmacology PubChem,small-molecule,Antagonist,"anandamide, 2-arachidonoylglycerol",small-molecule,19-01-30,Yes
-CALCR,CT,Calcitonin,B1,Human,cryo-EM,6NIY,6NIY_refined,3.3,R,Active,100,55,Gs,αs,-,43,-,-,Calcitonin salmon PubChem,peptide,Agonist,"amylin, α-CGRP, adrenomedullin, calcitonin, adrenomedullin 2/intermedin, calcitonin (salmon), β-CGRP",peptide,19-01-23,Yes
-GRM5,mGlu5,Metabotropic glutamate,C,Human,cryo-EM,6N52,6N52_refined,4,A,Inactive,29,64,-,-,-,-,-,Nanobody-43,-,-,-,L-glutamic acid,small-molecule,19-01-23,Yes
-GRM5,mGlu5,Metabotropic glutamate,C,Human,cryo-EM,6N51,6N51_refined,4,B,Intermediate,45,65,-,-,-,-,-,Nanobody-43,quisqualate PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Guide To Pharmacology PubChem,small-molecule,Agonist,L-glutamic acid,small-molecule,19-01-23,Yes
-NK1R,NK1,Tachykinin,A,Human,X-ray,6HLL,6HLL_refined,3.3,A,Inactive,1,67,-,-,-,-,GlgA glycogen synthase,-,CP 99994 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"neuropeptide-γ, substance P, neuropeptide K, hemokinin 1, neurokinin A, neurokinin B",peptide,19-01-16,Yes
-NK1R,NK1,Tachykinin,A,Human,X-ray,6HLO,6HLO_refined,2.4,A,Inactive,1,70,-,-,-,-,GlgA glycogen synthase,-,aprepitant PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central PubChem,small-molecule,Antagonist,"neuropeptide-γ, substance P, neuropeptide K, hemokinin 1, neurokinin A, neurokinin B",peptide,19-01-16,Yes
-NK1R,NK1,Tachykinin,A,Human,X-ray,6HLP,6HLP_refined,2.2,A,Inactive,1,71,-,-,-,-,GlgA glycogen synthase,-,netupitant PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central DrugBank,small-molecule,Antagonist,"neuropeptide-γ, substance P, neuropeptide K, hemokinin 1, neurokinin A, neurokinin B",peptide,19-01-16,Yes
-ADRB1,β1,Adrenoceptors,A,Wild turkey,X-ray,6IBL,6IBL_refined,2.7,A,Active,100,60,-,-,-,-,Thioredoxin 1,Camelid antibody fragment Nb80,arformoterol PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,-,-,19-01-09,Yes
-CCR2,CCR2,Chemokine,A,Human,X-ray,6GPX,6GPX_refined,2.7,B,Inactive,14,70,-,-,-,-,Rubredoxin,-,MK-0812 PubChem,small-molecule,Antagonist,"CCL8, CCL2, CCL16, CCL24, CCL26, CCL11, CCL13, CCL7",peptide,19-01-02,Yes
-CCR2,CCR2,Chemokine,A,Human,X-ray,6GPS,6GPS_refined,3.3,A,Inactive,14,74,-,-,-,-,Rubredoxin,-,MK-0812 PubChem,small-molecule,Antagonist,"CCL8, CCL2, CCL16, CCL24, CCL26, CCL11, CCL13, CCL7",peptide,19-01-02,Yes
-TA2R,TP,Prostanoid,A,Human,X-ray,6IIV,6IIV_refined,3,A,Intermediate,50,87,-,-,-,-,Rubredoxin,-,daltroban PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"thromboxane A2, PGE2, PGI2, PGF2α, PGH2, PGD2",small-molecule,18-12-19,Yes
-TA2R,TP,Prostanoid,A,Human,X-ray,6IIU,6IIU_refined,2.5,A,Intermediate,50,87,-,-,-,-,Rubredoxin,-,ramatroban PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central DrugBank Guide To Pharmacology,small-molecule,Antagonist,"thromboxane A2, PGE2, PGI2, PGF2α, PGH2, PGD2",small-molecule,18-12-19,Yes
-CCR5,CCR5,Chemokine,A,Human,cryo-EM,6MEO,6MEO_refined,3.9,B,Inactive,14,89,-,-,-,-,-,T-cell surface glycoprotein CD4,Envelope glycoprotein gp160,protein,Antagonist,"CCL5, CCL8, CCL2, CCL16, CCL4, CCL3, CCL14, CCL11, CCL13, CCL7",peptide,18-12-12,Yes
-CCR5,CCR5,Chemokine,A,Human,cryo-EM,6MET,6MET_refined,4.5,B,Inactive,14,89,-,-,-,-,-,T-cell surface glycoprotein CD4,Envelope glycoprotein gp160,protein,Antagonist,"CCL5, CCL8, CCL2, CCL16, CCL4, CCL3, CCL14, CCL11, CCL13, CCL7",peptide,18-12-12,Yes
-NK1R,NK1,Tachykinin,A,Human,X-ray,6.00E+59,6E59_refined,3.4,A,Inactive,1,70,-,-,-,-,GlgA glycogen synthase,-,L760735 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"neuropeptide-γ, substance P, neuropeptide K, hemokinin 1, neurokinin A, neurokinin B",peptide,18-12-12,Yes
-PE2R3,EP3,Prostanoid,A,Human,X-ray,6AK3,6AK3_refined,2.9,B,Active,84,69,-,-,-,-,BRIL,-,PGE2 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central Guide To Pharmacology,small-molecule,Agonist,"thromboxane A2, PGE1, PGE2, PGI2, PGF2α, PGD2",small-molecule,18-12-05,Yes
-PE2R3,EP3,Prostanoid,A,Human,X-ray,6M9T,6M9T_refined,2.5,A,Active,84,70,-,-,-,-,T4-Lysozyme,-,Misoprostol-FA PubChem,small-molecule,Agonist,"thromboxane A2, PGE1, PGE2, PGI2, PGF2α, PGD2",small-molecule,18-12-05,Yes
-PE2R4,EP4,Prostanoid,A,Human,X-ray,5YHL,5YHL_refined,4.2,A,Inactive,10,57,-,-,-,-,-,Fab,ONO-AE3-208-Br PubChem,small-molecule,Antagonist,"thromboxane A2, PGE1, PGE2, PGI2, PGF2α, PGD2",small-molecule,18-12-05,Yes
-PE2R4,EP4,Prostanoid,A,Human,X-ray,5YWY,5YWY_refined,3.2,A,Inactive,10,57,-,-,-,-,-,Fab,ONO-AE3-208 PubChem,small-molecule,Antagonist,"thromboxane A2, PGE1, PGE2, PGI2, PGF2α, PGD2",small-molecule,18-12-05,Yes
-ACM3,M3,Acetylcholine (muscarinic),A,Rat,X-ray,5ZHP,5ZHP_refined,3.1,B,Inactive,3,47,-,-,-,-,T4-Lysozyme,-,"(1R,2R,4S,5S,7s)-7-({[4-fluoro-2-(thiophen-2-yl)phenyl]carbamoyl}oxy)-9,9-dimethyl-3-oxa-9-azatricyclo[3.3.1.0~2,4~]nonan-9-ium PubChem",small-molecule,Antagonist,acetylcholine,small-molecule,18-11-28,Yes
-ACM2,M2,Acetylcholine (muscarinic),A,Human,X-ray,5ZK8,5ZK8_refined,3,A,Inactive,3,59,-,-,-,-,BRIL,-,N-methyl scopolamine PubChem Guide To Pharmacology DrugBank Guide To Pharmacology,small-molecule,Antagonist,acetylcholine,small-molecule,18-11-21,Yes
-ACM2,M2,Acetylcholine (muscarinic),A,Human,X-ray,5YC8,5YC8_refined,2.5,A,Inactive,3,60,-,-,-,-,BRIL,-,N-methyl scopolamine PubChem Guide To Pharmacology DrugBank Guide To Pharmacology,small-molecule,Antagonist,acetylcholine,small-molecule,18-11-21,Yes
-ACM2,M2,Acetylcholine (muscarinic),A,Human,X-ray,5ZKB,5ZKB_refined,3,A,Inactive,3,60,-,-,-,-,BRIL,-,AF-DX 384 PubChem,small-molecule,Antagonist,acetylcholine,small-molecule,18-11-21,Yes
-ACM2,M2,Acetylcholine (muscarinic),A,Human,X-ray,5ZK3,5ZK3_refined,2.6,A,Inactive,3,59,-,-,-,-,BRIL,-,CHEMBL558910 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,acetylcholine,small-molecule,18-11-21,Yes
-ACM2,M2,Acetylcholine (muscarinic),A,Human,X-ray,5ZKC,5ZKC_refined,2.3,A,Inactive,3,60,-,-,-,-,BRIL,-,N-methyl scopolamine PubChem Guide To Pharmacology DrugBank Guide To Pharmacology,small-molecule,Antagonist,acetylcholine,small-molecule,18-11-21,Yes
-EDNRB,ETB,Endothelin,A,Human,X-ray,6IGK,6IGK_refined,2,A,Inactive,5,70,-,-,-,-,T4-Lysozyme,-,endothelin-3 PubChem Guide To Pharmacology,peptide,Agonist,"endothelin-3, endothelin-2, endothelin-1",peptide,18-11-21,Yes
-EDNRB,ETB,Endothelin,A,Human,X-ray,6IGL,6IGL_refined,2.7,A,Inactive,5,70,-,-,-,-,T4-Lysozyme,-,IRL 1620 PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology PubChem PubChem,peptide,Agonist (partial),"endothelin-3, endothelin-2, endothelin-1",peptide,18-11-21,Yes
-PTH1R,PTH1,Parathyroid hormone,B1,Human,X-ray,6FJ3,6FJ3_refined,2.5,A,Inactive,0,62,-,-,-,-,GlgA glycogen synthase,-,ePTH,peptide,Agonist (partial),"PTHrP, TIP39, PTHrP-(1-36), PTH",peptide,18-11-21,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,6MXT,6MXT_refined,3,A,Active,100,69,-,-,-,-,T4-Lysozyme,Nanobody-71,salmeterol PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,18-11-14,Yes
-CCR5,CCR5,Chemokine,A,Human,X-ray,6AKX,6AKX_refined,2.8,B,Inactive,14,82,-,-,-,-,Rubredoxin,-,"N-[(1S)-3-{(3-exo)-3-[3-methyl-5-(propan-2-yl)-4H-1,2,4-triazol-4-yl]-8-azabicyclo[3.2.1]octan-8-yl}-1-(thiophen-2-yl)propyl]cyclopentanecarboxamide PubChem",small-molecule,Antagonist,"CCL5, CCL8, CCL2, CCL16, CCL4, CCL3, CCL14, CCL11, CCL13, CCL7",peptide,18-10-24,Yes
-CCR5,CCR5,Chemokine,A,Human,X-ray,6AKY,6AKY_refined,2.8,A,Inactive,14,81,-,-,-,-,Rubredoxin,-,CCR5 antagonist 34 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"CCL5, CCL8, CCL2, CCL16, CCL4, CCL3, CCL14, CCL11, CCL13, CCL7",peptide,18-10-24,Yes
-ADRB1,β1,Adrenoceptors,A,Wild turkey,X-ray,6H7J,6H7J_refined,2.8,A,Active,100,60,-,-,-,-,Thioredoxin 1,Camelid antibody fragment Nb80,(R)-Isoproterenol PubChem ChEMBL_compound_ids,small-molecule,Agonist,-,-,18-10-17,Yes
-ADRB1,β1,Adrenoceptors,A,Wild turkey,X-ray,6H7N,6H7N_refined,2.5,A,Active,100,60,-,-,-,-,Thioredoxin 1,Camelid antibody fragment Nb6B9,(S)-Xamoterol PubChem,small-molecule,Agonist,-,-,18-10-17,Yes
-ADRB1,β1,Adrenoceptors,A,Wild turkey,X-ray,6H7L,6H7L_refined,2.7,A,Active,100,60,-,-,-,-,Thioredoxin 1,Camelid antibody fragment Nb6B9,Dobutamine PubChem,small-molecule,Agonist,-,-,18-10-17,Yes
-ADRB1,β1,Adrenoceptors,A,Wild turkey,X-ray,6H7M,6H7M_refined,2.8,A,Active,100,60,-,-,-,-,Thioredoxin 1,Camelid antibody fragment Nb6B9,levosalbutamol PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central DrugBank,small-molecule,Agonist,-,-,18-10-17,Yes
-ADRB1,β1,Adrenoceptors,A,Wild turkey,X-ray,6H7O,6H7O_refined,2.8,A,Active,100,60,-,-,-,-,Thioredoxin 1,Camelid antibody fragment Nb6B9,(S)-Cyanopindolol PubChem,small-molecule,Agonist,-,-,18-10-17,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,6FUF,6FUF_refined,3.1,A,Active,100,91,Gi/o,αo,Mini-Go,51,-,-,Retinal (all-trans) PubChem,small-molecule,Agonist,-,-,18-10-03,Yes
-PD2R2,DP2,Prostanoid,A,Human,X-ray,6D26,6D26_refined,2.8,A,Inactive,20,82,-,-,-,-,T4-Lysozyme,-,fevipiprant PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,"thromboxane A2, PGJ2, PGE2, PGI2, PGF2α, PGD3, PGD2",small-molecule,18-10-03,Yes
-PD2R2,DP2,Prostanoid,A,Human,X-ray,6D27,6D27_refined,2.7,A,Inactive,20,81,-,-,-,-,T4-Lysozyme,-,CHEMBL179036 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,"thromboxane A2, PGJ2, PGE2, PGI2, PGF2α, PGD3, PGD2",small-molecule,18-10-03,Yes
-CALRL,calcitonin-like,Calcitonin,B1,Human,cryo-EM,6E3Y,6E3Y_refined,3.3,R,Active,100,75,Gs,αs,-,48,-,Nanobody-35,Calcitonin gene-related peptide 1 PubChem,peptide,Agonist,-,-,18-09-19,Yes
-5HT2B,5-HT2B,5-Hydroxytryptamine,A,Human,X-ray,6DRY,6DRY_refined,2.9,A,Intermediate,39,60,-,-,-,-,BRIL,-,methylergonovine PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,5-hydroxytryptamine,small-molecule,18-08-29,Yes
-5HT2B,5-HT2B,5-Hydroxytryptamine,A,Human,X-ray,6DRZ,6DRZ_refined,3.1,A,Intermediate,39,61,-,-,-,-,BRIL,-,methysergide PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Antagonist,5-hydroxytryptamine,small-molecule,18-08-29,Yes
-5HT2B,5-HT2B,5-Hydroxytryptamine,A,Human,X-ray,6DS0,6DS0_refined,3.2,A,Intermediate,39,59,-,-,-,-,BRIL,-,LY266097 PubChem,small-molecule,Antagonist,5-hydroxytryptamine,small-molecule,18-08-29,Yes
-5HT2B,5-HT2B,5-Hydroxytryptamine,A,Human,X-ray,6DRX,6DRX_refined,3.1,A,Intermediate,39,59,-,-,-,-,BRIL,-,lisuride PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Antagonist,5-hydroxytryptamine,small-molecule,18-08-29,Yes
-FZD4,FZD4,Frizzled,F,Human,X-ray,6BD4,6BD4_refined,2.4,A,Inactive,17,61,-,-,-,-,Rubredoxin,-,-,-,-,-,-,18-08-22,Yes
-AGTR2,AT2,Angiotensin,A,Human,X-ray,5XJM,5XJM_refined,3.2,A,Active,99,78,-,-,-,-,BRIL,Fab,SI PubChem ChEMBL_compound_ids,small-molecule,Agonist,"angiotensin-(1-7), angiotensin II, angiotensin III",peptide,18-07-11,Yes
-5HT1B,5-HT1B,5-Hydroxytryptamine,A,Human,cryo-EM,6G79,6G79_refined,3.8,S,Active,100,67,Gi/o,αo,-,59,-,-,donitriptan PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Agonist,"5-HT-moduline, tryptamine, 5-hydroxytryptamine",small-molecule,18-06-20,Yes
-AA1R,A1,Adenosine,A,Human,cryo-EM,6D9H,6D9H_refined,3.6,R,Active,100,88,Gi/o,αi2,-,59,-,-,adenosine PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,adenosine,small-molecule,18-06-20,Yes
-OPSD,Rhodopsin,Opsins,A,Human,cryo-EM,6CMO,6CMO_refined,4.5,R,Active,80,92,Gi/o,αi1,-,100,BRIL,Fab,Apo (no ligand),none,Apo (no ligand),-,-,18-06-20,Yes
-PTAFR,PAF,Platelet-activating factor,A,Human,X-ray,5ZKP,-,2.8,A,Other,-,85,-,-,-,-,Flavodoxin,-,foropafant PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"methylcarbamyl PAF, PAF",small-molecule,18-06-20,Yes
-PTAFR,PAF,Platelet-activating factor,A,Human,X-ray,5ZKQ,5ZKQ_refined,2.9,B,Intermediate,39,83,-,-,-,-,T4-Lysozyme,-,ABT-491 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Inverse agonist,"methylcarbamyl PAF, PAF",small-molecule,18-06-20,Yes
-OPRM,μ,Opioid,A,Mouse,cryo-EM,6DDF,6DDF_refined,3.5,R,Active,100,71,Gi/o,αi1,-,61,-,-,DAMGO PubChem Guide To Pharmacology ChEMBL_compound_ids ChEMBL_compound_ids,peptide,Agonist,-,-,18-06-13,Yes
-OPRM,μ,Opioid,A,Mouse,cryo-EM,6DDE,6DDE_refined,3.5,R,Active,100,71,Gi/o,αi1,-,61,-,Antibody,DAMGO PubChem Guide To Pharmacology ChEMBL_compound_ids ChEMBL_compound_ids,peptide,Agonist,-,-,18-06-13,Yes
-Q80KM9,US28,Unclassified,A,strain AD169,X-ray,5WB1,5WB1_refined,3.5,A,Active,99,82,-,-,-,-,-,Nanobody,-,-,-,-,-,18-06-13,Yes
-Q80KM9,US28,Unclassified,A,strain AD169,X-ray,5WB2,5WB2_refined,3.5,A,Active,99,82,-,-,-,-,-,Nanobody,CX3CL1 Guide To Pharmacology,peptide,Agonist,-,-,18-06-13,Yes
-C5AR1,C5a1,Complement peptide,A,Human,X-ray,6C1Q,-,2.9,B,Inactive,7,82,-,-,-,-,BRIL,-,PMX53 PubChem Guide To Pharmacology ChEMBL_compound_ids,peptide,Antagonist,"C5a des-Arg, C5a, ribosomal protein S19, C3a",peptide,18-05-30,Yes
-C5AR1,C5a1,Complement peptide,A,Human,X-ray,6C1R,6C1R_refined,2.2,B,Inactive,7,83,-,-,-,-,BRIL,-,PMX53 PubChem Guide To Pharmacology ChEMBL_compound_ids,peptide,Antagonist,"C5a des-Arg, C5a, ribosomal protein S19, C3a",peptide,18-05-30,Yes
-Q98SW5,SMO,Frizzled,F,African clawed frog,X-ray,6D35,6D35_refined,3.9,A,Active,87,58,-,-,-,-,BRIL,-,Cholesterol PubChem,small-molecule,Agonist,-,-,18-05-23,Yes
-Q98SW5,SMO,Frizzled,F,African clawed frog,X-ray,6D32,6D32_refined,3.8,A,Active,87,58,-,-,-,-,BRIL,-,cyclopamine PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Agonist (partial),-,-,18-05-23,Yes
-AA2AR,A2A,Adenosine,A,Human,cryo-EM,6GDG,6GDG_refined,4.1,A,Active,100,64,Gs,αs,-,57,TrxA,Nanobody-35,NECA PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology,small-molecule,Agonist,adenosine,small-molecule,18-05-16,Yes
-FFAR1,FFA1,Free fatty acid,A,Human,X-ray,5KW2,5KW2_refined,2.8,A,Intermediate,50,82,-,-,-,-,T4-Lysozyme,-,"(3~{S})-3-cyclopropyl-3-[2-[1-[2-[2,2-dimethylpropyl-(6-methylpyridin-2-yl)carbamoyl]-5-methoxy-phenyl]piperidin-4-yl]-1-benzofuran-6-yl]propanoic acid PubChem",small-molecule,Allosteric agonist,"myristic acid, α-linolenic acid, oleic acid, docosahexaenoic acid",small-molecule,18-05-02,Yes
-NPY1R,Y1,Neuropeptide Y,A,Human,X-ray,5ZBQ,5ZBQ_refined,2.7,A,Inactive,1,80,-,-,-,-,T4-Lysozyme,-,CHEMBL3747822 ChEMBL_compound_ids ChEMBL_compound_ids ChEMBL_compound_ids PubChem,small-molecule,Antagonist,"peptide YY, neuropeptide Y, pancreatic polypeptide",peptide,18-04-25,Yes
-NPY1R,Y1,Neuropeptide Y,A,Human,X-ray,5ZBH,5ZBH_refined,3,A,Inactive,1,78,-,-,-,-,T4-Lysozyme,-,BMS-193885 PubChem,small-molecule,Antagonist,"peptide YY, neuropeptide Y, pancreatic polypeptide",peptide,18-04-25,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,6FK8,6FK8_refined,2.9,A,Active,99,94,-,-,-,-,-,-,"(2~{R},3~{S})-3-azanyl-2-(4-chlorophenyl)-1-spiro[1,3-benzodioxole-2,4'-piperidine]-1'-yl-butan-1-one PubChem",small-molecule,Agonist,-,-,18-04-04,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,6FKC,6FKC_refined,2.5,A,Active,99,94,-,-,-,-,-,-,"3-[1'-[(2~{S})-2-(4-chlorophenyl)-3-methyl-butanoyl]spiro[1,3-benzodioxole-2,4'-piperidine]-5-yl]propanoic acid PubChem",small-molecule,Agonist,-,-,18-04-04,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,6FK6,6FK6_refined,2.4,A,Active,99,94,-,-,-,-,-,-,COMPOUND SUMMARY PubChem,small-molecule,Agonist,-,-,18-04-04,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,6FK9,6FK9_refined,2.6,A,Active,99,94,-,-,-,-,-,-,"(2~{S})-3-methyl-2-phenyl-1-spiro[1,3-benzodioxole-2,4'-piperidine]-1'-yl-butan-1-one PubChem",small-molecule,Agonist,-,-,18-04-04,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,6FKD,6FKD_refined,2.5,A,Active,99,94,-,-,-,-,-,-,"5-chloro-2-(2-oxo-2-spiro[1,3-benzodioxole-2,4'-piperidine]-1'-ylethyl)-3H-pyridin-6-one PubChem",small-molecule,Agonist,-,-,18-04-04,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,6FK7,6FK7_refined,2.6,A,Active,99,94,-,-,-,-,-,-,"(2~{S})-2-(4-chlorophenyl)-3-methyl-1-spiro[1,3-benzodioxole-2,4'-piperidine]-1'-yl-butan-1-one PubChem",small-molecule,Agonist,-,-,18-04-04,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,6FKA,6FKA_refined,2.7,A,Active,99,94,-,-,-,-,-,-,"(2~{S})-2-(3,4-dichlorophenyl)-3-methyl-1-spiro[1,3-benzodioxole-2,4'-piperidine]-1'-yl-butan-1-one PubChem",small-molecule,Agonist,-,-,18-04-04,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,6FKB,6FKB_refined,3,A,Active,99,94,-,-,-,-,-,-,"2-(4-Chlorophenyl)-1-spiro[1,3-benzodioxole-2,4'-piperidine]-1'-yl-ethanone PubChem",small-molecule,Agonist,-,-,18-04-04,Yes
-DRD2,D2,Dopamine,A,Human,X-ray,6CM4,6CM4_refined,2.9,A,Inactive,1,59,-,-,-,-,T4-Lysozyme,-,risperidone PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Inverse agonist,dopamine,small-molecule,18-03-14,Yes
-GRM5,mGlu5,Metabotropic glutamate,C,Human,X-ray,6FFH,6FFH_refined,2.7,A,Inactive,20,21,-,-,-,-,T4-Lysozyme,-,fenobam PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Guide To Pharmacology PubChem PubChem PubChem,small-molecule,NAM,L-glutamic acid,small-molecule,18-03-07,Yes
-GRM5,mGlu5,Metabotropic glutamate,C,Human,X-ray,6FFI,-,2.2,A,Inactive,20,20,-,-,-,-,T4-Lysozyme,-,methoxy-MPEP PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology,small-molecule,NAM,L-glutamic acid,small-molecule,18-03-07,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5WF6,5WF6_refined,2.9,A,Active,73,68,-,-,-,-,T4-Lysozyme,-,"UK-432,097 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank",small-molecule,Agonist,adenosine,small-molecule,18-02-21,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5WF5,5WF5_refined,2.6,A,Active,73,69,-,-,-,-,T4-Lysozyme,-,"UK-432,097 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank",small-molecule,Agonist,adenosine,small-molecule,18-02-21,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,cryo-EM,6B3J,6B3J_refined,3.3,R,Active,100,82,Gs,αs,-,49,-,-,Exendin-P5,peptide,Agonist,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,18-02-21,Yes
-5HT2C,5-HT2C,5-Hydroxytryptamine,A,Human,X-ray,6BQH,6BQH_refined,2.7,A,Inactive,1,63,-,-,-,-,BRIL,-,ritanserin PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Inverse agonist,5-hydroxytryptamine,small-molecule,18-02-14,Yes
-5HT2C,5-HT2C,5-Hydroxytryptamine,A,Human,X-ray,6BQG,6BQG_refined,3,A,Active,90,62,-,-,-,-,BRIL,-,ergotamine PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,5-hydroxytryptamine,small-molecule,18-02-14,Yes
-5HT1B,5-HT1B,5-Hydroxytryptamine,A,Human,X-ray,5V54,5V54_refined,3.9,A,Inactive,83,71,-,-,-,-,BRIL,-,CHEMBL428892 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,"5-HT-moduline, tryptamine, 5-hydroxytryptamine",small-molecule,18-02-07,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5OLH,5OLH_refined,2.6,A,Inactive,1,72,-,-,-,-,BRIL,-,vipadenant PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,18-01-17,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5OM1,5OM1_refined,2.1,A,Inactive,1,72,-,-,-,-,BRIL,-,CHEMBL2024114 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,adenosine,small-molecule,18-01-17,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5OLG,5OLG_refined,1.9,A,Inactive,1,72,-,-,-,-,BRIL,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,18-01-17,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5OLZ,5OLZ_refined,1.9,A,Inactive,1,72,-,-,-,-,BRIL,-,CHEMBL2024114 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,adenosine,small-molecule,18-01-17,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5OLV,5OLV_refined,2,A,Inactive,1,72,-,-,-,-,BRIL,-,CHEMBL1671936 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,adenosine,small-molecule,18-01-17,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5OLO,5OLO_refined,3.1,A,Inactive,1,72,-,-,-,-,BRIL,-,tozadenant PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,18-01-17,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5OM4,5OM4_refined,2,A,Inactive,1,72,-,-,-,-,BRIL,-,CHEMBL2024114 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,adenosine,small-molecule,18-01-17,Yes
-GLR,glucagon,Glucagon,B1,Human,X-ray,5YQZ,5YQZ_refined,3,R,Inactive,3,83,-,-,-,-,T4-Lysozyme,-,NNC1702 Guide To Pharmacology,peptide,Agonist (partial),glucagon,peptide,18-01-17,Yes
-OPRK,κ,Opioid,A,Human,X-ray,6B73,6B73_refined,3.1,A,Active,99,73,-,-,-,-,BRIL,Nanobody,MP1104 PubChem,small-molecule,Agonist,"big dynorphin, α-neoendorphin, dynorphin B, dynorphin A-(1-8), β-neoendorphin, dynorphin A, β-endorphin, dynorphin A-(1-13)",peptide,18-01-17,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,6AQF,6AQF_refined,2.5,A,Inactive,1,72,-,-,-,-,BRIL,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,18-01-10,Yes
-C5AR1,C5a1,Complement peptide,A,Human,X-ray,5O9H,5O9H_refined,2.7,A,Inactive,7,84,-,-,-,-,-,-,NDT9513727 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"C5a des-Arg, C5a, ribosomal protein S19, C3a",peptide,18-01-10,Yes
-Q9WTK1,BLT1,Leukotriene,A,Guinea pig,X-ray,5X33,5X33_refined,3.7,A,Inactive,5,78,-,-,-,-,T4-Lysozyme,-,BIIL 260 PubChem Guide To Pharmacology,small-molecule,Antagonist,-,-,18-01-03,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5VRA,5VRA_refined,2.4,A,Inactive,1,72,-,-,-,-,BRIL,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,17-12-13,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,5WKT,5WKT_refined,3.2,A,Active,100,94,Gi/o,αt1,Only H5,3,-,-,B-Octylglucoside PubChem,small-molecule,unknown,-,-,17-12-13,Yes
-OX2R,OX2,Orexin,A,Human,X-ray,5WS3,5WS3_refined,2.3,A,Inactive,1,70,-,-,-,-,Glycogen synthase,-,EMPA PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"orexin-B, orexin-A",peptide,17-12-13,Yes
-OX2R,OX2,Orexin,A,Human,X-ray,5WQC,5WQC_refined,2,A,Inactive,1,68,-,-,-,-,Glycogen synthase,-,EMPA PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"orexin-B, orexin-A",peptide,17-11-29,Yes
-DRD4,D4,Dopamine,A,Human,X-ray,5WIU,5WIU_refined,2,A,Inactive,1,58,-,-,-,-,BRIL,-,[3H]NEMONAPRIDE ChEMBL_compound_ids PubChem,small-molecule,Antagonist,dopamine,small-molecule,17-10-18,Yes
-DRD4,D4,Dopamine,A,Human,X-ray,5WIV,5WIV_refined,2.1,A,Inactive,1,58,-,-,-,-,BRIL,-,[3H]NEMONAPRIDE ChEMBL_compound_ids PubChem,small-molecule,Antagonist,dopamine,small-molecule,17-10-18,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5NM4,5NM4_refined,1.7,A,Inactive,1,73,-,-,-,-,BRIL,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,17-09-27,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5NLX,5NLX_refined,2.1,A,Inactive,1,73,-,-,-,-,BRIL,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,17-09-27,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5NM2,5NM2_refined,2,A,Inactive,1,72,-,-,-,-,BRIL,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,17-09-27,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,5X7D,5X7D_refined,2.7,A,Inactive,0,68,-,-,-,-,T4-Lysozyme,-,4-carbamoyl-N-[(2R)-2-cyclohexyl-2-phenylacetyl]-L-phenylalanyl-3-bromo-N-methyl-L-phenylalaninamide PubChem,small-molecule,Allosteric antagonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,17-08-16,Yes
-EDNRB,ETB,Endothelin,A,Human,X-ray,5X93,5X93_refined,2.2,A,Inactive,5,71,-,-,-,-,T4-Lysozyme,-,K-8794 PubChem Guide To Pharmacology,small-molecule,Antagonist,"endothelin-3, endothelin-2, endothelin-1",peptide,17-08-16,Yes
-EDNRB,ETB,Endothelin,A,Human,X-ray,5XPR,5XPR_refined,3.6,A,Inactive,5,69,-,-,-,-,T4-Lysozyme,-,-,-,-,"endothelin-3, endothelin-2, endothelin-1",peptide,17-08-16,Yes
-Q08BG4,LPA6,Lysophospholipid (LPA),A,Zebrafish,X-ray,5XSZ,5XSZ_refined,3.2,A,Intermediate,39,78,-,-,-,-,T4-Lysozyme,-,-,-,-,-,-,17-08-16,Yes
-OPSD,Rhodopsin,Opsins,A,Human,X-ray,5W0P,5W0P_refined,3,D,Active,99,93,Visual,S-arrestin,-,90,T4-Lysozyme,-,Apo (no ligand),none,Apo (no ligand),-,-,17-08-09,Yes
-5HT2B,5-HT2B,5-Hydroxytryptamine,A,Human,X-ray,5TUD,5TUD_refined,3,D,Active,90,58,-,-,-,-,BRIL,Antibody,ergotamine PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,5-hydroxytryptamine,small-molecule,17-07-26,Yes
-AA1R,A1,Adenosine,A,Human,X-ray,5N2S,5N2S_refined,3.3,A,Inactive,1,86,-,-,-,-,BRIL,-,PSB36 PubChem,small-molecule,Agonist,adenosine,small-molecule,17-07-26,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5N2R,5N2R_refined,2.8,A,Inactive,1,71,-,-,-,-,BRIL,-,PSB36 PubChem,small-molecule,Antagonist,adenosine,small-molecule,17-07-26,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5MZJ,5MZJ_refined,2,A,Inactive,1,71,-,-,-,-,BRIL,-,theophylline PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Antagonist,adenosine,small-molecule,17-07-26,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5MZP,5MZP_refined,2.1,A,Inactive,1,71,-,-,-,-,BRIL,-,caffeine PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Antagonist,adenosine,small-molecule,17-07-26,Yes
-CNR1,CB1,Cannabinoid,A,Human,X-ray,5XRA,5XRA_refined,2.8,A,Active,96,60,-,-,-,-,Flavodoxin,-,AM11542 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Agonist,"anandamide, 2-arachidonoylglycerol",small-molecule,17-07-12,Yes
-CNR1,CB1,Cannabinoid,A,Human,X-ray,5XR8,5XR8_refined,3,A,Active,96,60,-,-,-,-,Flavodoxin,-,AM841 PubChem Guide To Pharmacology,small-molecule,Agonist,"anandamide, 2-arachidonoylglycerol",small-molecule,17-07-12,Yes
-CCR5,CCR5,Chemokine,A,Human,X-ray,5UIW,5UIW_refined,2.2,A,Inactive,14,85,-,-,-,-,Rubredoxin,-,5P7-CCL5,protein,Antagonist,"CCL5, CCL8, CCL2, CCL16, CCL4, CCL3, CCL14, CCL11, CCL13, CCL7",peptide,17-06-28,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,X-ray,5NX2,5NX2_refined,3.7,A,Intermediate,31,84,-,-,-,-,-,-,Truncated protein agonist,peptide,Agonist,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,17-06-14,Yes
-FFAR1,FFA1,Free fatty acid,A,Human,X-ray,5TZY,5TZY_refined,3.2,A,Intermediate,50,91,-,-,-,-,T4-Lysozyme,-,MK-8666 PubChem,small-molecule,Agonist,"myristic acid, α-linolenic acid, oleic acid, docosahexaenoic acid",small-molecule,17-06-07,Yes
-FFAR1,FFA1,Free fatty acid,A,Human,X-ray,5TZR,5TZR_refined,2.2,A,Intermediate,50,91,-,-,-,-,T4-Lysozyme,-,MK-8666 PubChem,small-molecule,Agonist,"myristic acid, α-linolenic acid, oleic acid, docosahexaenoic acid",small-molecule,17-06-07,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5JTB,5JTB_refined,2.8,A,Inactive,1,72,-,-,-,-,BRIL,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,17-05-31,Yes
-APJ,apelin,Apelin,A,Human,X-ray,5VBL,5VBL_refined,2.6,B,Inactive,5,79,-,-,-,-,Rubredoxin,-,AMG3054 Guide To Pharmacology,peptide,Agonist,"apelin-36, apelin-17, apelin-13, Elabela/Toddler-11, [Pyr1]apelin-13, Elabela/Toddler-21, Elabela/Toddler-32, apelin receptor early endogenous ligand",peptide,17-05-31,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5UVI,5UVI_refined,3.2,A,Inactive,1,72,-,-,-,-,BRIL,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,17-05-24,Yes
-G1SGD4,GLP-1,Glucagon,B1,Rabbit,cryo-EM,5VAI,5VAI_refined,4.1,R,Active,100,84,Gs,αs,-,59,-,-,GLP-1 PubChem PubChem ChEMBL_compound_ids,small-molecule,Agonist,-,-,17-05-24,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,X-ray,5VEW,5VEW_refined,2.7,A,Inactive,0,57,-,-,-,-,T4-Lysozyme,-,PF-06372222 PubChem,small-molecule,NAM,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,17-05-24,Yes
-GLR,glucagon,Glucagon,B1,Human,X-ray,5XF1,5XF1_refined,3.2,B,Inactive,0,81,-,-,-,-,T4-Lysozyme,Antibody,NNC0640 PubChem Guide To Pharmacology,small-molecule,NAM,glucagon,peptide,17-05-24,Yes
-GLR,glucagon,Glucagon,B1,Human,X-ray,5XEZ,5XEZ_refined,3,B,Inactive,0,82,-,-,-,-,T4-Lysozyme,Antibody,NNC0640 PubChem Guide To Pharmacology,small-molecule,NAM,glucagon,peptide,17-05-24,Yes
-SMO,SMO,Frizzled,F,Human,X-ray,5V57,5V57_refined,3,A,Inactive,1,62,-,-,-,-,Flavodoxin,-,N-methyl-N-[1-[4-(2-methylpyrazol-3-yl)phthalazin-1-yl]piperidin-4-yl]-4-nitro-2-(trifluoromethyl)benzamide PubChem,small-molecule,Antagonist,-,-,17-05-24,Yes
-SMO,SMO,Frizzled,F,Human,X-ray,5V56,5V56_refined,2.9,B,Inactive,1,61,-,-,-,-,Flavodoxin,-,N-methyl-N-[1-[4-(2-methylpyrazol-3-yl)phthalazin-1-yl]piperidin-4-yl]-4-nitro-2-(trifluoromethyl)benzamide PubChem,small-molecule,Antagonist,-,-,17-05-24,Yes
-GLP1R,GLP-1,Glucagon,B1,Human,X-ray,5VEX,5VEX_refined,3,B,Inactive,0,57,-,-,-,-,T4-Lysozyme,-,NNC0640 PubChem Guide To Pharmacology,small-molecule,NAM,"glucagon-like peptide 1-(7-36) amide, glucagon-like peptide 1-(7-37), glucagon",peptide,17-05-17,Yes
-CALCR,CT,Calcitonin,B1,Human,cryo-EM,5UZ7,5UZ7_refined,4.1,R,Active,100,56,Gs,αs,-,47,-,-,-,-,-,"amylin, α-CGRP, adrenomedullin, calcitonin, adrenomedullin 2/intermedin, calcitonin (salmon), β-CGRP",peptide,17-05-03,Yes
-PAR2,PAR2,Proteinase-activated,A,Human,X-ray,5NDZ,5NDZ_refined,3.6,A,Intermediate,39,74,-,-,-,-,BRIL,-,AZ3451 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Allosteric antagonist,-,-,17-05-03,Yes
-PAR2,PAR2,Proteinase-activated,A,Human,X-ray,5NDD,5NDD_refined,2.8,A,Intermediate,39,74,-,-,-,-,BRIL,-,AZ8838 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,-,-,17-05-03,Yes
-PAR2,PAR2,Proteinase-activated,A,Human,X-ray,5NJ6,5NJ6_refined,4,A,Intermediate,39,74,-,-,-,-,BRIL,Fab3949,-,-,-,-,-,17-05-03,Yes
-AGTR2,AT2,Angiotensin,A,Human,X-ray,5UNH,5UNH_refined,2.9,B,Active,99,75,-,-,-,-,BRIL,-,compound 2 [PMID: 28379944] PubChem Guide To Pharmacology,small-molecule,Antagonist,"angiotensin-(1-7), angiotensin II, angiotensin III",peptide,17-04-05,Yes
-AGTR2,AT2,Angiotensin,A,Human,X-ray,5UNF,5UNF_refined,2.8,A,Active,99,79,-,-,-,-,BRIL,-,compound 1 [PMID: 28379944] PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"angiotensin-(1-7), angiotensin II, angiotensin III",peptide,17-04-05,Yes
-AGTR2,AT2,Angiotensin,A,Human,X-ray,5UNG,5UNG_refined,2.8,B,Active,99,83,-,-,-,-,BRIL,-,compound 1 [PMID: 28379944] PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"angiotensin-(1-7), angiotensin II, angiotensin III",peptide,17-04-05,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,5TE5,5TE5_refined,4,A,Inactive,24,100,-,-,-,-,-,-,"10,20-Methanoretinal PubChem",small-molecule,Agonist,-,-,17-03-15,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,5TE3,5TE3_refined,2.7,A,Active,99,94,-,-,-,-,-,-,B-Octylglucoside PubChem,small-molecule,unknown,-,-,17-03-15,Yes
-AA1R,A1,Adenosine,A,Human,X-ray,5UEN,5UEN_refined,3.2,B,Inactive,1,91,-,-,-,-,BRIL,-,DU172 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,adenosine,small-molecule,17-03-01,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5UIG,5UIG_refined,3.5,A,Inactive,17,70,-,-,-,-,BRIL,-,"5-Amino-N-[(2-Methoxyphenyl)methyl]-2-(3-Methylphenyl)-2h-1,2,3-Triazole-4-Carboximidamide PubChem",small-molecule,Antagonist,adenosine,small-molecule,17-02-08,Yes
-5HT2B,5-HT2B,5-Hydroxytryptamine,A,Human,X-ray,5TVN,5TVN_refined,2.9,A,Intermediate,39,61,-,-,-,-,BRIL,-,Lysergide PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,5-hydroxytryptamine,small-molecule,17-02-01,Yes
-NTR1,NTS1,Neurotensin,A,Rat,X-ray,5T04,5T04_refined,3.3,A,Active,84,69,-,-,-,-,T4-Lysozyme,-,neurotensin PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology Guide To Pharmacology,peptide,Agonist,"neuromedin N, neurotensin",peptide,16-12-21,Yes
-CCR2,CCR2,Chemokine,A,Human,X-ray,5T1A,5T1A_refined,2.8,A,Inactive,14,76,-,-,-,-,T4-Lysozyme,-,CCR2-RA-[R] PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Allosteric antagonist,"CCL8, CCL2, CCL16, CCL24, CCL26, CCL11, CCL13, CCL7",peptide,16-12-14,Yes
-CCR9,CCR9,Chemokine,A,Human,X-ray,5LWE,-,2.8,B,Inactive,57,67,-,-,-,-,-,-,vercirnon PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Allosteric antagonist,CCL25,peptide,16-12-07,Yes
-CNR1,CB1,Cannabinoid,A,Human,X-ray,5U09,5U09_refined,2.6,A,Inactive,8,60,-,-,-,-,Glycogen synthase,-,taranabant PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Inverse agonist,"anandamide, 2-arachidonoylglycerol",small-molecule,16-12-07,Yes
-CNR1,CB1,Cannabinoid,A,Human,X-ray,5TGZ,5TGZ_refined,2.8,A,Inactive,8,61,-,-,-,-,Flavodoxin,-,AM6538 PubChem Guide To Pharmacology,small-molecule,Antagonist,"anandamide, 2-arachidonoylglycerol",small-molecule,16-11-02,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5K2C,5K2C_refined,1.9,A,Inactive,1,72,-,-,-,-,BRIL,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,16-09-21,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5K2B,5K2B_refined,2.5,A,Inactive,1,72,-,-,-,-,BRIL,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,16-09-21,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5K2A,5K2A_refined,2.5,A,Inactive,1,72,-,-,-,-,BRIL,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,16-09-21,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5K2D,5K2D_refined,1.9,A,Inactive,1,72,-,-,-,-,BRIL,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,16-09-21,Yes
-EDNRB,ETB,Endothelin,A,Human,X-ray,5GLI,5GLI_refined,2.5,A,Inactive,5,71,-,-,-,-,T4-Lysozyme,-,Apo (no ligand),none,Apo (no ligand),"endothelin-3, endothelin-2, endothelin-1",peptide,16-09-07,Yes
-EDNRB,ETB,Endothelin,A,Human,X-ray,5GLH,5GLH_refined,2.8,A,Inactive,14,66,-,-,-,-,T4-Lysozyme,-,ENDOTHELIN ChEMBL_compound_ids PubChem,protein,Agonist,"endothelin-3, endothelin-2, endothelin-1",peptide,16-09-07,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,5D6L,5D6L_refined,3.2,A,Inactive,0,68,-,-,-,-,T4-Lysozyme,-,Carazolol PubChem,small-molecule,Inverse agonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,16-08-17,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,5EN0,5EN0_refined,2.8,A,Active,100,94,Gi/o,αt3,Only H5,3,-,-,Retinal (all-trans) PubChem,small-molecule,Agonist,-,-,16-08-10,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,5DYS,5DYS_refined,2.3,A,Active,99,94,-,-,-,-,-,-,Retinal (all-trans) PubChem,small-molecule,Agonist,-,-,16-08-10,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5G53,5G53_refined,3.4,A,Active,100,68,Gs,αs,Engineered G protein,50,-,-,NECA PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology,small-molecule,Agonist,adenosine,small-molecule,16-08-03,Yes
-SMO,SMO,Frizzled,F,Human,X-ray,5L7I,5L7I_refined,3.3,B,Inactive,4,59,-,-,-,-,BRIL,-,vismodegib PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Antagonist,-,-,16-07-20,Yes
-SMO,SMO,Frizzled,F,Human,X-ray,5L7D,5L7D_refined,3.2,B,Inactive,4,59,-,-,-,-,BRIL,-,-,-,-,-,-,16-07-20,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,5JQH,5JQH_refined,3.2,A,Inactive,0,70,-,-,-,-,T4-Lysozyme,Nanobody,Carazolol PubChem,small-molecule,Inverse agonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,16-07-13,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5IU7,5IU7_refined,1.9,A,Inactive,1,72,-,-,-,-,BRIL,-,"2-(Furan-2-yl)-5-N-[2-(4-phenylpiperidin-1-yl)ethyl]-1H-[1,2,4]triazolo[1,5-a][1,3,5]triazin-8-ium-5,7-diamine PubChem",small-molecule,Antagonist,adenosine,small-molecule,16-06-29,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5IUB,5IUB_refined,2.1,A,Inactive,1,71,-,-,-,-,BRIL,-,CHEMBL184061 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,adenosine,small-molecule,16-06-29,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5IU4,5IU4_refined,1.7,A,Inactive,1,71,-,-,-,-,BRIL,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,16-06-29,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5IUA,5IUA_refined,2.2,A,Inactive,1,72,-,-,-,-,BRIL,-,"2-(Furan-2-yl)-5-N-[3-(4-phenylpiperazin-1-yl)propyl]-1H-[1,2,4]triazolo[1,5-a][1,3,5]triazin-8-ium-5,7-diamine PubChem",small-molecule,Antagonist,adenosine,small-molecule,16-06-29,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,5IU8,5IU8_refined,2,A,Inactive,1,71,-,-,-,-,BRIL,-,CHEMBL3934661 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,adenosine,small-molecule,16-06-29,Yes
-CRFR1,CRF1,Corticotropin-releasing factor,B1,Human,X-ray,4Z9G,-,3.2,A,Inactive,17,63,-,-,-,-,T4-Lysozyme,-,"CP 376,395 PubChem Guide To Pharmacology ChEMBL_compound_ids",small-molecule,Antagonist,"corticotrophin-releasing hormone, urocortin 1, urocortin 2",peptide,16-06-29,Yes
-GLR,glucagon,Glucagon,B1,Human,X-ray,5EE7,5EE7_refined,2.5,A,Inactive,0,54,-,-,-,-,T4-Lysozyme,-,Octaethylene glycol monoethyl ether PubChem,small-molecule,Antagonist,glucagon,peptide,16-04-20,Yes
-OPSD,Rhodopsin,Opsins,A,Human,X-ray,5DGY,5DGY_refined,7.7,A,Active,99,94,Visual,S-arrestin,-,86,T4-Lysozyme,-,Apo (no ligand),none,Apo (no ligand),-,-,16-03-23,Yes
-ACM4,M4,Acetylcholine (muscarinic),A,Human,X-ray,5DSG,5DSG_refined,2.6,B,Inactive,3,60,-,-,-,-,T4-Lysozyme,-,tiotropium PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Guide To Pharmacology,small-molecule,Antagonist,acetylcholine,small-molecule,16-03-16,Yes
-ACM1,M1,Acetylcholine (muscarinic),A,Human,X-ray,5CXV,5CXV_refined,2.7,A,Inactive,3,62,-,-,-,-,T4-Lysozyme,-,0HK PubChem,small-molecule,Antagonist,acetylcholine,small-molecule,16-03-09,Yes
-OX1R,OX1,Orexin,A,Human,X-ray,4ZJC,4ZJC_refined,2.8,A,Inactive,1,72,-,-,-,-,GlgA glycogen synthase,-,SB-674042 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"orexin-B, orexin-A",peptide,16-03-09,Yes
-OX1R,OX1,Orexin,A,Human,X-ray,4ZJ8,4ZJ8_refined,2.8,A,Inactive,1,72,-,-,-,-,GlgA glycogen synthase,-,suvorexant PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central DrugBank,small-molecule,Antagonist,"orexin-B, orexin-A",peptide,16-03-09,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,5D5A,5D5A_refined,2.5,A,Inactive,0,68,-,-,-,-,T4-Lysozyme,-,Carazolol PubChem,small-molecule,Inverse agonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,16-01-13,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,5D5B,5D5B_refined,3.8,A,Inactive,0,68,-,-,-,-,T4-Lysozyme,-,Carazolol PubChem,small-molecule,Inverse agonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,16-01-13,Yes
-ADRB1,β1,Adrenoceptors,A,Wild turkey,X-ray,5F8U,5F8U_refined,3.4,A,Inactive,0,57,-,-,-,-,-,-,(S)-Cyanopindolol PubChem,small-molecule,Antagonist,-,-,15-12-23,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,4X1H,4X1H_refined,2.3,A,Active,100,94,Gi/o,αt1,Only H5,3,-,-,B-Nonylglucoside PubChem,small-molecule,unknown,-,-,15-11-04,Yes
-OPRX,NOP,Opioid,A,Human,X-ray,5DHG,5DHG_refined,3,A,Inactive,5,76,-,-,-,-,BRIL,-,CHEMBL1783826 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,nociceptin/orphanin FQ,peptide,15-10-21,Yes
-OPRX,NOP,Opioid,A,Human,X-ray,5DHH,5DHH_refined,3,A,Inactive,5,76,-,-,-,-,BRIL,-,SB 612111 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,nociceptin/orphanin FQ,peptide,15-10-21,Yes
-AGTR1,AT1,Angiotensin,A,Human,X-ray,4ZUD,4ZUD_refined,2.8,A,Inactive,5,75,-,-,-,-,BRIL,-,OLMESARTAN ChEMBL_compound_ids PubChem,small-molecule,Inverse agonist,"angiotensin A, angiotensin IV, angiotensin II, angiotensin III",peptide,15-10-07,Yes
-ADRB1,β1,Adrenoceptors,A,Wild turkey,X-ray,5A8E,5A8E_refined,2.4,A,Inactive,0,59,-,-,-,-,-,-,7-methylcyanopindolol PubChem,small-molecule,Inverse agonist,-,-,15-09-30,Yes
-GRM5,mGlu5,Metabotropic glutamate,C,Human,X-ray,5CGC,-,3.1,A,Inactive,20,20,-,-,-,-,T4-Lysozyme,-,CHEMBL3603915 ChEMBL_compound_ids PubChem,small-molecule,NAM,L-glutamic acid,small-molecule,15-08-12,Yes
-GRM5,mGlu5,Metabotropic glutamate,C,Human,X-ray,5CGD,-,2.6,A,Inactive,20,20,-,-,-,-,T4-Lysozyme,-,CHEMBL3603923 ChEMBL_compound_ids PubChem,small-molecule,NAM,L-glutamic acid,small-molecule,15-08-12,Yes
-OPRM,μ,Opioid,A,Mouse,X-ray,5C1M,5C1M_refined,2.1,A,Active,99,74,-,-,-,-,-,Antibody,BU72 Guide To Pharmacology PubChem,small-molecule,Agonist,-,-,15-08-05,Yes
-NTR1,NTS1,Neurotensin,A,Rat,X-ray,4XEE,4XEE_refined,2.9,A,Active,84,71,-,-,-,-,T4-Lysozyme,-,neurotensin PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology Guide To Pharmacology,peptide,Agonist,"neuromedin N, neurotensin",peptide,15-07-29,Yes
-NTR1,NTS1,Neurotensin,A,Rat,X-ray,4XES,4XES_refined,2.6,A,Active,84,72,-,-,-,-,T4-Lysozyme,-,neurotensin PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology Guide To Pharmacology,peptide,Agonist,"neuromedin N, neurotensin",peptide,15-07-29,Yes
-OPSD,Rhodopsin,Opsins,A,Human,X-ray,4ZWJ,4ZWJ_refined,3.3,A,Active,99,94,Visual,S-arrestin,-,86,T4-Lysozyme,-,Apo (no ligand),none,Apo (no ligand),-,-,15-07-29,Yes
-OPSD,Rhodopsin,Opsins,A,Japanese flying squid,X-ray,4WW3,4WW3_refined,2.8,A,Inactive,14,78,-,-,-,-,-,-,Retinal (all-trans) PubChem,small-molecule,Agonist,-,-,15-06-17,Yes
-LPAR1,LPA1,Lysophospholipid (LPA),A,Human,X-ray,4Z34,4Z34_refined,3,A,Inactive,1,80,-,-,-,-,BRIL,-,ONO-9780307 PubChem Guide To Pharmacology,small-molecule,Antagonist,1-O-Oleoyl-D-glycerol 3-phosphoric acid,small-molecule,15-06-03,Yes
-LPAR1,LPA1,Lysophospholipid (LPA),A,Human,X-ray,4Z36,4Z36_refined,2.9,A,Inactive,1,79,-,-,-,-,BRIL,-,ONO-3080573 PubChem Guide To Pharmacology,small-molecule,Antagonist,1-O-Oleoyl-D-glycerol 3-phosphoric acid,small-molecule,15-06-03,Yes
-LPAR1,LPA1,Lysophospholipid (LPA),A,Human,X-ray,4Z35,4Z35_refined,2.9,A,Inactive,1,80,-,-,-,-,BRIL,-,ONO-9910539 PubChem Guide To Pharmacology,small-molecule,Antagonist,1-O-Oleoyl-D-glycerol 3-phosphoric acid,small-molecule,15-06-03,Yes
-AGTR1,AT1,Angiotensin,A,Human,X-ray,4YAY,4YAY_refined,2.9,A,Inactive,5,79,-,-,-,-,BRIL,-,ZD-7155 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"angiotensin A, angiotensin IV, angiotensin II, angiotensin III",peptide,15-04-22,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,4UHR,4UHR_refined,2.6,A,Active,73,75,-,-,-,-,-,-,CGS 21680 PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology,small-molecule,Agonist,adenosine,small-molecule,15-04-08,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,4UG2,4UG2_refined,2.6,A,Active,73,71,-,-,-,-,-,-,CGS 21680 PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology,small-molecule,Agonist,adenosine,small-molecule,15-04-08,Yes
-P2RY1,P2Y1,P2Y,A,Human,X-ray,4XNV,4XNV_refined,2.2,A,Intermediate,39,78,-,-,-,-,Rubredoxin,-,BMS compound 16 [PMID:23368907] PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,NAM,"ADP, ATP",small-molecule,15-04-01,Yes
-P2RY1,P2Y1,P2Y,A,Human,X-ray,4XNW,4XNW_refined,2.7,A,Intermediate,39,78,-,-,-,-,Rubredoxin,-,MRS2500 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"ADP, ATP",small-molecule,15-04-01,Yes
-US28,US28,Unclassified,A,strain AD169,X-ray,4XT1,4XT1_refined,2.9,A,Active,99,82,-,-,-,-,-,Nanobody,CX3CL1 Guide To Pharmacology,peptide,Agonist (partial),-,-,15-03-04,Yes
-US28,US28,Unclassified,A,strain AD169,X-ray,4XT3,4XT3_refined,3.8,A,Active,99,81,-,-,-,-,-,-,CX3CL1 Guide To Pharmacology,peptide,Agonist (partial),-,-,15-03-04,Yes
-CXCR4,CXCR4,Chemokine,A,Human,X-ray,4RWS,4RWS_refined,3.1,A,Inactive,5,78,-,-,-,-,T4-Lysozyme,-,viral macrophage inflammatory protein-II PubChem Guide To Pharmacology,peptide,Antagonist,"CXCL12δ, CXCL12α, CXCL12, CXCL12γ, CXCL12β, CXCL12φ, CXCL12ε",peptide,15-02-11,Yes
-OPRD,δ,Opioid,A,Human,X-ray,4RWA,4RWA_refined,3.3,A,Inactive,5,77,-,-,-,-,BRIL,-,DIPP-NH2,peptide,Antagonist,"endomorphin-1, dynorphin B, [Leu]enkephalin, dynorphin A-(1-8), dynorphin A, β-endorphin, dynorphin A-(1-13)",peptide,15-01-14,Yes
-OPRD,δ,Opioid,A,Human,X-ray,4RWD,4RWD_refined,2.7,A,Inactive,5,79,-,-,-,-,BRIL,-,DIPP-NH2,peptide,Antagonist,"endomorphin-1, dynorphin B, [Leu]enkephalin, dynorphin A-(1-8), dynorphin A, β-endorphin, dynorphin A-(1-13)",peptide,15-01-14,Yes
-OX2R,OX2,Orexin,A,Human,X-ray,4S0V,4S0V_refined,2.5,A,Inactive,1,64,-,-,-,-,Glycogen synthase,-,suvorexant PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central DrugBank,small-molecule,Antagonist,"orexin-B, orexin-A",peptide,15-01-14,Yes
-ACM3,M3,Acetylcholine (muscarinic),A,Rat,X-ray,4U16,4U16_refined,3.7,B,Inactive,3,47,-,-,-,-,T4-Lysozyme,-,N-methyl scopolamine PubChem Guide To Pharmacology DrugBank Guide To Pharmacology,small-molecule,Antagonist,acetylcholine,small-molecule,14-11-26,Yes
-ACM3,M3,Acetylcholine (muscarinic),A,Rat,X-ray,4U14,4U14_refined,3.6,A,Inactive,3,47,-,-,-,-,T4-Lysozyme,-,tiotropium PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Guide To Pharmacology,small-molecule,Antagonist,acetylcholine,small-molecule,14-11-26,Yes
-ACM3,M3,Acetylcholine (muscarinic),A,Rat,X-ray,4U15,4U15_refined,2.8,B,Inactive,3,47,-,-,-,-,T4-Lysozyme,-,tiotropium PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Guide To Pharmacology,small-molecule,Antagonist,acetylcholine,small-molecule,14-11-26,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,4PXF,4PXF_refined,2.8,A,Active,99,93,Visual,S-arrestin,Fragment,2,-,-,B-Octylglucoside PubChem,small-molecule,unknown,-,-,14-09-17,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,4QKX,4QKX_refined,3.3,A,Active,100,69,-,-,-,-,T4-Lysozyme,Nanobody,Q27453560 PubChem,small-molecule,Agonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,14-07-23,Yes
-SMO,SMO,Frizzled,F,Human,X-ray,4QIM,4QIM_refined,2.6,A,Inactive,8,45,-,-,-,-,BRIL,-,ANTA XV PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,-,-,14-07-23,Yes
-SMO,SMO,Frizzled,F,Human,X-ray,4QIN,4QIN_refined,2.6,A,Inactive,12,43,-,-,-,-,BRIL,-,SAG1.5 PubChem,small-molecule,Agonist,-,-,14-07-23,Yes
-FFAR1,FFA1,Free fatty acid,A,Human,X-ray,4PHU,4PHU_refined,2.3,A,Intermediate,50,90,-,-,-,-,T4-Lysozyme,-,fasiglifam PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Agonist,"myristic acid, α-linolenic acid, oleic acid, docosahexaenoic acid",small-molecule,14-07-16,Yes
-GRM5,mGlu5,Metabotropic glutamate,C,Human,X-ray,4OO9,4OO9_refined,2.6,A,Inactive,20,20,-,-,-,-,T4-Lysozyme,-,MAVOGLURANT ChEMBL_compound_ids PubChem,small-molecule,NAM,L-glutamic acid,small-molecule,14-07-02,Yes
-P2Y12,P2Y12,P2Y,A,Human,X-ray,4PXZ,4PXZ_refined,2.5,A,Intermediate,39,84,-,-,-,-,BRIL,-,2MeSADP PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology,small-molecule,Agonist,"ADP, ATP",small-molecule,14-04-30,Yes
-P2Y12,P2Y12,P2Y,A,Human,X-ray,4PY0,4PY0_refined,3.1,A,Intermediate,39,83,-,-,-,-,BRIL,-,2MeSATP PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Agonist (partial),"ADP, ATP",small-molecule,14-04-30,Yes
-ADRB1,β1,Adrenoceptors,A,Wild turkey,X-ray,4BVN,4BVN_refined,2.1,A,Inactive,0,60,-,-,-,-,-,-,(S)-Cyanopindolol PubChem,small-molecule,Antagonist,-,-,14-04-02,Yes
-P2Y12,P2Y12,P2Y,A,Human,X-ray,4NTJ,4NTJ_refined,2.6,A,Intermediate,39,78,-,-,-,-,BRIL,-,AZD1283 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"ADP, ATP",small-molecule,14-03-26,Yes
-GRM1,mGlu1,Metabotropic glutamate,C,Human,X-ray,4OR2,4OR2_refined,2.8,B,Inactive,21,22,-,-,-,-,BRIL,-,FITM PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,NAM,L-glutamic acid,small-molecule,14-03-19,Yes
-SMO,SMO,Frizzled,F,Human,X-ray,4O9R,4O9R_refined,3.2,A,Inactive,12,42,-,-,-,-,BRIL,-,cyclopamine PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,-,-,14-03-05,Yes
-NTR1,NTS1,Neurotensin,A,Rat,X-ray,4BV0,-,3.1,A,Inactive,2,70,-,-,-,-,-,-,neurotensin PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology Guide To Pharmacology,peptide,Agonist,"neuromedin N, neurotensin",peptide,14-01-29,No
-NTR1,NTS1,Neurotensin,A,Rat,X-ray,4BWB,-,3.6,A,Inactive,2,72,-,-,-,-,-,-,neurotensin PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology Guide To Pharmacology,peptide,Agonist,"neuromedin N, neurotensin",peptide,14-01-29,No
-NTR1,NTS1,Neurotensin,A,Rat,X-ray,3ZEV,-,3,A,Inactive,2,72,-,-,-,-,-,-,neurotensin PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology Guide To Pharmacology,peptide,Agonist,"neuromedin N, neurotensin",peptide,14-01-29,No
-NTR1,NTS1,Neurotensin,A,Rat,X-ray,4BUO,4BUO_refined,2.8,A,Inactive,2,72,-,-,-,-,-,-,neurotensin PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology Guide To Pharmacology,peptide,Agonist,"neuromedin N, neurotensin",peptide,14-01-29,Yes
-SMO,SMO,Frizzled,F,Human,X-ray,4N4W,4N4W_refined,2.8,A,Inactive,0,44,-,-,-,-,BRIL,-,SANT-1 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,-,-,14-01-22,Yes
-OPRD,δ,Opioid,A,Human,X-ray,4N6H,4N6H_refined,1.8,A,Inactive,5,81,-,-,-,-,BRIL,-,naltrindole PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology,small-molecule,Antagonist,"endomorphin-1, dynorphin B, [Leu]enkephalin, dynorphin A-(1-8), dynorphin A, β-endorphin, dynorphin A-(1-13)",peptide,13-12-25,Yes
-5HT2B,5-HT2B,5-Hydroxytryptamine,A,Human,X-ray,4NC3,4NC3_refined,2.8,A,Intermediate,39,60,-,-,-,-,BRIL,-,ergotamine PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,5-hydroxytryptamine,small-molecule,13-12-18,Yes
-ACM2,M2,Acetylcholine (muscarinic),A,Human,X-ray,4MQS,4MQS_refined,3.5,A,Active,100,59,-,-,-,-,-,Nanobody,iperoxo PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Agonist,acetylcholine,small-molecule,13-11-27,Yes
-ACM2,M2,Acetylcholine (muscarinic),A,Human,X-ray,4MQT,4MQT_refined,3.7,A,Active,100,59,-,-,-,-,-,Nanobody,iperoxo PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Agonist,acetylcholine,small-molecule,13-11-27,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,4J4Q,4J4Q_refined,2.7,A,Active,100,94,Gi/o,αt1,Only H5,3,-,-,B-Octylglucoside PubChem,small-molecule,unknown,-,-,13-10-30,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,4LDE,4LDE_refined,2.8,A,Active,100,69,-,-,-,-,T4-Lysozyme,Nanobody,BI-167107 PubChem,small-molecule,Agonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,13-09-25,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,4LDL,4LDL_refined,3.1,A,Active,100,69,-,-,-,-,T4-Lysozyme,Nanobody,hydroxybenzylisoproterenol PubChem,small-molecule,Agonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,13-09-25,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,4LDO,4LDO_refined,3.2,A,Active,100,69,-,-,-,-,T4-Lysozyme,Nanobody,(-)-adrenaline PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central PubChem,small-molecule,Agonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,13-09-25,Yes
-CCR5,CCR5,Chemokine,A,Human,X-ray,4MBS,4MBS_refined,2.7,A,Inactive,14,83,-,-,-,-,Rubredoxin,-,maraviroc PubChem Guide To Pharmacology DrugBank ChEMBL_compound_ids Guide To Pharmacology,small-molecule,Antagonist,"CCL5, CCL8, CCL2, CCL16, CCL4, CCL3, CCL14, CCL11, CCL13, CCL7",peptide,13-09-11,Yes
-GLR,glucagon,Glucagon,B1,Human,X-ray,4L6R,4L6R_refined,3.3,A,Inactive,5,61,-,-,-,-,BRIL,-,-,-,-,glucagon,peptide,13-07-24,Yes
-CRFR1,CRF1,Corticotropin-releasing factor,B1,Human,X-ray,4K5Y,4K5Y_refined,3,C,Inactive,17,60,-,-,-,-,T4-Lysozyme,-,"CP 376,395 PubChem Guide To Pharmacology ChEMBL_compound_ids",small-molecule,Antagonist,"corticotrophin-releasing hormone, urocortin 1, urocortin 2",peptide,13-07-17,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,4BEY,4BEY_refined,2.9,A,Active,100,94,Gi/o,αt1,Only H5,3,-,-,Apo (no ligand),none,Apo (no ligand),-,-,13-05-08,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,4BEZ,-,3.3,A,Active,99,94,-,-,-,-,-,-,Apo (no ligand),none,Apo (no ligand),-,-,13-04-24,No
-SMO,SMO,Frizzled,F,Human,X-ray,4JKV,4JKV_refined,2.5,A,Inactive,0,44,-,-,-,-,BRIL,-,taladegib PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,-,-,13-04-24,Yes
-ADRB1,β1,Adrenoceptors,A,Wild turkey,X-ray,3ZPQ,3ZPQ_refined,2.8,B,Inactive,0,62,-,-,-,-,-,-,CHEMBL200234 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,-,-,13-04-03,Yes
-ADRB1,β1,Adrenoceptors,A,Wild turkey,X-ray,3ZPR,3ZPR_refined,2.7,B,Inactive,0,61,-,-,-,-,-,-,CHEMBL1559535 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,-,-,13-04-03,Yes
-5HT1B,5-HT1B,5-Hydroxytryptamine,A,Human,X-ray,4IAQ,4IAQ_refined,2.8,A,Inactive,83,70,-,-,-,-,BRIL,-,dihydroergotamine PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,"5-HT-moduline, tryptamine, 5-hydroxytryptamine",small-molecule,13-03-13,Yes
-5HT1B,5-HT1B,5-Hydroxytryptamine,A,Human,X-ray,4IAR,4IAR_refined,2.7,A,Inactive,83,70,-,-,-,-,BRIL,-,ergotamine PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,"5-HT-moduline, tryptamine, 5-hydroxytryptamine",small-molecule,13-03-13,Yes
-5HT2B,5-HT2B,5-Hydroxytryptamine,A,Human,X-ray,4IB4,4IB4_refined,2.7,A,Intermediate,39,59,-,-,-,-,BRIL,-,ergotamine PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,5-hydroxytryptamine,small-molecule,13-03-13,Yes
-ADRB1,β1,Adrenoceptors,A,Wild turkey,X-ray,4GPO,4GPO_refined,3.5,B,Inactive,0,58,-,-,-,-,-,-,-,-,-,-,-,13-02-27,Yes
-PAR1,PAR1,Proteinase-activated,A,Human,X-ray,3VW7,3VW7_refined,2.2,A,Intermediate,39,66,-,-,-,-,T4-Lysozyme,-,vorapaxar PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central DrugBank,small-molecule,Antagonist,thrombin,peptide,12-12-12,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,4GBR,4GBR_refined,4,A,Inactive,0,69,-,-,-,-,T4-Lysozyme,-,Carazolol PubChem,small-molecule,Inverse agonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,12-10-24,Yes
-NTR1,NTS1,Neurotensin,A,Rat,X-ray,4GRV,4GRV_refined,2.8,A,Active,84,69,-,-,-,-,T4-Lysozyme,-,JMV431 Guide To Pharmacology ChEMBL_compound_ids PubChem,peptide,Agonist,"neuromedin N, neurotensin",peptide,12-10-17,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,4EIY,4EIY_refined,1.8,A,Inactive,1,72,-,-,-,-,BRIL,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,12-07-25,Yes
-ADRB1,β1,Adrenoceptors,A,Wild turkey,X-ray,4AMI,4AMI_refined,3.2,A,Inactive,0,58,-,-,-,-,-,-,Bucindolol PubChem,small-molecule,Agonist,-,-,12-05-23,Yes
-ADRB1,β1,Adrenoceptors,A,Wild turkey,X-ray,4AMJ,4AMJ_refined,2.3,B,Inactive,0,62,-,-,-,-,-,-,(S)-Carvedilol PubChem ChEMBL_compound_ids,small-molecule,Inverse agonist,-,-,12-05-23,Yes
-OPRD,δ,Opioid,A,Mouse,X-ray,4EJ4,4EJ4_refined,3.4,A,Inactive,5,76,-,-,-,-,T4-Lysozyme,-,naltrindole PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology,small-molecule,Antagonist,"β-endorphin, [Met]enkephalin, [Leu]enkephalin, α-neoendorphin",peptide,12-05-16,Yes
-OPRX,NOP,Opioid,A,Human,X-ray,4EA3,4EA3_refined,3,A,Inactive,5,75,-,-,-,-,BRIL,-,compound 24 [PMID: 16451050] PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,nociceptin/orphanin FQ,peptide,12-04-25,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,3UZA,3UZA_refined,3.3,A,Inactive,1,71,-,-,-,-,-,-,compound 4g [PMID: 22220592] PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,adenosine,small-molecule,12-03-21,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,3UZC,3UZC_refined,3.3,A,Inactive,1,71,-,-,-,-,-,-,CHEMBL2024114 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,adenosine,small-molecule,12-03-21,Yes
-OPRK,κ,Opioid,A,Human,X-ray,4DJH,4DJH_refined,2.9,A,Inactive,5,76,-,-,-,-,T4-Lysozyme,-,JDTic PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"big dynorphin, α-neoendorphin, dynorphin B, dynorphin A-(1-8), β-neoendorphin, dynorphin A, β-endorphin, dynorphin A-(1-13)",peptide,12-03-21,Yes
-OPRM,μ,Opioid,A,Mouse,X-ray,4DKL,4DKL_refined,2.8,A,Inactive,5,71,-,-,-,-,T4-Lysozyme,-,"Methyl 4-[[(4R,4aS,7R,7aR,12bS)-3-(cyclopropylmethyl)-4a,9-dihydroxy-1,2,4,5,6,7,7a,13-octahydro-4,12-methanobenzofuro[3,2-e]isoquinolin-7-yl]amino]-4-oxobutanoate PubChem",small-molecule,Antagonist,-,-,12-03-21,Yes
-ACM3,M3,Acetylcholine (muscarinic),A,Rat,X-ray,4DAJ,-,3.4,A,Inactive,3,46,-,-,-,-,T4-Lysozyme,-,tiotropium PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Guide To Pharmacology,small-molecule,Antagonist,acetylcholine,small-molecule,12-02-22,No
-S1PR1,S1P1,Lysophospholipid (S1P),A,Human,X-ray,3V2W,-,3.4,A,Inactive,1,68,-,-,-,-,T4-Lysozyme,-,W146 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"sphingosylphosphorylcholine, sphingosine 1-phosphate, dihydrosphingosine 1-phosphate",small-molecule,12-02-15,No
-S1PR1,S1P1,Lysophospholipid (S1P),A,Human,X-ray,3V2Y,3V2Y_refined,2.8,A,Inactive,1,76,-,-,-,-,T4-Lysozyme,-,W146 PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"sphingosylphosphorylcholine, sphingosine 1-phosphate, dihydrosphingosine 1-phosphate",small-molecule,12-02-15,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,3VG9,3VG9_refined,2.7,A,Inactive,1,72,-,-,-,-,-,Antibody fab fragment light chain,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,12-02-01,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,3VGA,-,3.1,A,Inactive,1,72,-,-,-,-,-,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,12-02-01,No
-ACM2,M2,Acetylcholine (muscarinic),A,Human,X-ray,3UON,3UON_refined,3,A,Inactive,3,60,-,-,-,-,T4-Lysozyme,-,CHEMBL558910 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,acetylcholine,small-molecule,12-02-01,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,4A4M,4A4M_refined,3.3,A,Active,100,94,Gi/o,αt1,Only H5,3,-,-,Retinal (all-trans) PubChem,small-molecule,Agonist,-,-,12-01-25,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,3PWH,-,3.3,A,Inactive,1,71,-,-,-,-,-,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,11-09-07,No
-AA2AR,A2A,Adenosine,A,Human,X-ray,3REY,3REY_refined,3.3,A,Inactive,1,71,-,-,-,-,-,-,xanthine amine congener PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology,small-molecule,Antagonist,adenosine,small-molecule,11-09-07,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,3RFM,3RFM_refined,3.6,A,Inactive,1,71,-,-,-,-,-,-,caffeine PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Antagonist,adenosine,small-molecule,11-09-07,Yes
-OPSD,Rhodopsin,Opsins,A,Japanese flying squid,X-ray,3AYM,-,2.8,B,Inactive,14,77,-,-,-,-,-,-,Retinal (all-trans) PubChem,small-molecule,Agonist,-,-,11-08-17,No
-OPSD,Rhodopsin,Opsins,A,Japanese flying squid,X-ray,3AYN,-,2.7,B,Inactive,14,77,-,-,-,-,-,-,Retinal (9-cis) PubChem,small-molecule,Inverse agonist,-,-,11-08-17,No
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,3SN6,3SN6_refined,3.2,R,Active,100,69,Gs,αs,-,89,T4-Lysozyme,Antibody,BI-167107 PubChem,small-molecule,Agonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,11-07-20,Yes
-HRH1,H1,Histamine,A,Human,X-ray,3RZE,3RZE_refined,3.1,A,Inactive,3,55,-,-,-,-,T4-Lysozyme,-,doxepin PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Guide To Pharmacology,small-molecule,Antagonist,histamine,small-molecule,11-06-15,Yes
-ADRB1,β1,Adrenoceptors,A,Wild turkey,X-ray,2YCY,-,3.2,A,Inactive,0,60,-,-,-,-,-,-,(S)-Cyanopindolol PubChem,small-molecule,Antagonist,-,-,11-06-08,No
-ADRB1,β1,Adrenoceptors,A,Wild turkey,X-ray,2YCW,2YCW_refined,3,A,Inactive,0,61,-,-,-,-,-,-,Carazolol PubChem,small-molecule,Antagonist,-,-,11-06-01,Yes
-ADRB1,β1,Adrenoceptors,A,Wild turkey,X-ray,2YCX,-,3.3,A,Inactive,0,59,-,-,-,-,-,-,(S)-Cyanopindolol PubChem,small-molecule,Antagonist,-,-,11-06-01,No
-ADRB1,β1,Adrenoceptors,A,Wild turkey,X-ray,2YCZ,2YCZ_refined,3.7,B,Inactive,0,60,-,-,-,-,-,-,Iodocyanopindolol PubChem,small-molecule,Antagonist,-,-,11-06-01,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,2YDO,2YDO_refined,3,A,Active,73,73,-,-,-,-,-,-,adenosine PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Agonist,adenosine,small-molecule,11-05-18,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,2YDV,2YDV_refined,2.6,A,Active,73,75,-,-,-,-,-,-,NECA PubChem Guide To Pharmacology ChEMBL_compound_ids Guide To Pharmacology,small-molecule,Agonist,adenosine,small-molecule,11-05-18,Yes
-ADRB1,β1,Adrenoceptors,A,Wild turkey,X-ray,2Y01,-,2.6,A,Inactive,0,59,-,-,-,-,-,-,Dobutamine PubChem,small-molecule,Agonist (partial),-,-,11-03-30,No
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,2X72,2X72_refined,3,A,Active,100,94,Gi/o,αt1,Only H5,3,-,-,Retinal (all-trans) PubChem,small-molecule,Agonist,-,-,11-03-16,Yes
-AA2AR,A2A,Adenosine,A,Human,X-ray,3QAK,3QAK_refined,2.7,A,Active,73,69,-,-,-,-,T4-Lysozyme,-,"UK-432,097 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank",small-molecule,Agonist,adenosine,small-molecule,11-03-09,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,3PQR,3PQR_refined,2.9,A,Active,100,94,Gi/o,αt1,Only H5,3,-,-,Retinal (all-trans) PubChem,small-molecule,Agonist,-,-,11-03-09,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,3PXO,-,3,A,Active,99,94,-,-,-,-,-,-,Retinal (all-trans) PubChem,small-molecule,Agonist,-,-,11-03-09,No
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,3P0G,3P0G_refined,3.5,A,Active,100,69,-,-,-,-,T4-Lysozyme,Nanobody,BI-167107 PubChem,small-molecule,Agonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,11-01-19,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,3OAX,-,2.6,A,Inactive,24,100,-,-,-,-,-,-,Retinal (11-cis) PubChem,small-molecule,Inverse agonist,-,-,11-01-19,No
-ADRB1,β1,Adrenoceptors,A,Wild turkey,X-ray,2Y00,2Y00_refined,2.5,B,Inactive,0,62,-,-,-,-,-,-,Dobutamine PubChem,small-molecule,Agonist (partial),-,-,11-01-12,Yes
-ADRB1,β1,Adrenoceptors,A,Wild turkey,X-ray,2Y02,2Y02_refined,2.6,B,Inactive,0,62,-,-,-,-,-,-,CARMOTEROL ChEMBL_compound_ids PubChem PubChem,small-molecule,Agonist,-,-,11-01-12,Yes
-ADRB1,β1,Adrenoceptors,A,Wild turkey,X-ray,2Y03,2Y03_refined,2.9,B,Inactive,0,62,-,-,-,-,-,-,(R)-Isoproterenol PubChem ChEMBL_compound_ids,small-molecule,Agonist,-,-,11-01-12,Yes
-ADRB1,β1,Adrenoceptors,A,Wild turkey,X-ray,2Y04,2Y04_refined,3.1,B,Inactive,0,62,-,-,-,-,-,-,levosalbutamol PubChem Guide To Pharmacology ChEMBL_compound_ids Drug Central DrugBank,small-molecule,Agonist (partial),-,-,11-01-12,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,3PDS,3PDS_refined,3.5,A,Inactive,0,68,-,-,-,-,T4-Lysozyme,-,FAUC50 PubChem,small-molecule,Agonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,11-01-12,Yes
-DRD3,D3,Dopamine,A,Human,X-ray,3PBL,3PBL_refined,2.9,A,Inactive,1,68,-,-,-,-,T4-Lysozyme,-,eticlopride PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,dopamine,small-molecule,10-11-03,Yes
-CXCR4,CXCR4,Chemokine,A,Human,X-ray,3ODU,3ODU_refined,2.5,A,Inactive,5,83,-,-,-,-,T4-Lysozyme,-,isothiourea-1t PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"CXCL12δ, CXCL12α, CXCL12, CXCL12γ, CXCL12β, CXCL12φ, CXCL12ε",peptide,10-10-27,Yes
-CXCR4,CXCR4,Chemokine,A,Human,X-ray,3OE0,3OE0_refined,2.9,A,Inactive,5,78,-,-,-,-,T4-Lysozyme,-,CVX15,peptide,Antagonist,"CXCL12δ, CXCL12α, CXCL12, CXCL12γ, CXCL12β, CXCL12φ, CXCL12ε",peptide,10-10-27,Yes
-CXCR4,CXCR4,Chemokine,A,Human,X-ray,3OE6,-,3.2,A,Inactive,5,77,-,-,-,-,T4-Lysozyme,-,isothiourea-1t PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"CXCL12δ, CXCL12α, CXCL12, CXCL12γ, CXCL12β, CXCL12φ, CXCL12ε",peptide,10-10-27,No
-CXCR4,CXCR4,Chemokine,A,Human,X-ray,3OE8,-,3.1,A,Inactive,5,76,-,-,-,-,T4-Lysozyme,-,isothiourea-1t PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"CXCL12δ, CXCL12α, CXCL12, CXCL12γ, CXCL12β, CXCL12φ, CXCL12ε",peptide,10-10-27,No
-CXCR4,CXCR4,Chemokine,A,Human,X-ray,3OE9,-,3.1,A,Inactive,5,74,-,-,-,-,T4-Lysozyme,-,isothiourea-1t PubChem Guide To Pharmacology ChEMBL_compound_ids,small-molecule,Antagonist,"CXCL12δ, CXCL12α, CXCL12, CXCL12γ, CXCL12β, CXCL12φ, CXCL12ε",peptide,10-10-27,No
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,3NY8,3NY8_refined,2.8,A,Inactive,0,67,-,-,-,-,T4-Lysozyme,-,CHEMBL1233766 ChEMBL_compound_ids PubChem,small-molecule,Inverse agonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,10-08-11,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,3NY9,3NY9_refined,2.8,A,Inactive,0,67,-,-,-,-,T4-Lysozyme,-,CHEMBL1233771 ChEMBL_compound_ids PubChem,small-molecule,Inverse agonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,10-08-11,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,3NYA,3NYA_refined,3.2,A,Inactive,0,67,-,-,-,-,T4-Lysozyme,-,CHEMBL1160734 ChEMBL_compound_ids PubChem,small-molecule,Antagonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,10-08-11,Yes
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,3KJ6,-,3.4,A,Inactive,1,54,-,-,-,-,-,Antibody,-,-,-,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,10-02-16,No
-AA2AR,A2A,Adenosine,A,Human,X-ray,3EML,-,2.6,A,Inactive,1,70,-,-,-,-,T4-Lysozyme,-,ZM-241385 PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank,small-molecule,Antagonist,adenosine,small-molecule,08-10-14,No
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,3DQB,3DQB_refined,3.2,A,Active,100,94,Gi/o,αt1,Only H5,3,-,-,Apo (no ligand),none,Apo (no ligand),-,-,08-09-23,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,3C9L,3C9L_refined,2.7,A,Inactive,24,94,-,-,-,-,-,-,Retinal (11-cis) PubChem,small-molecule,Inverse agonist,-,-,08-08-05,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,3C9M,3C9M_refined,3.4,A,Inactive,24,94,-,-,-,-,-,-,Retinal (11-cis) PubChem,small-molecule,Inverse agonist,-,-,08-08-05,Yes
-ADRB1,β1,Adrenoceptors,A,Wild turkey,X-ray,2VT4,-,2.7,B,Inactive,0,57,-,-,-,-,-,-,(S)-Cyanopindolol PubChem,small-molecule,Antagonist,-,-,08-06-24,No
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,3CAP,-,2.9,A,Active,99,94,-,-,-,-,-,-,Apo (no ligand),none,Apo (no ligand),-,-,08-06-24,No
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,3D4S,3D4S_refined,2.8,A,Inactive,0,67,-,-,-,-,T4-Lysozyme,-,timolol PubChem Guide To Pharmacology ChEMBL_compound_ids DrugBank Drug Central,small-molecule,Inverse agonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,08-06-17,Yes
-OPSD,Rhodopsin,Opsins,A,Japanese flying squid,X-ray,2Z73,2Z73_refined,2.5,A,Inactive,14,78,-,-,-,-,-,-,Retinal (11-cis) PubChem,small-molecule,Inverse agonist,-,-,08-05-13,Yes
-OPSD,Rhodopsin,Opsins,A,Japanese flying squid,X-ray,2ZIY,-,3.7,A,Inactive,14,83,-,-,-,-,-,-,Retinal (11-cis) PubChem,small-molecule,Inverse agonist,-,-,08-05-06,No
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,2R4R,-,3.4,A,Inactive,1,52,-,-,-,-,-,Antibody,-,-,-,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,07-11-06,No
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,2R4S,-,3.4,A,Inactive,1,52,-,-,-,-,-,Antibody,-,-,-,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,07-11-06,No
-ADRB2,β2,Adrenoceptors,A,Human,X-ray,2RH1,2RH1_refined,2.4,A,Inactive,0,68,-,-,-,-,T4-Lysozyme,-,Carazolol PubChem,small-molecule,Inverse agonist,"(-)-adrenaline, L-NOREPINEPHRINE, noradrenaline, (-)-noradrenaline, Zn2+",small-molecule,07-10-30,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,2PED,-,3,B,Inactive,24,100,-,-,-,-,-,-,Retinal (9-cis) PubChem,small-molecule,Inverse agonist,-,-,07-10-30,No
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,2J4Y,-,3.4,B,Inactive,24,94,-,-,-,-,-,-,Retinal (11-cis) PubChem,small-molecule,Inverse agonist,-,-,07-09-25,No
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,2I35,-,3.8,A,Inactive,24,94,-,-,-,-,-,-,Retinal (11-cis) PubChem,small-molecule,Inverse agonist,-,-,06-10-17,No
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,2I36,-,4.1,A,Inactive,24,94,-,-,-,-,-,-,Apo (no ligand),none,Apo (no ligand),-,-,06-10-17,No
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,2I37,-,4.2,A,Inactive,24,91,-,-,-,-,-,-,Apo (no ligand),none,Apo (no ligand),-,-,06-10-17,No
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,2G87,-,2.6,A,Inactive,24,100,-,-,-,-,-,-,Retinal (all-trans) PubChem,small-molecule,Agonist,-,-,06-09-02,No
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,2HPY,-,2.8,B,Inactive,24,100,-,-,-,-,-,-,Retinal (all-trans) PubChem,small-molecule,Agonist,-,-,06-08-22,No
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,1U19,1U19_refined,2.2,A,Inactive,24,100,-,-,-,-,-,-,Retinal (11-cis) PubChem,small-molecule,Inverse agonist,-,-,04-10-12,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,1GZM,1GZM_refined,2.7,A,Inactive,24,94,-,-,-,-,-,-,Retinal (11-cis) PubChem,small-molecule,Inverse agonist,-,-,03-11-20,Yes
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,1L9H,-,2.6,A,Inactive,24,98,-,-,-,-,-,-,Retinal (11-cis) PubChem,small-molecule,Inverse agonist,-,-,02-05-15,No
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,1HZX,-,2.8,A,Inactive,24,98,-,-,-,-,-,-,Retinal (11-cis) PubChem,small-molecule,Inverse agonist,-,-,01-07-04,No
-OPSD,Rhodopsin,Opsins,A,Bovine,X-ray,1F88,1F88_refined,2.8,A,Inactive,24,97,-,-,-,-,-,-,Retinal (11-cis) PubChem,small-molecule,Inverse agonist,-,-,00-08-04,Yes
+PDB,Preferred,State
+8IRS,R,Active
+8IRT,R,Active
+8IRV,R,Active
+7Y3G,R,Active
+7XXH,R,Active
+7XXI,A,Active
+8CIC,A,Inactive
+8HJ5,F,Active
+7XWO,B,Active
+8IWM,R,Active
+8IW4,R,Active
+8IW9,R,Active
+8ITF,R,Active
+8IW1,R,Active
+8IW7,R,Active
+8IWE,R,Active
+8IA8,A,Active
+8GHV,D,Active
+8EIT,R,Active
+8EJC,R,Active
+8EJK,R,Active
+7Y1F,R,Active
+7TRS,R,Active
+7TRK,R,Active
+7TRQ,R,Active
+7TRP,R,Active
+8G2Y,R,Active
+8HK3,C,Active
+8HK2,A,Active
+8HK5,A,Active
+8GUQ,R,Active
+8GUR,R,Active
+8GUS,R,Active
+8GUT,R,Active
+7XY7,R,Active
+7XY6,R,Active
+7XJJ,E,Active
+8DZR,A,Active
+8DZQ,A,Active
+8DZP,A,Active
+8DZS,A,Active
+7XKA,A,Active
+7XK9,A,Active
+8FLQ,R,Active
+8FLU,R,Active
+8FLS,R,Active
+8FLT,R,Active
+8FLR,R,Active
+7YKD,A,Active
+8G94,A,Active
+7YAC,E,Active
+7YAE,E,Active
+8FU6,R,Active
+7ZLY,A,Active
+7ZL9,A,Active
+8IBV,R,Active
+8IBU,R,Active
+7YIT,A,Active
+7YS6,A,Active
+7F6G,A,Active
+8I2G,R,Active
+8FMZ,A,Active
+8FN1,A,Active
+8FN0,A,Active
+7ZBE,A,Inactive
+8A6E,A,Inactive
+7ZBC,A,Inactive
+8A6C,A,Inactive
+8A6D,A,Inactive
+8GNE,A,Inactive
+8GNG,X,Inactive
+8HCQ,R,Active
+8HBD,R,Active
+8HCX,C,Active
+8I2H,A,Inactive
+7YON,R,Active
+7YOO,R,Active
+8F76,A,Active
+8ID3,R,Active
+8ID4,R,Active
+8ID6,R,Active
+8ID8,R,Active
+8ID9,R,Active
+8HJ2,R,Active
+8HIX,R,Active
+8HJ0,R,Active
+8FYN,A,Inactive
+8G59,R,Active
+8HS2,R,Active
+8HS3,R,Active
+8HSC,R,Active
+7Y65,D,Active
+7Y67,D,Active
+7Y64,D,Active
+7Y66,D,Active
+8HMV,A,Active
+7YK6,R,Active
+7YJ4,R,Active
+7YK7,R,Active
+7W3Z,A,Active
+7W40,A,Active
+7W41,A,Inactive
+7XK2,R,Active
+7XK8,R,Active
+7XV3,R,Active
+7TMW,R,Active
+8H8J,C,Active
+7T8X,A,Active
+7T90,A,Active
+7T94,A,Active
+7T96,A,Active
+8HDO,R,Active
+8HDP,R,Active
+8GY7,R,Active
+7XW9,R,Active
+7WCN,R,Active
+7WCM,R,Active
+8HA0,R,Active
+8HAO,R,Active
+8HAF,R,Active
+8F7S,R,Active
+8F7W,R,Active
+8F7R,R,Active
+8F7Q,R,Active
+8F7X,R,Active
+7T2G,R,Active
+7T2H,D,Active
+7U2K,D,Active
+8E9Y,A,Active
+8EA0,A,Active
+8E9W,A,Active
+8E9Z,A,Active
+8E9X,A,Active
+7XRR,A,Inactive
+8E3X,R,Active
+8E3Z,R,Active
+8E3Y,R,Active
+7X10,R,Active
+7TRY,P,Active
+7TS0,P,Active
+8EF6,R,Active
+8EFL,R,Active
+8EFQ,R,Active
+8EF5,R,Active
+8EFB,R,Active
+8EFO,R,Active
+8DWG,R,Active
+8DWC,R,Active
+8DWH,R,Active
+7PP1,A,Intermediate
+7WY5,R,Active
+7WYB,R,Active
+7WY8,R,Active
+7WZ4,R,Active
+7F61,A,Inactive
+7Y26,E,Active
+7Y24,E,Active
+7Y27,E,Active
+7Y89,A,Active
+7XP4,R,Active
+7XP6,R,Active
+7XP5,R,Active
+7YU3,R,Active
+7YU6,R,Active
+7YU8,R,Active
+7YU4,A,Active
+7YU5,R,Active
+7YU7,R,Active
+7W7E,R,Active
+7W6P,R,Active
+7WXW,R,Active
+7WZ7,R,Active
+7X2V,R,Active
+7WXU,R,Active
+7WY0,R,Active
+7VIE,F,Active
+7VIF,F,Active
+7VIH,F,Active
+7VIG,F,Active
+7SRQ,R,Intermediate
+7SRR,R,Active
+7SRS,R,Active
+7VFX,R,Active
+7X5H,R,Active
+7R0C,A,Active
+8CU6,A,Inactive
+8CU7,A,Inactive
+7XAU,A,Active
+7XAT,A,Active
+7XAV,A,Active
+7X1T,A,Active
+7X1U,A,Active
+8DPG,A,Active
+8DPI,A,Active
+8DPF,A,Active
+8DPH,A,Active
+7YP7,R,Active
+7XA3,R,Active
+7X9Y,R,Active
+7XZ6,R,Active
+7XZ5,R,Active
+7XW5,R,Active
+7WU9,R,Active
+7XW7,R,Inactive
+7XW6,R,Active
+7T32,A,Inactive
+8DU3,A,Inactive
+7XKD,R,Active
+7XKF,R,Active
+7XKE,R,Active
+7QVM,R,Active
+7YXA,A,Inactive
+7T9M,R,Inactive
+7VVJ,R,Active
+7VVK,R,Active
+7VVL,R,Active
+7VVM,R,Active
+7VVN,R,Active
+7VVO,R,Active
+8CXO,A,Inactive
+7XMR,R,Active
+7XN9,A,Inactive
+7XNA,A,Inactive
+7XMS,R,Active
+7XMT,R,Active
+7UTZ,R,Active
+7T9I,R,Active
+7T9N,R,Active
+7XT8,R,Active
+7XT9,R,Active
+7XTA,R,Active
+7XTB,R,Active
+7XTC,R,Active
+7SK3,A,Active
+7SK5,A,Active
+7SK7,A,Active
+7SK9,A,Active
+7SK4,A,Active
+7SK6,A,Active
+7SK8,A,Active
+8DCS,R,Active
+8DCR,R,Active
+7W0M,R,Active
+7W0O,R,Active
+7SUS,A,Inactive
+7W0L,R,Active
+7W0N,R,Active
+7W0P,R,Active
+7UM7,A,Active
+7UM4,A,Inactive
+7UM5,A,Active
+7UM6,A,Active
+7XOU,R,Active
+7XOV,R,Active
+7XOX,R,Active
+7XOW,R,Active
+7Y12,R,Active
+7Y13,R,Active
+7Y15,R,Active
+7Y14,R,Active
+7XBW,R,Active
+7XBX,R,Active
+7XBD,A,Active
+7WJ5,R,Active
+7RAN,A,Active
+7XTQ,R,Active
+7X2C,F,Active
+7XJK,F,Active
+7XJL,F,Active
+7X8R,R,Active
+7X8S,R,Active
+7UL3,A,Inactive
+7UL2,R,Inactive
+7UL4,A,Inactive
+7UL5,A,Inactive
+7FEE,A,Inactive
+7WV9,R,Active
+7F0T,F,Active
+7F1O,F,Active
+7F1Z,F,Active
+7F23,F,Active
+7F24,F,Active
+7X2D,F,Active
+7X2F,F,Active
+7ZI0,A,Inactive
+7WKD,R,Active
+7S15,R,Active
+7SR8,R,Active
+7WIC,R,Active
+7WIG,R,Active
+7EUO,R,Active
+7SQO,R,Active
+7X9A,R,Active
+7X9B,R,Active
+7X9C,R,Active
+7VQX,R,Active
+7WBJ,R,Active
+7V68,R,Active
+7V69,R,Active
+7V6A,R,Active
+7EPT,R,Active
+7EQ1,R,Active
+7XJH,R,Active
+7XJI,R,Active
+7U2L,D,Active
+7WU2,R,Active
+7WU3,R,Active
+7WU4,R,Active
+7WU5,R,Active
+7SF8,A,Active
+7WUI,R,Active
+7WUQ,R,Active
+7WUJ,E,Active
+7SF7,A,Active
+7WQ3,R,Active
+7WQ4,R,Active
+7W53,R,Active
+7W56,R,Active
+7W55,R,Active
+7W57,R,Active
+7SCG,D,Active
+7SBF,R,Active
+7EZC,B,Active
+7EJ0,R,Active
+7EJA,R,Active
+7EJ8,R,Active
+7EJK,R,Active
+7WVU,R,Active
+7WVW,R,Active
+7WVY,R,Active
+7WVV,R,Active
+7WVX,R,Active
+7RA3,R,Active
+7RBT,R,Active
+7RG9,R,Active
+7RGP,R,Active
+7TUY,R,Active
+7TUZ,R,Active
+7EJX,R,Active
+7VBH,R,Active
+7T6B,R,Active
+7TYX,R,Active
+7TYI,R,Active
+7TYN,R,Active
+7T6T,R,Active
+7T6S,R,Active
+7T6V,R,Active
+7T6U,R,Active
+7TYF,R,Active
+7TYL,R,Active
+7TYO,R,Active
+7TZF,R,Active
+7TYH,R,Active
+7TYW,R,Active
+7TYY,R,Active
+7VL9,R,Active
+7VL8,R,Active
+7VLA,R,Active
+7WI8,A,Inactive
+7WI6,A,Inactive
+7WIH,A,Active
+7VKT,A,Active
+7RYC,O,Active
+7T10,R,Active
+7T11,R,Active
+7PX4,A,Inactive
+7PYR,A,Inactive
+7FIY,R,Active
+7VAB,R,Active
+7FIM,R,Active
+7VBI,R,Active
+7V35,R,Active
+7VGY,A,Active
+7VGZ,B,Active
+7VH0,A,Active
+7FIN,R,Active
+7VGX,R,Active
+7JNI,A,Active
+7TD1,R,Active
+7TD0,R,Active
+7TD2,R,Active
+7TD3,R,Active
+7TD4,R,Active
+7WC4,A,Inactive
+7WC6,A,Inactive
+7WC8,A,Inactive
+7WC5,A,Inactive
+7WC7,A,Inactive
+7WC9,A,Inactive
+7RKF,R,Active
+7RKN,R,Active
+7RKM,R,Active
+7SIN,A,Inactive
+7SIL,A,Active
+7SIM,A,Active
+7F83,A,Inactive
+7W2Z,R,Active
+7B6W,A,Inactive
+7LLL,R,Active
+7LLY,R,Active
+7F6H,A,Active
+7F6I,A,Active
+7S3I,R,Active
+7S1M,R,Active
+7EO2,A,Active
+7WF7,A,Active
+7EO4,A,Active
+7F8X,A,Inactive
+7VUH,R,Active
+7VUJ,R,Active
+7VUG,R,Active
+7VUI,R,Active
+7VOD,A,Inactive
+7VOE,A,Inactive
+7NA7,R,Active
+7NA8,R,Active
+7P00,R,Active
+7P02,R,Active
+7EWL,A,Inactive
+7EWR,A,Inactive
+7SHF,B,Inactive
+7EWP,A,Inactive
+7SHE,A,Inactive
+7VDL,R,Active
+7VUY,R,Active
+7VV0,R,Active
+7VV3,R,Active
+7VV6,R,Active
+7VDH,R,Active
+7VDM,R,Active
+7VUZ,R,Active
+7VV4,R,Active
+7VV5,R,Active
+7V3Z,A,Active
+7S0G,R,Active
+7S0F,R,Active
+7PIU,R,Active
+7PIV,R,Active
+7S8L,R,Active
+7S8M,R,Active
+7S8N,R,Active
+7S8O,R,Active
+7S8P,R,Active
+7F54,R,Active
+7F58,R,Active
+7F53,R,Active
+7F55,R,Active
+7RMH,R,Active
+7RMG,R,Active
+7RMI,R,Active
+7V9M,R,Active
+7EIB,A,Active
+7F2O,R,Active
+7F8U,A,Inactive
+7F8Y,A,Inactive
+7F8V,R,Active
+7F8W,R,Active
+6ZG9,A,Inactive
+6ZFZ,A,Inactive
+6ZG4,A,Inactive
+7RTB,R,Active
+7FIH,R,Active
+7FII,R,Active
+7FIG,R,Active
+7FIJ,R,Inactive
+7EVZ,D,Active
+7EW7,D,Active
+7EVY,D,Active
+7EW0,D,Active
+7EW2,R,Active
+7EW4,R,Active
+7EW3,R,Active
+7EW1,A,Active
+7E6U,A,Inactive
+7E6T,A,Active
+7DGE,A,Intermediate
+7DGD,A,Inactive
+7LD4,R,Active
+7LD3,R,Active
+7RM5,A,Inactive
+7FD9,A,Inactive
+7P2L,A,Inactive
+7FD8,A,Active
+7F4F,R,Active
+7F4I,R,Active
+7F4D,R,Active
+7F4H,R,Active
+7EZK,D,Active
+7EZH,D,Active
+7EZM,D,Active
+7M8W,A,Inactive
+7F9Y,R,Active
+7F9Z,R,Active
+7DB6,D,Active
+7F16,R,Active
+7DUR,R,Active
+7EVM,R,Active
+7EXD,R,Active
+7DH5,R,Active
+7EVW,R,Active
+7DTY,R,Active
+7KI0,R,Active
+7KI1,R,Active
+7DW9,R,Active
+7F1Q,R,Active
+7F1S,R,Active
+7F1R,R,Active
+7F1T,A,Inactive
+7DUQ,R,Active
+7.00E+14,R,Active
+7MTQ,B,Inactive
+7MTS,A,Active
+7MTR,A,Active
+7MT8,R,Active
+7MTA,R,Active
+7MT9,R,Active
+7MTB,R,Active
+7JHJ,R,Active
+7M3E,B,Inactive
+7M3G,A,Active
+7M3F,B,Active
+7M3J,A,Inactive
+7O7F,C,Active
+7EPB,B,Active
+7EPD,A,Inactive
+7E9G,R,Intermediate
+7EPA,A,Intermediate
+7EPE,A,Inactive
+7EPF,A,Inactive
+7E9H,R,Intermediate
+7EPC,B,Inactive
+7DD6,B,Active
+7DD7,B,Active
+7DD5,A,Inactive
+7C4S,A,Active
+7BB6,A,Active
+7BB7,A,Active
+7MBX,R,Active
+7MBY,R,Active
+7KH0,R,Active
+7EB2,D,Active
+7CX2,R,Active
+7CX4,R,Active
+7CX3,R,Active
+7AUE,R,Active
+7.00E+32,R,Active
+7E2Y,R,Active
+7E2X,R,Active
+7E2Z,R,Active
+7.00E+33,R,Active
+7JOZ,R,Active
+7ARO,A,Inactive
+7DFL,R,Active
+7DTT,A,Active
+7DTV,A,Active
+7DTU,A,Intermediate
+7DTW,A,Inactive
+7CMU,R,Active
+7CMV,R,Active
+7CKW,R,Active
+7CKY,R,Active
+7CRH,R,Active
+7LJC,R,Active
+7CKX,R,Active
+7CKZ,R,Active
+7LJD,R,Active
+7KNT,R,Inactive
+7KNU,R,Inactive
+7JVP,R,Active
+7JV5,R,Active
+7JVQ,R,Active
+7JVR,R,Active
+7K15,A,Inactive
+6Z4Q,A,Inactive
+6Z4S,A,Inactive
+6Z4V,A,Intermediate
+6ZA8,A,Intermediate
+6YVR,B,Inactive
+6Z66,A,Intermediate
+6Z8N,A,Intermediate
+6ZIN,A,Inactive
+7L1U,R,Active
+7L1V,R,Active
+7D77,R,Active
+7D76,R,Active
+7DDZ,A,Inactive
+7LCI,R,Active
+7LCJ,R,Active
+7LCK,R,Active
+7L0P,C,Active
+7L0R,C,Active
+7L0Q,C,Active
+7L0S,C,Active
+7DFP,A,Inactive
+7DHR,R,Active
+7DHI,R,Active
+7D68,R,Active
+7AD3,A,Active
+7BU6,A,Active
+7BVQ,A,Inactive
+7BTS,A,Active
+7BU7,A,Active
+6LPJ,A,Inactive
+6LPL,A,Inactive
+6LPK,A,Inactive
+6WQA,A,Inactive
+7CZ5,R,Active
+6XOX,R,Active
+7D7M,A,Active
+7CA5,B,Inactive
+7CA3,B,Active
+7CUM,B,Inactive
+7D3S,R,Active
+7BR3,A,Inactive
+6XBK,R,Active
+6XBM,R,Active
+6XBJ,R,Active
+6XBL,R,Active
+6WGT,B,Inactive
+6WHA,A,Active
+6WH4,C,Inactive
+6ZDR,A,Inactive
+6ZDV,A,Inactive
+6Z10,A,Active
+6X18,R,Active
+6X1A,R,Active
+6X19,R,Active
+7CFM,R,Active
+7CFN,R,Active
+7JJO,R,Active
+6LFO,R,Active
+6LFL,A,Inactive
+6LFM,R,Active
+7BW0,R,Active
+6VN7,R,Active
+7C2E,R,Active
+6WW2,R,Inactive
+6KO5,A,Inactive
+6WPW,R,Active
+6WI9,R,Active
+6WZG,R,Active
+7BZ2,R,Active
+6TPK,A,Inactive
+7C61,A,Inactive
+7C6A,A,Active
+6VCB,R,Active
+6S0L,A,Inactive
+6S0Q,A,Inactive
+6V9S,A,Inactive
+6WJC,A,Inactive
+6W2Y,B,Inactive
+6W2X,B,Inactive
+6WIV,B,Inactive
+7C7S,B,Inactive
+7C7Q,B,Active
+6PGS,A,Active
+6PH7,A,Active
+6WWZ,R,Active
+6PEL,A,Active
+6TKO,A,Active
+6VMS,R,Active
+6UO8,B,Active
+6UOA,B,Intermediate
+6UO9,B,Intermediate
+6VJM,B,Inactive
+6WHC,R,Active
+6W25,A,Intermediate
+6K41,R,Active
+6K42,R,Active
+6UVA,R,Active
+6UUS,R,Active
+6LML,R,Active
+6LMK,R,Active
+6OBA,A,Inactive
+6UUN,R,Active
+6LW5,A,Active
+6LN2,A,Inactive
+6VI4,B,Inactive
+6KP6,A,Inactive
+6LPB,R,Active
+6M1H,A,Active
+6M1I,A,Active
+6LUQ,A,Inactive
+6U1N,R,Active
+6OMM,R,Active
+6LI0,A,Inactive
+6LI2,A,Inactive
+6LI1,A,Inactive
+6LI3,R,Active
+6UP7,R,Active
+6OS0,A,Active
+6OS1,A,Active
+6OS2,A,Active
+6KPG,R,Active
+6KPC,A,Inactive
+6KPF,R,Active
+6PT0,R,Active
+6PB0,R,Active
+6PB1,P,Active
+6LRY,A,Inactive
+6NWE,A,Active
+6P9X,R,Active
+6P9Y,R,Active
+6KNM,B,Inactive
+6JOD,A,Active
+6TOS,B,Inactive
+6TOT,B,Inactive
+6ORV,E,Active
+6TOD,A,Inactive
+6TP4,A,Inactive
+6TQ4,B,Inactive
+6TQ7,A,Inactive
+6TO7,A,Inactive
+6TP3,A,Inactive
+6TP6,B,Inactive
+6TQ6,B,Inactive
+6TQ9,B,Inactive
+6TPG,A,Inactive
+6TPN,A,Inactive
+6TPJ,A,Inactive
+6OL9,A,Inactive
+6RZ6,A,Intermediate
+6RZ8,A,Intermediate
+6RZ7,A,Intermediate
+6RZ9,A,Intermediate
+6PT3,A,Active
+6PT2,A,Active
+6KUX,A,Inactive
+6KUY,A,Inactive
+6KUW,A,Inactive
+6IQL,A,Inactive
+6PWC,R,Active
+6NI3,R,Active
+6PS7,A,Inactive
+6PRZ,A,Inactive
+6PS1,A,Inactive
+6PS3,A,Inactive
+6PS5,A,Inactive
+6PS0,A,Inactive
+6PS2,A,Inactive
+6PS4,A,Inactive
+6PS6,A,Inactive
+6KK1,B,Inactive
+6KJV,B,Inactive
+6KK7,B,Inactive
+6PS8,A,Inactive
+6JZH,A,Inactive
+6RZ5,B,Intermediate
+6RZ4,A,Intermediate
+6KQI,A,Inactive
+6QZH,A,Inactive
+6OFJ,A,Inactive
+6RNK,A,Active
+6IBB,A,Active
+6OYA,R,Active
+6OY9,R,Active
+6K1Q,A,Inactive
+6OS9,R,Active
+6OSA,R,Active
+6QNO,R,Active
+6I9K,A,Inactive
+6O3C,A,Active
+6GT3,A,Inactive
+6N48,A,Active
+6OT0,R,Active
+6.00E+67,B,Active
+6OIJ,R,Active
+6OIK,R,Active
+6MH8,A,Inactive
+6ME2,A,Inactive
+6ME3,A,Inactive
+6ME4,A,Inactive
+6ME5,A,Inactive
+6ME6,B,Inactive
+6ME8,B,Inactive
+6ME7,A,Inactive
+6ME9,B,Inactive
+6NBH,R,Active
+6NBF,R,Active
+6NBI,R,Active
+6J21,A,Inactive
+6J20,A,Inactive
+6A93,A,Inactive
+6A94,A,Inactive
+6DO1,A,Active
+6N4B,R,Active
+5ZTY,A,Inactive
+6NIY,R,Active
+6N51,B,Intermediate
+6N52,A,Inactive
+6HLL,A,Inactive
+6HLO,A,Inactive
+6HLP,A,Inactive
+6IBL,A,Active
+6GPX,B,Inactive
+6GPS,A,Inactive
+6IIU,A,Intermediate
+6IIV,A,Intermediate
+6MEO,B,Inactive
+6MET,B,Inactive
+6.00E+59,A,Inactive
+6AK3,B,Active
+6M9T,A,Active
+5YHL,A,Inactive
+5YWY,A,Inactive
+5ZHP,B,Inactive
+5ZK3,A,Inactive
+5ZKB,A,Inactive
+5YC8,A,Inactive
+5ZK8,A,Inactive
+5ZKC,A,Inactive
+6IGK,A,Inactive
+6IGL,A,Inactive
+6FJ3,A,Inactive
+6MXT,A,Active
+6AKX,B,Inactive
+6AKY,A,Inactive
+6H7L,A,Active
+6H7N,A,Active
+6H7J,A,Active
+6H7M,A,Active
+6H7O,A,Active
+6FUF,A,Active
+6D26,A,Inactive
+6D27,A,Inactive
+6E3Y,R,Active
+6DRY,A,Intermediate
+6DS0,A,Intermediate
+6DRX,A,Intermediate
+6DRZ,A,Intermediate
+6BD4,A,Inactive
+5XJM,A,Active
+6G79,S,Active
+6D9H,R,Active
+6CMO,R,Active
+5ZKP,A,Other
+5ZKQ,B,Intermediate
+6DDE,R,Active
+6DDF,R,Active
+5WB1,A,Active
+5WB2,A,Active
+6C1R,B,Inactive
+6C1Q,B,Inactive
+6D35,A,Active
+6D32,A,Active
+6GDG,A,Active
+5KW2,A,Intermediate
+5ZBQ,A,Inactive
+5ZBH,A,Inactive
+6FK7,A,Active
+6FK9,A,Active
+6FKB,A,Active
+6FKD,A,Active
+6FK6,A,Active
+6FK8,A,Active
+6FKA,A,Active
+6FKC,A,Active
+6CM4,A,Inactive
+6FFH,A,Inactive
+6FFI,A,Inactive
+5WF6,A,Active
+5WF5,A,Active
+6B3J,R,Active
+6BQH,A,Inactive
+6BQG,A,Active
+5V54,A,Inactive
+5OLH,A,Inactive
+5OLV,A,Inactive
+5OM1,A,Inactive
+5OLG,A,Inactive
+5OLO,A,Inactive
+5OLZ,A,Inactive
+5OM4,A,Inactive
+5YQZ,R,Inactive
+6B73,A,Active
+6AQF,A,Inactive
+5O9H,A,Inactive
+5X33,A,Inactive
+5VRA,A,Inactive
+5WKT,A,Active
+5WS3,A,Inactive
+5WQC,A,Inactive
+5WIU,A,Inactive
+5WIV,A,Inactive
+5NM2,A,Inactive
+5NLX,A,Inactive
+5NM4,A,Inactive
+5X7D,A,Inactive
+5X93,A,Inactive
+5XPR,A,Inactive
+5XSZ,A,Active
+5W0P,D,Active
+5TUD,D,Active
+5N2S,A,Inactive
+5MZJ,A,Inactive
+5N2R,A,Inactive
+5MZP,A,Inactive
+5XR8,A,Active
+5XRA,A,Active
+5UIW,A,Inactive
+5NX2,A,Intermediate
+5TZY,A,Intermediate
+5TZR,A,Intermediate
+5JTB,A,Inactive
+5VBL,B,Inactive
+5UVI,A,Inactive
+5VAI,R,Active
+5VEW,A,Inactive
+5XF1,B,Inactive
+5XEZ,B,Inactive
+5V56,B,Inactive
+5V57,A,Inactive
+5VEX,B,Inactive
+5UZ7,R,Active
+5NDD,A,Intermediate
+5NDZ,A,Intermediate
+5NJ6,A,Intermediate
+5UNF,A,Active
+5UNG,B,Active
+5UNH,B,Active
+5TE3,A,Active
+5TE5,A,Inactive
+5UEN,B,Inactive
+5UIG,A,Inactive
+5TVN,A,Intermediate
+5T04,A,Active
+5T1A,A,Inactive
+5LWE,B,Inactive
+5U09,A,Inactive
+5TGZ,A,Inactive
+5K2B,A,Inactive
+5K2D,A,Inactive
+5K2A,A,Inactive
+5K2C,A,Inactive
+5GLH,A,Inactive
+5GLI,A,Inactive
+5D6L,A,Inactive
+5EN0,A,Active
+5DYS,A,Active
+5G53,A,Active
+5L7D,B,Inactive
+5L7I,B,Inactive
+5JQH,A,Inactive
+5IU4,A,Inactive
+5IU8,A,Inactive
+5IUB,A,Inactive
+5IU7,A,Inactive
+5IUA,A,Inactive
+4Z9G,A,Inactive
+5EE7,A,Inactive
+5DGY,A,Active
+5DSG,B,Inactive
+5CXV,A,Inactive
+4ZJ8,A,Inactive
+4ZJC,A,Inactive
+5D5A,A,Inactive
+5D5B,A,Inactive
+5F8U,A,Inactive
+4X1H,A,Active
+5DHG,A,Inactive
+5DHH,A,Inactive
+4ZUD,A,Inactive
+5A8E,A,Inactive
+5CGC,A,Inactive
+5CGD,A,Inactive
+5C1M,A,Active
+4XEE,A,Active
+4XES,A,Active
+4ZWJ,A,Active
+4WW3,A,Inactive
+4Z34,A,Inactive
+4Z36,A,Inactive
+4Z35,A,Inactive
+4YAY,A,Inactive
+4UHR,A,Active
+4UG2,A,Active
+4XNV,A,Intermediate
+4XNW,A,Intermediate
+4XT1,A,Active
+4XT3,A,Active
+4RWS,A,Inactive
+4RWD,A,Inactive
+4RWA,A,Inactive
+4S0V,A,Inactive
+4U14,A,Inactive
+4U16,B,Inactive
+4U15,B,Inactive
+4PXF,A,Active
+4QKX,A,Active
+4QIN,A,Inactive
+4QIM,A,Inactive
+4PHU,A,Intermediate
+4OO9,A,Inactive
+4PY0,A,Intermediate
+4PXZ,A,Intermediate
+4BVN,A,Inactive
+4NTJ,A,Intermediate
+4OR2,B,Inactive
+4O9R,A,Inactive
+4BUO,A,Inactive
+4BWB,A,Inactive
+3ZEV,A,Inactive
+4BV0,A,Inactive
+4N4W,A,Inactive
+4N6H,A,Inactive
+4NC3,A,Intermediate
+4MQS,A,Active
+4MQT,A,Active
+4J4Q,A,Active
+4LDL,A,Active
+4LDE,A,Active
+4LDO,A,Active
+4MBS,A,Inactive
+4L6R,A,Inactive
+4K5Y,C,Inactive
+4BEY,A,Active
+4BEZ,A,Active
+4JKV,A,Inactive
+3ZPR,B,Inactive
+3ZPQ,B,Inactive
+4IAQ,A,Inactive
+4IAR,A,Inactive
+4IB4,A,Intermediate
+4GPO,B,Inactive
+3VW7,A,Intermediate
+4GBR,A,Inactive
+4GRV,A,Active
+4EIY,A,Inactive
+4AMJ,B,Inactive
+4AMI,A,Inactive
+4EJ4,A,Inactive
+4EA3,A,Inactive
+3UZA,A,Inactive
+3UZC,A,Inactive
+4DJH,A,Inactive
+4DKL,A,Inactive
+4DAJ,A,Inactive
+3V2Y,A,Inactive
+3V2W,A,Inactive
+3VGA,A,Inactive
+3VG9,A,Inactive
+3UON,A,Inactive
+4A4M,A,Active
+3PWH,A,Inactive
+3RFM,A,Inactive
+3REY,A,Inactive
+3AYM,B,Inactive
+3AYN,B,Inactive
+3SN6,R,Active
+3RZE,A,Inactive
+2YCY,A,Inactive
+2YCX,A,Inactive
+2YCW,A,Inactive
+2YCZ,B,Inactive
+2YDV,A,Active
+2YDO,A,Active
+2Y01,A,Inactive
+2X72,A,Active
+3QAK,A,Active
+3PQR,A,Active
+3PXO,A,Active
+3P0G,A,Active
+3OAX,A,Inactive
+2Y00,B,Inactive
+2Y02,B,Inactive
+2Y04,B,Inactive
+2Y03,B,Inactive
+3PDS,A,Inactive
+3PBL,A,Inactive
+3OE0,A,Inactive
+3OE8,A,Inactive
+3ODU,A,Inactive
+3OE6,A,Inactive
+3OE9,A,Inactive
+3NY8,A,Inactive
+3NYA,A,Inactive
+3NY9,A,Inactive
+3KJ6,A,Inactive
+3EML,A,Inactive
+3DQB,A,Active
+3C9M,A,Inactive
+3C9L,A,Inactive
+2VT4,B,Inactive
+3CAP,A,Active
+3D4S,A,Inactive
+2Z73,A,Inactive
+2ZIY,A,Inactive
+2R4S,A,Inactive
+2R4R,A,Inactive
+2RH1,A,Inactive
+2PED,B,Inactive
+2J4Y,B,Inactive
+2I35,A,Inactive
+2I36,A,Inactive
+2I37,A,Inactive
+2G87,A,Inactive
+2HPY,B,Inactive
+1U19,A,Inactive
+1GZM,A,Inactive
+1L9H,A,Inactive
+1HZX,A,Inactive
+1F88,A,Inactive
