@@ -56,9 +56,8 @@ conda activate alphafold2 || exit 1
 
 set -eu
 
-pip install --upgrade \
-	'jax==0.4.14' jaxlib=='0.4.14+cuda11.cudnn86' 'nvidia-cudnn-cu11' \
-	-f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+pip install --upgrade 'jax>=0.3.25,<0.4' 'jaxlib==0.3.25+cuda11.cudnn82' \
+  -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 
 pushd "$(python -c 'import sysconfig; print(sysconfig.get_path("purelib"))')"
 git apply "$__alphafold_home/patch/pdbfixer.patch"
