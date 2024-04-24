@@ -56,7 +56,8 @@ conda activate alphafold2 || exit 1
 
 set -eu
 
-pip install --upgrade 'jax>=0.3.25,<0.4' 'jaxlib==0.3.25+cuda11.cudnn82' \
+pip install --upgrade 'tensorflow-cpu==2.16.1' \
+	'jax==0.4.26' 'jaxlib==0.4.26+cuda12.cudnn89' \
   -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 
 pushd "$(python -c 'import sysconfig; print(sysconfig.get_path("purelib"))')"
