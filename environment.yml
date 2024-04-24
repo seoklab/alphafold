@@ -4,22 +4,22 @@ channels:
   - conda-forge
 dependencies:
   - python=3.10
-  - openmm=7.7
+  - openmm=8.0
   - pdbfixer=1.8
   - absl-py=1.0
-  - cuda=11.3
-  - cuda-nvcc=11.3
+  - cuda=12.2
+  - cudatoolkit>=11.8
+  - cudnn=8.9
   - biopython=1.79
-  - chex=0.0.7
-  - dm-haiku=0.0.10
-  - dm-tree=0.1.6
+  - chex=0.1.86
+  - dm-haiku=0.0.12
+  - dm-tree=0.1.8
   - immutabledict=2.0
-  - jax=0.3.25
+  - jax=0.4.26
   - ml-collections=0.1
   - numpy=1.24
   - pandas=2.0
   - scipy=1.11
-  - tensorflow=2.11.0=cpu*
   - bioconda::hmmer=3.3
   - bioconda::hhsuite=3.3
   - bioconda::kalign2=2.04
