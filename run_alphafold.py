@@ -255,6 +255,7 @@ flags.DEFINE_integer('random_seed', None, 'The random seed for the '
                      'Note that even if this is set, Alphafold may still '
                      'not be deterministic, because processes like '
                      'GPU inference are nondeterministic.')
+flags.DEFINE_integer('max_templates', 20, 'No. of templates to get.')
 FLAGS = flags.FLAGS
 # yapf: enable
 
@@ -372,7 +373,6 @@ def fasta_parser(args):
   return parser.parse_args(args[1:]).fasta_paths
 
 
-MAX_TEMPLATE_HITS = 20
 RELAX_MAX_ITERATIONS = 0
 RELAX_ENERGY_TOLERANCE = 2.39
 RELAX_STIFFNESS = 10.0
@@ -808,7 +808,7 @@ def main(fasta_paths: List[str]):
     template_featurizer = templates.HmmsearchHitFeaturizer(
         mmcif_dir=FLAGS.template_mmcif_dir,
         max_template_date=FLAGS.max_template_date,
-        max_hits=MAX_TEMPLATE_HITS,
+        max_hits=FLAGS.max_templates,
         kalign_binary_path=FLAGS.kalign_binary_path,
         release_dates_path=None,
         obsolete_pdbs_path=FLAGS.obsolete_pdbs_path,
@@ -827,7 +827,7 @@ def main(fasta_paths: List[str]):
     template_featurizer = templates.HhsearchHitFeaturizer(
         mmcif_dir=FLAGS.template_mmcif_dir,
         max_template_date=FLAGS.max_template_date,
-        max_hits=MAX_TEMPLATE_HITS,
+        max_hits=FLAGS.max_templates,
         kalign_binary_path=FLAGS.kalign_binary_path,
         release_dates_path=None,
         obsolete_pdbs_path=FLAGS.obsolete_pdbs_path,
