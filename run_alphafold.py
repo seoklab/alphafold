@@ -193,6 +193,9 @@ flags.DEFINE_boolean('use_gpu_relax', True, 'Whether to relax on GPU. '
                      'Relax on GPU can be much faster than CPU, so it is '
                      'recommended to enable if possible. Ignored if no GPU '
                      'is available.')
+flags.DEFINE_integer('uniref_max_hits',
+                     10000,
+                     'Maximum number of hits when searching UniRef90 database.')
 flags.DEFINE_boolean('benchmark', False, 'Run multiple JAX model evaluations '
                      'to obtain a timing that excludes the compilation time, '
                      'which should be more indicative of the time required for '
@@ -823,7 +826,8 @@ def main(fasta_paths: List[str]):
       use_small_bfd=FLAGS.small_bfd,
       split_bfd_uniclust=FLAGS.split_bfd_uniclust,
       n_cpu=FLAGS.nproc,
-    overwrite=FLAGS.overwrite)
+      overwrite=FLAGS.overwrite,
+      uniref_max_hits=FLAGS.uniref_max_hits)
 
   if run_multimer_system:
     data_pipeline = pipeline_multimer.DataPipeline(
