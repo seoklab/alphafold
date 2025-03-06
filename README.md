@@ -23,9 +23,7 @@ Please also refer to the
 for a detailed description of the method.
 
 **You can use a slightly simplified version of AlphaFold with
-[this Colab
-notebook](https://colab.research.google.com/github/deepmind/alphafold/blob/main/notebooks/AlphaFold.ipynb)**
-or community-supported versions (see below).
+community-supported versions (see below).
 
 If you have any questions, please contact the AlphaFold team at
 [alphafold@deepmind.com](mailto:alphafold@deepmind.com).
@@ -574,12 +572,15 @@ The contents of each output file are as follows:
     structure, after performing an Amber relaxation procedure on the unrelaxed
     structure prediction (see Jumper et al. 2021, Suppl. Methods 1.8.6 for
     details).
-*   `ranked_*.pdb` – A PDB format text file containing the relaxed predicted
-    structures, after reordering by model confidence. Here `ranked_0.pdb` should
-    contain the prediction with the highest confidence, and `ranked_4.pdb` the
-    prediction with the lowest confidence. To rank model confidence, we use
-    predicted LDDT (pLDDT) scores (see Jumper et al. 2021, Suppl. Methods 1.9.6
-    for details).
+*   `ranked_*.pdb` – A PDB format text file containing the predicted structures,
+    after reordering by model confidence. Here `ranked_i.pdb` should contain the
+    prediction with the (`i + 1`)-th highest confidence (so that `ranked_0.pdb`
+    has the highest confidence). To rank model confidence, we use predicted LDDT
+    (pLDDT) scores (see Jumper et al. 2021, Suppl. Methods 1.9.6 for details).
+    If `--models_to_relax=all` then all ranked structures are relaxed. If
+    `--models_to_relax=best` then only `ranked_0.pdb` is relaxed (the rest are
+    unrelaxed). If `--models_to_relax=none`, then the ranked structures are all
+    unrelaxed.
 *   `ranking_debug.json` – A JSON format text file containing the pLDDT values
     used to perform the model ranking, and a mapping back to the original model
     names.
@@ -761,6 +762,17 @@ useful in your research. Share your stories with us at
 This is not an officially supported Google product.
 
 Copyright 2021 DeepMind Technologies Limited.
+
+AlphaFold 2 and its output are for theoretical modeling only. They are not
+intended, validated, or approved for clinical use. You should not use the
+AlphaFold 2 or its output for clinical purposes or rely on them for medical or
+other professional advice. Any content regarding those topics is provided for
+informational purposes only and is not a substitute for advice from a qualified
+professional.
+
+Output of AlphaFold 2 are predictions with varying levels of confidence and
+should be interpreted carefully. Use discretion before relying on, publishing,
+downloading or otherwise using AlphaFold 2 and its output.
 
 ### AlphaFold Code License
 
