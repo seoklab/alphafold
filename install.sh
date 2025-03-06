@@ -56,14 +56,6 @@ conda activate alphafold2 || exit 1
 
 set -eu
 
-pip install --upgrade 'tensorflow-cpu==2.16.1' \
-	'jax==0.4.26' 'jaxlib==0.4.26+cuda12.cudnn89' \
-  -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
-
-pushd "$(python -c 'import sysconfig; print(sysconfig.get_path("purelib"))')"
-git apply "$__alphafold_home/patch/pdbfixer.patch"
-popd
-
 pip install .
 
 if [[ "$__sudo" == 'y' ]]; then
