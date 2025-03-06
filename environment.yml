@@ -1,27 +1,28 @@
 name: alphafold2
 channels:
-  - nvidia
   - conda-forge
+  - nvidia
 dependencies:
-  - python=3.10
+  - python=3.11
   - openmm=8.0
-  - pdbfixer=1.8
+  - pdbfixer
+  - cuda-nvcc
   - absl-py=1.0
-  - cuda=12.2
-  - cudatoolkit>=11.8
-  - cudnn=8.9
   - biopython=1.79
   - chex=0.1.86
   - dm-haiku=0.0.12
   - dm-tree=0.1.8
   - immutabledict=2.0
   - jax=0.4.26
+  - jaxlib=0.4.26=*cuda*
   - ml-collections=0.1
   - numpy=1.24
   - pandas=2.0
   - scipy=1.11
+  - tensorflow-cpu=2.16
   - bioconda::hmmer=3.3
   - bioconda::hhsuite=3.3
   - bioconda::kalign2=2.04
   - psutil
   - joblib
+  - setuptools<72

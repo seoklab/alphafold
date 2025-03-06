@@ -6,11 +6,14 @@
         "editor.rulers": [
             80,
         ],
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "never",
+        },
     },
     "files.watcherExclude": {
         "**/.git/*/**": true,
         "**/node_modules/*/**": true,
         "**/.hg/store/**": true,
         "**/data/**": true,
-    }
+    },
 }
