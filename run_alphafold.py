@@ -188,6 +188,8 @@ flags.DEFINE_float('recycle_early_stop_tolerance', 0.5,
                    'less than the tolerance between recycling steps. '
                    'Applied only for multimer predictions.')
 flags.DEFINE_boolean('only_msa', False, 'Whether to run only the MSA pipeline.')
+flags.DEFINE_integer('uniref_max_hits', 10000, 'Maximum number of hits when searching UniRef90 database.')
+flags.DEFINE_boolean('convert_to_a3m', False, 'Whether to convert the MSA into one a3m file.')
 flags.DEFINE_enum_class('models_to_relax', ModelsToRelax.ALL, ModelsToRelax,
                         'The models to run the final relaxation step on. '
                         'If `all`, all models are relaxed, which may be time '
@@ -530,7 +532,9 @@ def _preprocess(
     output_dir: str,
     data_pipeline: Union[pipeline.DataPipeline, pipeline_multimer.DataPipeline],
     overwrite: Optional[bool],
-    heteromer_paired_msa: bool = True):
+    heteromer_paired_msa: bool = True,
+    uniref_max_hits: int = 10000,
+    convert_to_a3m: Optional[bool] = False):
   if not os.path.exists(output_dir):
     os.makedirs(output_dir)
   msa_output_dir = os.path.join(output_dir, 'msas')
@@ -550,7 +554,9 @@ def _preprocess(
       feature_dict = data_pipeline.process(
           input_fasta_path=fasta_path,
           msa_output_dir=msa_output_dir,
-          heteromer_paired_msa=heteromer_paired_msa)
+          heteromer_paired_msa=heteromer_paired_msa,
+          uniref_max_hits=uniref_max_hits,
+          convert_to_a3m=convert_to_a3m)
     # Write out features as a pickled dictionary.
     with open(features_output_path, 'wb') as f:
       pickle.dump(feature_dict, f, protocol=4)
@@ -709,14 +715,16 @@ def predict_structure(
     n_jobs: int,
     overwrite: Optional[bool] = False,
     heteromer_paired_msa: bool = True,
-    only_msa: Optional[bool] = False):
+    only_msa: Optional[bool] = False,
+    uniref_max_hits: int = 10000,
+    convert_to_a3m: Optional[bool] = False):
   """Predicts structure using AlphaFold for the given sequence."""
   logging.info('Predicting %s', fasta_name)
   output_dir = os.path.join(output_dir_base, fasta_name)
 
   # Run msa
   feature_dict = _preprocess(
-      fasta_path, output_dir, data_pipeline, overwrite, heteromer_paired_msa)
+      fasta_path, output_dir, data_pipeline, overwrite, heteromer_paired_msa, uniref_max_hits, convert_to_a3m)
 
   if only_msa:
     logging.info('Running only MSA pipelines as requested')
@@ -913,7 +921,9 @@ def main(fasta_paths: List[str]):
           n_jobs=n_jobs,
           overwrite=FLAGS.overwrite,
           heteromer_paired_msa=FLAGS.heteromer_paired_msa,
-          only_msa=FLAGS.only_msa)
+          only_msa=FLAGS.only_msa,
+          uniref_max_hits=FLAGS.uniref_max_hits,
+          convert_to_a3m=FLAGS.convert_to_a3m)
 
 
 if __name__ == '__main__':

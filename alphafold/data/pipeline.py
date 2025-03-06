@@ -15,11 +15,12 @@
 """Functions for building the input features for the AlphaFold model."""
 
 import os
-from typing import Any, Mapping, MutableMapping, Optional, Sequence, Union
+from typing import Any, Mapping, MutableMapping, Optional, Sequence, Union, Iterable
 from absl import logging
 from alphafold.common import residue_constants
 from alphafold.data import msa_identifiers
 from alphafold.data import parsers
+from parsers import _convert_sto_seq_to_a3m
 from alphafold.data import templates
 from alphafold.data.tools import hhblits
 from alphafold.data.tools import hhsearch
@@ -108,6 +109,67 @@ def run_msa_tool(msa_runner, input_fasta_path: str, msa_out_path: str,
   return result
 
 
+def make_a3m_from_sto(
+    stockholm_format: str, 
+    max_sequences: Optional[int] = None,
+    remove_first_row_gaps: bool = True,
+    output_path: Optional[str] = None
+) -> str:
+    """Converts MSA in Stockholm format to the A3M format."""
+    descriptions = {}
+    sequences = {}
+    reached_max_sequences = False
+
+    for line in stockholm_format.splitlines():
+        reached_max_sequences = (
+            max_sequences and len(sequences) >= max_sequences
+        )
+        if line.strip() and not line.startswith(("#", "//")):
+            # Ignore blank lines, markup and end symbols - remainder are alignment
+            # sequence parts.
+            seqname, aligned_seq = line.split(maxsplit=1)
+            if seqname not in sequences:
+                if reached_max_sequences:
+                    continue
+                sequences[seqname] = ""
+            sequences[seqname] += aligned_seq
+
+    for line in stockholm_format.splitlines():
+        if line[:4] == "#=GS":
+            # Description row - example format is:
+            # #=GS UniRef90_Q9H5Z4/4-78            DE [subseq from] cDNA: FLJ22755 ...
+            columns = line.split(maxsplit=3)
+            seqname, feature = columns[1:3]
+            value = columns[3] if len(columns) == 4 else ""
+            if feature != "DE":
+                continue
+            if reached_max_sequences and seqname not in sequences:
+                continue
+            descriptions[seqname] = value
+            if len(descriptions) == len(sequences):
+                break
+
+    # Convert sto format to a3m line by line
+    a3m_sequences = {}
+    if(remove_first_row_gaps):
+        # query_sequence is assumed to be the first sequence
+        query_sequence = next(iter(sequences.values()))
+        query_non_gaps = [res != "-" for res in query_sequence]
+    for seqname, sto_sequence in sequences.items():
+        # Dots are optional in a3m format and are commonly removed.
+        out_sequence = sto_sequence.replace('.', '')
+        if(remove_first_row_gaps):
+            out_sequence = ''.join(
+                _convert_sto_seq_to_a3m(query_non_gaps, out_sequence)
+            )
+        a3m_sequences[seqname] = out_sequence
+    
+    # Write new a3m format
+    with open(output_path, "w") as f:
+        for seqname, sequence in a3m_sequences.items():
+            f.write(f">{seqname} {descriptions.get(seqname, '')}\n")
+            f.write(f"{sequence}\n")
+
 class DataPipeline:
   """Runs the alignment tools and assembles the input features."""
 
@@ -160,7 +222,9 @@ class DataPipeline:
   def process(self,
               input_fasta_path: str,
               msa_output_dir: str,
-              heteromer_paired_msa: bool = True) -> FeatureDict:
+              heteromer_paired_msa: bool = True,
+              uniref_max_hits: int = 10000,
+              convert_to_a3m: Optional[bool] = False) -> FeatureDict:
     """Runs alignment tools on the input sequence and creates features."""
     with open(input_fasta_path) as f:
       input_fasta_str = f.read()
@@ -179,7 +243,7 @@ class DataPipeline:
         msa_out_path=uniref90_out_path,
         msa_format='sto',
         overwrite=self.overwrite,
-        max_sto_sequences=self.uniref_max_hits)
+        max_sto_sequences=uniref_max_hits)
     mgnify_out_path = os.path.join(msa_output_dir, 'mgnify_hits.sto')
     jackhmmer_mgnify_result = run_msa_tool(
         msa_runner=self.jackhmmer_mgnify_runner,
@@ -243,6 +307,27 @@ class DataPipeline:
         num_res=num_res)
 
     msa_features = make_msa_features((uniref90_msa, bfd_msa, mgnify_msa))
+
+    if convert_to_a3m:
+      '''
+      Option to create one combined MSA file in A3M format.
+      '''
+      uniref90_msa_path = os.path.join(msa_output_dir, 'uniref90_hits.a3m')
+      make_a3m_from_sto(msa_for_templates, output_path=uniref90_msa_path)
+      mgnify_msa_path = os.path.join(msa_output_dir, 'mgnify_hits.a3m')
+      make_a3m_from_sto(jackhmmer_mgnify_result['sto'], output_path=mgnify_msa_path)
+      full_msa_path = os.path.join(msa_output_dir, 'input_msa.a3m')
+      # Now concatenate bfd_uniref_hits.a3m, uni90_hits.a3m, mgnify_hits.a3m into one input_msa.a3m file
+      bfd_msa_path = os.path.join(msa_output_dir, 'bfd_uniref_hits.a3m')
+      with open(full_msa_path, 'w') as f:
+        with open(bfd_msa_path, 'r') as bfd:
+          f.write(bfd.read())
+        with open(uniref90_msa_path, 'r') as uniref90:
+          uniref90_lines = uniref90.readlines()[2:]
+          f.write(uniref90_lines)
+        with open(mgnify_msa_path, 'r') as mgnify:
+          mgnify_lines = mgnify.readlines()[2:]
+          f.write(mgnify_lines)
 
     logging.info('Uniref90 MSA size: %d sequences.', len(uniref90_msa))
     logging.info('BFD MSA size: %d sequences.', len(bfd_msa))
