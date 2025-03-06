@@ -255,8 +255,10 @@ usage: alphafold [-h] [--helpfull] [--is_prokaryote_list IS_PROKARYOTE_LIST]
                  [--small_bfd] [--split_bfd_uniclust]
                  [--model_type MODEL_TYPE] [--state STATE]
                  [--num_multimer_predictions_per_model NUM_MULTIMER_PREDICTIONS_PER_MODEL]
-                 [--num_recycle NUM_RECYCLE] [--only_msa]
-                 [--models_to_relax MODELS_TO_RELAX] [--use_gpu_relax]
+                 [--num_recycle NUM_RECYCLE]
+                 [--recycle_early_stop_tolerance RECYCLE_EARLY_STOP_TOLERANCE]
+                 [--only_msa] [--models_to_relax MODELS_TO_RELAX]
+                 [--use_gpu_relax] [--uniref_max_hits UNIREF_MAX_HITS]
                  [--benchmark] [--debug] [--quiet] [--data_dir DATA_DIR]
                  [--jackhmmer_binary_path JACKHMMER_BINARY_PATH]
                  [--hhblits_binary_path HHBLITS_BINARY_PATH]
@@ -274,7 +276,7 @@ usage: alphafold [-h] [--helpfull] [--is_prokaryote_list IS_PROKARYOTE_LIST]
                  [--pdb_seqres_database_path PDB_SEQRES_DATABASE_PATH]
                  [--template_mmcif_dir TEMPLATE_MMCIF_DIR]
                  [--obsolete_pdbs_path OBSOLETE_PDBS_PATH]
-                 [--random_seed RANDOM_SEED]
+                 [--random_seed RANDOM_SEED] [--max_templates MAX_TEMPLATES]
                  fasta_paths [fasta_paths ...]
 
 positional arguments:
@@ -363,6 +365,9 @@ options:
                         Whether to relax on GPU. Relax on GPU can be much
                         faster than CPU, so it is recommended to enable if
                         possible. Ignored if no GPU is available.
+  --uniref_max_hits UNIREF_MAX_HITS
+                        Maximum number of hits when searching UniRef90
+                        database.
   --benchmark, --nobenchmark
                         Run multiple JAX model evaluations to obtain a timing
                         that excludes the compilation time, which should be
@@ -411,6 +416,8 @@ options:
                         this is randomly generated. Note that even if this is
                         set, Alphafold may still not be deterministic, because
                         processes like GPU inference are nondeterministic.
+  --max_templates MAX_TEMPLATES
+                        No. of templates to get.
 ```
 
 ### Running AlphaFold-Multimer
