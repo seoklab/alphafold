@@ -6,7 +6,7 @@ dependencies:
   - python=3.11
   - openmm=8.0
   - pdbfixer
-  - cuda-nvcc
+  - cuda-nvcc<12.8
   - absl-py=1.0
   - biopython=1.79
   - chex=0.1.86
